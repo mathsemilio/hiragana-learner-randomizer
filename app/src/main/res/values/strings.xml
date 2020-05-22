@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Hiragana Learner</string>
+    <string name="hiragana_learner">平仮名\nLearner</string>
+    <string name="pontuacao">Pontuação:</string>
+    <string name="simbolo">Símbolo:</string>
+    <string name="hiragana_symbol">Hiragana Symbol</string>
+    <string name="verificar">Verificar</string>
+    <string name="este_simbolo_corresponde_a_que_romanizacao">Este símbolo corresponde a que romanização?</string>
+    <string name="sair_aplicacao_cancelar_btnText">Cancelar</string>
+    <string name="resposta_correta_title">Resposta Correta!</string>
+    <string name="resposta_correta_msg">A romanização Hepburn deste símbolo é mesmo \"%1$s\".\nContinue Praticando!</string>
+    <string name="proximo_simbolo_btnText">Próximo Símbolo</string>
+    <string name="resposta_errada_title">Resposta Incorreta!</string>
+    <string name="resposta_errada_msg">A romanização Hepburn correta para este símbolo é \"%1$s\", e você selecionou \"%2$s\".\nContinue praticando!</string>
+    <string name="sair_app_toolbar_action">Sair</string>
+    <string name="configuracoes">Configurações</string>
+    <string name="pontuacao_mais_alta">Sua pontuação mais alta é: %1$d</string>
+    <string name="limpar_pontuacao_preference_screen">Limpar Pontuação</string>
+    <string name="modo_escuro_preference_screen">Modo Escuro</string>
+    <string name="idioma_aplicacao_preference_screen">Idioma da aplicação</string>
+    <string name="selecione_idioma_app">Selecione um idioma para a aplicação</string>
+    <string name="aplica_tema_escuro_app">Aplica o tema escuro para a aplicação</string>
+    <string name="desativa_tema_escuro_app">Desativa o tema escuro para a aplicação</string>
+    <string name="novo_simbolo">Novo Símbolo</string>
+    <string-array name="array_idiomas_app">
+        <item>Português (BR)</item>
+        <item>English (US)</item>
+    </string-array>
+    <string-array name="array_entries_idiomas_app">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
