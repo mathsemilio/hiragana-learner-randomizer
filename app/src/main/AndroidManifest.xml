@@ -3,20 +3,17 @@
     package="com.mathsemilio.hiraganalearner">
 
     <application
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/hiragana_learner_backup_rules"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_hiragana_learner_launcher_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_hiragana_learner_launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashScreen">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.MainActivity">
         </activity>
     </application>
 

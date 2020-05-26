@@ -5,6 +5,6 @@
     <color name="colorPrimaryLight">#EF9A9A</color>
 
     <!-- Background color -->
-    <color name="background">@android:color/white</color>
+    <color name="background">@android:color/black</color>
 
 </resources>

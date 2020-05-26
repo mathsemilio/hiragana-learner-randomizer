@@ -1,33 +1,48 @@
 <resources>
+    <!-- App name -->
     <string name="app_name">Hiragana Learner</string>
-    <string name="hiragana_learner">平仮名\nLearner</string>
-    <string name="pontuacao">Pontuação:</string>
-    <string name="simbolo">Símbolo:</string>
-    <string name="hiragana_symbol">Hiragana Symbol</string>
-    <string name="verificar">Verificar</string>
-    <string name="este_simbolo_corresponde_a_que_romanizacao">Este símbolo corresponde a que romanização?</string>
-    <string name="sair_aplicacao_cancelar_btnText">Cancelar</string>
-    <string name="resposta_correta_title">Resposta Correta!</string>
-    <string name="resposta_correta_msg">A romanização Hepburn deste símbolo é mesmo \"%1$s\".\nContinue Praticando!</string>
-    <string name="proximo_simbolo_btnText">Próximo Símbolo</string>
-    <string name="resposta_errada_title">Resposta Incorreta!</string>
-    <string name="resposta_errada_msg">A romanização Hepburn correta para este símbolo é \"%1$s\", e você selecionou \"%2$s\".\nContinue praticando!</string>
-    <string name="sair_app_toolbar_action">Sair</string>
-    <string name="configuracoes">Configurações</string>
-    <string name="pontuacao_mais_alta">Sua pontuação mais alta é: %1$d</string>
-    <string name="limpar_pontuacao_preference_screen">Limpar Pontuação</string>
-    <string name="modo_escuro_preference_screen">Modo Escuro</string>
-    <string name="idioma_aplicacao_preference_screen">Idioma da aplicação</string>
-    <string name="selecione_idioma_app">Selecione um idioma para a aplicação</string>
-    <string name="aplica_tema_escuro_app">Aplica o tema escuro para a aplicação</string>
-    <string name="desativa_tema_escuro_app">Desativa o tema escuro para a aplicação</string>
-    <string name="novo_simbolo">Novo Símbolo</string>
-    <string-array name="array_idiomas_app">
-        <item>Português (BR)</item>
-        <item>English (US)</item>
-    </string-array>
-    <string-array name="array_entries_idiomas_app">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
+
+    <!-- Image content descriptions -->
+    <string name="hiragana_letter_content_description">Hiragana letter</string>
+    <string name="dark_mode_icon">dark_mode_icon_content_description</string>
+
+    <!-- App name japanese -->
+    <string name="app_name_japanese">平仮名\nLearner</string>
+
+    <!-- Game Welcome Screen -->
+    <string name="get_ready_to_associate">Se prepare para associar…</string>
+    <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
+    <string name="play">Jogar</string>
+
+    <!-- Main game screen strings -->
+    <string name="the_letter_this_time_is">A letra da vez é…</string>
+    <string name="this_letter_corresponds_to_which_romaji">Esta letra corresponde a que rõmaji Hepburn?</string>
+    <string name="verify_answer">Verificar Resposta</string>
+    <string name="exit">Sair</string>
+    <string name="game_score">Pontuação: %d</string>
+
+    <!-- Score screen strings -->
+    <string name="you_scored">Você pontuou</string>
+    <string name="finish_game">Terminar Jogo</string>
+    <string name="share">Compartilhar</string>
+
+    <!-- Toolbar actions strings -->
+    <string name="exit_toolbar_action">Sair</string>
+
+    <!-- Toast messages -->
+    <string name="toast_msg_please_select_a_option">Por favor, selecione uma opção acima!</string>
+
+    <!-- Alert Dialog Correct answer strings -->
+    <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
+    <string name="alertDialogCorrectAnswer_msg">Muito bem! Continue praticando!</string>
+    <string name="alertDialogCorrectAnswer_positive_button_text">Continuar</string>
+
+    <!-- Alert Dialog Incorrect answer strings -->
+    <string name="alertDialogWrongAnswer_title">Resposta Incorreta!</string>
+    <string name="alertDialogWrongAnswer_msg">O rõmaji correto para esta letra é \"%1$s\". Continue Praticando!</string>
+    <string name="alertDialogWrongAnswer_positive_button_text">Continuar</string>
+
+    <!-- Intent Create Chooser title -->
+    <string name="game_score_create_chooser_title">Compartilhe sua pontuação</string>
+
 </resources>
