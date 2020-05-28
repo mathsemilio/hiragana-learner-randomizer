@@ -39,20 +39,21 @@ class MainGameScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Using the inflate function from the Binding class to inflate the layout for this fragment
+        // Using the inflate function from the Binding class to inflate the layout for this
+        // fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
 
-        // Initializing the viewModel variable, and using ViewModelProvider to get a reference of the
-        // viewModel class for this fragment
+        // Initializing the viewModel variable, and using ViewModelProvider to get a reference
+        // of the viewModel class for this fragment
         viewModel = ViewModelProvider(this).get(MainGameViewModel::class.java)
 
         // Setting the ViewModel for Data Binding - this allows the UI elements in the layout to
         // access the data in the ViewModel directly
         binding.mainGameViewModel = viewModel
 
-        // Setting the current activity as the lifecycle owner of the binding, so that the binding can
-        // observe LiveData updates
+        // Setting the current activity as the lifecycle owner of the binding, so that the binding
+        // can observe LiveData updates
         binding.lifecycleOwner = this
 
         // Calling getUserInput()
@@ -78,17 +79,17 @@ class MainGameScreen : Fragment() {
     // getUserInput function
     //==========================================================================================
     /**
-     * Private function that is responsible for getting the user input from the UI and sending the data
-     * to the ViewModel.
+     * Private function that is responsible for getting the user input from the UI and sending
+     * the data to the ViewModel.
      */
     private fun getUserInput() {
-        // OnCheckedChangeListener to determine if any of the Radio Buttons in the group is checked
-        // or not
+        // OnCheckedChangeListener to determine if any of the Radio Buttons in the group is
+        // checked or not
         binding.radioGroupHiraganaLetters.setOnCheckedChangeListener { group, checkedId ->
             // OnClickListener for the Verify Answer button
             binding.buttonVerifyAnswer.setOnClickListener {
-                // Checking if checkedRadioButtonId returns -1, meaning none of the button in the
-                // group is checked
+                // Checking if checkedRadioButtonId returns -1, meaning none of the buttons in
+                // the group is checked
                 if (group.checkedRadioButtonId == -1) {
                     // Building a Toast to ask the user to select a Radio Button
                     Log.i(
@@ -116,8 +117,9 @@ class MainGameScreen : Fragment() {
                         Log.i(TAG_MAIN_GAME_FRAGMENT, "Last letter from the hiraganaLettersList")
                         viewModel.getLastLetter(selectedRomanization)
                     } else {
-                        // Else the checkUserInput is called and the value of the currentHiraganaLetterRomanization
-                        // from the ViewModel (the correct answer for the current letter on the screen),
+                        // Else the checkUserInput is called and the value of the
+                        // currentHiraganaLetterRomanization from the ViewModel
+                        // (the correct answer for the current letter on the screen),
                         // and the selectedRomanization is passed
                         Log.i(TAG_MAIN_GAME_FRAGMENT, "Calling checkUserInput()")
                         viewModel.checkUserInput(
@@ -134,15 +136,16 @@ class MainGameScreen : Fragment() {
     // observeCurrentHiraganaLetterDrawableId function
     //==========================================================================================
     /**
-     * Private function that is responsible for observing the value of the currentHiraganaLetterDrawableId
-     * LiveData from the ViewModel.
+     * Private function that is responsible for observing the value of the
+     * currentHiraganaLetterDrawableId LiveData from the ViewModel.
      */
     private fun observeCurrentHiraganaLetterDrawableId() {
         viewModel.currentHiraganaLetterDrawableId.observe(
             viewLifecycleOwner,
             Observer { drawableSymbolId ->
                 // Calling the setImageResource function and passing the drawableSymbolId as the
-                // resource ID of the vector to be drawn on the imageHiraganaLetterMainScreen ImageView
+                // resource ID of the vector to be drawn on the imageHiraganaLetterMainScreen
+                // ImageView
                 binding.imageHiraganaLetterMainGameScreen.setImageResource(drawableSymbolId)
             })
     }
@@ -160,8 +163,8 @@ class MainGameScreen : Fragment() {
             when (correctAnswer) {
                 // Case true - Correct Answer
                 true -> {
-                    // Calling buildAlertDialog to build a dialog alerting the user that his answer
-                    // is correct
+                    // Calling buildAlertDialog to build a dialog alerting the user that his
+                    // answer is correct
                     Log.i(
                         TAG_MAIN_GAME_FRAGMENT,
                         "Building the alert dialog alerting the user that his answer is correct"
@@ -175,8 +178,8 @@ class MainGameScreen : Fragment() {
                     binding.radioGroupHiraganaLetters.clearCheck()
                 }
                 false -> {
-                    // Calling buildAlertDialog to build a dialog alerting the user that his answer
-                    // is incorrect
+                    // Calling buildAlertDialog to build a dialog alerting the user that his
+                    // answer is incorrect
                     Log.i(
                         TAG_MAIN_GAME_FRAGMENT,
                         "Building the alert dialog alerting the user that his answer is incorrect"
@@ -207,9 +210,9 @@ class MainGameScreen : Fragment() {
         viewModel.eventGameFinished.observe(viewLifecycleOwner, Observer { gameFinished ->
             // Checking if the eventGameFinished value is true
             if (gameFinished) {
-                // Variable that calls the actionMainGameScreenToGameScoreScreen function from the
-                // MainGameScreen generated class, and passing the game score LiveData value from
-                // the viewModel (with SafeArgs)
+                // Variable that calls the actionMainGameScreenToGameScoreScreen function from
+                // the MainGameScreen generated class, and passing the game score LiveData value
+                // from the viewModel (with SafeArgs)
                 val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
                     viewModel.gameScore.value!!.toInt()
                 )
@@ -223,8 +226,9 @@ class MainGameScreen : Fragment() {
     // navigateToWelcomeScreen function
     //==========================================================================================
     /**
-     * Private function that finds the NavController from the activity and calls the navigate function,
-     * that receives a action id, to navigate from the main game screen to welcome screen.
+     * Private function that finds the NavController from the activity and calls the navigate
+     * function, that receives a action id, to navigate from the main game screen to welcome
+     * screen.
      */
     private fun navigateToWelcomeScreen() {
         activity?.findNavController(R.id.nav_host_fragment)
@@ -235,12 +239,13 @@ class MainGameScreen : Fragment() {
     // buildAlertDialog function
     //==========================================================================================
     /**
-     * Private function that builds a AlertDialog for alerting the user about certain game events.
+     * Private function that builds a AlertDialog for alerting the user about certain game
+     * events.
      *
      * @param title - Receives a integer that corresponds as the resource ID for the dialog title
      * @param message - Receives a string pertaining the dialog message
-     * @param positiveButtonText - Receives a integer that corresponds as the resource ID for the dialog
-     * positive button text
+     * @param positiveButtonText - Receives a integer that corresponds as the resource ID for the
+     * dialog's positive button text
      */
     private fun buildAlertDialog(title: Int, message: String, positiveButtonText: Int) {
         val builder = AlertDialog.Builder(activity)

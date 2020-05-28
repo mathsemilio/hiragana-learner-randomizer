@@ -29,22 +29,26 @@ class MainGameViewModel : ViewModel() {
     val currentHiraganaLetterRomanization: LiveData<String>
         get() = _currentHiraganaLetterRomanization
 
-    // Backing property to store the value of a romanization for the first radio button in the UI
+    // Backing property to store the value of a romanization for the first radio button in the
+    // UI
     private val _radioButton1Romanization = MutableLiveData<String>()
     val radioButton1Romanization: LiveData<String>
         get() = _radioButton1Romanization
 
-    // Backing property to store the value of a romanization for the second radio button in the UI
+    // Backing property to store the value of a romanization for the second radio button in the
+    // UI
     private val _radioButton2Romanization = MutableLiveData<String>()
     val radioButton2Romanization: LiveData<String>
         get() = _radioButton2Romanization
 
-    // Backing property to store the value of a romanization for the third radio button in the UI
+    // Backing property to store the value of a romanization for the third radio button in the
+    // UI
     private val _radioButton3Romanization = MutableLiveData<String>()
     val radioButton3Romanization: LiveData<String>
         get() = _radioButton3Romanization
 
-    // Backing property to store the value of a romanization for the fourth radio button in the UI
+    // Backing property to store the value of a romanization for the fourth radio button in the
+    // UI
     private val _radioButton4Romanization = MutableLiveData<String>()
     val radioButton4Romanization: LiveData<String>
         get() = _radioButton4Romanization
@@ -114,17 +118,19 @@ class MainGameViewModel : ViewModel() {
             Log.d(TAG_MAIN_GAME_VIEW_MODEL, "First letter romanization: $it")
         }
 
-        // Setting the value of the lastHiraganaLetterDrawableId as the last drawable ID in the list
+        // Setting the value of the lastHiraganaLetterDrawableId as the last drawable ID in the
+        // list
         lastHiraganaLetterDrawableId = hiraganaLettersList.last().drawableSymbolId
 
-        // Setting the value of the lastHiraganaLetterRomanization as the last romanization in the list
+        // Setting the value of the lastHiraganaLetterRomanization as the last romanization in
+        // the list
         lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization.also {
             Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Last letter romanization: $it")
         }
 
         Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
-        // Calling generateRadioButtonRomanization function and passing the _currentHiraganaLetterRomanization
-        // value as it's parameter
+        // Calling generateRadioButtonRomanization function and passing the
+        // _currentHiraganaLetterRomanization value as it's parameter
         generateRadioButtonRomanization(_currentHiraganaLetterRomanization.value.toString())
     }
 
@@ -139,8 +145,8 @@ class MainGameViewModel : ViewModel() {
      * @param selectedRomanization - The text of the radio button selected by the user
      */
     fun checkUserInput(correctRomanization: String, selectedRomanization: String) {
-        // When statement to check if the selectedRomanization is equal to the correctRomanization
-        // or not
+        // When statement to check if the selectedRomanization is equal to the
+        // correctRomanization or not
         when {
             // Case selectedRomanization is equal to the correctRomanization
             selectedRomanization == correctRomanization -> {
@@ -157,7 +163,9 @@ class MainGameViewModel : ViewModel() {
 
                 Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
                 // Calling generateRadioButtonRomanization()
-                generateRadioButtonRomanization(_currentHiraganaLetterRomanization.value.toString())
+                generateRadioButtonRomanization(
+                    _currentHiraganaLetterRomanization.value.toString()
+                )
 
                 Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
                 // Calling updateGameScore to update the game score
@@ -178,7 +186,9 @@ class MainGameViewModel : ViewModel() {
 
                 Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
                 // Calling generateRadioButtonRomanization()
-                generateRadioButtonRomanization(_currentHiraganaLetterRomanization.value.toString())
+                generateRadioButtonRomanization(
+                    _currentHiraganaLetterRomanization.value.toString()
+                )
             }
         }
     }
@@ -187,8 +197,8 @@ class MainGameViewModel : ViewModel() {
     // updateGameScore function
     //==========================================================================================
     /**
-     * Private function that is responsible for incrementing the game score by 1, once the user has
-     * selected the correct romanization for the current letter.
+     * Private function that is responsible for incrementing the game score by 1, once the
+     * user has selected the correct romanization for the current letter.
      */
     private fun updateGameScore() {
         _gameScore.value = (_gameScore.value)?.inc().also {
@@ -200,15 +210,15 @@ class MainGameViewModel : ViewModel() {
     // getNextLetter function
     //==========================================================================================
     /**
-     * Private function that is responsible for removing a letter from list and getting a new one
-     * from the list.
+     * Private function that is responsible for removing a letter from list and getting a new
+     * one from the list.
      */
     private fun getNextLetter() {
         // Removing the first element (letter) from the list
         hiraganaLettersList.removeAt(0)
 
-        // Setting the value of the _currentHiraganaLetterDrawableId as the first drawable symbol
-        // ID from the list
+        // Setting the value of the _currentHiraganaLetterDrawableId as the first drawable
+        // symbol ID from the list
         _currentHiraganaLetterDrawableId.value = hiraganaLettersList.first().drawableSymbolId
 
         // Setting the value of the _currentHiraganaLetterRomanization as the first romanization
@@ -228,12 +238,12 @@ class MainGameViewModel : ViewModel() {
      * @param selectedRomanization - The text of the radio button selected by the user
      */
     fun getLastLetter(selectedRomanization: String) {
-        // Setting the value of the _currentHiraganaLetterDrawableId variable as the value of the
-        // lastHiraganaLetterDrawableId
+        // Setting the value of the _currentHiraganaLetterDrawableId variable as the value of
+        // the lastHiraganaLetterDrawableId
         _currentHiraganaLetterDrawableId.value = lastHiraganaLetterDrawableId
 
-        // Setting the value of the _currentHiraganaLetterRomanization variable as the value of the
-        // lastHiraganaLetterRomanization
+        // Setting the value of the _currentHiraganaLetterRomanization variable as the value of
+        // the lastHiraganaLetterRomanization
         _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
 
         // When statement to check if the _currentHiraganaLetterRomanization is equal to the
@@ -256,10 +266,12 @@ class MainGameViewModel : ViewModel() {
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "End of the game. Setting the value of the _eventGameFinished as true"
                 )
-                // Setting the value of the _eventGameFinished variable as true to finish the game
+                // Setting the value of the _eventGameFinished variable as true to finish the
+                // game
                 _eventGameFinished.value = true
             }
-            // Case _currentHiraganaLetterRomanization.value is NOT equal to the selectedRomanization
+            // Case _currentHiraganaLetterRomanization.value is NOT equal to the
+            // selectedRomanization
             _currentHiraganaLetterRomanization.value != selectedRomanization -> {
                 Log.i(
                     TAG_MAIN_GAME_VIEW_MODEL,
@@ -272,7 +284,8 @@ class MainGameViewModel : ViewModel() {
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "End of the game. Setting the value of the _eventGameFinished as true"
                 )
-                // Setting the value of the _eventGameFinished variable as true to finish the game
+                // Setting the value of the _eventGameFinished variable as true to finish the
+                // game
                 _eventGameFinished.value = true
             }
         }
@@ -310,9 +323,9 @@ class MainGameViewModel : ViewModel() {
         _radioButton3Romanization.value = filteredList[generateRandomNumber()]
         _radioButton4Romanization.value = filteredList[generateRandomNumber()]
 
-        // When statement to select which radio button will receive the correct romanization (answer)
-        // It does that by generating a random number between 0 and 4 (XOR), and based on this
-        // number a radio button will be selected
+        // When statement to select which radio button will receive the correct romanization
+        // (answer). It does that by generating a random number between 0 and 4 (XOR), and based
+        // on this number a radio button will be selected
         when ((0 until 4).random()) {
             // Case 0 - Radio Button 1 selected
             0 -> {
