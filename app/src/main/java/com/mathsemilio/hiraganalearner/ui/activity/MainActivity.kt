@@ -10,15 +10,32 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    //==========================================================================================
+    // Class-wide variables
+    //==========================================================================================
+    // Variable for controlling the dark mode for this activity
     private var darkModeActivated: Boolean = false
 
+    //==========================================================================================
+    // onCreate
+    //==========================================================================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // OnClickListener for the imageDarkModeSwitch on the Custom Toolbar, which calls the
+        // switchDarkMode function
         image_dark_mode_switch.setOnClickListener { switchDarkMode() }
     }
 
+    //==========================================================================================
+    // switchDarkMode function
+    //==========================================================================================
+    /**
+     * Private function that controls when to activate the dark mode. In order to activate/deactivated
+     * the dark mode, the AppCompatDelegate constants are used. Both MODE_NIGHT_NO and MODE_NIGHT_YES
+     * overrides the OS default dark mode configuration.
+     */
     private fun switchDarkMode() {
         darkModeActivated = when (darkModeActivated) {
             true -> {
