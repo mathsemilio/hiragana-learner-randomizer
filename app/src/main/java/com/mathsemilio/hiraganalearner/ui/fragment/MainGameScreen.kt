@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -86,30 +85,23 @@ class MainGameScreen : Fragment() {
         // OnCheckedChangeListener to determine if any of the Radio Buttons in the group is
         // checked or not
         binding.radioGroupHiraganaLetters.setOnCheckedChangeListener { group, checkedId ->
-            // OnClickListener for the Verify Answer button
-            binding.buttonVerifyAnswer.setOnClickListener {
-                // Checking if checkedRadioButtonId returns -1, meaning none of the buttons in
-                // the group is checked
-                if (group.checkedRadioButtonId == -1) {
-                    // Building a Toast to ask the user to select a Radio Button
-                    Log.i(
-                        TAG_MAIN_GAME_FRAGMENT,
-                        "Building the Toast to ask the user to select a option"
-                    )
-                    Toast.makeText(
-                        activity,
-                        R.string.toast_msg_please_select_a_option,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    // Else, there is a button selected in the group
-                } else {
-                    // Getting the checked radio button
-                    val radioButton: RadioButton = group.findViewById(checkedId)
-                    // Getting the text from the checked radio button
-                    val selectedRomanization: String = radioButton.text.toString().also {
-                        Log.d(TAG_MAIN_GAME_FRAGMENT, "Text of the selected radio button: $it")
-                    }
+            if (group.checkedRadioButtonId == -1) {
+                // No radio button selected in the group, disabling the VerifyAnswer button
+                binding.buttonVerifyAnswer.isEnabled = false
+            } else {
+                // There is a radio button checked in the group, enabling the VerifyAnswer
+                // button
+                binding.buttonVerifyAnswer.isEnabled = true
 
+                // Getting the checked radio button
+                val radioButton: RadioButton = group.findViewById(checkedId)
+
+                // Getting the text from the checked radio button
+                val selectedRomanization: String = radioButton.text.toString().also {
+                    Log.i(TAG_MAIN_GAME_FRAGMENT, "Text of the selected radio button: $it")
+                }
+
+                binding.buttonVerifyAnswer.setOnClickListener {
                     // Checking if hiraganaLettersList size from the ViewModel equals 1
                     // (the last letter in the list), in this case the getLastLetter is called and
                     // the selected radio button text is passed to the function
