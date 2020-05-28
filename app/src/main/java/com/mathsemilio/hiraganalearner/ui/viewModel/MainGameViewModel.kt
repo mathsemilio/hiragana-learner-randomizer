@@ -282,8 +282,8 @@ class MainGameViewModel : ViewModel() {
     // generateRadioButtonRomanization function
     //==========================================================================================
     /**
-     * Private function that is responsible for generating random romanizations for the radio buttons
-     * in the UI.
+     * Private function that is responsible for generating random romanizations for the radio
+     * buttons in the UI.
      *
      * @param correctRomanization - The value of the current romanization for a hiragana letter
      */
@@ -297,7 +297,7 @@ class MainGameViewModel : ViewModel() {
         )
 
         // Read-only filtered, shuffled list containing every romanization from the previous list
-        // except for any romanization that equals the correctRomanization
+        // except for the romanization that equals the current correctRomanization
         val filteredList =
             hiraganaRomanizationList.filterNot { it == correctRomanization }.shuffled().apply {
                 Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: $size")
@@ -312,7 +312,7 @@ class MainGameViewModel : ViewModel() {
 
         // When statement to select which radio button will receive the correct romanization (answer)
         // It does that by generating a random number between 0 and 4 (XOR), and based on this
-        // number a radio button is selected
+        // number a radio button will be selected
         when ((0 until 4).random()) {
             // Case 0 - Radio Button 1 selected
             0 -> {

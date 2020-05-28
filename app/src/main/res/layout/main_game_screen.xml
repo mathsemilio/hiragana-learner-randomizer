@@ -32,7 +32,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.10" />
+                app:layout_constraintVertical_bias="0.15" />
 
             <ImageView
                 android:id="@+id/image_hiragana_letter_main_game_screen"
@@ -97,13 +97,6 @@
 
             </RadioGroup>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_button_area"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.90" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_verify_answer"
                 android:layout_width="wrap_content"
@@ -112,6 +105,7 @@
                 android:layout_marginBottom="@dimen/margin_16dp"
                 android:text="@string/verify_answer"
                 app:icon="@drawable/ic_check_circle_black_24dp"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -138,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_24dp"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
-                app:layout_constraintBottom_toTopOf="@id/guideline_button_area"
+                app:layout_constraintBottom_toTopOf="@id/button_verify_answer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Pontuação: 0" />
