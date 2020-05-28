@@ -4,10 +4,7 @@
 
     <!-- Image content descriptions -->
     <string name="hiragana_letter_content_description">Hiragana letter</string>
-    <string name="dark_mode_icon">dark_mode_icon_content_description</string>
-
-    <!-- App name japanese -->
-    <string name="app_name_japanese">平仮名\nLearner</string>
+    <string name="dark_mode_icon">Dark mode switch icon</string>
 
     <!-- Game Welcome Screen -->
     <string name="get_ready_to_associate">Se prepare para associar…</string>
@@ -16,7 +13,7 @@
 
     <!-- Main game screen strings -->
     <string name="the_letter_this_time_is">A letra da vez é…</string>
-    <string name="this_letter_corresponds_to_which_romaji">Esta letra corresponde a que rõmaji Hepburn?</string>
+    <string name="this_letter_corresponds_to_which_romaji">Esta letra corresponde a que Rõmaji Hepburn?</string>
     <string name="verify_answer">Verificar Resposta</string>
     <string name="exit">Sair</string>
     <string name="game_score">Pontuação: %d</string>
@@ -25,12 +22,6 @@
     <string name="you_scored">Você pontuou</string>
     <string name="finish_game">Terminar Jogo</string>
     <string name="share">Compartilhar</string>
-
-    <!-- Toolbar actions strings -->
-    <string name="exit_toolbar_action">Sair</string>
-
-    <!-- Toast messages -->
-    <string name="toast_msg_please_select_a_option">Por favor, selecione uma opção acima!</string>
 
     <!-- Alert Dialog Correct answer strings -->
     <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
