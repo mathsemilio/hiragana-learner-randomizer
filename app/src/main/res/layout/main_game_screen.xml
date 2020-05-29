@@ -101,11 +101,12 @@
                 android:id="@+id/button_verify_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_16dp"
+                android:enabled="false"
                 android:text="@string/verify_answer"
                 app:icon="@drawable/ic_check_circle_black_24dp"
-                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -130,11 +131,14 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:layout_marginBottom="@dimen/margin_24dp"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
                 app:layout_constraintBottom_toTopOf="@id/button_verify_answer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radio_group_hiragana_letters"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="Pontuação: 0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
