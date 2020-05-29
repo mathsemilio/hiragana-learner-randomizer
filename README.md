@@ -12,7 +12,7 @@ their associated Hepburn romanizations.
 Once the user starts the game, the app's algorithm generates a random order of the 48 most common Hiragana letters. And presents 
 the user with a random letter and four options of romanizations. The user simply has to select the romanization that matches 
 the current letter on the screen. Once the user selects a romanization, he clicks on a button to verify his answer. If his answer is correct,
-he scores a point. Else, he is alerted about his incorrect answer, and a dialog shows the correct romanization for that letter.
+he scores a point. Else, he is alerted about his answer, and a dialog shows the correct romanization for that letter.
 <p>Once the user goes though all the letters, he will be directed to a score screen, where he can share his final game score
 and finish the game.</p>
 
