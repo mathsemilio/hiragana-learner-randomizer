@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mainGameViewModel"
+            type="com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:padding="@dimen/padding_16dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_half_screen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_body_letter_this_time_is"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/the_letter_this_time_is"
+            app:layout_constraintBottom_toBottomOf="@+id/radio_group_hiragana_letters"
+            app:layout_constraintEnd_toStartOf="@id/guideline_half_screen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/radio_group_hiragana_letters"
+            app:layout_constraintVertical_bias="0.24" />
+
+        <ImageView
+            android:id="@+id/image_hiragana_letter_main_game_screen"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:contentDescription="@string/hiragana_letter_content_description"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@id/text_body_letter_this_time_is"
+            app:layout_constraintStart_toStartOf="@id/text_body_letter_this_time_is"
+            app:layout_constraintTop_toBottomOf="@id/text_body_letter_this_time_is"
+            tools:src="@drawable/ic_hir_a" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_body_this_letter_corresponds_to_which_romaji"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:maxLines="2"
+            android:text="@string/this_letter_corresponds_to_which_romaji"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_half_screen"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_hiragana_letters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_half_screen"
+            app:layout_constraintTop_toBottomOf="@id/text_body_this_letter_corresponds_to_which_romaji">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainGameViewModel.radioButton1Romanization}"
+                tools:text="A" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainGameViewModel.radioButton2Romanization}"
+                tools:text="I" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainGameViewModel.radioButton3Romanization}"
+                tools:text="U" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_button_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainGameViewModel.radioButton4Romanization}"
+                tools:text="E" />
+
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_exit"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:text="@string/exit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_verify_answer"
+            app:layout_constraintStart_toEndOf="@id/guideline_half_screen"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_hiragana_letters"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_verify_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:enabled="false"
+            android:text="@string/verify_answer"
+            app:icon="@drawable/ic_check_circle_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_exit"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_hiragana_letters"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_body_game_score"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
+            app:layout_constraintBottom_toBottomOf="@+id/button_exit"
+            app:layout_constraintEnd_toEndOf="@+id/image_hiragana_letter_main_game_screen"
+            app:layout_constraintStart_toStartOf="@+id/image_hiragana_letter_main_game_screen"
+            app:layout_constraintTop_toTopOf="@+id/button_exit"
+            tools:text="Pontuação: 0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
