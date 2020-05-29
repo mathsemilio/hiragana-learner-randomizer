@@ -33,7 +33,7 @@ Programming Language - **Kotlin**
   <li>Android Jetpack Navigation Components;</li>
   <li>ViewModel;</li>
   <li>LiveData;</li>
-  <li>SafeArgs Gradle Pluglin</li>
+  <li>SafeArgs Gradle Plugin</li>
   <li>View Binding;</li>
   <li>Data Binding.</li>
 </ol >
