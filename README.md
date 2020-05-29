@@ -16,7 +16,11 @@ he scores a point. Else, he is alerted about his answer, and a dialog shows the 
 <p>Once the user goes though all the letters, he will be directed to a score screen, where he can share his final game score
 and finish the game.</p>
 
-### Sounds Good! How can i get it?
+### Aplication Screenshots
+To checkout the app screenshots, please visit this gallery:
+<p><a href="https://postimg.cc/gallery/Tbb9ss8">Hiragana Learner Randomizer Gallery</a></p>
+
+### Looks Good! How can i get it?
 Currently, there is no APK for this application (mainly because still needs work, and i don't want to release it yet). If you want to test it, you are free to clone this repository and build the
 application on Android Studio.
 
