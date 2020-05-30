@@ -1,5 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -63,9 +64,6 @@ class MainGameScreen : Fragment() {
 
         // Calling observeEventCorrectAnswer()
         observeEventCorrectAnswer()
-
-        // Calling observeEventGameFinished()
-        observeEventGameFinished()
 
         // OnClickListener for the exit button, which calls the navigateToWelcomeScreen function
         binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
@@ -164,8 +162,14 @@ class MainGameScreen : Fragment() {
                     buildAlertDialog(
                         R.string.alertDialogCorrectAnswer_title,
                         getString(R.string.alertDialogCorrectAnswer_msg),
-                        R.string.alertDialogCorrectAnswer_positive_button_text
-                    )
+                        R.string.alertDialogCorrectAnswer_positive_button_text,
+                        DialogInterface.OnClickListener { _, _ ->
+                            if (viewModel.eventGameFinished.value == true) {
+                                navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                            } else {
+                                viewModel.getNextLetter()
+                            }
+                        })
                     // Clearing the checked button from the RadioGroup
                     binding.radioGroupHiraganaLetters.clearCheck()
                 }
@@ -182,34 +186,17 @@ class MainGameScreen : Fragment() {
                             R.string.alertDialogWrongAnswer_msg,
                             viewModel.currentHiraganaLetterRomanization.value
                         ),
-                        R.string.alertDialogWrongAnswer_positive_button_text
-                    )
+                        R.string.alertDialogWrongAnswer_positive_button_text,
+                        DialogInterface.OnClickListener { _, _ ->
+                            if (viewModel.eventGameFinished.value == true) {
+                                navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                            } else {
+                                viewModel.getNextLetter()
+                            }
+                        })
                     // Clearing the checked button from the RadioGroup
                     binding.radioGroupHiraganaLetters.clearCheck()
                 }
-            }
-        })
-    }
-
-    //==========================================================================================
-    // observeEventCorrectAnswer function
-    //==========================================================================================
-    /**
-     * Private function that is responsible for observing the value of the eventGameFinished
-     * LiveData from the ViewModel.
-     */
-    private fun observeEventGameFinished() {
-        viewModel.eventGameFinished.observe(viewLifecycleOwner, Observer { gameFinished ->
-            // Checking if the eventGameFinished value is true
-            if (gameFinished) {
-                // Variable that calls the actionMainGameScreenToGameScoreScreen function from
-                // the MainGameScreen generated class, and passing the game score LiveData value
-                // from the viewModel (with SafeArgs)
-                val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
-                    viewModel.gameScore.value!!.toInt()
-                )
-                // Passing the action for navigating to the score screen
-                activity?.findNavController(R.id.nav_host_fragment)?.navigate(action)
             }
         })
     }
@@ -227,6 +214,15 @@ class MainGameScreen : Fragment() {
             ?.navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
     }
 
+    private fun navigateToScoreScreen(gameScore: Int) {
+        // Variable that calls the actionMainGameScreenToGameScoreScreen function from
+        // the MainGameScreenDirections generated class, and passing the game score LiveData
+        // value from the viewModel (with SafeArgs)
+        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(gameScore)
+        // Passing the action for navigating to the score screen
+        activity?.findNavController(R.id.nav_host_fragment)?.navigate(action)
+    }
+
     //==========================================================================================
     // buildAlertDialog function
     //==========================================================================================
@@ -238,12 +234,17 @@ class MainGameScreen : Fragment() {
      * @param message - Receives a string pertaining the dialog message
      * @param positiveButtonText - Receives a integer that corresponds as the resource ID for the
      * dialog's positive button text
+     * @param dialogInterface - A DialogInterface.OnClickListener interface for listening when the
+     * user presses the positive button.
      */
-    private fun buildAlertDialog(title: Int, message: String, positiveButtonText: Int) {
+    private fun buildAlertDialog(
+        title: Int, message: String, positiveButtonText: Int,
+        dialogInterface: DialogInterface.OnClickListener
+    ) {
         MaterialAlertDialogBuilder(activity).apply {
             setTitle(title)
             setMessage(message)
-            setPositiveButton(positiveButtonText, null)
+            setPositiveButton(positiveButtonText, dialogInterface)
             show()
         }
     }
