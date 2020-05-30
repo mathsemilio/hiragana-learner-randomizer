@@ -34,9 +34,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_finish_game"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_48dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/finish_game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_button_share"
@@ -45,8 +46,10 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/text_button_share"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_48dp"
         android:text="@string/share"
         app:icon="@drawable/ic_share_black_24dp"
