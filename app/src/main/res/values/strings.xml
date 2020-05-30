@@ -30,7 +30,7 @@
 
     <!-- Alert Dialog Incorrect answer strings -->
     <string name="alertDialogWrongAnswer_title">Resposta Incorreta!</string>
-    <string name="alertDialogWrongAnswer_msg">O rõmaji correto para a letra anterior era \"%1$s\". Continue Praticando!</string>
+    <string name="alertDialogWrongAnswer_msg">O rõmaji correto para esta letra é \"%1$s\". Continue Praticando!</string>
     <string name="alertDialogWrongAnswer_positive_button_text">Continuar</string>
 
     <!-- Intent Create Chooser title -->
