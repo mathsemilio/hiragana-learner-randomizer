@@ -232,7 +232,7 @@ class MainGameViewModel : ViewModel() {
     // getLastLetter function
     //==========================================================================================
     /**
-     * Function that is responsible for getting and setting the last letter in the list.
+     * Function that is responsible for getting the last letter in the list.
      * This function is also responsible for finishing the game.
      *
      * @param selectedRomanization - The text of the radio button selected by the user
@@ -316,12 +316,20 @@ class MainGameViewModel : ViewModel() {
                 Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: $size")
             }
 
-        // Getting a random romanization from the filtered list and assigning to each of the
-        // _radioButtonRomanization variables
-        _radioButton1Romanization.value = filteredList[generateRandomNumber()]
-        _radioButton2Romanization.value = filteredList[generateRandomNumber()]
-        _radioButton3Romanization.value = filteredList[generateRandomNumber()]
-        _radioButton4Romanization.value = filteredList[generateRandomNumber()]
+        // Variables to used as a index to access a item from the filteredList above.
+        // Each variable gets its value from the value returned from the generateRandomNumber
+        // function and for the last 3 variables the value passed is the variable above.
+        val radioButton1RandomIndexValue = generateRandomNumber(null)
+        val radioButton2RandomIndexValue = generateRandomNumber(radioButton1RandomIndexValue)
+        val radioButton3RandomIndexValue = generateRandomNumber(radioButton2RandomIndexValue)
+        val radioButton4RandomIndexValue = generateRandomNumber(radioButton3RandomIndexValue)
+
+        // Getting a random romanization from the filteredList for each of the
+        // radioButtonRomanization variables.
+        _radioButton1Romanization.value = filteredList[radioButton1RandomIndexValue]
+        _radioButton2Romanization.value = filteredList[radioButton2RandomIndexValue]
+        _radioButton3Romanization.value = filteredList[radioButton3RandomIndexValue]
+        _radioButton4Romanization.value = filteredList[radioButton4RandomIndexValue]
 
         // When statement to select which radio button will receive the correct romanization
         // (answer). It does that by generating a random number between 0 and 4 (XOR), and based
@@ -366,13 +374,18 @@ class MainGameViewModel : ViewModel() {
     // generateRandomNumber function
     //==========================================================================================
     /**
-     * Private function that generates a random number between 0 and 46, to be used a index for
+     * Private function that generates a random number between 0 and 47, to be used a index for
      * accessing a element in the filtered hiragana romanization list in the
      * generateRadioButtonRomanization function.
      *
-     * @return - A generated Integer between 0 and 46
+     * @param previousNumber - Integer that will be filtered from begin a possible generated
+     * number
+     * @return - Random Integer between 0 and 47 that is not equal to the previousNumber
+     * parameter
      */
-    private fun generateRandomNumber(): Int {
-        return (0..46).random()
+    private fun generateRandomNumber(previousNumber: Int?): Int {
+        return (0 until 47).filterNot {
+            it == previousNumber
+        }.random()
     }
 }
