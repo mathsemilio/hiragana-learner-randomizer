@@ -17,7 +17,7 @@ he scores a point. Else, he is alerted about his answer, and a dialog shows the 
 and finish the game.</p>
 
 ### Application Screenshots
-To checkout the app screenshots, please visit this gallery:
+To checkout screenshots, please visit this gallery:
 <p><a href="https://postimg.cc/gallery/Tbb9ss8">Hiragana Learner Randomizer Gallery</a></p>
 
 ### Looks Good! How can i get it?
