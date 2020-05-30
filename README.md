@@ -22,7 +22,7 @@ To checkout the app screenshots, please visit this gallery:
 
 ### Looks Good! How can i get it?
 Currently, there is no APK for this application (mainly because still needs work, and i don't want to release it yet). 
-If you want to test it (and maybe collaborate), you are free to clone this repository and build the
+If you want to test it (and maybe collaborate on it), you are free to clone this repository and build the
 application on Android Studio. Please keep in mind that the minimum SDK version for this app is 21 (Lollipop).
 
 ### Development Technologies
