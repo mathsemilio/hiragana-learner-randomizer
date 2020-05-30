@@ -1,6 +1,5 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
@@ -240,10 +240,11 @@ class MainGameScreen : Fragment() {
      * dialog's positive button text
      */
     private fun buildAlertDialog(title: Int, message: String, positiveButtonText: Int) {
-        val builder = AlertDialog.Builder(activity)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setPositiveButton(positiveButtonText, null)
-        builder.show()
+        MaterialAlertDialogBuilder(activity).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton(positiveButtonText, null)
+            show()
+        }
     }
 }
