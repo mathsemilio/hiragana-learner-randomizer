@@ -157,16 +157,6 @@ class MainGameViewModel : ViewModel() {
                 // Setting the value of the _eventCorrectAnswer variable as true
                 _eventCorrectAnswer.value = true
 
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "getNextLetter() called")
-                // Calling getNextLetter()
-                getNextLetter()
-
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
-                // Calling generateRadioButtonRomanization()
-                generateRadioButtonRomanization(
-                    _currentHiraganaLetterRomanization.value.toString()
-                )
-
                 Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
                 // Calling updateGameScore to update the game score
                 updateGameScore()
@@ -179,16 +169,6 @@ class MainGameViewModel : ViewModel() {
                 )
                 // Setting the value of the _eventCorrectAnswer variable as false
                 _eventCorrectAnswer.value = false
-
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "getNextLetter() called")
-                // Calling getNextLetter()
-                getNextLetter()
-
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
-                // Calling generateRadioButtonRomanization()
-                generateRadioButtonRomanization(
-                    _currentHiraganaLetterRomanization.value.toString()
-                )
             }
         }
     }
@@ -213,7 +193,9 @@ class MainGameViewModel : ViewModel() {
      * Private function that is responsible for removing a letter from list and getting a new
      * one from the list.
      */
-    private fun getNextLetter() {
+    fun getNextLetter() {
+        Log.i(TAG_MAIN_GAME_VIEW_MODEL, "getNextLetter called")
+
         // Removing the first element (letter) from the list
         hiraganaLettersList.removeAt(0)
 
@@ -226,6 +208,12 @@ class MainGameViewModel : ViewModel() {
         _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization.also {
             Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Next symbol romanization: $it")
         }
+
+        Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
+        // Calling generateRadioButtonRomanization()
+        generateRadioButtonRomanization(
+            _currentHiraganaLetterRomanization.value.toString()
+        )
     }
 
     //==========================================================================================
