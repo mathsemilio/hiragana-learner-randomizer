@@ -245,6 +245,7 @@ class MainGameScreen : Fragment() {
             setTitle(title)
             setMessage(message)
             setPositiveButton(positiveButtonText, dialogInterface)
+            setCancelable(false)
             show()
         }
     }
