@@ -214,6 +214,16 @@ class MainGameScreen : Fragment() {
             ?.navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
     }
 
+    //==========================================================================================
+    // navigateToWelcomeScreen function
+    //==========================================================================================
+    /**
+     * Private function that is responsible for getting the final game score and pass it as a
+     *argument for the score screen destination.
+     *
+     * @param gameScore - Integer that represents the final game score to be passed to score
+     * screen
+     */
     private fun navigateToScoreScreen(gameScore: Int) {
         // Variable that calls the actionMainGameScreenToGameScoreScreen function from
         // the MainGameScreenDirections generated class, and passing the game score LiveData
