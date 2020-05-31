@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="gameScorePlurals">
+        <item quantity="one">Minha pontuação no App Hiragana Learner: %d ponto.</item>
+        <item quantity="other">Minha pontuação no App Hiragana Learner: %d pontos.</item>
+    </plurals>
+</resources>

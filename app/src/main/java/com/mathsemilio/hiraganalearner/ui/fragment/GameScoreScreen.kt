@@ -45,7 +45,7 @@ class GameScoreScreen : Fragment() {
         binding.buttonFinishGame.setOnClickListener { navigateToWelcomeScreen() }
 
         // OnClickListener for the Share button, which calls the shareGameScore function
-        binding.textButtonShare.setOnClickListener { shareGameScore(gameScore.toString()) }
+        binding.textButtonShare.setOnClickListener { shareGameScore(gameScore) }
 
         // Returning the root of the inflated layout
         return binding.root
@@ -70,14 +70,17 @@ class GameScoreScreen : Fragment() {
      * Private function that is responsible for building a Share intent, enabling the user to
      * share his game score.
      *
-     * @param gameScore - String that represents the game score value, to be used in the share
+     * @param gameScore - Integer that represents the game score value, to be used in the share
      * intent
      */
-    private fun shareGameScore(gameScore: String) {
+    private fun shareGameScore(gameScore: Int) {
         // Creating a Intent object, with the action type ACTION.SEND
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, gameScore)
+            putExtra(
+                Intent.EXTRA_TEXT,
+                resources.getQuantityString(R.plurals.gameScorePlurals, gameScore, gameScore)
+            )
             type = "text/plain"
         }
 

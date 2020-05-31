@@ -300,8 +300,8 @@ class MainGameViewModel : ViewModel() {
         // Read-only filtered, shuffled list containing every romanization from the previous list
         // except for the romanization that equals the current correctRomanization
         val filteredList =
-            hiraganaRomanizationList.filterNot { it == correctRomanization }.shuffled().apply {
-                Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: $size")
+            hiraganaRomanizationList.filterNot { it == correctRomanization }.shuffled().also {
+                Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: ${it.size}")
             }
 
         // Variables to used as a index to access a item from the filteredList above.

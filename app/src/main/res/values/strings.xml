@@ -34,6 +34,6 @@
     <string name="alertDialogWrongAnswer_positive_button_text">Continuar</string>
 
     <!-- Intent Create Chooser title -->
-    <string name="game_score_create_chooser_title">Compartilhe sua pontuação</string>
+    <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
 
 </resources>
