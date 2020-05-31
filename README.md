@@ -38,7 +38,7 @@ Programming Language - **Kotlin**
   <li>Data Binding.</li>
 </ol >
 
-<i>For more info on each of the libraries and technologies listed above:</i>
+<i>For info on each of the libraries and technologies listed above:</i>
 <p><a href="https://github.com/material-components/material-components-android">Android Material Components</a></p>
 <p><a href="https://developer.android.com/guide/navigation/navigation-getting-started">Jetpack Navigation Components</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a></p>
