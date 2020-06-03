@@ -16,25 +16,20 @@ import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
 class GameScoreScreen : Fragment() {
 
     //==========================================================================================
-    // Class-wide variable
+    // onCreateView
     //==========================================================================================
-    // LateInit variable for the binding class pertaining the layout for this Fragment
-    private lateinit var binding: GameScoreScreenBinding
-
-    // Private variable to store the game score coming from the main game screen via SafeArgs
-    private var gameScore: Int = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Using the inflate function from the Binding class to inflate the layout for this
         // fragment
-        binding = GameScoreScreenBinding.inflate(inflater, container, false)
+        val binding: GameScoreScreenBinding =
+            GameScoreScreenBinding.inflate(inflater, container, false)
 
         // Assigning the game score value to the value returned from the retrieveGameScore
         // function
-        gameScore = retrieveGameScore()
+        val gameScore = retrieveGameScore()
 
         // Setting the text of the textHeadlineScoreNumber TextView as the value from the game
         // score variable
@@ -44,8 +39,13 @@ class GameScoreScreen : Fragment() {
         // function
         binding.buttonFinishGame.setOnClickListener { navigateToWelcomeScreen() }
 
-        // OnClickListener for the Share button, which calls the shareGameScore function
-        binding.textButtonShare.setOnClickListener { shareGameScore(gameScore) }
+        // Checking the gameScore value, if it's 0 the textShareButton will be hidden, else a
+        // OnClickListener is set
+        if (gameScore == 0) {
+            binding.textButtonShare.visibility = View.GONE
+        } else {
+            binding.textButtonShare.setOnClickListener { shareGameScore(gameScore) }
+        }
 
         // Returning the root of the inflated layout
         return binding.root
