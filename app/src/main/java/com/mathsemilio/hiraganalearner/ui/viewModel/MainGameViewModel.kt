@@ -148,7 +148,7 @@ class MainGameViewModel : ViewModel() {
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
             Log.d(
                 TAG_MAIN_GAME_VIEW_MODEL,
-                "Correct Answer! Setting the value of the _eventGameFinished as true"
+                "Correct Answer! Setting the value of the _eventCorrectAnswer as true"
             )
             // Setting the value of the _eventCorrectAnswer variable as true
             _eventCorrectAnswer.value = true
@@ -161,7 +161,7 @@ class MainGameViewModel : ViewModel() {
         else {
             Log.d(
                 TAG_MAIN_GAME_VIEW_MODEL,
-                "Wrong Answer! Setting the value of the _eventGameFinished as false"
+                "Wrong Answer! Setting the value of the _eventCorrectAnswer as false"
             )
             // Setting the value of the _eventCorrectAnswer variable as false
             _eventCorrectAnswer.value = false
@@ -289,13 +289,7 @@ class MainGameViewModel : ViewModel() {
         // except for the romanization that equals the current correctRomanization
         val filteredList =
             hiraganaRomanizationList.filterNot { it == _currentHiraganaLetterRomanization.value }
-                .shuffled().also {
-                    Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: ${it.size}")
-                }
 
-        // Variables to used as a index to access a item from the filteredList above.
-        // Each variable gets its value from the value returned from the generateRandomNumber
-        // function and for the last 3 variables the value passed is the variable above.
         val radioButton1RandomIndexValue = generateRandomNumber(null)
         val radioButton2RandomIndexValue = generateRandomNumber(radioButton1RandomIndexValue)
         val radioButton3RandomIndexValue = generateRandomNumber(radioButton2RandomIndexValue)
