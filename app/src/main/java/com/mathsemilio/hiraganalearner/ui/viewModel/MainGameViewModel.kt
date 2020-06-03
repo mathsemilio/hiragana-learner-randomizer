@@ -131,7 +131,7 @@ class MainGameViewModel : ViewModel() {
         Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
         // Calling generateRadioButtonRomanization function and passing the
         // _currentHiraganaLetterRomanization value as it's parameter
-        generateRadioButtonRomanization(_currentHiraganaLetterRomanization.value.toString())
+        generateRadioButtonRomanization()
     }
 
     //==========================================================================================
@@ -140,36 +140,31 @@ class MainGameViewModel : ViewModel() {
     /**
      * Function that is responsible for checking if the user input (answer) is correct or not.
      *
-     * @param correctRomanization - The current romanization stored in the
-     * _currentHiraganaLetterRomanization variable
      * @param selectedRomanization - The text of the radio button selected by the user
      */
-    fun checkUserInput(correctRomanization: String, selectedRomanization: String) {
+    fun checkUserInput(selectedRomanization: String) {
         // When statement to check if the selectedRomanization is equal to the
         // correctRomanization or not
-        when {
-            // Case selectedRomanization is equal to the correctRomanization
-            selectedRomanization == correctRomanization -> {
-                Log.d(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "Correct Answer! Setting the value of the _eventGameFinished as true"
-                )
-                // Setting the value of the _eventCorrectAnswer variable as true
-                _eventCorrectAnswer.value = true
+        if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
+            Log.d(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "Correct Answer! Setting the value of the _eventGameFinished as true"
+            )
+            // Setting the value of the _eventCorrectAnswer variable as true
+            _eventCorrectAnswer.value = true
 
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
-                // Calling updateGameScore to update the game score
-                updateGameScore()
-            }
-            // Case selectedRomanization is NOT equal to the correctRomanization
-            selectedRomanization != correctRomanization -> {
-                Log.d(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "Wrong Answer! Setting the value of the _eventGameFinished as false"
-                )
-                // Setting the value of the _eventCorrectAnswer variable as false
-                _eventCorrectAnswer.value = false
-            }
+            Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
+            // Calling updateGameScore to update the game score
+            updateGameScore()
+        }
+        // Case selectedRomanization is NOT equal to the correctRomanization
+        else {
+            Log.d(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "Wrong Answer! Setting the value of the _eventGameFinished as false"
+            )
+            // Setting the value of the _eventCorrectAnswer variable as false
+            _eventCorrectAnswer.value = false
         }
     }
 
@@ -211,9 +206,7 @@ class MainGameViewModel : ViewModel() {
 
         Log.i(TAG_MAIN_GAME_VIEW_MODEL, "generateRadioButtonRomanization() called")
         // Calling generateRadioButtonRomanization()
-        generateRadioButtonRomanization(
-            _currentHiraganaLetterRomanization.value.toString()
-        )
+        generateRadioButtonRomanization()
     }
 
     //==========================================================================================
@@ -236,46 +229,43 @@ class MainGameViewModel : ViewModel() {
 
         // When statement to check if the _currentHiraganaLetterRomanization is equal to the
         // selectedRomanization in the UI
-        when {
-            // Case _currentHiraganaLetterRomanization.value equals selectedRomanization
-            _currentHiraganaLetterRomanization.value == selectedRomanization -> {
-                Log.i(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "Correct Answer! Setting the value of the _eventCorrectAnswer as true"
-                )
-                // Setting the value of the _eventCorrectAnswer variable as true
-                _eventCorrectAnswer.value = true
+        if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
+            Log.i(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "Correct Answer! Setting the value of the _eventCorrectAnswer as true"
+            )
+            // Setting the value of the _eventCorrectAnswer variable as true
+            _eventCorrectAnswer.value = true
 
-                Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
-                // Calling updateGameScore function
-                updateGameScore()
+            Log.i(TAG_MAIN_GAME_VIEW_MODEL, "updateGameScore() called")
+            // Calling updateGameScore function
+            updateGameScore()
 
-                Log.i(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "End of the game. Setting the value of the _eventGameFinished as true"
-                )
-                // Setting the value of the _eventGameFinished variable as true to finish the
-                // game
-                _eventGameFinished.value = true
-            }
-            // Case _currentHiraganaLetterRomanization.value is NOT equal to the
-            // selectedRomanization
-            _currentHiraganaLetterRomanization.value != selectedRomanization -> {
-                Log.i(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "Wrong Answer! Setting the value of the _eventCorrectAnswer as false"
-                )
-                // Setting the value of the _eventCorrectAnswer variable as false
-                _eventCorrectAnswer.value = false
+            Log.i(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "End of the game. Setting the value of the _eventGameFinished as true"
+            )
+            // Setting the value of the _eventGameFinished variable as true to finish the
+            // game
+            _eventGameFinished.value = true
+        }
+        // Case _currentHiraganaLetterRomanization.value is NOT equal to the
+        // selectedRomanization
+        else {
+            Log.i(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "Wrong Answer! Setting the value of the _eventCorrectAnswer as false"
+            )
+            // Setting the value of the _eventCorrectAnswer variable as false
+            _eventCorrectAnswer.value = false
 
-                Log.i(
-                    TAG_MAIN_GAME_VIEW_MODEL,
-                    "End of the game. Setting the value of the _eventGameFinished as true"
-                )
-                // Setting the value of the _eventGameFinished variable as true to finish the
-                // game
-                _eventGameFinished.value = true
-            }
+            Log.i(
+                TAG_MAIN_GAME_VIEW_MODEL,
+                "End of the game. Setting the value of the _eventGameFinished as true"
+            )
+            // Setting the value of the _eventGameFinished variable as true to finish the
+            // game
+            _eventGameFinished.value = true
         }
     }
 
@@ -285,10 +275,8 @@ class MainGameViewModel : ViewModel() {
     /**
      * Private function that is responsible for generating random romanizations for the radio
      * buttons in the UI.
-     *
-     * @param correctRomanization - The value of the current romanization for a hiragana letter
      */
-    private fun generateRadioButtonRomanization(correctRomanization: String) {
+    private fun generateRadioButtonRomanization() {
         // Read-only list containing romanization to be used as distractions
         val hiraganaRomanizationList: List<String> = listOf(
             "A", "I", "U", "E", "O", "KA", "KI", "KU", "KE", "KO", "SA", "SHI", "SU", "SE", "SO",
@@ -300,9 +288,10 @@ class MainGameViewModel : ViewModel() {
         // Read-only filtered, shuffled list containing every romanization from the previous list
         // except for the romanization that equals the current correctRomanization
         val filteredList =
-            hiraganaRomanizationList.filterNot { it == correctRomanization }.shuffled().also {
-                Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: ${it.size}")
-            }
+            hiraganaRomanizationList.filterNot { it == _currentHiraganaLetterRomanization.value }
+                .shuffled().also {
+                    Log.d(TAG_MAIN_GAME_VIEW_MODEL, "Filtered list size: ${it.size}")
+                }
 
         // Variables to used as a index to access a item from the filteredList above.
         // Each variable gets its value from the value returned from the generateRandomNumber
@@ -325,7 +314,7 @@ class MainGameViewModel : ViewModel() {
         when ((0 until 4).random()) {
             // Case 0 - Radio Button 1 selected
             0 -> {
-                _radioButton1Romanization.value = correctRomanization
+                _radioButton1Romanization.value = _currentHiraganaLetterRomanization.value
                 Log.d(
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "Radio button 1 selected to contain the correct answer"
@@ -333,7 +322,7 @@ class MainGameViewModel : ViewModel() {
             }
             // Case 1 - Radio Button 2 selected
             1 -> {
-                _radioButton2Romanization.value = correctRomanization
+                _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value
                 Log.d(
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "Radio button 2 selected to contain the correct answer"
@@ -341,7 +330,7 @@ class MainGameViewModel : ViewModel() {
             }
             // Case 2 - Radio Button 3 selected
             2 -> {
-                _radioButton3Romanization.value = correctRomanization
+                _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value
                 Log.d(
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "Radio button 3 selected to contain the correct answer"
@@ -349,7 +338,7 @@ class MainGameViewModel : ViewModel() {
             }
             // Case 3 - Radio Button 4 selected
             3 -> {
-                _radioButton4Romanization.value = correctRomanization
+                _radioButton4Romanization.value = _currentHiraganaLetterRomanization.value
                 Log.d(
                     TAG_MAIN_GAME_VIEW_MODEL,
                     "Radio button 4 selected to contain the correct answer"
