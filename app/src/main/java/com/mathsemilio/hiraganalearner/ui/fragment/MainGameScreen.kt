@@ -39,8 +39,8 @@ class MainGameScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Using the inflate function from the Binding class to inflate the layout for this
-        // fragment
+        // Using the inflate function from the DataBindingUtil class to inflate the layout for
+        // this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
 
@@ -56,32 +56,6 @@ class MainGameScreen : Fragment() {
         // can observe LiveData updates
         binding.lifecycleOwner = this
 
-        // Calling getUserInput()
-        getUserInput()
-
-        // Calling observeCurrentHiraganaLetterDrawableId()
-        observeCurrentHiraganaLetterDrawableId()
-
-        // Calling observeEventCorrectAnswer()
-        observeEventCorrectAnswer()
-
-        // OnClickListener for the exit button, which calls the navigateToWelcomeScreen function
-        binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
-
-        // Returning the root of the inflated layout
-        return binding.root
-    }
-
-    //==========================================================================================
-    // getUserInput function
-    //==========================================================================================
-    /**
-     * Private function that is responsible for getting the user input from the UI and sending
-     * the data to the ViewModel.
-     */
-    private fun getUserInput() {
-        // OnCheckedChangeListener to determine if any of the Radio Buttons in the group is
-        // checked or not
         binding.radioGroupHiraganaLetters.setOnCheckedChangeListener { group, checkedId ->
             if (group.checkedRadioButtonId == -1) {
                 // No radio button selected in the group, disabling the VerifyAnswer button
@@ -112,24 +86,15 @@ class MainGameScreen : Fragment() {
                         // (the correct answer for the current letter on the screen),
                         // and the selectedRomanization is passed
                         Log.i(TAG_MAIN_GAME_FRAGMENT, "Calling checkUserInput()")
-                        viewModel.checkUserInput(
-                            viewModel.currentHiraganaLetterRomanization.value.toString(),
-                            selectedRomanization
-                        )
+                        viewModel.checkUserInput(selectedRomanization)
                     }
                 }
             }
         }
-    }
 
-    //==========================================================================================
-    // observeCurrentHiraganaLetterDrawableId function
-    //==========================================================================================
-    /**
-     * Private function that is responsible for observing the value of the
-     * currentHiraganaLetterDrawableId LiveData from the ViewModel.
-     */
-    private fun observeCurrentHiraganaLetterDrawableId() {
+        // OnClickListener for the exit button, which calls the navigateToWelcomeScreen function
+        binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
+
         viewModel.currentHiraganaLetterDrawableId.observe(
             viewLifecycleOwner,
             Observer { drawableSymbolId ->
@@ -138,16 +103,7 @@ class MainGameScreen : Fragment() {
                 // ImageView
                 binding.imageHiraganaLetterMainGameScreen.setImageResource(drawableSymbolId)
             })
-    }
 
-    //==========================================================================================
-    // observeEventCorrectAnswer function
-    //==========================================================================================
-    /**
-     * Private function that is responsible for observing the value of the eventCorrectAnswer
-     * LiveData from the ViewModel.
-     */
-    private fun observeEventCorrectAnswer() {
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { correctAnswer ->
             // When statement to check the the value of the eventCorrectAnswer variable
             when (correctAnswer) {
@@ -168,10 +124,11 @@ class MainGameScreen : Fragment() {
                                 navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
                             } else {
                                 viewModel.getNextLetter()
+
+                                // Clearing the checked button from the RadioGroup
+                                binding.radioGroupHiraganaLetters.clearCheck()
                             }
                         })
-                    // Clearing the checked button from the RadioGroup
-                    binding.radioGroupHiraganaLetters.clearCheck()
                 }
                 false -> {
                     // Calling buildAlertDialog to build a dialog alerting the user that his
@@ -192,13 +149,17 @@ class MainGameScreen : Fragment() {
                                 navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
                             } else {
                                 viewModel.getNextLetter()
+
+                                // Clearing the checked button from the RadioGroup
+                                binding.radioGroupHiraganaLetters.clearCheck()
                             }
                         })
-                    // Clearing the checked button from the RadioGroup
-                    binding.radioGroupHiraganaLetters.clearCheck()
                 }
             }
         })
+
+        // Returning the root of the inflated layout
+        return binding.root
     }
 
     //==========================================================================================
@@ -244,17 +205,17 @@ class MainGameScreen : Fragment() {
      * @param message - Receives a string pertaining the dialog message
      * @param positiveButtonText - Receives a integer that corresponds as the resource ID for the
      * dialog's positive button text
-     * @param dialogInterface - A DialogInterface.OnClickListener interface for listening when the
+     * @param listener - A DialogInterface.OnClickListener interface for listening when the
      * user presses the positive button.
      */
     private fun buildAlertDialog(
         title: Int, message: String, positiveButtonText: Int,
-        dialogInterface: DialogInterface.OnClickListener
+        listener: DialogInterface.OnClickListener
     ) {
         MaterialAlertDialogBuilder(activity).apply {
             setTitle(title)
             setMessage(message)
-            setPositiveButton(positiveButtonText, dialogInterface)
+            setPositiveButton(positiveButtonText, listener)
             setCancelable(false)
             show()
         }
