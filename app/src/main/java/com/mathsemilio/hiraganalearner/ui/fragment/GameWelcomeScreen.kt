@@ -33,7 +33,7 @@ class GameWelcomeScreen : Fragment() {
 
         binding.darkModeSwitch.isChecked = DarkModeSelector.isActivated
 
-        binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, _ ->
             if (buttonView.isChecked) {
                 Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode on")
                 DarkModeSelector.switchDarkModeState()
