@@ -1,209 +1,209 @@
 package com.mathsemilio.hiraganalearner.data
 
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.data.model.Hiragana
 
 // List of Hiragana Symbols and its associated Hepburn romanization
-val hiraganaSymbol: MutableList<HiraganaSymbol> = mutableListOf(
-    HiraganaSymbol(
+val hiraganaLetters: MutableList<Hiragana> = mutableListOf(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_a,
         romanization = "A"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_i,
         romanization = "I"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_u,
         romanization = "U"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_e,
         romanization = "E"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_o,
         romanization = "O"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ka,
         romanization = "KA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ki,
         romanization = "KI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ku,
         romanization = "KU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ke,
         romanization = "KE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ko,
         romanization = "KO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_sa,
         romanization = "SA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_shi,
         romanization = "SHI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_su,
         romanization = "SU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_se,
         romanization = "SE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_so,
         romanization = "SO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ta,
         romanization = "TA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_chi,
         romanization = "CHI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_tsu,
         romanization = "TSU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_te,
         romanization = "TE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_to,
         romanization = "TO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_na,
         romanization = "NA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ni,
         romanization = "NI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_nu,
         romanization = "NU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ne,
         romanization = "NE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_no,
         romanization = "NO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ha,
         romanization = "HA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_hi,
         romanization = "HI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_fu,
         romanization = "FU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_he,
         romanization = "HE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ho,
         romanization = "HO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ma,
         romanization = "MA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_mi,
         romanization = "MI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_mu,
         romanization = "MU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_me,
         romanization = "ME"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_mo,
         romanization = "MO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ya,
         romanization = "YA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_yu,
         romanization = "YU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_yo,
         romanization = "YO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ra,
         romanization = "RA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ri,
         romanization = "RI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ru,
         romanization = "RU"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_re,
         romanization = "RE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_ro,
         romanization = "RO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_wa,
         romanization = "WA"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_wi,
         romanization = "WI"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_we,
         romanization = "WE"
     ),
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_wo,
         romanization = "WO"
     ),
 
-    HiraganaSymbol(
+    Hiragana(
         drawableSymbolId = R.drawable.ic_hir_n,
         romanization = "N"
     )

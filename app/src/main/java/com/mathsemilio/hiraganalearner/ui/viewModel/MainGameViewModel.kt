@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mathsemilio.hiraganalearner.data.hiraganaSymbol
-import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.data.hiraganaLetters
+import com.mathsemilio.hiraganalearner.data.model.Hiragana
 import com.mathsemilio.hiraganalearner.util.TAG_MAIN_GAME_VIEW_MODEL
 
 /**
@@ -75,7 +75,7 @@ class MainGameViewModel : ViewModel() {
     // Other variables
     //==========================================================================================
     // Variable that stores a copy of the hiraganaSymbol list from the data package
-    val hiraganaLettersList: MutableList<HiraganaSymbol> = hiraganaSymbol.toMutableList()
+    val hiraganaLettersList: MutableList<Hiragana> = hiraganaLetters.toMutableList()
 
     // Variables for storing the last hiragana letter information shuffled from the list
     private var lastHiraganaLetterDrawableId: Int = 0
