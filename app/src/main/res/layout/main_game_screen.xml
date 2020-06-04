@@ -71,6 +71,7 @@
                 android:id="@+id/image_hiragana_letter_main_game_screen"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_8dp"
                 android:contentDescription="@string/hiragana_letter_content_description"
                 app:layout_constraintBottom_toTopOf="@id/guideline_2"
