@@ -355,7 +355,7 @@ class MainGameViewModel : ViewModel() {
      * parameter
      */
     private fun generateRandomNumber(previousNumber: Int?): Int {
-        return (0 until 47).filterNot {
+        return (0 until 47).filter {
             it == previousNumber
         }.random()
     }

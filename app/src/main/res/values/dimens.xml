@@ -9,5 +9,6 @@
 
     <!-- Padding dimens -->
     <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
 
 </resources>

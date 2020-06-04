@@ -9,18 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
-import com.mathsemilio.hiraganalearner.util.TAG_GAME_WELCOME_SCREEN
+import com.mathsemilio.hiraganalearner.util.DarkModeSelector
 
 /**
  * Fragment class for game welcome screen
  */
-class GameWelcomeScreen : Fragment() {
 
-    //==========================================================================================
-    // Class-wide variables
-    //==========================================================================================
-    // LateInit variable for the binding class pertaining the layout for this Fragment
-    private lateinit var binding: GameWelcomeScreenBinding
+private const val TAG_GAME_WELCOME_SCREEN = "GameWelcomeScreen"
+
+class GameWelcomeScreen : Fragment() {
 
     //==========================================================================================
     // onCreateView
@@ -31,14 +28,24 @@ class GameWelcomeScreen : Fragment() {
     ): View? {
         // Using the inflate function from the Binding class to inflate the layout for this
         // fragment
-        binding = GameWelcomeScreenBinding.inflate(inflater, container, false)
+        val binding: GameWelcomeScreenBinding =
+            GameWelcomeScreenBinding.inflate(inflater, container, false)
+
+        binding.darkModeSwitch.isChecked = DarkModeSelector.isActivated
+
+        binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (buttonView.isChecked) {
+                Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode on")
+                DarkModeSelector.switchDarkModeState()
+            } else {
+                Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode off")
+                DarkModeSelector.switchDarkModeState()
+            }
+        }
 
         // OnClickListener for the Play Button, which calls the navigateToMainGameScreen
         // function
-        binding.buttonPlay.setOnClickListener {
-            Log.i(TAG_GAME_WELCOME_SCREEN, "navigateToMainGameScreen() called")
-            navigateToMainGameScreen()
-        }
+        binding.buttonStart.setOnClickListener { navigateToMainGameScreen() }
 
         // Returning the root of the inflated layout
         return binding.root
