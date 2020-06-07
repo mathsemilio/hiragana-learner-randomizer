@@ -11,12 +11,11 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
 import com.mathsemilio.hiraganalearner.util.DarkModeSelector
 
-/**
- * Fragment class for game welcome screen
- */
-
 private const val TAG_GAME_WELCOME_SCREEN = "GameWelcomeScreen"
 
+/**
+ * Fragment class for game's welcome screen
+ */
 class GameWelcomeScreen : Fragment() {
 
     //==========================================================================================
@@ -26,13 +25,20 @@ class GameWelcomeScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Using the inflate function from the Binding class to inflate the layout for this
-        // fragment
+        // Inflating the layout with the inflate function from the fragment's binding class
         val binding: GameWelcomeScreenBinding =
             GameWelcomeScreenBinding.inflate(inflater, container, false)
 
-        binding.darkModeSwitch.isChecked = DarkModeSelector.isActivated
+        // Listener for the buttonStart button
+        binding.buttonStart.setOnClickListener { navigateToMainGameScreen() }
 
+        /*
+        Setting the state of the darkModeSwitch switch according to value returned by the
+        checkDarkModeSystemStatus function
+        */
+        binding.darkModeSwitch.isChecked = DarkModeSelector.checkDarkModeSystemStatus()
+
+        // Setting the state of the darkModeSwitch switch according to the isActivated value
         binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, _ ->
             if (buttonView.isChecked) {
                 Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode on")
@@ -43,10 +49,6 @@ class GameWelcomeScreen : Fragment() {
             }
         }
 
-        // OnClickListener for the Play Button, which calls the navigateToMainGameScreen
-        // function
-        binding.buttonStart.setOnClickListener { navigateToMainGameScreen() }
-
         // Returning the root of the inflated layout
         return binding.root
     }
@@ -55,9 +57,7 @@ class GameWelcomeScreen : Fragment() {
     // navigateToMainGameScreen function
     //==========================================================================================
     /**
-     * Private function that finds the NavController from the activity and calls the navigate
-     * function, that receives a action id, to navigate from the welcome screen to main game
-     * screen.
+     * Function for navigating from the current screen to the main game screen.
      */
     private fun navigateToMainGameScreen() {
         activity?.findNavController(R.id.nav_host_fragment)

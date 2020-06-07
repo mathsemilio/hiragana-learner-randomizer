@@ -2,13 +2,10 @@
 <resources>
     <!-- Margin dimens -->
     <dimen name="margin_48dp">48dp</dimen>
-    <dimen name="margin_32dp">32dp</dimen>
-    <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
 
     <!-- Padding dimens -->
-    <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
 
 </resources>

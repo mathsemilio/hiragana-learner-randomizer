@@ -4,7 +4,7 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.data.model.Hiragana
 
 // List of Hiragana Symbols and its associated Hepburn romanization
-val hiraganaLetters: MutableList<Hiragana> = mutableListOf(
+val hiraganaLetters: List<Hiragana> = listOf(
     Hiragana(
         drawableSymbolId = R.drawable.ic_hir_a,
         romanization = "A"

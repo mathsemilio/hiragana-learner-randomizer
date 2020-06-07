@@ -2,7 +2,6 @@ package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
-import com.mathsemilio.hiraganalearner.util.TAG_MAIN_GAME_FRAGMENT
 
 /**
  * Fragment class for the main game screen
@@ -26,10 +24,7 @@ class MainGameScreen : Fragment() {
     //==========================================================================================
     // Class-wide variables
     //==========================================================================================
-    // LateInit variable for the binding class pertaining the layout for this Fragment
     private lateinit var binding: MainGameScreenBinding
-
-    // LateInit variable for the ViewModel pertaining this Fragment
     private lateinit var viewModel: MainGameViewModel
 
     //==========================================================================================
@@ -56,105 +51,89 @@ class MainGameScreen : Fragment() {
         // can observe LiveData updates
         binding.lifecycleOwner = this
 
+        /*
+        Listener for the radioGroupHiraganaLetters radio group to enable or disable the
+        buttonVerifyAnswer button
+        */
         binding.radioGroupHiraganaLetters.setOnCheckedChangeListener { group, checkedId ->
-            if (group.checkedRadioButtonId == -1) {
-                // No radio button selected in the group, disabling the VerifyAnswer button
+            if (checkedId == -1) {
                 binding.buttonVerifyAnswer.isEnabled = false
             } else {
-                // There is a radio button checked in the group, enabling the VerifyAnswer
-                // button
                 binding.buttonVerifyAnswer.isEnabled = true
 
-                // Getting the checked radio button
-                val radioButton: RadioButton = group.findViewById(checkedId)
-
                 // Getting the text from the checked radio button
-                val selectedRomanization: String = radioButton.text.toString().also {
-                    Log.i(TAG_MAIN_GAME_FRAGMENT, "Text of the selected radio button: $it")
-                }
+                val radioButton: RadioButton = group.findViewById(checkedId)
+                val selectedRomanization: String = radioButton.text.toString()
 
+                // Listener for the buttonVerifyAnswer button
                 binding.buttonVerifyAnswer.setOnClickListener {
-                    // Checking if hiraganaLettersList size from the ViewModel equals 1
-                    // (the last letter in the list), in this case the getLastLetter is called and
-                    // the selected radio button text is passed to the function
+                    /*
+                    Checking the hiraganaLettersList size, if equals 1, the getLastLetter
+                    function is called, else checkUserInput is called.
+                    */
                     if (viewModel.hiraganaLettersList.size == 1) {
-                        Log.i(TAG_MAIN_GAME_FRAGMENT, "Last letter from the hiraganaLettersList")
                         viewModel.getLastLetter(selectedRomanization)
                     } else {
-                        // Else the checkUserInput is called and the value of the
-                        // currentHiraganaLetterRomanization from the ViewModel
-                        // (the correct answer for the current letter on the screen),
-                        // and the selectedRomanization is passed
-                        Log.i(TAG_MAIN_GAME_FRAGMENT, "Calling checkUserInput()")
                         viewModel.checkUserInput(selectedRomanization)
                     }
                 }
             }
         }
 
-        // OnClickListener for the exit button, which calls the navigateToWelcomeScreen function
+        // Listener for the buttonExit button
         binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
 
+        /*
+        Observing the hiraganaLetterDrawableId in order to set the image resource for the current
+        letter on the screen
+        */
         viewModel.currentHiraganaLetterDrawableId.observe(
             viewLifecycleOwner,
             Observer { drawableSymbolId ->
-                // Calling the setImageResource function and passing the drawableSymbolId as the
-                // resource ID of the vector to be drawn on the imageHiraganaLetterMainScreen
-                // ImageView
                 binding.imageHiraganaLetterMainGameScreen.setImageResource(drawableSymbolId)
             })
 
-        viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { correctAnswer ->
-            // When statement to check the the value of the eventCorrectAnswer variable
-            when (correctAnswer) {
-                // Case true - Correct Answer
-                true -> {
-                    // Calling buildAlertDialog to build a dialog alerting the user that his
-                    // answer is correct
-                    Log.i(
-                        TAG_MAIN_GAME_FRAGMENT,
-                        "Building the alert dialog alerting the user that his answer is correct"
-                    )
-                    buildAlertDialog(
-                        R.string.alertDialogCorrectAnswer_title,
-                        getString(R.string.alertDialogCorrectAnswer_msg),
-                        R.string.alertDialogCorrectAnswer_positive_button_text,
-                        DialogInterface.OnClickListener { _, _ ->
-                            if (viewModel.eventGameFinished.value == true) {
-                                navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
-                            } else {
-                                viewModel.getNextLetter()
-
-                                // Clearing the checked button from the RadioGroup
-                                binding.radioGroupHiraganaLetters.clearCheck()
-                            }
-                        })
-                }
-                false -> {
-                    // Calling buildAlertDialog to build a dialog alerting the user that his
-                    // answer is incorrect
-                    Log.i(
-                        TAG_MAIN_GAME_FRAGMENT,
-                        "Building the alert dialog alerting the user that his answer is incorrect"
-                    )
-                    buildAlertDialog(
-                        R.string.alertDialogWrongAnswer_title,
-                        getString(
-                            R.string.alertDialogWrongAnswer_msg,
-                            viewModel.currentHiraganaLetterRomanization.value
-                        ),
-                        R.string.alertDialogWrongAnswer_positive_button_text,
-                        DialogInterface.OnClickListener { _, _ ->
-                            if (viewModel.eventGameFinished.value == true) {
-                                navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
-                            } else {
-                                viewModel.getNextLetter()
-
-                                // Clearing the checked button from the RadioGroup
-                                binding.radioGroupHiraganaLetters.clearCheck()
-                            }
-                        })
-                }
+        /*
+        Observing the eventCorrectAnswer to show an alert dialog based on if the user's answer
+        is correct or not.
+        */
+        viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { answerIsCorrect ->
+            // Building an AlertDialog to alert the user that his answer is correct
+            if (answerIsCorrect == true) {
+                buildAlertDialog(
+                    R.string.alertDialogCorrectAnswer_title,
+                    getString(R.string.alertDialogCorrectAnswer_msg),
+                    R.string.alertDialogCorrectAnswer_positive_button_text,
+                    DialogInterface.OnClickListener { _, _ ->
+                        /*
+                        Checking the eventGameFinished value, if it's true, the
+                        navigateToScoreScreen is called, else, the getNextLetter function is
+                        called and the radioGroupHiraganaLetters radio group is cleared.
+                        */
+                        if (viewModel.eventGameFinished.value == true) {
+                            navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                        } else {
+                            viewModel.getNextLetter()
+                            binding.radioGroupHiraganaLetters.clearCheck()
+                        }
+                    })
+            } else {
+                // Building an AlertDialog to alert the user that his answer is incorrect
+                buildAlertDialog(
+                    R.string.alertDialogWrongAnswer_title,
+                    getString(
+                        R.string.alertDialogWrongAnswer_msg,
+                        viewModel.currentHiraganaLetterRomanization.value
+                    ),
+                    R.string.alertDialogWrongAnswer_positive_button_text,
+                    DialogInterface.OnClickListener { _, _ ->
+                        if (viewModel.eventGameFinished.value == true) {
+                            navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                        } else {
+                            viewModel.getNextLetter()
+                            binding.radioGroupHiraganaLetters.clearCheck()
+                        }
+                    })
             }
         })
 
@@ -166,9 +145,7 @@ class MainGameScreen : Fragment() {
     // navigateToWelcomeScreen function
     //==========================================================================================
     /**
-     * Private function that finds the NavController from the activity and calls the navigate
-     * function, that receives a action id, to navigate from the main game screen to welcome
-     * screen.
+     * Function to navigate from the current screen to the welcome screen.
      */
     private fun navigateToWelcomeScreen() {
         activity?.findNavController(R.id.nav_host_fragment)
@@ -176,21 +153,16 @@ class MainGameScreen : Fragment() {
     }
 
     //==========================================================================================
-    // navigateToWelcomeScreen function
+    // navigateToScoreScreen function
     //==========================================================================================
     /**
-     * Private function that is responsible for getting the final game score and pass it as a
-     *argument for the score screen destination.
+     * Function to navigate from the current screen to the score screen, while passing the game's
+     * score to the destination.
      *
-     * @param gameScore - Integer that represents the final game score to be passed to score
-     * screen
+     * @param gameScore - Integer for the game score to be passed to the score fragment
      */
     private fun navigateToScoreScreen(gameScore: Int) {
-        // Variable that calls the actionMainGameScreenToGameScoreScreen function from
-        // the MainGameScreenDirections generated class, and passing the game score LiveData
-        // value from the viewModel (with SafeArgs)
         val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(gameScore)
-        // Passing the action for navigating to the score screen
         activity?.findNavController(R.id.nav_host_fragment)?.navigate(action)
     }
 
@@ -198,15 +170,13 @@ class MainGameScreen : Fragment() {
     // buildAlertDialog function
     //==========================================================================================
     /**
-     * Private function that builds a AlertDialog for alerting the user about certain game
-     * events.
+     * Function to build an alert dialog to alert the user about certain game events.
      *
-     * @param title - Receives a integer that corresponds as the resource ID for the dialog title
-     * @param message - Receives a string pertaining the dialog message
-     * @param positiveButtonText - Receives a integer that corresponds as the resource ID for the
-     * dialog's positive button text
-     * @param listener - A DialogInterface.OnClickListener interface for listening when the
-     * user presses the positive button.
+     * @param title - Integer for title's resource id
+     * @param message - String for the dialog's message
+     * @param positiveButtonText - Integer for the dialog's positive button resource id
+     * @param listener - DialogInterface.OnClickListener for listening when the positive button
+     * is clicked
      */
     private fun buildAlertDialog(
         title: Int, message: String, positiveButtonText: Int,

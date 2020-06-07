@@ -9,6 +9,7 @@
     <!-- Game Welcome Screen -->
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
+    <string name="dark_mode_switch_text">Tema Escuro</string>
     <string name="start">Começar</string>
 
     <!-- Main game screen strings -->
@@ -35,6 +36,5 @@
 
     <!-- Intent Create Chooser title -->
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
-    <string name="dark_mode_switch_text">Modo Escuro</string>
 
 </resources>
