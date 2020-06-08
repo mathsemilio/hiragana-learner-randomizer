@@ -3,12 +3,12 @@ package com.mathsemilio.hiraganalearner.util
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 
-private const val TAG_DARK_MODE_SELECTOR = "DarkModeSelector"
+private const val TAG_DARK_MODE_UTIL = "DarkModeUtil"
 
 /**
  * Singleton responsible for activating/deactivating the app's dark theme
  */
-object DarkModeSelector {
+object DarkModeUtil {
 
     // Variable to represent the dark theme state
     private var isActivated = false
@@ -17,8 +17,8 @@ object DarkModeSelector {
     // checkDarkModeSystemStatus function
     //==========================================================================================
     /**
-     * Function to check if any unspecified dark theme is activated, if it is, the
-     * isActivated value will be set to true, then returned.
+     * Function to check if any unspecified (or system specific) dark theme is activated,
+     * if it is, the isActivated value will be set to true, then returned.
      */
     fun checkDarkModeSystemStatus(): Boolean {
         if (AppCompatDelegate.getDefaultNightMode() ==
@@ -30,7 +30,7 @@ object DarkModeSelector {
             isActivated = true
         }
         return isActivated.also {
-            Log.d(TAG_DARK_MODE_SELECTOR, "checkDarkModeSystemStatus: isActivated value: $it")
+            Log.d(TAG_DARK_MODE_UTIL, "checkDarkModeSystemStatus: isActivated value: $it")
         }
     }
 

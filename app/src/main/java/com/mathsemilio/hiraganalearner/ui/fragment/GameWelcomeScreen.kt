@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
-import com.mathsemilio.hiraganalearner.util.DarkModeSelector
+import com.mathsemilio.hiraganalearner.util.DarkModeUtil
 
 private const val TAG_GAME_WELCOME_SCREEN = "GameWelcomeScreen"
 
@@ -36,16 +36,16 @@ class GameWelcomeScreen : Fragment() {
         Setting the state of the darkModeSwitch switch according to value returned by the
         checkDarkModeSystemStatus function
         */
-        binding.darkModeSwitch.isChecked = DarkModeSelector.checkDarkModeSystemStatus()
+        binding.darkModeSwitch.isChecked = DarkModeUtil.checkDarkModeSystemStatus()
 
         // Setting the state of the darkModeSwitch switch according to the isActivated value
         binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, _ ->
             if (buttonView.isChecked) {
                 Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode on")
-                DarkModeSelector.switchDarkModeState()
+                DarkModeUtil.switchDarkModeState()
             } else {
                 Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode off")
-                DarkModeSelector.switchDarkModeState()
+                DarkModeUtil.switchDarkModeState()
             }
         }
 

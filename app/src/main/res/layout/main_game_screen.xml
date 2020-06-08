@@ -73,6 +73,7 @@
                 android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_8dp"
                 android:contentDescription="@string/hiragana_letter_content_description"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@id/guideline_2"
                 app:layout_constraintEnd_toEndOf="@id/text_body_letter_this_time_is"
                 app:layout_constraintStart_toStartOf="@id/text_body_letter_this_time_is"
