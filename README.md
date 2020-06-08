@@ -18,7 +18,7 @@ and finish the game.</p>
 
 ### Application Screenshots
 To checkout screenshots, please visit this gallery:
-<p><a href="https://postimg.cc/gallery/Tbb9ss8">Hiragana Learner Randomizer Gallery</a></p>
+<p><a href="https://postimg.cc/gallery/Kv2mdR5">Hiragana Learner Randomizer Gallery</a></p>
 
 ### Looks Good! How can i get it?
 Currently, there is no APK for this application (mainly because still needs work, and i don't want to release it yet). 
