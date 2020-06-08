@@ -2,10 +2,6 @@
     <!-- App name -->
     <string name="app_name">Hiragana Learner</string>
 
-    <!-- Image content descriptions -->
-    <string name="hiragana_letter_content_description">Hiragana letter</string>
-    <string name="dark_mode_icon">Dark mode switch icon</string>
-
     <!-- Game Welcome Screen -->
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
@@ -14,6 +10,7 @@
 
     <!-- Main game screen strings -->
     <string name="the_letter_this_time_is">A letra da vez é…</string>
+    <string name="hiragana_letter_content_description">Letra do Hiragana</string>
     <string name="this_letter_corresponds_to_which_romaji">Esta letra corresponde a que Rõmaji Hepburn?</string>
     <string name="verify_answer">Verificar Resposta</string>
     <string name="exit">Sair</string>

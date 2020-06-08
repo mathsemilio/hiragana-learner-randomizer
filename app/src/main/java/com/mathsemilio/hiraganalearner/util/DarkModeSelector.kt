@@ -23,6 +23,9 @@ object DarkModeSelector {
     fun checkDarkModeSystemStatus(): Boolean {
         if (AppCompatDelegate.getDefaultNightMode() ==
             AppCompatDelegate.MODE_NIGHT_UNSPECIFIED
+            ||
+            AppCompatDelegate.getDefaultNightMode()
+            == AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
         ) {
             isActivated = true
         }
