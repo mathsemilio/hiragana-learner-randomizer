@@ -267,21 +267,21 @@ class MainGameViewModel : ViewModel() {
             1 -> _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value.also {
                 Log.d(
                     TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 1 selected to contain the " +
+                    "generateRadioButtonRomanization: Radio Button 2 selected to contain the " +
                             "correct answer"
                 )
             }
             2 -> _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value.also {
                 Log.d(
                     TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 1 selected to contain the " +
+                    "generateRadioButtonRomanization: Radio Button 3 selected to contain the " +
                             "correct answer"
                 )
             }
             3 -> _radioButton4Romanization.value = _currentHiraganaLetterRomanization.value.also {
                 Log.d(
                     TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 1 selected to contain the " +
+                    "generateRadioButtonRomanization: Radio Button 4 selected to contain the " +
                             "correct answer"
                 )
             }

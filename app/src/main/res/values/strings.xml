@@ -18,6 +18,7 @@
 
     <!-- Score screen strings -->
     <string name="you_scored">You Scored</string>
+    <string name="perfect_score">You got a perfect score! Congratulations!</string>
     <string name="finish_game">Finish Game</string>
     <string name="share">Share</string>
 

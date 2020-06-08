@@ -12,6 +12,7 @@
     <string name="exit">Sair</string>
     <string name="game_score">Pontuação: %d</string>
     <string name="you_scored">Você Pontuou</string>
+    <string name="perfect_score">Você conseguiu uma pontuação perfeita! Parabéns!</string>
     <string name="finish_game">Terminar Jogo</string>
     <string name="share">Compartilhar</string>
     <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
