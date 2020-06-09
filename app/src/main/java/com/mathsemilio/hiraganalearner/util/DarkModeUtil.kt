@@ -14,27 +14,6 @@ object DarkModeUtil {
     private var isActivated = false
 
     //==========================================================================================
-    // checkDarkModeSystemStatus function
-    //==========================================================================================
-    /**
-     * Function to check if any unspecified (or system specific) dark theme is activated,
-     * if it is, the isActivated value will be set to true, then returned.
-     */
-    fun checkDarkModeSystemStatus(): Boolean {
-        if (AppCompatDelegate.getDefaultNightMode() ==
-            AppCompatDelegate.MODE_NIGHT_UNSPECIFIED
-            ||
-            AppCompatDelegate.getDefaultNightMode()
-            == AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
-        ) {
-            isActivated = true
-        }
-        return isActivated.also {
-            Log.d(TAG_DARK_MODE_UTIL, "checkDarkModeSystemStatus: isActivated value: $it")
-        }
-    }
-
-    //==========================================================================================
     // switchDarkModeState function
     //==========================================================================================
     /**
@@ -43,9 +22,11 @@ object DarkModeUtil {
      */
     fun switchDarkModeState() {
         isActivated = if (isActivated) {
+            Log.i(TAG_DARK_MODE_UTIL, "switchDarkModeState: Dark theme off")
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             false
         } else {
+            Log.i(TAG_DARK_MODE_UTIL, "switchDarkModeState: Dark theme on")
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             true
         }

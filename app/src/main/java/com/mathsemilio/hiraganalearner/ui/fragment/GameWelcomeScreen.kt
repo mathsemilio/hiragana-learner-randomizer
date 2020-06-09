@@ -1,7 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,6 @@ import androidx.navigation.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
 import com.mathsemilio.hiraganalearner.util.DarkModeUtil
-
-private const val TAG_GAME_WELCOME_SCREEN = "GameWelcomeScreen"
 
 /**
  * Fragment class for game's welcome screen
@@ -32,22 +29,8 @@ class GameWelcomeScreen : Fragment() {
         // Listener for the buttonStart button
         binding.buttonStart.setOnClickListener { navigateToMainGameScreen() }
 
-        /*
-        Setting the state of the darkModeSwitch switch according to value returned by the
-        checkDarkModeSystemStatus function
-        */
-        binding.darkModeSwitch.isChecked = DarkModeUtil.checkDarkModeSystemStatus()
-
-        // Setting the state of the darkModeSwitch switch according to the isActivated value
-        binding.darkModeSwitch.setOnCheckedChangeListener { buttonView, _ ->
-            if (buttonView.isChecked) {
-                Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode on")
-                DarkModeUtil.switchDarkModeState()
-            } else {
-                Log.i(TAG_GAME_WELCOME_SCREEN, "onCreateView: Dark mode off")
-                DarkModeUtil.switchDarkModeState()
-            }
-        }
+        // Listener for the darkModeSwitchIcon ImageView
+        binding.darkModeSwitchIcon.setOnClickListener { DarkModeUtil.switchDarkModeState() }
 
         // Returning the root of the inflated layout
         return binding.root

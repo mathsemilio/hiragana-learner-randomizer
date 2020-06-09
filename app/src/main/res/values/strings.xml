@@ -3,9 +3,9 @@
     <string name="app_name">Hiragana Learner</string>
 
     <!-- Game Welcome Screen -->
+    <string name="dark_theme_switch_icon">Light/Dark Theme Switch Icon</string>
     <string name="get_ready_to_associate">Get ready to associate…</string>
     <string name="hiragana_letters_and_romanizations">The Hiragana letters and their romanizations</string>
-    <string name="dark_mode_switch_text">Dark theme</string>
     <string name="start">Start</string>
 
     <!-- Main game screen strings -->

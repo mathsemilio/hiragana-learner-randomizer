@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hiragana Learner</string>
+    <string name="dark_theme_switch_icon">Ícone interruptor do tema claro/escuro</string>
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
-    <string name="dark_mode_switch_text">Tema escuro</string>
     <string name="start">Começar</string>
     <string name="the_letter_this_time_is">A letra da vez é…</string>
     <string name="hiragana_letter_content_description">Letra do Hiragana</string>
