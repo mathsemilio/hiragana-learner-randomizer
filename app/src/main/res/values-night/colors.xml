@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#D32F2F</color>
 
     <!-- Background color -->
-    <color name="background">@android:color/white</color>
+    <color name="background">@android:color/black</color>
 
 </resources>

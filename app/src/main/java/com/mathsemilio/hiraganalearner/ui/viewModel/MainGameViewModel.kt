@@ -208,49 +208,57 @@ class MainGameViewModel : ViewModel() {
             "TA", "CHI", "TSU", "TE", "TO", "NA", "NI", "NU", "NE", "NO", "HA", "HI", "FU", "HE",
             "HO", "MA", "MI", "MU", "ME", "MO", "YA", "YU", "YO", "RA", "RI", "RU", "RE", "RO",
             "WA", "WI", "WE", "WO", "N"
-        )
-
-        val filteredRomanizationList =
-            hiraganaRomanizationList.filterNot { it == _currentHiraganaLetterRomanization.value }
+        ).apply {
+            filterNot { it == _currentHiraganaLetterRomanization.value }
+        }
 
         /*
         Variables for storing the random number generated from the generateRandomNumber function.
-        For the last three variables, the parameter passed to function is the value from the
-        variable above.
         */
-        val radioButton1RandomIndexValue = generateRandomNumber(null).also {
+        val radioButton1RomanizationIndex = generateRandomNumber(null, null, null).also {
             Log.d(
                 TAG_MAIN_GAME_SCREEN_VM,
                 "generateRadioButtonRomanization: radioButton1RomanizationIndex value: $it"
             )
         }
-        val radioButton2RandomIndexValue = generateRandomNumber(radioButton1RandomIndexValue).also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: radioButton1RomanizationIndex value: $it"
-            )
-        }
-        val radioButton3RandomIndexValue = generateRandomNumber(radioButton2RandomIndexValue).also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: radioButton1RomanizationIndex value: $it"
-            )
-        }
-        val radioButton4RandomIndexValue = generateRandomNumber(radioButton3RandomIndexValue).also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: radioButton1RomanizationIndex value: $it"
-            )
-        }
+        val radioButton2RomanizationIndex =
+            generateRandomNumber(radioButton1RomanizationIndex, null, null).also {
+                Log.d(
+                    TAG_MAIN_GAME_SCREEN_VM,
+                    "generateRadioButtonRomanization: radioButton2RomanizationIndex value: $it"
+                )
+            }
+        val radioButton3RomanizationIndex =
+            generateRandomNumber(
+                radioButton1RomanizationIndex,
+                radioButton2RomanizationIndex,
+                null
+            ).also {
+                Log.d(
+                    TAG_MAIN_GAME_SCREEN_VM,
+                    "generateRadioButtonRomanization: radioButton3RomanizationIndex value: $it"
+                )
+            }
+        val radioButton4RomanizationIndex =
+            generateRandomNumber(
+                radioButton1RomanizationIndex,
+                radioButton2RomanizationIndex,
+                radioButton3RomanizationIndex
+            ).also {
+                Log.d(
+                    TAG_MAIN_GAME_SCREEN_VM,
+                    "generateRadioButtonRomanization: radioButton4RomanizationIndex value: $it"
+                )
+            }
 
         /*
         Getting a romanization from the list for each of the radio buttons by utilizing the
-        index values generated from the variables above.
+        Integer values from the variables above.
         */
-        _radioButton1Romanization.value = filteredRomanizationList[radioButton1RandomIndexValue]
-        _radioButton2Romanization.value = filteredRomanizationList[radioButton2RandomIndexValue]
-        _radioButton3Romanization.value = filteredRomanizationList[radioButton3RandomIndexValue]
-        _radioButton4Romanization.value = filteredRomanizationList[radioButton4RandomIndexValue]
+        _radioButton1Romanization.value = hiraganaRomanizationList[radioButton1RomanizationIndex]
+        _radioButton2Romanization.value = hiraganaRomanizationList[radioButton2RomanizationIndex]
+        _radioButton3Romanization.value = hiraganaRomanizationList[radioButton3RomanizationIndex]
+        _radioButton4Romanization.value = hiraganaRomanizationList[radioButton4RomanizationIndex]
 
         /*
         Generating a random number between 0 and 4, and based on that number, a radio button
@@ -292,12 +300,18 @@ class MainGameViewModel : ViewModel() {
     // generateRandomNumber function
     //==========================================================================================
     /**
-     * Function that returns random numbers between 0 and 47 and excludes a number that
-     * matches the function parameter.
+     * Function that returns a random number between 0 and 47. The number returned is used as
+     * an index to access elements in the hiraganaRomanizationList. The three parameters are
+     * used to ensure that the number generated does not repeat.
      */
-    private fun generateRandomNumber(previousNumber: Int?): Int {
+    private fun generateRandomNumber(
+        previousRomanizationIndex: Int?,
+        previousRomanizationIndex2: Int?,
+        previousRomanizationIndex3: Int?
+    ): Int {
         return (0 until 47).filterNot {
-            it == previousNumber
+            it == previousRomanizationIndex && it != previousRomanizationIndex2
+                    && it != previousRomanizationIndex3
         }.random()
     }
 }
