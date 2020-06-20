@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
@@ -84,16 +84,6 @@ class MainGameScreen : Fragment() {
         binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
 
         /*
-        Observing the hiraganaLetterDrawableId in order to set the image resource for the current
-        letter on the screen
-        */
-        viewModel.currentHiraganaLetterDrawableId.observe(
-            viewLifecycleOwner,
-            Observer { drawableSymbolId ->
-                binding.imageHiraganaLetterMainGameScreen.setImageResource(drawableSymbolId)
-            })
-
-        /*
         Observing the eventCorrectAnswer to show an alert dialog based on if the user's answer
         is correct or not.
         */
@@ -113,8 +103,8 @@ class MainGameScreen : Fragment() {
                         if (viewModel.eventGameFinished.value == true) {
                             navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
                         } else {
-                            viewModel.getNextLetter()
                             binding.radioGroupHiraganaLetters.clearCheck()
+                            viewModel.getNextLetter()
                         }
                     })
             } else {
@@ -130,8 +120,8 @@ class MainGameScreen : Fragment() {
                         if (viewModel.eventGameFinished.value == true) {
                             navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
                         } else {
-                            viewModel.getNextLetter()
                             binding.radioGroupHiraganaLetters.clearCheck()
+                            viewModel.getNextLetter()
                         }
                     })
             }
@@ -148,8 +138,7 @@ class MainGameScreen : Fragment() {
      * Function to navigate from the current screen to the welcome screen.
      */
     private fun navigateToWelcomeScreen() {
-        activity?.findNavController(R.id.nav_host_fragment)
-            ?.navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
+        this.findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
     }
 
     //==========================================================================================
@@ -163,7 +152,7 @@ class MainGameScreen : Fragment() {
      */
     private fun navigateToScoreScreen(gameScore: Int) {
         val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(gameScore)
-        activity?.findNavController(R.id.nav_host_fragment)?.navigate(action)
+        this.findNavController().navigate(action)
     }
 
     //==========================================================================================

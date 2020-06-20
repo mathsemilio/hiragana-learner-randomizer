@@ -10,8 +10,7 @@
 
     <!-- Main game screen strings -->
     <string name="the_letter_this_time_is">The letter this time is…</string>
-    <string name="hiragana_letter_content_description">Hiragana letter</string>
-    <string name="this_letter_corresponds_to_which_romaji">This letter corresponds to which Hepburn Rõmaji?</string>
+    <string name="this_letter_corresponds_to_which_romaji">…and it corresponds to which Hepburn Rōmaji?</string>
     <string name="verify_answer">Verify Answer</string>
     <string name="exit">Exit</string>
     <string name="game_score">Score: %d</string>

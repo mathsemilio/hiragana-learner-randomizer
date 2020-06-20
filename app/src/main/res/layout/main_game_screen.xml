@@ -67,19 +67,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline_1" />
 
-            <ImageView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/image_hiragana_letter_main_game_screen"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_8dp"
-                android:contentDescription="@string/hiragana_letter_content_description"
-                android:scaleType="fitCenter"
+                android:text="@{mainGameViewModel.currentHiraganaLetterString}"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/text_view_sizes"
+                app:autoSizeStepGranularity="8sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toTopOf="@id/guideline_2"
                 app:layout_constraintEnd_toEndOf="@id/text_body_letter_this_time_is"
                 app:layout_constraintStart_toStartOf="@id/text_body_letter_this_time_is"
                 app:layout_constraintTop_toBottomOf="@id/text_body_letter_this_time_is"
-                tools:src="@drawable/ic_hir_a" />
+                tools:text="あ" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_body_this_letter_corresponds_to_which_romaji"
@@ -148,7 +150,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline_4"
                 app:layout_constraintVertical_bias="0.80"
-                tools:text="Pontuação: 0" />
+                tools:text="Score: 0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_verify_answer"

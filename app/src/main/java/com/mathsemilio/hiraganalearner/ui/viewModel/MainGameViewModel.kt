@@ -17,9 +17,9 @@ class MainGameViewModel : ViewModel() {
     //==========================================================================================
     // MutableLiveData variables for the UI elements
     //==========================================================================================
-    private val _currentHiraganaLetterDrawableId = MutableLiveData<Int>()
-    val currentHiraganaLetterDrawableId: LiveData<Int>
-        get() = _currentHiraganaLetterDrawableId
+    private val _currentHiraganaLetterString = MutableLiveData<String>()
+    val currentHiraganaLetterString: LiveData<String>
+        get() = _currentHiraganaLetterString
 
     private val _currentHiraganaLetterRomanization = MutableLiveData<String>()
     val currentHiraganaLetterRomanization: LiveData<String>
@@ -61,7 +61,7 @@ class MainGameViewModel : ViewModel() {
     //==========================================================================================
     val hiraganaLettersList: MutableList<Hiragana> = hiraganaLetters.toMutableList()
 
-    private var lastHiraganaLetterDrawableId: Int = 0
+    private var lastHiraganaLetterDrawableId: String? = null
     private var lastHiraganaLetterRomanization: String? = null
 
     //==========================================================================================
@@ -88,13 +88,13 @@ class MainGameViewModel : ViewModel() {
         hiraganaLettersList.shuffle()
 
         // Getting the first drawableSymbolId and romanization from the list
-        _currentHiraganaLetterDrawableId.value = hiraganaLettersList.first().drawableSymbolId
+        _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
         _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization.also {
             Log.d(TAG_MAIN_GAME_SCREEN_VM, "startGame: First letter: $it")
         }
 
         // Getting the last drawableSymbolId and romanization from the list
-        lastHiraganaLetterDrawableId = hiraganaLettersList.last().drawableSymbolId
+        lastHiraganaLetterDrawableId = hiraganaLettersList.last().letter
         lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization.also {
             Log.d(TAG_MAIN_GAME_SCREEN_VM, "startGame: Last letter: $it")
         }
@@ -138,7 +138,7 @@ class MainGameViewModel : ViewModel() {
         hiraganaLettersList.removeAt(0)
 
         // Getting the first letter from the hiraganaLettersList list
-        _currentHiraganaLetterDrawableId.value = hiraganaLettersList.first().drawableSymbolId
+        _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
         _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization.also {
             Log.d(TAG_MAIN_GAME_SCREEN_VM, "getNextLetter: Next letter: $it")
         }
@@ -161,7 +161,7 @@ class MainGameViewModel : ViewModel() {
          Setting the value of the current hiragana letter as the value of the last letter
          from the list
         */
-        _currentHiraganaLetterDrawableId.value = lastHiraganaLetterDrawableId
+        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId
         _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
 
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
