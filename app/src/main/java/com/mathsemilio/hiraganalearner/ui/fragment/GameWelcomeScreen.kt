@@ -28,7 +28,7 @@ class GameWelcomeScreen : Fragment() {
 
         // Listener for the buttonStart button
         binding.buttonStart.setOnClickListener {
-            this.findNavController().navigate(R.id.action_gameWelcomeScreen_to_mainGameScreen)
+            findNavController().navigate(R.id.action_gameWelcomeScreen_to_mainGameScreen)
         }
 
         // Listener for the darkModeSwitchIcon ImageView

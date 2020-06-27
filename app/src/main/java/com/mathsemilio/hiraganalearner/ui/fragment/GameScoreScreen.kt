@@ -2,7 +2,6 @@ package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
 
-private const val TAG_SCORE_SCREEN = "GameScoreScreen"
 private const val PERFECT_SCORE = 48
 
 /**
@@ -30,9 +28,7 @@ class GameScoreScreen : Fragment() {
         val binding: GameScoreScreenBinding =
             GameScoreScreenBinding.inflate(inflater, container, false)
 
-        val gameScore = retrieveGameScore().also {
-            Log.d(TAG_SCORE_SCREEN, "onCreateView: Game score value retrieved: $it")
-        }
+        val gameScore = retrieveGameScore()
 
         /*
         Checking if the game score is equal to 48 (a perfect score), if it is, a different
@@ -45,7 +41,7 @@ class GameScoreScreen : Fragment() {
         binding.textHeadlineScoreNumber.text = gameScore.toString()
 
         binding.buttonFinishGame.setOnClickListener {
-            this.findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+            findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }
 
         /*
@@ -53,13 +49,8 @@ class GameScoreScreen : Fragment() {
         a listener will be attached.
         */
         if (gameScore == 0) {
-            Log.d(
-                TAG_SCORE_SCREEN,
-                "onCreateView: Game score value equals 0, hiding the share button"
-            )
             binding.textButtonShare.visibility = View.GONE
         } else {
-            Log.d(TAG_SCORE_SCREEN, "onCreateView: Game score value > 0, showing the share button")
             binding.textButtonShare.setOnClickListener { shareGameScore(gameScore) }
         }
 
@@ -96,7 +87,6 @@ class GameScoreScreen : Fragment() {
         val shareIntent =
             Intent.createChooser(sendIntent, getString(R.string.game_score_create_chooser_title))
 
-        Log.i(TAG_SCORE_SCREEN, "shareGameScore: Starting the intent activity")
         startActivity(shareIntent)
     }
 }

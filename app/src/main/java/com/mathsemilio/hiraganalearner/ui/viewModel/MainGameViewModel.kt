@@ -1,13 +1,10 @@
 package com.mathsemilio.hiraganalearner.ui.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mathsemilio.hiraganalearner.data.hiraganaLetters
 import com.mathsemilio.hiraganalearner.data.model.Hiragana
-
-private const val TAG_MAIN_GAME_SCREEN_VM = "MainGameViewModel"
 
 /**
  * ViewModel class that implements most of the game's logic.
@@ -82,22 +79,16 @@ class MainGameViewModel : ViewModel() {
      * Private function that is responsible for key tasks necessary for starting the game
      */
     private fun startGame() {
-        Log.i(TAG_MAIN_GAME_SCREEN_VM, "startGame: Game Started")
-
         // Shuffling the hiraganaLettersList list
         hiraganaLettersList.shuffle()
 
         // Getting the first drawableSymbolId and romanization from the list
         _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
-        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization.also {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "startGame: First letter: $it")
-        }
+        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization
 
         // Getting the last drawableSymbolId and romanization from the list
         lastHiraganaLetterDrawableId = hiraganaLettersList.last().letter
-        lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization.also {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "startGame: Last letter: $it")
-        }
+        lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization
 
         generateRadioButtonRomanization()
     }
@@ -116,12 +107,10 @@ class MainGameViewModel : ViewModel() {
         answer is correct and the game score is updated, else it's incorrect
         */
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "checkUserInput: Answer correct")
             _eventCorrectAnswer.value = true
 
             updateGameScore()
         } else {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "checkUserInput: Incorrect answer")
             _eventCorrectAnswer.value = false
         }
     }
@@ -139,9 +128,7 @@ class MainGameViewModel : ViewModel() {
 
         // Getting the first letter from the hiraganaLettersList list
         _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
-        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization.also {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "getNextLetter: Next letter: $it")
-        }
+        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization
 
         generateRadioButtonRomanization()
     }
@@ -156,7 +143,6 @@ class MainGameViewModel : ViewModel() {
      * @param selectedRomanization - String of the current checked radio button
      */
     fun getLastLetter(selectedRomanization: String) {
-        Log.d(TAG_MAIN_GAME_SCREEN_VM, "getLastLetter: Setting last letter")
         /*
          Setting the value of the current hiragana letter as the value of the last letter
          from the list
@@ -165,7 +151,6 @@ class MainGameViewModel : ViewModel() {
         _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
 
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "getLastLetter: Correct answer, game finished")
             _eventCorrectAnswer.value = true
 
             updateGameScore()
@@ -173,7 +158,6 @@ class MainGameViewModel : ViewModel() {
             // Setting the value of _eventGameFinished as TRUE to finish the game
             _eventGameFinished.value = true
         } else {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "getLastLetter: Incorrect answer, game finished")
             _eventCorrectAnswer.value = false
 
             // Setting the value of _eventGameFinished as TRUE to finish the game
@@ -188,10 +172,7 @@ class MainGameViewModel : ViewModel() {
      * Function that increments the game score by 1.
      */
     private fun updateGameScore() {
-        Log.d(TAG_MAIN_GAME_SCREEN_VM, "updateGameScore: Incrementing game score")
-        _gameScore.value = (_gameScore.value)?.inc().also {
-            Log.d(TAG_MAIN_GAME_SCREEN_VM, "updateGameScore: New value: $it")
-        }
+        _gameScore.value = (_gameScore.value)?.inc()
     }
 
     //==========================================================================================
@@ -219,67 +200,23 @@ class MainGameViewModel : ViewModel() {
                 .shuffled()
 
         // Getting a random romanization for each radio button from the filteredList
-        _radioButton1Romanization.value = filteredList.slice(0..13).random().also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: Random romanization for Radio Button 1: $it"
-            )
-        }
+        _radioButton1Romanization.value = filteredList.slice(0..13).random()
 
-        _radioButton2Romanization.value = filteredList.slice(14..27).random().also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: Random romanization for Radio Button 2: $it"
-            )
-        }
+        _radioButton2Romanization.value = filteredList.slice(14..27).random()
 
-        _radioButton3Romanization.value = filteredList.slice(28..42).random().also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: Random romanization for Radio Button 3: $it"
-            )
-        }
+        _radioButton3Romanization.value = filteredList.slice(28..42).random()
 
-        _radioButton4Romanization.value = filteredList.slice(43..46).random().also {
-            Log.d(
-                TAG_MAIN_GAME_SCREEN_VM,
-                "generateRadioButtonRomanization: Random romanization for Radio Button 4: $it"
-            )
-        }
+        _radioButton4Romanization.value = filteredList.slice(43..46).random()
 
         /*
         Generating a random number between 0 and 4, and based on that number, a radio button
         will be selected to contain the current romanization for the letter on the screen.
         */
         when ((0 until 4).random()) {
-            0 -> _radioButton1Romanization.value = _currentHiraganaLetterRomanization.value.also {
-                Log.d(
-                    TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 1 selected to contain the " +
-                            "correct answer"
-                )
-            }
-            1 -> _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value.also {
-                Log.d(
-                    TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 2 selected to contain the " +
-                            "correct answer"
-                )
-            }
-            2 -> _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value.also {
-                Log.d(
-                    TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 3 selected to contain the " +
-                            "correct answer"
-                )
-            }
-            3 -> _radioButton4Romanization.value = _currentHiraganaLetterRomanization.value.also {
-                Log.d(
-                    TAG_MAIN_GAME_SCREEN_VM,
-                    "generateRadioButtonRomanization: Radio Button 4 selected to contain the " +
-                            "correct answer"
-                )
-            }
+            0 -> _radioButton1Romanization.value = _currentHiraganaLetterRomanization.value
+            1 -> _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value
+            2 -> _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value
+            3 -> _radioButton4Romanization.value = _currentHiraganaLetterRomanization.value
         }
     }
 }
