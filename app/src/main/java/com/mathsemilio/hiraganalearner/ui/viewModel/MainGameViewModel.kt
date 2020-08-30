@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mathsemilio.hiraganalearner.data.hiraganaLetters
 import com.mathsemilio.hiraganalearner.data.model.Hiragana
+import kotlin.random.Random
 
 /**
  * ViewModel class that implements most of the game's logic.
@@ -212,7 +213,7 @@ class MainGameViewModel : ViewModel() {
         Generating a random number between 0 and 4, and based on that number, a radio button
         will be selected to contain the current romanization for the letter on the screen.
         */
-        when ((0 until 4).random()) {
+        when (Random.nextInt(4)) {
             0 -> _radioButton1Romanization.value = _currentHiraganaLetterRomanization.value
             1 -> _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value
             2 -> _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value

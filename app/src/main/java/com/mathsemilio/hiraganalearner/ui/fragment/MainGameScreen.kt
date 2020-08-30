@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
@@ -25,7 +25,7 @@ class MainGameScreen : Fragment() {
     // Class-wide variables
     //==========================================================================================
     private lateinit var binding: MainGameScreenBinding
-    private lateinit var viewModel: MainGameViewModel
+    private val viewModel by viewModels<MainGameViewModel>()
 
     //==========================================================================================
     // onCreateView
@@ -38,10 +38,6 @@ class MainGameScreen : Fragment() {
         // this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
-
-        // Initializing the viewModel variable, and using ViewModelProvider to get a reference
-        // of the viewModel class for this fragment
-        viewModel = ViewModelProvider(this).get(MainGameViewModel::class.java)
 
         // Setting the ViewModel for Data Binding - this allows the UI elements in the layout to
         // access the data in the ViewModel directly
@@ -88,7 +84,6 @@ class MainGameScreen : Fragment() {
         is correct or not.
         */
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { answerIsCorrect ->
-            // Building an AlertDialog to alert the user that his answer is correct
             if (answerIsCorrect == true) {
                 buildAlertDialog(
                     R.string.alertDialogCorrectAnswer_title,
@@ -171,7 +166,7 @@ class MainGameScreen : Fragment() {
         title: Int, message: String, positiveButtonText: Int,
         listener: DialogInterface.OnClickListener
     ) {
-        MaterialAlertDialogBuilder(activity).apply {
+        MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(title)
             setMessage(message)
             setPositiveButton(positiveButtonText, listener)

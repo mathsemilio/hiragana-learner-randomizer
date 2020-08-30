@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hiragana Learner</string>
-    <string name="dark_theme_switch_icon">Ícone interruptor do tema claro/escuro</string>
+    <string name="settings_activity_label">Configurações</string>
+    <string name="dark_theme_entry_follow_system">Aplicar as configurações do sistema</string>
+    <string name="dark_theme_entry_dark_theme">Tema escuro</string>
+    <string name="dark_theme_entry_light_theme">Tema claro</string>
+    <string name="cancel_list_preference_negative_button_text">Cancelar</string>
+    <string name="select_a_option_below_list_preference_dialog_text">Selecione uma opção abaixo:</string>
+    <string name="app_theme_list_preference_title">Tema da Aplicação</string>
+    <string name="training_notification_summary_off">Configure um lembrete para treinar.</string>
+    <string name="training_notification_title">Lembrete para treino</string>
+    <string name="app_build_version_title">Versão de compilação</string>
+    <string name="app_theme_list_preference_summary">Escolha um tema para a aplicação.</string>
+    <string name="config_switch_icon">Ícone para acessar as configurações da aplicação</string>
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
     <string name="start">Começar</string>
     <string name="the_letter_this_time_is">A letra da vez é…</string>
-    <string name="this_letter_corresponds_to_which_romaji">… e ela corresponde a que Rõmaji Hepburn?</string>
+    <string name="this_letter_corresponds_to_which_romaji">e ela corresponde a que Rõmaji Hepburn?</string>
     <string name="verify_answer">Verificar Resposta</string>
     <string name="exit">Sair</string>
     <string name="game_score">Pontuação: %d</string>
     <string name="you_scored">Você Pontuou</string>
     <string name="perfect_score">Você conseguiu uma pontuação perfeita! Parabéns!</string>
     <string name="finish_game">Terminar Jogo</string>
+    <string name="play_again">Jogar Novamente</string>
     <string name="share">Compartilhar</string>
     <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
     <string name="alertDialogCorrectAnswer_msg">Muito Bem! Continue Praticando!</string>

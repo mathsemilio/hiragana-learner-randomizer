@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context=".ui.fragment.GameWelcomeScreen">
 
     <ImageView
-        android:id="@+id/dark_mode_switch_icon"
-        android:layout_width="@dimen/margin_48dp"
-        android:layout_height="@dimen/margin_48dp"
+        android:id="@+id/app_config_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:backgroundTint="?attr/colorControlNormal"
-        android:contentDescription="@string/dark_theme_switch_icon"
-        android:src="@drawable/ic_baseline_brightness_medium_24"
+        android:contentDescription="@string/config_switch_icon"
+        android:src="@drawable/ic_baseline_settings_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

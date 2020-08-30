@@ -13,7 +13,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,8 +73,6 @@
                 android:layout_marginBottom="@dimen/margin_8dp"
                 android:text="@{mainGameViewModel.currentHiraganaLetterString}"
                 android:textAlignment="center"
-                app:autoSizePresetSizes="@array/text_view_sizes"
-                app:autoSizeStepGranularity="8sp"
                 app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toTopOf="@id/guideline_2"
                 app:layout_constraintEnd_toEndOf="@id/text_body_letter_this_time_is"
@@ -145,12 +142,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/guideline_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline_4"
                 app:layout_constraintVertical_bias="0.80"
-                tools:text="Score: 0" />
+                tools:text="Score: 24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_verify_answer"

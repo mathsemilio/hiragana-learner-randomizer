@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:icon="@drawable/ic_baseline_add_alert_24"
+        app:key="notification"
+        app:summaryOff="@string/training_notification_summary_off"
+        app:title="@string/training_notification_title" />
+
+    <ListPreference
+        app:defaultValue="0"
+        app:dialogTitle="@string/select_a_option_below_list_preference_dialog_text"
+        app:entries="@array/app_theme_entries"
+        app:entryValues="@array/app_theme_entry_values"
+        app:icon="@drawable/ic_baseline_brightness_4_24"
+        app:key="app_theme"
+        app:negativeButtonText="@string/cancel_list_preference_negative_button_text"
+        app:summary="@string/app_theme_list_preference_summary"
+        app:title="@string/app_theme_list_preference_title" />
+
+    <PreferenceCategory android:title="App info">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_info_24"
+            app:key="app_build"
+            app:title="@string/app_build_version_title" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
