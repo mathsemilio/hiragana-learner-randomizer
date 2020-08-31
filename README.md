@@ -16,6 +16,13 @@ he scores a point. Else, he is alerted about his answer, and a dialog shows the 
 <p>Once the user goes though all the letters, he will be directed to a score screen, where he can share his final game score
 and finish the game.</p>
 
+### Functions to be Implemented
+<ol>
+    <li>Training Notifications;</li>
+    <li>Application theme switching at runtime (eg. Dark theme);</li>
+    <li>Game difficulty setting with countdown timer.</li>
+</ol>
+
 ### Application Screenshots
 To checkout screenshots, please visit this gallery:
 <p><a href="https://postimg.cc/gallery/Kv2mdR5">Hiragana Learner Randomizer Gallery</a></p>
