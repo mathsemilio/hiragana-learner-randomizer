@@ -2,17 +2,11 @@
 <resources>
     <string name="app_name">Hiragana Learner</string>
     <string name="settings_activity_label">Configurações</string>
-    <string name="dark_theme_entry_follow_system">Aplicar as configurações do sistema</string>
-    <string name="dark_theme_entry_dark_theme">Tema escuro</string>
-    <string name="dark_theme_entry_light_theme">Tema claro</string>
-    <string name="cancel_list_preference_negative_button_text">Cancelar</string>
-    <string name="select_a_option_below_list_preference_dialog_text">Selecione uma opção abaixo:</string>
-    <string name="app_theme_list_preference_title">Tema da Aplicação</string>
     <string name="training_notification_summary_off">Configure um lembrete para treinar.</string>
     <string name="training_notification_title">Lembrete para treino</string>
     <string name="app_build_version_title">Versão de compilação</string>
-    <string name="app_theme_list_preference_summary">Escolha um tema para a aplicação.</string>
     <string name="config_switch_icon">Ícone para acessar as configurações da aplicação</string>
+    <string name="dark_theme_switch_icon_content_description">Ícone para mudar o tema da aplicação</string>
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
     <string name="select_a_difficulty_level">Selecione um nível de dificuldade:</string>

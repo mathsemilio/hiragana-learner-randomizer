@@ -20,6 +20,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/app_theme_switch_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:backgroundTint="?attr/colorControlNormal"
+        android:contentDescription="@string/dark_theme_switch_icon_content_description"
+        android:src="@drawable/ic_baseline_brightness_4_24"
+        app:layout_constraintEnd_toStartOf="@id/app_config_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_body_get_ready_guess"
         style="@style/TextAppearance.MaterialComponents.Body1"

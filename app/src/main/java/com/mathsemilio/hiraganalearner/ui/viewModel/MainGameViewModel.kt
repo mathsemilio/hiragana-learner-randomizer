@@ -101,7 +101,11 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
             else -> COUNTDOWN_TIME_HARD
         }
 
-        gameTimerProgressBarValue = difficultyCountDownTime.div(ONE_SECOND).toInt()
+        gameTimerProgressBarValue = when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> PROGRESS_BAR_MAX_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> PROGRESS_BAR_MAX_MEDIUM
+            else -> PROGRESS_BAR_MAX_HARD
+        }
 
         startGame()
     }
@@ -109,7 +113,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     private fun setupGameTimer(countDownTime: Long) {
         countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                _currentGameTime.value = millisUntilFinished / ONE_SECOND
+                _currentGameTime.value = (millisUntilFinished / ONE_SECOND)
             }
 
             override fun onFinish() {

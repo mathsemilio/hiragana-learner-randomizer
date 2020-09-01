@@ -6,19 +6,13 @@
     <string name="settings_activity_label">Settings</string>
 
     <!-- Settings activity strings -->
-    <string name="dark_theme_entry_follow_system">Follow system\'s settings</string>
-    <string name="dark_theme_entry_dark_theme">Dark theme</string>
-    <string name="dark_theme_entry_light_theme">Light theme</string>
-    <string name="cancel_list_preference_negative_button_text">Cancel</string>
-    <string name="select_a_option_below_list_preference_dialog_text">Select a option below:</string>
-    <string name="app_theme_list_preference_title">Application theme</string>
     <string name="training_notification_summary_off">Remind yourself to train.</string>
     <string name="training_notification_title">Setup a remainder</string>
     <string name="app_build_version_title">Build version</string>
-    <string name="app_theme_list_preference_summary">Choose a theme for the application.</string>
 
     <!-- Game Welcome Screen -->
     <string name="config_switch_icon">Application Configuration icon</string>
+    <string name="dark_theme_switch_icon_content_description">Dark theme switch icon</string>
     <string name="get_ready_to_associate">Get ready to associate…</string>
     <string name="hiragana_letters_and_romanizations">The Hiragana letters and their romanizations</string>
     <string name="select_a_difficulty_level">Select a difficulty level:</string>

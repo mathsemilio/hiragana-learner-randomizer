@@ -58,7 +58,7 @@
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
-                android:layout_height="8dp"
+                android:layout_height="4dp"
                 android:indeterminateOnly="false"
                 android:max="48"
                 android:progress="@{mainGameViewModel.gameProgress}"
@@ -69,13 +69,13 @@
 
             <View
                 android:id="@+id/circle_divider"
-                android:layout_width="4dp"
-                android:layout_height="4dp"
+                android:layout_width="3dp"
+                android:layout_height="3dp"
                 android:background="@drawable/circle_divider"
-                app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/text_body_game_difficulty" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_body_game_difficulty"

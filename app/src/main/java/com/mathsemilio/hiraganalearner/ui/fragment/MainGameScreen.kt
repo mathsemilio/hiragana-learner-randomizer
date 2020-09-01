@@ -16,7 +16,8 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModelFactory
-import com.mathsemilio.hiraganalearner.util.*
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_BEGINNER
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_MEDIUM
 
 /**
  * Fragment class for the main game screen
@@ -54,9 +55,10 @@ class MainGameScreen : Fragment() {
         // can observe LiveData updates
         binding.lifecycleOwner = this
 
-        setGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue)
-
         subscribeToObservers()
+
+        binding.textBodyGameDifficulty.text =
+            getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue)
 
         /*
         Listener for the chipGroupRomaniztionOptions chip group to enable or disable the
@@ -89,7 +91,6 @@ class MainGameScreen : Fragment() {
             }
         }
 
-        // Listener for the buttonExit button
         binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
 
         // Returning the root of the inflated layout
@@ -100,17 +101,14 @@ class MainGameScreen : Fragment() {
     // setGameDifficultyStringBasedOnTheDifficultyValue function
     //==========================================================================================
     /**
-     * Function that based on the game difficulty value, sets the textBodyGameDifficulty text
-     * to inform the user of the game's difficulty.
+     * Function that based on the game difficulty value, returns a String that corresponds the
+     * game difficulty value.
      */
-    private fun setGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue: Int) {
-        when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER ->
-                binding.textBodyGameDifficulty.text = BEGINNER_DIFFICULTY_STRING
-            GAME_DIFFICULTY_VALUE_MEDIUM ->
-                binding.textBodyGameDifficulty.text = MEDIUM_DIFFICULTY_STRING
-            GAME_DIFFICULTY_VALUE_HARD ->
-                binding.textBodyGameDifficulty.text = HARD_DIFFICULTY_STRING
+    private fun getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue: Int): String {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
+            else -> getString(R.string.game_difficulty_hard)
         }
     }
 
@@ -167,22 +165,6 @@ class MainGameScreen : Fragment() {
 
         viewModel.eventTimeOver.observe(viewLifecycleOwner, Observer { timeIsOver ->
             if (timeIsOver) {
-                buildAlertDialog(
-                    R.string.alertDialogTimeOver_title,
-                    getString(
-                        R.string.alertDialogTimeOver_msg,
-                        viewModel.currentHiraganaLetterRomanization.value
-                    ),
-                    R.string.alertDialogTimeOver_positive_button_text,
-                    DialogInterface.OnClickListener { _, _ ->
-                        if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!)
-                        } else {
-                            binding.chipGroupRomaniztionOptions.clearCheck()
-                            viewModel.getNextLetter()
-                        }
-                    })
-            } else {
                 buildAlertDialog(
                     R.string.alertDialogTimeOver_title,
                     getString(

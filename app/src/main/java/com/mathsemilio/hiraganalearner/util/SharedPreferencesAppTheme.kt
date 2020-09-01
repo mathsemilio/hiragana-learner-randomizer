@@ -13,12 +13,12 @@ class SharedPreferencesAppTheme(context: Context) {
 
     private val editor: SharedPreferences.Editor = sharedPreferencesAppTheme.edit()
 
-    fun saveThemeValue(value: String) {
-        editor.putString(APP_THEME_KEY, value)
+    fun saveThemeValue(value: Int) {
+        editor.putInt(APP_THEME_KEY, value)
         editor.apply()
     }
 
-    fun retrieveThemeValue(): String {
-        return sharedPreferencesAppTheme.getString(APP_THEME_KEY, "0")!!
+    fun retrieveThemeValue(): Int {
+        return sharedPreferencesAppTheme.getInt(APP_THEME_KEY, 0)
     }
 }
