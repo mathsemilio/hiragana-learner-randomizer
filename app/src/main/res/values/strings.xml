@@ -21,11 +21,14 @@
     <string name="config_switch_icon">Application Configuration icon</string>
     <string name="get_ready_to_associate">Get ready to associate…</string>
     <string name="hiragana_letters_and_romanizations">The Hiragana letters and their romanizations</string>
+    <string name="select_a_difficulty_level">Select a difficulty level:</string>
+    <string name="game_difficulty_beginner">Beginner</string>
+    <string name="game_difficulty_medium">Medium</string>
+    <string name="game_difficulty_hard">Hard</string>
     <string name="start">Start</string>
 
     <!-- Main game screen strings -->
-    <string name="the_letter_this_time_is">The letter this time is…</string>
-    <string name="this_letter_corresponds_to_which_romaji">and it corresponds to which Hepburn Rōmaji?</string>
+    <string name="this_letter_corresponds_to_which_romaji">This letter corresponds to which Hepburn Rōmaji?</string>
     <string name="verify_answer">Verify Answer</string>
     <string name="exit">Exit</string>
     <string name="game_score">Score: %d</string>
@@ -46,6 +49,11 @@
     <string name="alertDialogWrongAnswer_title">Wrong Answer!</string>
     <string name="alertDialogWrongAnswer_msg">The correct rõmaji for this letter is: \"%1$s\". Keep Practicing!</string>
     <string name="alertDialogWrongAnswer_positive_button_text">Continue</string>
+
+    <!-- Alert Dialog Time's over strings -->
+    <string name="alertDialogTimeOver_title">Time\'s over!</string>
+    <string name="alertDialogTimeOver_msg">The correct rõmaji for that letter was: \"%1$s\". Keep Practicing!</string>
+    <string name="alertDialogTimeOver_positive_button_text">Continue</string>
 
     <!-- Intent Create Chooser title -->
     <string name="game_score_create_chooser_title">Share your game score!</string>

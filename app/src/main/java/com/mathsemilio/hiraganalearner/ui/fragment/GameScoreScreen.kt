@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
-
-private const val PERFECT_SCORE = 48
+import com.mathsemilio.hiraganalearner.util.PERFECT_SCORE
 
 /**
  * Fragment class for the game score screen

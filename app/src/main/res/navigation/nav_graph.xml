@@ -43,6 +43,11 @@
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/gameWelcomeScreen" />
 
+        <argument
+            android:name="game_difficulty_value"
+            android:defaultValue="0"
+            app:argType="integer" />
+
     </fragment>
 
     <fragment

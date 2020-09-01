@@ -21,161 +21,194 @@
             tools:context=".ui.fragment.MainGameScreen">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_1"
+                android:id="@+id/guideline_1_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.08" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.10" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_2"
+                android:id="@+id/guideline_2_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.32" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.90" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_3"
+                android:id="@+id/guideline_1_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.40" />
+                app:layout_constraintGuide_percent="0.10" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_4"
+                android:id="@+id/guideline_2_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.72" />
+                app:layout_constraintGuide_percent="0.85" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_5"
+                android:id="@+id/guideline_3_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.88" />
+                app:layout_constraintGuide_percent="0.50" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_letter_this_time_is"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:text="@string/the_letter_this_time_is"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_1" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/image_hiragana_letter_main_game_screen"
+            <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:text="@{mainGameViewModel.currentHiraganaLetterString}"
-                android:textAlignment="center"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@id/guideline_2"
-                app:layout_constraintEnd_toEndOf="@id/text_body_letter_this_time_is"
-                app:layout_constraintStart_toStartOf="@id/text_body_letter_this_time_is"
-                app:layout_constraintTop_toBottomOf="@id/text_body_letter_this_time_is"
-                tools:text="あ" />
+                android:layout_height="8dp"
+                android:indeterminateOnly="false"
+                android:max="48"
+                android:progress="@{mainGameViewModel.gameProgress}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:progress="24" />
+
+            <View
+                android:id="@+id/circle_divider"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/circle_divider"
+                app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_this_letter_corresponds_to_which_romaji"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16dp"
-                android:layout_marginEnd="@dimen/margin_16dp"
-                android:maxLines="2"
-                android:text="@string/this_letter_corresponds_to_which_romaji"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@id/guideline_3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_2" />
-
-            <RadioGroup
-                android:id="@+id/radio_group_hiragana_letters"
+                android:id="@+id/text_body_game_difficulty"
+                style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                app:layout_constraintBottom_toTopOf="@id/guideline_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_3">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_button_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainGameViewModel.radioButton1Romanization}"
-                    tools:text="A" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_button_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainGameViewModel.radioButton2Romanization}"
-                    tools:text="I" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_button_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainGameViewModel.radioButton3Romanization}"
-                    tools:text="U" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_button_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{mainGameViewModel.radioButton4Romanization}"
-                    tools:text="E" />
-
-            </RadioGroup>
+                android:layout_marginEnd="@dimen/margin_8dp"
+                app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
+                app:layout_constraintEnd_toStartOf="@id/circle_divider"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Medium" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_body_game_score"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@id/guideline_5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_4"
-                app:layout_constraintVertical_bias="0.80"
+                app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/circle_divider"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Score: 24" />
+
+            <ProgressBar
+                android:id="@+id/timer_progress_bar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:indeterminateOnly="false"
+                android:max="@{mainGameViewModel.gameTimerProgressBarValue}"
+                android:progress="@{mainGameViewModel.currentGameTimeInt}"
+                android:progressDrawable="@drawable/circle_progress_bar"
+                app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toBottomOf="@id/guideline_1_horizontal"
+                tools:progress="50" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/current_hiragana_letter"
+                style="@style/TextAppearance.MaterialComponents.Headline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mainGameViewModel.currentHiraganaLetterString}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/timer_progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical"
+                app:layout_constraintTop_toTopOf="@+id/guideline_1_horizontal"
+                tools:text="あ" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_body_letter_corresponds"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:maxLines="2"
+                android:text="@string/this_letter_corresponds_to_which_romaji"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_romaniztion_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/guideline_2_horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toBottomOf="@id/text_body_letter_corresponds"
+                app:singleSelection="true"
+                tools:checkedChip="@id/chip_button_3">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_button_1"
+                    style="@style/hiragana_learner_chip_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{mainGameViewModel.chip1StringRomanization}"
+                    tools:text="RA" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_button_2"
+                    style="@style/hiragana_learner_chip_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{mainGameViewModel.chip2StringRomanization}"
+                    tools:text="RI" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_button_3"
+                    style="@style/hiragana_learner_chip_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{mainGameViewModel.chip3StringRomanization}"
+                    tools:text="RU" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_button_4"
+                    style="@style/hiragana_learner_chip_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{mainGameViewModel.chip4StringRomanization}"
+                    tools:text="RE" />
+
+            </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_verify_answer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16dp"
-                android:layout_marginEnd="@dimen/margin_16dp"
-                android:enabled="false"
                 android:text="@string/verify_answer"
                 app:icon="@drawable/ic_check_circle_black_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/button_exit"
-                app:layout_constraintTop_toBottomOf="@id/guideline_5" />
+                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
+                app:layout_constraintStart_toEndOf="@+id/button_exit"
+                app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_exit"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16dp"
                 android:text="@string/exit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button_verify_answer"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_5" />
+                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

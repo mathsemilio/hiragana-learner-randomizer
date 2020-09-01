@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_headline_hiragana_letters_and_romanizations"
@@ -46,11 +46,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_body_get_ready_guess" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_body_select_a_difficulty"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:text="@string/select_a_difficulty_level"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/button_start"
+        app:layout_constraintEnd_toEndOf="@id/chip_group_game_difficulty"
+        app:layout_constraintStart_toStartOf="@id/chip_group_game_difficulty"
+        app:layout_constraintTop_toBottomOf="@id/text_headline_hiragana_letters_and_romanizations" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_game_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_body_select_a_difficulty"
+        app:singleSelection="true"
+        tools:checkedChip="@id/chip_medium">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_beginner"
+            style="@style/hiragana_learner_chip_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:text="@string/game_difficulty_beginner" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_medium"
+            style="@style/hiragana_learner_chip_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:text="@string/game_difficulty_medium" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_hard"
+            style="@style/hiragana_learner_chip_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_difficulty_hard" />
+
+    </com.google.android.material.chip.ChipGroup>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16dp"
+        android:enabled="false"
         android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
