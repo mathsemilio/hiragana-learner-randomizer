@@ -8,6 +8,10 @@
     <!-- Settings activity strings -->
     <string name="training_notification_summary_off">Remind yourself to train.</string>
     <string name="training_notification_title">Setup a remainder</string>
+    <string name="difficulty_entry_beginner">Beginner</string>
+    <string name="difficulty_entry_medium">Medium</string>
+    <string name="difficulty_entry_hard">Hard</string>
+    <string name="difficulty_entry_default">Choose every time before starting the game</string>
     <string name="app_build_version_title">Build version</string>
 
     <!-- Game Welcome Screen -->

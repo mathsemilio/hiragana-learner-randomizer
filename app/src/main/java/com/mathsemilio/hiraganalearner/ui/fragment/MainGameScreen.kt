@@ -28,6 +28,7 @@ class MainGameScreen : Fragment() {
     private lateinit var viewModel: MainGameViewModel
     private var gameDifficultyValue: Int? = null
     private var isRestored = false
+    private var isDialogBeingShown = false
 
     //==========================================================================================
     // onCreateView
@@ -78,6 +79,8 @@ class MainGameScreen : Fragment() {
                 // Listener for the buttonVerifyAnswer button
                 binding.buttonVerifyAnswer.setOnClickListener {
                     viewModel.countDownTimer?.cancel()
+
+                    isDialogBeingShown = true
 
                     /*
                     Checking the hiraganaLettersList size, if equals 1, the getLastLetter
@@ -261,13 +264,15 @@ class MainGameScreen : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (isRestored) {
+        if (isDialogBeingShown) {
+            isRestored = false
+        } else if (isRestored) {
             val gameTimeRemaining =
                 SharedPreferencesRemainingGameTime(requireContext()).retrieveGameTimeRemaining(
                     getGameTimeRemainingDefaultValue(gameDifficultyValue!!)
                 )
 
-            viewModel.setupGameTimer(gameTimeRemaining.times(ONE_SECOND))
+            viewModel.startGameTimer(gameTimeRemaining.times(ONE_SECOND))
         }
     }
 }

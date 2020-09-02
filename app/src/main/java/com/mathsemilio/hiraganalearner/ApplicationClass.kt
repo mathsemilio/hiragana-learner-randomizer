@@ -1,7 +1,11 @@
-package com.mathsemilio.hiraganalearner.util
+package com.mathsemilio.hiraganalearner
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.mathsemilio.hiraganalearner.util.APP_THEME_DARK_MODE
+import com.mathsemilio.hiraganalearner.util.APP_THEME_FOLLOW_SYSTEM
+import com.mathsemilio.hiraganalearner.util.APP_THEME_LIGHT_THEME
+import com.mathsemilio.hiraganalearner.util.SharedPreferencesAppTheme
 
 class ApplicationClass : Application() {
 

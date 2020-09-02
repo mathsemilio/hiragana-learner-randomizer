@@ -82,8 +82,8 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     private var lastHiraganaLetterRomanization: String? = null
 
     var countDownTimer: CountDownTimer? = null
-    private var difficultyCountDownTime: Long
     var gameTimerProgressBarValue: Int
+    private var difficultyCountDownTime: Long
 
     //==========================================================================================
     // init block
@@ -110,21 +110,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGame()
     }
 
-    fun setupGameTimer(countDownTime: Long) {
-        countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-                _currentGameTime.value = (millisUntilFinished / ONE_SECOND)
-            }
-
-            override fun onFinish() {
-                cancel()
-                _eventTimeOver.value = true
-            }
-        }
-
-        (countDownTimer as CountDownTimer).start()
-    }
-
     //==========================================================================================
     // startGame function
     //==========================================================================================
@@ -145,7 +130,25 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
         generateChipGroupRomanization()
 
-        setupGameTimer(difficultyCountDownTime)
+        startGameTimer(difficultyCountDownTime)
+    }
+
+    //==========================================================================================
+    // startGameTimer function
+    //==========================================================================================
+    fun startGameTimer(countDownTime: Long) {
+        countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {
+                _currentGameTime.value = (millisUntilFinished / ONE_SECOND)
+            }
+
+            override fun onFinish() {
+                cancel()
+                _eventTimeOver.value = true
+            }
+        }
+
+        (countDownTimer as CountDownTimer).start()
     }
 
     //==========================================================================================
@@ -187,7 +190,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
         generateChipGroupRomanization()
 
-        setupGameTimer(difficultyCountDownTime)
+        startGameTimer(difficultyCountDownTime)
 
         updateGameProgress()
     }

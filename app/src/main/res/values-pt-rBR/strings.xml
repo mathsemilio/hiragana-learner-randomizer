@@ -4,6 +4,10 @@
     <string name="settings_activity_label">Configurações</string>
     <string name="training_notification_summary_off">Configure um lembrete para treinar.</string>
     <string name="training_notification_title">Lembrete para treino</string>
+    <string name="difficulty_entry_beginner">Iniciante</string>
+    <string name="difficulty_entry_medium">Médio</string>
+    <string name="difficulty_entry_hard">Difícil</string>
+    <string name="difficulty_entry_default">Escolher toda vez antes de inicar o jogo</string>
     <string name="app_build_version_title">Versão de compilação</string>
     <string name="config_switch_icon">Ícone para acessar as configurações da aplicação</string>
     <string name="dark_theme_switch_icon_content_description">Ícone para mudar o tema da aplicação</string>
