@@ -16,8 +16,7 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModelFactory
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_BEGINNER
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_MEDIUM
+import com.mathsemilio.hiraganalearner.util.*
 
 /**
  * Fragment class for the main game screen
@@ -27,6 +26,8 @@ class MainGameScreen : Fragment() {
     private lateinit var binding: MainGameScreenBinding
     private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
+    private var gameDifficultyValue: Int? = null
+    private var isRestored = false
 
     //==========================================================================================
     // onCreateView
@@ -40,10 +41,10 @@ class MainGameScreen : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
 
-        val gameDifficultyValue =
+        gameDifficultyValue =
             MainGameScreenArgs.fromBundle(requireArguments()).gameDifficultyValue
 
-        viewModelFactory = MainGameViewModelFactory(gameDifficultyValue)
+        viewModelFactory = MainGameViewModelFactory(gameDifficultyValue!!)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainGameViewModel::class.java)
 
@@ -58,7 +59,7 @@ class MainGameScreen : Fragment() {
         subscribeToObservers()
 
         binding.textBodyGameDifficulty.text =
-            getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue)
+            getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue!!)
 
         /*
         Listener for the chipGroupRomaniztionOptions chip group to enable or disable the
@@ -109,6 +110,17 @@ class MainGameScreen : Fragment() {
             GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
             GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
             else -> getString(R.string.game_difficulty_hard)
+        }
+    }
+
+    //==========================================================================================
+    // getGameTimeRemainingDefaultValue function
+    //==========================================================================================
+    private fun getGameTimeRemainingDefaultValue(gameDifficultyValue: Int): Long {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
+            else -> COUNTDOWN_TIME_HARD
         }
     }
 
@@ -230,6 +242,32 @@ class MainGameScreen : Fragment() {
             setPositiveButton(positiveButtonText, listener)
             setCancelable(false)
             show()
+        }
+    }
+
+    //==========================================================================================
+    // Fragment lifecycle callbacks
+    //==========================================================================================
+    override fun onPause() {
+        super.onPause()
+        isRestored = true
+
+        viewModel.countDownTimer?.cancel()
+
+        SharedPreferencesRemainingGameTime(requireContext()).saveRemainingGameTime(
+            viewModel.currentGameTime.value!!
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isRestored) {
+            val gameTimeRemaining =
+                SharedPreferencesRemainingGameTime(requireContext()).retrieveGameTimeRemaining(
+                    getGameTimeRemainingDefaultValue(gameDifficultyValue!!)
+                )
+
+            viewModel.setupGameTimer(gameTimeRemaining.times(ONE_SECOND))
         }
     }
 }

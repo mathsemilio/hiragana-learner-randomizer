@@ -17,4 +17,9 @@ const val PROGRESS_BAR_MAX_BEGINNER = 14
 const val PROGRESS_BAR_MAX_MEDIUM = 9
 const val PROGRESS_BAR_MAX_HARD = 4
 
+const val SHARED_PREF_GAME_TIME = "gameTimeSharedPreferences"
+const val TIME_REMAINING = "timeRemaining"
+
+// const val TIME_REMAINING_SAVED_INSTANCE = "timeRemaining"
+
 const val PERFECT_SCORE = 48

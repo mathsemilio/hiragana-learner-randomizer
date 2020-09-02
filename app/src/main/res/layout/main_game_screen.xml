@@ -153,8 +153,7 @@
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toBottomOf="@id/text_body_letter_corresponds"
-                app:singleSelection="true"
-                tools:checkedChip="@id/chip_button_3">
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_button_1"

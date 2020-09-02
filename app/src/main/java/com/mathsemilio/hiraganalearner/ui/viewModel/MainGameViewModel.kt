@@ -51,7 +51,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         get() = _gameScore
 
     private val _currentGameTime = MutableLiveData<Long>()
-    private val currentGameTime: LiveData<Long>
+    val currentGameTime: LiveData<Long>
         get() = _currentGameTime
 
     val currentGameTimeInt = Transformations.map(currentGameTime) { currentGameTime ->
@@ -110,7 +110,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGame()
     }
 
-    private fun setupGameTimer(countDownTime: Long) {
+    fun setupGameTimer(countDownTime: Long) {
         countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 _currentGameTime.value = (millisUntilFinished / ONE_SECOND)
