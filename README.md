@@ -9,21 +9,15 @@ their associated Hepburn romanizations.
 [Wikipedia - Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 
 ### How it works?
-Once the user starts the game, the app's algorithm generates a random order of the 48 most common Hiragana letters. And presents 
-the user with a random letter and four options of romanizations. The user simply has to select the romanization that matches 
-the current letter on the screen. Once the user selects a romanization, he clicks on a button to verify his answer. If his answer is correct,
-he scores a point. Else, he is alerted about his answer, and a dialog shows the correct romanization for that letter.
-<p>Once the user goes though all the letters, he will be directed to a score screen, where he can share his final game score
-and finish the game.</p>
+Before the game starts, the user selects a difficulty for the game (which can also be selected on the Settings screen). The app's algorithm then generates a random order of all the 48 Hiragana letters. The objective of the user is to select a romanization for the letter currently being displayed on the screen before the time's run out. The amount of time available for the user depends on the difficulty he selected on the start screen. Once the user goes through all the letters, he will be directed to a result screen, where the final score is presented along with the option to play the game again or share his score.
 
 ### Functions to be Implemented
 <ol>
-    <li>Training Notifications;</li>
-    <li>Application theme switching at runtime (eg. Dark theme);</li>
-    <li>Game difficulty setting with countdown timer.</li>
+    <li>Training Notifications</li>
 </ol>
 
 ### Application Screenshots
+**To be updated**
 To checkout screenshots, please visit this gallery:
 <p><a href="https://postimg.cc/gallery/Kv2mdR5">Hiragana Learner Randomizer Gallery</a></p>
 
@@ -34,10 +28,11 @@ application on Android Studio. Please keep in mind that the minimum SDK version 
 
 ### Development Technologies
 Programming Language - **Kotlin**
-<p>External Libraries and Technologies used:</p>
+<p>3rd party Libraries and Technologies used:</p>
 <ol>
   <li>Material Design Components;</li>
-  <li>Android Jetpack Navigation Components;</li>
+  <li>Jetpack Navigation Components;</li>
+  <li>Jetpack Preferences (PreferenceX);</li>
   <li>ViewModel;</li>
   <li>LiveData;</li>
   <li>SafeArgs Gradle Plugin</li>
@@ -48,6 +43,7 @@ Programming Language - **Kotlin**
 <i>For info on each of the libraries and technologies listed above:</i>
 <p><a href="https://github.com/material-components/material-components-android">Android Material Components</a></p>
 <p><a href="https://developer.android.com/guide/navigation/navigation-getting-started">Jetpack Navigation Components</a></p>
+<p><a href="https://developer.android.com/guide/topics/ui/settings">Jetpack Preferences</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a></p>
 <p><a href="https://developer.android.com/guide/navigation/navigation-pass-data#Safe-args">SafeArgs</a></p>
