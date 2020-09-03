@@ -1,15 +1,19 @@
 package com.mathsemilio.hiraganalearner.ui.viewModel
 
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.mathsemilio.hiraganalearner.data.hiraganaLetters
 import com.mathsemilio.hiraganalearner.data.model.Hiragana
+import com.mathsemilio.hiraganalearner.util.*
+import kotlin.random.Random
 
 /**
  * ViewModel class that implements most of the game's logic.
  */
-class MainGameViewModel : ViewModel() {
+class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
     //==========================================================================================
     // MutableLiveData variables for the UI elements
@@ -22,25 +26,37 @@ class MainGameViewModel : ViewModel() {
     val currentHiraganaLetterRomanization: LiveData<String>
         get() = _currentHiraganaLetterRomanization
 
-    private val _radioButton1Romanization = MutableLiveData<String>()
-    val radioButton1Romanization: LiveData<String>
-        get() = _radioButton1Romanization
+    private val _chip1StringRomanization = MutableLiveData<String>()
+    val chip1StringRomanization: LiveData<String>
+        get() = _chip1StringRomanization
 
-    private val _radioButton2Romanization = MutableLiveData<String>()
-    val radioButton2Romanization: LiveData<String>
-        get() = _radioButton2Romanization
+    private val _chip2StringRomanization = MutableLiveData<String>()
+    val chip2StringRomanization: LiveData<String>
+        get() = _chip2StringRomanization
 
-    private val _radioButton3Romanization = MutableLiveData<String>()
-    val radioButton3Romanization: LiveData<String>
-        get() = _radioButton3Romanization
+    private val _chip3StringRomanization = MutableLiveData<String>()
+    val chip3StringRomanization: LiveData<String>
+        get() = _chip3StringRomanization
 
-    private val _radioButton4Romanization = MutableLiveData<String>()
-    val radioButton4Romanization: LiveData<String>
-        get() = _radioButton4Romanization
+    private val _chip4StringRomanization = MutableLiveData<String>()
+    val chip4StringRomanization: LiveData<String>
+        get() = _chip4StringRomanization
 
-    private val _gameScore = MutableLiveData<Short>()
-    val gameScore: LiveData<Short>
+    private val _gameProgress = MutableLiveData<Int>()
+    val gameProgress: LiveData<Int>
+        get() = _gameProgress
+
+    private val _gameScore = MutableLiveData<Int>()
+    val gameScore: LiveData<Int>
         get() = _gameScore
+
+    private val _currentGameTime = MutableLiveData<Long>()
+    val currentGameTime: LiveData<Long>
+        get() = _currentGameTime
+
+    val currentGameTimeInt = Transformations.map(currentGameTime) { currentGameTime ->
+        currentGameTime.toInt()
+    }
 
     //==========================================================================================
     // MutableLiveData variables for game events
@@ -48,6 +64,10 @@ class MainGameViewModel : ViewModel() {
     private val _eventCorrectAnswer = MutableLiveData<Boolean>()
     val eventCorrectAnswer: LiveData<Boolean>
         get() = _eventCorrectAnswer
+
+    private val _eventTimeOver = MutableLiveData<Boolean>()
+    val eventTimeOver: LiveData<Boolean>
+        get() = _eventTimeOver
 
     private val _eventGameFinished = MutableLiveData<Boolean>()
     val eventGameFinished: LiveData<Boolean>
@@ -61,13 +81,31 @@ class MainGameViewModel : ViewModel() {
     private var lastHiraganaLetterDrawableId: String? = null
     private var lastHiraganaLetterRomanization: String? = null
 
+    var countDownTimer: CountDownTimer? = null
+    var gameTimerProgressBarValue: Int
+    private var difficultyCountDownTime: Long
+
     //==========================================================================================
     // init block
     //==========================================================================================
     init {
+        _gameProgress.value = 0
+
         _gameScore.value = 0
 
         _eventGameFinished.value = false
+
+        difficultyCountDownTime = when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
+            else -> COUNTDOWN_TIME_HARD
+        }
+
+        gameTimerProgressBarValue = when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> PROGRESS_BAR_MAX_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> PROGRESS_BAR_MAX_MEDIUM
+            else -> PROGRESS_BAR_MAX_HARD
+        }
 
         startGame()
     }
@@ -90,7 +128,27 @@ class MainGameViewModel : ViewModel() {
         lastHiraganaLetterDrawableId = hiraganaLettersList.last().letter
         lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization
 
-        generateRadioButtonRomanization()
+        generateChipGroupRomanization()
+
+        startGameTimer(difficultyCountDownTime)
+    }
+
+    //==========================================================================================
+    // startGameTimer function
+    //==========================================================================================
+    fun startGameTimer(countDownTime: Long) {
+        countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {
+                _currentGameTime.value = (millisUntilFinished / ONE_SECOND)
+            }
+
+            override fun onFinish() {
+                cancel()
+                _eventTimeOver.value = true
+            }
+        }
+
+        (countDownTimer as CountDownTimer).start()
     }
 
     //==========================================================================================
@@ -130,7 +188,11 @@ class MainGameViewModel : ViewModel() {
         _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
         _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization
 
-        generateRadioButtonRomanization()
+        generateChipGroupRomanization()
+
+        startGameTimer(difficultyCountDownTime)
+
+        updateGameProgress()
     }
 
     //==========================================================================================
@@ -147,17 +209,21 @@ class MainGameViewModel : ViewModel() {
          Setting the value of the current hiragana letter as the value of the last letter
          from the list
         */
-        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId
-        _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
+        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId!!
+        _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization!!
 
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
             _eventCorrectAnswer.value = true
 
             updateGameScore()
 
+            updateGameProgress()
+
             // Setting the value of _eventGameFinished as TRUE to finish the game
             _eventGameFinished.value = true
         } else {
+            updateGameProgress()
+
             _eventCorrectAnswer.value = false
 
             // Setting the value of _eventGameFinished as TRUE to finish the game
@@ -176,13 +242,23 @@ class MainGameViewModel : ViewModel() {
     }
 
     //==========================================================================================
+    // updateGameProgress function
+    //==========================================================================================
+    /**
+     * Function that increments the game progress by 1.
+     */
+    private fun updateGameProgress() {
+        _gameProgress.value = (_gameProgress.value)?.inc()
+    }
+
+    //==========================================================================================
     // generateRadioButtonRomanization function
     //==========================================================================================
     /**
      * Function that generates random romanizations for the radio buttons. It also selects which
      * button will receive the current letter romanization (the correct answer).
      */
-    private fun generateRadioButtonRomanization() {
+    private fun generateChipGroupRomanization() {
         // List containing romanizations to be used as distractions
         val hiraganaRomanizationList = listOf(
             "A", "I", "U", "E", "O", "KA", "KI", "KU", "KE", "KO", "SA", "SHI", "SU", "SE", "SO",
@@ -199,24 +275,29 @@ class MainGameViewModel : ViewModel() {
             hiraganaRomanizationList.filterNot { it == _currentHiraganaLetterRomanization.value }
                 .shuffled()
 
-        // Getting a random romanization for each radio button from the filteredList
-        _radioButton1Romanization.value = filteredList.slice(0..13).random()
+        // Getting a random romanization for each chip from the filteredList
+        _chip1StringRomanization.value = filteredList.slice(0..13).random()
 
-        _radioButton2Romanization.value = filteredList.slice(14..27).random()
+        _chip2StringRomanization.value = filteredList.slice(14..27).random()
 
-        _radioButton3Romanization.value = filteredList.slice(28..42).random()
+        _chip3StringRomanization.value = filteredList.slice(28..42).random()
 
-        _radioButton4Romanization.value = filteredList.slice(43..46).random()
+        _chip4StringRomanization.value = filteredList.slice(43..46).random()
 
         /*
-        Generating a random number between 0 and 4, and based on that number, a radio button
-        will be selected to contain the current romanization for the letter on the screen.
+        Generating a random number between 0 and 4, and based on that number, a chip will be
+        selected to contain the current romanization for the letter on the screen.
         */
-        when ((0 until 4).random()) {
-            0 -> _radioButton1Romanization.value = _currentHiraganaLetterRomanization.value
-            1 -> _radioButton2Romanization.value = _currentHiraganaLetterRomanization.value
-            2 -> _radioButton3Romanization.value = _currentHiraganaLetterRomanization.value
-            3 -> _radioButton4Romanization.value = _currentHiraganaLetterRomanization.value
+        when (Random.nextInt(4)) {
+            0 -> _chip1StringRomanization.value = _currentHiraganaLetterRomanization.value
+            1 -> _chip2StringRomanization.value = _currentHiraganaLetterRomanization.value
+            2 -> _chip3StringRomanization.value = _currentHiraganaLetterRomanization.value
+            3 -> _chip4StringRomanization.value = _currentHiraganaLetterRomanization.value
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        countDownTimer?.cancel()
     }
 }

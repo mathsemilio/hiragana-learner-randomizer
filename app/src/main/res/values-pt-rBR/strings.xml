@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hiragana Learner</string>
-    <string name="dark_theme_switch_icon">Ícone interruptor do tema claro/escuro</string>
+    <string name="settings_activity_label">Configurações</string>
+    <string name="training_notification_summary_off">Configure um lembrete para treinar.</string>
+    <string name="training_notification_title">Lembrete para treino</string>
+    <string name="difficulty_entry_beginner">Iniciante</string>
+    <string name="difficulty_entry_medium">Médio</string>
+    <string name="difficulty_entry_hard">Difícil</string>
+    <string name="difficulty_entry_default">Escolher toda vez antes de inicar o jogo</string>
+    <string name="app_build_version_title">Versão de compilação</string>
+    <string name="config_switch_icon">Ícone para acessar as configurações da aplicação</string>
+    <string name="dark_theme_switch_icon_content_description">Ícone para mudar o tema da aplicação</string>
     <string name="get_ready_to_associate">Se prepare para associar…</string>
     <string name="hiragana_letters_and_romanizations">As letras do Hiragana com suas Romanizações</string>
+    <string name="select_a_difficulty_level">Selecione um nível de dificuldade:</string>
+    <string name="game_difficulty_beginner">Iniciante</string>
+    <string name="game_difficulty_medium">Médio</string>
+    <string name="game_difficulty_hard">Difícil</string>
     <string name="start">Começar</string>
-    <string name="the_letter_this_time_is">A letra da vez é…</string>
-    <string name="this_letter_corresponds_to_which_romaji">… e ela corresponde a que Rõmaji Hepburn?</string>
-    <string name="verify_answer">Verificar Resposta</string>
+    <string name="this_letter_corresponds_to_which_romaji">Este letra corresponde a que Rõmaji Hepburn?</string>
+    <string name="verify_answer">Ver. Resposta</string>
     <string name="exit">Sair</string>
     <string name="game_score">Pontuação: %d</string>
     <string name="you_scored">Você Pontuou</string>
     <string name="perfect_score">Você conseguiu uma pontuação perfeita! Parabéns!</string>
     <string name="finish_game">Terminar Jogo</string>
+    <string name="play_again">Jogar Novamente</string>
     <string name="share">Compartilhar</string>
     <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
     <string name="alertDialogCorrectAnswer_msg">Muito Bem! Continue Praticando!</string>
@@ -20,5 +33,8 @@
     <string name="alertDialogWrongAnswer_title">Resposta Incorreta!</string>
     <string name="alertDialogWrongAnswer_msg">O rõmaji correto para esta letra é \"%1$s"\. Continue Praticando!</string>
     <string name="alertDialogWrongAnswer_positive_button_text">Continuar</string>
+    <string name="alertDialogTimeOver_title">O tempo acabou!</string>
+    <string name="alertDialogTimeOver_msg">O rõmaji correto para aquela letra era: \"%1$s\". Continue Praticando!</string>
+    <string name="alertDialogTimeOver_positive_button_text">Continuar</string>
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
 </resources>

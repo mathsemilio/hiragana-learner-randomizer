@@ -7,4 +7,10 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="hiragana_learner_chip_style">
+        <item name="android:checkable">true</item>
+        <item name="chipStrokeWidth">0.5dp</item>
+        <item name="chipBackgroundColor">@color/transparent</item>
+    </style>
+
 </resources>

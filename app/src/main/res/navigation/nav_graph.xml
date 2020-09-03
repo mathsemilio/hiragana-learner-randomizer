@@ -43,6 +43,11 @@
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/gameWelcomeScreen" />
 
+        <argument
+            android:name="game_difficulty_value"
+            android:defaultValue="0"
+            app:argType="integer" />
+
     </fragment>
 
     <fragment
@@ -59,6 +64,16 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/gameWelcomeScreen"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_gameScoreScreen_to_mainGameScreen"
+            app:destination="@id/mainGameScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpToInclusive="true" />
 
         <argument

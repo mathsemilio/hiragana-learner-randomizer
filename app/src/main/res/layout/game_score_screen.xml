@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context=".ui.fragment.GameScoreScreen">
 
     <com.google.android.material.textview.MaterialTextView
@@ -29,16 +28,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_body_you_scored"
-        tools:text="0" />
+        tools:text="48" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_finish_game"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_48dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
         android:text="@string/finish_game"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_play_again"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_headline_score_number" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_play_again"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_48dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:text="@string/play_again"
+        app:icon="@drawable/ic_baseline_refresh_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_finish_game"
         app:layout_constraintTop_toBottomOf="@id/text_headline_score_number" />
 
     <com.google.android.material.button.MaterialButton
@@ -46,10 +62,10 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/share"
         app:icon="@drawable/ic_share_black_24dp"
-        app:layout_constraintEnd_toEndOf="@id/button_finish_game"
+        app:layout_constraintEnd_toEndOf="@id/button_play_again"
         app:layout_constraintStart_toStartOf="@id/button_finish_game"
         app:layout_constraintTop_toBottomOf="@id/button_finish_game" />
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color desaturated -->
+    <color name="colorPrimary">#e57373</color>
+
+    <!-- Primary Variant -->
+    <color name="colorPrimaryDark">#121212</color>
+
+    <!-- White transparent -->
+    <color name="transparent">#00FFFFFF</color>
+</resources>

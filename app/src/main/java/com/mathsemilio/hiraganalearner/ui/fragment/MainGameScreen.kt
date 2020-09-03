@@ -5,27 +5,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
+import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModelFactory
+import com.mathsemilio.hiraganalearner.util.*
 
 /**
  * Fragment class for the main game screen
  */
 class MainGameScreen : Fragment() {
 
-    //==========================================================================================
-    // Class-wide variables
-    //==========================================================================================
     private lateinit var binding: MainGameScreenBinding
+    private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
+    private var gameDifficultyValue: Int? = null
+    private var isRestored = false
+    private var isDialogBeingShown = false
 
     //==========================================================================================
     // onCreateView
@@ -39,9 +42,12 @@ class MainGameScreen : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
 
-        // Initializing the viewModel variable, and using ViewModelProvider to get a reference
-        // of the viewModel class for this fragment
-        viewModel = ViewModelProvider(this).get(MainGameViewModel::class.java)
+        gameDifficultyValue =
+            MainGameScreenArgs.fromBundle(requireArguments()).gameDifficultyValue
+
+        viewModelFactory = MainGameViewModelFactory(gameDifficultyValue!!)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainGameViewModel::class.java)
 
         // Setting the ViewModel for Data Binding - this allows the UI elements in the layout to
         // access the data in the ViewModel directly
@@ -51,22 +57,31 @@ class MainGameScreen : Fragment() {
         // can observe LiveData updates
         binding.lifecycleOwner = this
 
+        subscribeToObservers()
+
+        binding.textBodyGameDifficulty.text =
+            getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue!!)
+
         /*
-        Listener for the radioGroupHiraganaLetters radio group to enable or disable the
-        buttonVerifyAnswer button
+        Listener for the chipGroupRomaniztionOptions chip group to enable or disable the
+        buttonVerifyAnswer button.
         */
-        binding.radioGroupHiraganaLetters.setOnCheckedChangeListener { group, checkedId ->
+        binding.chipGroupRomaniztionOptions.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == -1) {
                 binding.buttonVerifyAnswer.isEnabled = false
             } else {
                 binding.buttonVerifyAnswer.isEnabled = true
 
-                // Getting the text from the checked radio button
-                val radioButton: RadioButton = group.findViewById(checkedId)
-                val selectedRomanization: String = radioButton.text.toString()
+                // Getting the text from the selected chip
+                val selectedChip = group.findViewById<Chip>(checkedId)
+                val selectedRomanization: String = selectedChip.text.toString()
 
                 // Listener for the buttonVerifyAnswer button
                 binding.buttonVerifyAnswer.setOnClickListener {
+                    viewModel.countDownTimer?.cancel()
+
+                    isDialogBeingShown = true
+
                     /*
                     Checking the hiraganaLettersList size, if equals 1, the getLastLetter
                     function is called, else checkUserInput is called.
@@ -80,15 +95,51 @@ class MainGameScreen : Fragment() {
             }
         }
 
-        // Listener for the buttonExit button
         binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
 
+        // Returning the root of the inflated layout
+        return binding.root
+    }
+
+    //==========================================================================================
+    // setGameDifficultyStringBasedOnTheDifficultyValue function
+    //==========================================================================================
+    /**
+     * Function that based on the game difficulty value, returns a String that corresponds the
+     * game difficulty value.
+     */
+    private fun getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue: Int): String {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
+            else -> getString(R.string.game_difficulty_hard)
+        }
+    }
+
+    //==========================================================================================
+    // getGameTimeRemainingDefaultValue function
+    //==========================================================================================
+    private fun getGameTimeRemainingDefaultValue(gameDifficultyValue: Int): Long {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
+            else -> COUNTDOWN_TIME_HARD
+        }
+    }
+
+    //==========================================================================================
+    // subscribeToObservers function
+    //==========================================================================================
+    /**
+     * Function that subscribes (attaches) the observers to each LiveData variables to be
+     * observed.
+     */
+    private fun subscribeToObservers() {
         /*
         Observing the eventCorrectAnswer to show an alert dialog based on if the user's answer
         is correct or not.
         */
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { answerIsCorrect ->
-            // Building an AlertDialog to alert the user that his answer is correct
             if (answerIsCorrect == true) {
                 buildAlertDialog(
                     R.string.alertDialogCorrectAnswer_title,
@@ -101,9 +152,9 @@ class MainGameScreen : Fragment() {
                         called and the radioGroupHiraganaLetters radio group is cleared.
                         */
                         if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                            navigateToScoreScreen(viewModel.gameScore.value!!)
                         } else {
-                            binding.radioGroupHiraganaLetters.clearCheck()
+                            binding.chipGroupRomaniztionOptions.clearCheck()
                             viewModel.getNextLetter()
                         }
                     })
@@ -118,17 +169,34 @@ class MainGameScreen : Fragment() {
                     R.string.alertDialogWrongAnswer_positive_button_text,
                     DialogInterface.OnClickListener { _, _ ->
                         if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!.toInt())
+                            navigateToScoreScreen(viewModel.gameScore.value!!)
                         } else {
-                            binding.radioGroupHiraganaLetters.clearCheck()
+                            binding.chipGroupRomaniztionOptions.clearCheck()
                             viewModel.getNextLetter()
                         }
                     })
             }
         })
 
-        // Returning the root of the inflated layout
-        return binding.root
+        viewModel.eventTimeOver.observe(viewLifecycleOwner, Observer { timeIsOver ->
+            if (timeIsOver) {
+                buildAlertDialog(
+                    R.string.alertDialogTimeOver_title,
+                    getString(
+                        R.string.alertDialogTimeOver_msg,
+                        viewModel.currentHiraganaLetterRomanization.value
+                    ),
+                    R.string.alertDialogTimeOver_positive_button_text,
+                    DialogInterface.OnClickListener { _, _ ->
+                        if (viewModel.eventGameFinished.value == true) {
+                            navigateToScoreScreen(viewModel.gameScore.value!!)
+                        } else {
+                            binding.chipGroupRomaniztionOptions.clearCheck()
+                            viewModel.getNextLetter()
+                        }
+                    })
+            }
+        })
     }
 
     //==========================================================================================
@@ -171,12 +239,40 @@ class MainGameScreen : Fragment() {
         title: Int, message: String, positiveButtonText: Int,
         listener: DialogInterface.OnClickListener
     ) {
-        MaterialAlertDialogBuilder(activity).apply {
+        MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(title)
             setMessage(message)
             setPositiveButton(positiveButtonText, listener)
             setCancelable(false)
             show()
+        }
+    }
+
+    //==========================================================================================
+    // Fragment lifecycle callbacks
+    //==========================================================================================
+    override fun onPause() {
+        super.onPause()
+        isRestored = true
+
+        viewModel.countDownTimer?.cancel()
+
+        SharedPreferencesRemainingGameTime(requireContext()).saveRemainingGameTime(
+            viewModel.currentGameTime.value!!
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isDialogBeingShown) {
+            isRestored = false
+        } else if (isRestored) {
+            val gameTimeRemaining =
+                SharedPreferencesRemainingGameTime(requireContext()).retrieveGameTimeRemaining(
+                    getGameTimeRemainingDefaultValue(gameDifficultyValue!!)
+                )
+
+            viewModel.startGameTimer(gameTimeRemaining.times(ONE_SECOND))
         }
     }
 }

@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
-
-private const val PERFECT_SCORE = 48
+import com.mathsemilio.hiraganalearner.util.PERFECT_SCORE
 
 /**
  * Fragment class for the game score screen
@@ -44,6 +44,10 @@ class GameScoreScreen : Fragment() {
             findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }
 
+        binding.buttonPlayAgain.setOnClickListener {
+            findNavController().navigate(R.id.action_gameScoreScreen_to_mainGameScreen)
+        }
+
         /*
         Checking if the game score equals 0, if it is, the Share button will be hidden, else,
         a listener will be attached.
@@ -69,6 +73,35 @@ class GameScoreScreen : Fragment() {
     }
 
     //==========================================================================================
+    // getGameScorePluralsBasedOnTheLocale function
+    //==========================================================================================
+    /**
+     * Function that based on the device's locale, returns a game score quantity string.
+     */
+    private fun getGameScorePluralsBasedOnTheLocale(
+        countryString: String,
+        gameScoreForComparison: Int,
+        gameScore: Int
+    ): String {
+        return when (countryString) {
+            "BR" -> {
+                resources.getQuantityString(
+                    R.plurals.game_score_plurals_pt_br,
+                    gameScoreForComparison,
+                    gameScore
+                )
+            }
+            else -> {
+                resources.getQuantityString(
+                    R.plurals.game_score_plurals_en,
+                    gameScoreForComparison,
+                    gameScore
+                )
+            }
+        }
+    }
+
+    //==========================================================================================
     // shareGameScore function
     //==========================================================================================
     /**
@@ -79,7 +112,11 @@ class GameScoreScreen : Fragment() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                resources.getQuantityString(R.plurals.gameScorePlurals, gameScore, gameScore)
+                getGameScorePluralsBasedOnTheLocale(
+                    ConfigurationCompat.getLocales(resources.configuration)[0].country,
+                    gameScore,
+                    gameScore
+                )
             )
             type = "text/plain"
         }

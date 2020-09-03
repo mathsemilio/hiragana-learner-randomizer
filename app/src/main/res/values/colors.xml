@@ -2,8 +2,5 @@
 <resources>
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
-
-    <!-- Background color -->
-    <color name="background">@android:color/white</color>
-
+    <color name="transparent">#00FFFFFF</color>
 </resources>

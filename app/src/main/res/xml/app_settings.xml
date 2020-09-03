@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:icon="@drawable/ic_baseline_add_alert_24"
+        app:key="notification"
+        app:summaryOff="@string/training_notification_summary_off"
+        app:title="@string/training_notification_title" />
+
+    <ListPreference
+        app:entries="@array/difficulty_value_entries"
+        app:entryValues="@array/difficulty_entry_values"
+        app:icon="@drawable/ic_baseline_fitness_center_24"
+        app:key="gameDifficulty"
+        app:summary="Select a default difficulty for playing the game"
+        app:title="Set default difficulty" />
+
+    <PreferenceCategory android:title="App info">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_info_24"
+            app:key="app_build"
+            app:title="@string/app_build_version_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
