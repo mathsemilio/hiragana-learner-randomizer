@@ -11,14 +11,14 @@ their associated Hepburn romanizations.
 ### How it works?
 Before the game starts, the user selects a difficulty for the game (which can also be selected on the Settings screen). The app's algorithm then generates a random order of all the 48 Hiragana letters. The objective of the user is to select a romanization for the letter currently being displayed on the screen before the time's run out. The amount of time available for the user depends on the difficulty he selected on the start screen. Once the user goes through all the letters, he will be directed to a result screen, where the final score is presented along with the option to play the game again or share his score.
 
-### Functions to be Implemented
+### Function to be Implemented
 <ol>
     <li>Training Notifications</li>
 </ol>
 
 ### Application Screenshots
 **To be updated**
-To checkout screenshots, please visit this gallery:
+<p>To checkout screenshots, please visit this gallery:</p>
 <p><a href="https://postimg.cc/gallery/Kv2mdR5">Hiragana Learner Randomizer Gallery</a></p>
 
 ### Looks Good! How can i get it?
