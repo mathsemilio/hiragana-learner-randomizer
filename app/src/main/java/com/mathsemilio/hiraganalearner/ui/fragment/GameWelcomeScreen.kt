@@ -100,9 +100,7 @@ class GameWelcomeScreen : Fragment() {
                 }
             }
             "1" -> {
-                binding.textBodySelectADifficulty.visibility = View.INVISIBLE
-                binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
-                binding.buttonStart.isEnabled = true
+                setupUIForDifficultyPreviouslySelected()
                 binding.buttonStart.setOnClickListener {
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
@@ -113,9 +111,7 @@ class GameWelcomeScreen : Fragment() {
                 }
             }
             "2" -> {
-                binding.textBodySelectADifficulty.visibility = View.INVISIBLE
-                binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
-                binding.buttonStart.isEnabled = true
+                setupUIForDifficultyPreviouslySelected()
                 binding.buttonStart.setOnClickListener {
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
@@ -126,9 +122,7 @@ class GameWelcomeScreen : Fragment() {
                 }
             }
             "3" -> {
-                binding.textBodySelectADifficulty.visibility = View.INVISIBLE
-                binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
-                binding.buttonStart.isEnabled = true
+                setupUIForDifficultyPreviouslySelected()
                 binding.buttonStart.setOnClickListener {
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
@@ -139,5 +133,14 @@ class GameWelcomeScreen : Fragment() {
                 }
             }
         }
+    }
+
+    //==========================================================================================
+    // setupUIForDifficultyPreviouslySelected function
+    //==========================================================================================
+    private fun setupUIForDifficultyPreviouslySelected() {
+        binding.textBodySelectADifficulty.visibility = View.INVISIBLE
+        binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
+        binding.buttonStart.isEnabled = true
     }
 }

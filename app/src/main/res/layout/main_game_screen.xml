@@ -46,14 +46,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.85" />
+                app:layout_constraintGuide_percent="0.50" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_3_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.50" />
+                app:layout_constraintGuide_percent="0.85" />
 
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -105,14 +105,14 @@
                 tools:text="Score: 24" />
 
             <ProgressBar
-                android:id="@+id/timer_progress_bar"
+                android:id="@+id/game_timer_progress_bar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:indeterminateOnly="false"
                 android:max="@{mainGameViewModel.gameTimerProgressBarValue}"
                 android:progress="@{mainGameViewModel.currentGameTimeInt}"
                 android:progressDrawable="@drawable/circle_progress_bar"
-                app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/guideline_2_horizontal"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
@@ -120,14 +120,14 @@
                 tools:progress="50" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/current_hiragana_letter"
+                android:id="@+id/text_headline_current_hiragana_letter"
                 style="@style/TextAppearance.MaterialComponents.Headline1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{mainGameViewModel.currentHiraganaLetterString}"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/timer_progress_bar"
-                app:layout_constraintEnd_toEndOf="@+id/timer_progress_bar"
+                app:layout_constraintBottom_toBottomOf="@+id/game_timer_progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/game_timer_progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical"
                 app:layout_constraintTop_toTopOf="@+id/guideline_1_horizontal"
                 tools:text="あ" />
@@ -143,20 +143,20 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+                app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group_romaniztion_options"
+                android:id="@+id/chip_group_romanization_options"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/guideline_2_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toBottomOf="@id/text_body_letter_corresponds"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_button_1"
+                    android:id="@+id/chip_button_option_1"
                     style="@style/hiragana_learner_chip_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                     tools:text="RA" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_button_2"
+                    android:id="@+id/chip_button_option_2"
                     style="@style/hiragana_learner_chip_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                     tools:text="RI" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_button_3"
+                    android:id="@+id/chip_button_option_3"
                     style="@style/hiragana_learner_chip_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                     tools:text="RU" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_button_4"
+                    android:id="@+id/chip_button_option_4"
                     style="@style/hiragana_learner_chip_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                 app:icon="@drawable/ic_check_circle_black_24dp"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toEndOf="@+id/button_exit"
-                app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_exit"
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/exit"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-                app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,16 +5,17 @@
     <SwitchPreferenceCompat
         app:icon="@drawable/ic_baseline_add_alert_24"
         app:key="notification"
-        app:summaryOff="@string/training_notification_summary_off"
-        app:title="@string/training_notification_title" />
+        app:summaryOff="@string/preference_training_notification_summary_off"
+        app:title="@string/preference_training_notification_title" />
 
     <ListPreference
         app:entries="@array/difficulty_value_entries"
         app:entryValues="@array/difficulty_entry_values"
-        app:icon="@drawable/ic_baseline_fitness_center_24"
+        app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
         app:key="gameDifficulty"
-        app:summary="Select a default difficulty for playing the game"
-        app:title="Set default difficulty" />
+        app:icon="@drawable/ic_baseline_videogame_asset_24"
+        app:summary="@string/preference_summary_default_game_difficulty"
+        app:title="@string/preference_title_default_game_difficulty" />
 
     <PreferenceCategory android:title="App info">
 

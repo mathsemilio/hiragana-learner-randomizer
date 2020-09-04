@@ -6,17 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.GameScoreScreen">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_1_horizontal_score_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_2_horizontal_score_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_body_you_scored"
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/you_scored"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline_2_horizontal_score_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_1_horizontal_score_screen"
+        app:layout_constraintVertical_bias="0.24" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_headline_score_number"
@@ -32,30 +46,30 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_finish_game"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_48dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:text="@string/finish_game"
         app:layout_constraintEnd_toStartOf="@id/button_play_again"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_headline_score_number" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal_score_screen" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_play_again"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8dp"
-        android:layout_marginTop="@dimen/margin_48dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:text="@string/play_again"
         app:icon="@drawable/ic_baseline_refresh_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_finish_game"
-        app:layout_constraintTop_toBottomOf="@id/text_headline_score_number" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal_score_screen" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/text_button_share"
