@@ -63,10 +63,10 @@ class MainGameScreen : Fragment() {
             getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue!!)
 
         /*
-        Listener for the chipGroupRomaniztionOptions chip group to enable or disable the
+        Listener for the chipGroupRomanizationOptions chip group to enable or disable the
         buttonVerifyAnswer button.
         */
-        binding.chipGroupRomaniztionOptions.setOnCheckedChangeListener { group, checkedId ->
+        binding.chipGroupRomanizationOptions.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == -1) {
                 binding.buttonVerifyAnswer.isEnabled = false
             } else {
@@ -154,7 +154,7 @@ class MainGameScreen : Fragment() {
                         if (viewModel.eventGameFinished.value == true) {
                             navigateToScoreScreen(viewModel.gameScore.value!!)
                         } else {
-                            binding.chipGroupRomaniztionOptions.clearCheck()
+                            binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
                         }
                     })
@@ -171,7 +171,7 @@ class MainGameScreen : Fragment() {
                         if (viewModel.eventGameFinished.value == true) {
                             navigateToScoreScreen(viewModel.gameScore.value!!)
                         } else {
-                            binding.chipGroupRomaniztionOptions.clearCheck()
+                            binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
                         }
                     })
@@ -191,7 +191,7 @@ class MainGameScreen : Fragment() {
                         if (viewModel.eventGameFinished.value == true) {
                             navigateToScoreScreen(viewModel.gameScore.value!!)
                         } else {
-                            binding.chipGroupRomaniztionOptions.clearCheck()
+                            binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
                         }
                     })
