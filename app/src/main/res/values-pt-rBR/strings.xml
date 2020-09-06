@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Hiragana Learner</string>
     <string name="settings_activity_label">Configurações</string>
-    <string name="preference_training_notification_summary_on">Hora configurada: %1$d:%2$d</string>
+    <string name="preference_training_notification_summary_on">Horário configurado: %1$d:%2$d</string>
     <string name="preference_training_notification_summary_off">Selecione um horário para treinar.</string>
     <string name="preference_training_notification_title">Lembrete para treino</string>
     <string name="difficulty_entry_beginner">Iniciante</string>
@@ -10,6 +10,7 @@
     <string name="difficulty_entry_hard">Difícil</string>
     <string name="difficulty_entry_default">Escolher toda vez antes de inicar o jogo</string>
     <string name="preference_summary_default_game_difficulty">Selecione uma dificuldade padrão para jogar.</string>
+    <string name="preference_notification_set_toast_message">Pronto! Horário configurado: %1$d:%2$d</string>
     <string name="preference_title_default_game_difficulty">Dificuldade padrão</string>
     <string name="preference_dialog_title_default_game_difficulty">Selecione uma opção abaixo:</string>
     <string name="preference_title_app_build_version">Versão de compilação</string>

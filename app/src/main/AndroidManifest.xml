@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mathsemilio.hiraganalearner">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".ApplicationClass"
         android:allowBackup="false"
@@ -25,7 +27,14 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".TrainingRemainderBroadcast" />
+        <receiver android:name=".TrainingRemainderBroadcastReceiver" />
+        <receiver
+            android:name=".AlarmBootBroadcastReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

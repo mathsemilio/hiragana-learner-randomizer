@@ -3,6 +3,8 @@ package com.mathsemilio.hiraganalearner.ui.fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,8 @@ import com.mathsemilio.hiraganalearner.util.*
 class GameWelcomeScreen : Fragment() {
 
     private lateinit var binding: GameWelcomeScreenBinding
+    private lateinit var soundPool: SoundPool
+    private var soundClick: Int? = null
     private var defaultSharedPreferences: SharedPreferences? = null
 
     //==========================================================================================
@@ -39,6 +43,8 @@ class GameWelcomeScreen : Fragment() {
             PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         configGameDifficultyOptions()
+
+        setupSoundPoolAndLoadSounds()
 
         binding.appThemeSwitchIcon.setOnClickListener {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
@@ -76,6 +82,8 @@ class GameWelcomeScreen : Fragment() {
                     if (checkedId == -1) {
                         binding.buttonStart.isEnabled = false
                     } else {
+                        soundPool.play(soundClick!!, 1F, 1F, 1, 0, 1F)
+
                         binding.buttonStart.isEnabled = true
 
                         val checkedRadioButton = group.findViewById<Chip>(checkedId)
@@ -133,6 +141,23 @@ class GameWelcomeScreen : Fragment() {
                 }
             }
         }
+    }
+
+    //==========================================================================================
+    // setupSoundPoolAndLoadSounds function
+    //==========================================================================================
+    private fun setupSoundPoolAndLoadSounds() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(2)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        soundClick = soundPool.load(requireContext(), R.raw.brevicep_normal_click, 1)
     }
 
     //==========================================================================================

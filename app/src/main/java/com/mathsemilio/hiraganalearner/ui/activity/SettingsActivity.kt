@@ -1,22 +1,19 @@
 package com.mathsemilio.hiraganalearner.ui.activity
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.Intent
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import com.mathsemilio.hiraganalearner.AlarmBootBroadcastReceiver
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.TrainingRemainderBroadcast
-import com.mathsemilio.hiraganalearner.util.APP_BUILD
-import com.mathsemilio.hiraganalearner.util.APP_BUILD_VERSION
-import com.mathsemilio.hiraganalearner.util.NOTIFICATION
+import com.mathsemilio.hiraganalearner.util.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 
@@ -38,10 +35,10 @@ class SettingsActivity : AppCompatActivity() {
 class SettingsFragment : PreferenceFragmentCompat(),
     PreferenceManager.OnPreferenceTreeClickListener {
 
-    private val calendarInstance = Calendar.getInstance()
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.app_settings, rootKey)
+
+        updateNotificationPreferenceSummary()
 
         findPreference<Preference>(APP_BUILD)?.summary = APP_BUILD_VERSION
     }
@@ -51,15 +48,35 @@ class SettingsFragment : PreferenceFragmentCompat(),
             NOTIFICATION -> {
                 when (findPreference<SwitchPreferenceCompat>(NOTIFICATION)?.isChecked) {
                     true -> {
+                        val calendarInstance = Calendar.getInstance()
                         val timePicker = TimePickerDialog(
                             requireContext(),
                             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                                val timeSet = calendarInstance.apply {
+                                val timeSetByTheUser = calendarInstance.apply {
+                                    timeInMillis = System.currentTimeMillis()
                                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                                     set(Calendar.MINUTE, minute)
                                 }
 
-                                setupAlarmManager(requireContext(), timeSet)
+                                SharedPreferencesTimeSet(requireContext()).saveHourSet(hourOfDay)
+                                SharedPreferencesTimeSet(requireContext()).saveMinuteSet(minute)
+
+                                AlarmManagerHelper().setAlarmManager(
+                                    requireContext(), timeSetByTheUser
+                                )
+                                enableAlarmBootBroadcastReceiver()
+
+                                updateNotificationPreferenceSummary()
+
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(
+                                        R.string.preference_notification_set_toast_message,
+                                        SharedPreferencesTimeSet(requireContext()).retrieveHourSet(),
+                                        SharedPreferencesTimeSet(requireContext()).retrieveMinuteSet()
+                                    ),
+                                    Toast.LENGTH_LONG
+                                ).show()
                             },
                             calendarInstance.get(Calendar.HOUR_OF_DAY),
                             calendarInstance.get(Calendar.MINUTE),
@@ -68,7 +85,8 @@ class SettingsFragment : PreferenceFragmentCompat(),
                         timePicker.show()
                     }
                     false -> {
-                        cancelAlarmManager(requireContext())
+                        AlarmManagerHelper().cancelAlarmManager(requireContext())
+                        disableAlarmBootBroadcastReceiver()
                     }
                 }
             }
@@ -77,40 +95,39 @@ class SettingsFragment : PreferenceFragmentCompat(),
         return super.onPreferenceTreeClick(preference)
     }
 
-    private fun setupAlarmManager(context: Context, timeSet: Calendar) {
-        val alarmIntent = Intent(context, TrainingRemainderBroadcast::class.java).let {
-            PendingIntent.getBroadcast(
-                context,
-                1,
-                Intent(context, TrainingRemainderBroadcast::class.java),
-                0
-            )
+    private fun updateNotificationPreferenceSummary() {
+        findPreference<SwitchPreferenceCompat>(NOTIFICATION)?.setSummaryProvider {
+            return@setSummaryProvider if (findPreference<SwitchPreferenceCompat>(NOTIFICATION)
+                    ?.isChecked!!
+            ) {
+                getString(
+                    R.string.preference_training_notification_summary_on,
+                    SharedPreferencesTimeSet(requireContext()).retrieveHourSet(),
+                    SharedPreferencesTimeSet(requireContext()).retrieveMinuteSet()
+                )
+            } else {
+                getString(R.string.preference_training_notification_summary_off)
+            }
         }
+    }
 
-        val alarmManager: AlarmManager =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    private fun enableAlarmBootBroadcastReceiver() {
+        val receiver = ComponentName(requireContext(), AlarmBootBroadcastReceiver::class.java)
 
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            timeSet.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            alarmIntent
+        requireContext().packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
         )
     }
 
-    private fun cancelAlarmManager(context: Context) {
-        val alarmIntent = Intent(context, TrainingRemainderBroadcast::class.java).let {
-            PendingIntent.getBroadcast(
-                context,
-                1,
-                Intent(context, TrainingRemainderBroadcast::class.java),
-                0
-            )
-        }
+    private fun disableAlarmBootBroadcastReceiver() {
+        val receiver = ComponentName(requireContext(), AlarmBootBroadcastReceiver::class.java)
 
-        val alarmManager: AlarmManager =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        alarmManager.cancel(alarmIntent)
+        requireContext().packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
     }
 }

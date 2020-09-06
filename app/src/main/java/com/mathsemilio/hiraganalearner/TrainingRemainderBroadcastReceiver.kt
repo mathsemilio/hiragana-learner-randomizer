@@ -9,8 +9,9 @@ import androidx.core.app.NotificationManagerCompat
 import com.mathsemilio.hiraganalearner.ui.activity.MainActivity
 import com.mathsemilio.hiraganalearner.util.NOTIFICATION_CHANNEL_ID
 import com.mathsemilio.hiraganalearner.util.NOTIFICATION_ID
+import com.mathsemilio.hiraganalearner.util.TRAINING_NOTIFICATION_REQUEST_ID
 
-class TrainingRemainderBroadcast : BroadcastReceiver() {
+class TrainingRemainderBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context != null) createNotificationCompat(context)
     }
@@ -21,7 +22,12 @@ class TrainingRemainderBroadcast : BroadcastReceiver() {
         }
 
         val pendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, 0, intentLaunchMainActivity, 0)
+            PendingIntent.getActivity(
+                context,
+                TRAINING_NOTIFICATION_REQUEST_ID,
+                intentLaunchMainActivity,
+                0
+            )
 
         val notificationBuilder =
             NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID).apply {
