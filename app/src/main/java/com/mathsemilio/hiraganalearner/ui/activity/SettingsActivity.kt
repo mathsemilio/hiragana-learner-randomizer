@@ -49,13 +49,12 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference?.key) {
             NOTIFICATION -> {
-                when (findPreference<SwitchPreferenceCompat>(NOTIFICATION)?.isChecked!!) {
+                when (findPreference<SwitchPreferenceCompat>(NOTIFICATION)?.isChecked) {
                     true -> {
                         val timePicker = TimePickerDialog(
                             requireContext(),
                             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                                 val timeSet = calendarInstance.apply {
-                                    timeInMillis = System.currentTimeMillis()
                                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                                     set(Calendar.MINUTE, minute)
                                 }
@@ -89,7 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
         }
 
         val alarmManager: AlarmManager =
-            requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
@@ -110,7 +109,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
         }
 
         val alarmManager: AlarmManager =
-            requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmManager.cancel(alarmIntent)
     }

@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Hiragana Learner</string>
     <string name="settings_activity_label">Configurações</string>
+    <string name="preference_training_notification_summary_on">Hora configurada: %1$d:%2$d</string>
     <string name="preference_training_notification_summary_off">Selecione um horário para treinar.</string>
     <string name="preference_training_notification_title">Lembrete para treino</string>
     <string name="difficulty_entry_beginner">Iniciante</string>
@@ -9,11 +10,13 @@
     <string name="difficulty_entry_hard">Difícil</string>
     <string name="difficulty_entry_default">Escolher toda vez antes de inicar o jogo</string>
     <string name="preference_summary_default_game_difficulty">Selecione uma dificuldade padrão para jogar.</string>
-    <string name="preference_title_default_game_difficulty">Escolher dificuldade padrão</string>
+    <string name="preference_title_default_game_difficulty">Dificuldade padrão</string>
     <string name="preference_dialog_title_default_game_difficulty">Selecione uma opção abaixo:</string>
-    <string name="app_build_version_title">Versão de compilação</string>
+    <string name="preference_title_app_build_version">Versão de compilação</string>
     <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
     <string name="training_notification_content_text">Toque aqui para começar a treinar.</string>
+    <string name="training_notifications_channel_name">Lembrete de Treino do Hiragana Learner</string>
+    <string name="training_notifications_channel_description">Lembrete de Treino para Hiragana</string>
     <string name="config_switch_icon">Ícone para acessar as configurações da aplicação</string>
     <string name="dark_theme_switch_icon_content_description">Ícone para mudar o tema da aplicação</string>
     <string name="get_ready_to_associate">Se prepare para associar…</string>

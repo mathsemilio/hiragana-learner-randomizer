@@ -9,11 +9,11 @@
         app:title="@string/preference_training_notification_title" />
 
     <ListPreference
+        app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
         app:entries="@array/difficulty_value_entries"
         app:entryValues="@array/difficulty_entry_values"
-        app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
-        app:key="gameDifficulty"
         app:icon="@drawable/ic_baseline_videogame_asset_24"
+        app:key="gameDifficulty"
         app:summary="@string/preference_summary_default_game_difficulty"
         app:title="@string/preference_title_default_game_difficulty" />
 
@@ -21,8 +21,8 @@
 
         <Preference
             app:icon="@drawable/ic_baseline_info_24"
-            app:key="app_build"
-            app:title="@string/app_build_version_title" />
+            app:key="appBuild"
+            app:title="@string/preference_title_app_build_version" />
 
     </PreferenceCategory>
 

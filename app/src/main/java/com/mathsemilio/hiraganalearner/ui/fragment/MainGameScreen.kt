@@ -1,6 +1,8 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.DialogInterface
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,10 @@ class MainGameScreen : Fragment() {
     private lateinit var binding: MainGameScreenBinding
     private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
+    private lateinit var soundPool: SoundPool
+    private var soundClick: Int? = null
+    private var soundCorrectAnswer: Int? = null
+    private var soundWrongAnswer: Int? = null
     private var gameDifficultyValue: Int? = null
     private var isRestored = false
     private var isDialogBeingShown = false
@@ -59,6 +65,8 @@ class MainGameScreen : Fragment() {
 
         subscribeToObservers()
 
+        setupSoundPoolAndLoadSounds()
+
         binding.textBodyGameDifficulty.text =
             getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue!!)
 
@@ -70,6 +78,8 @@ class MainGameScreen : Fragment() {
             if (checkedId == -1) {
                 binding.buttonVerifyAnswer.isEnabled = false
             } else {
+                soundPool.play(soundClick!!, 1F, 1F, 0, 0, 1F)
+
                 binding.buttonVerifyAnswer.isEnabled = true
 
                 // Getting the text from the selected chip
@@ -128,6 +138,26 @@ class MainGameScreen : Fragment() {
     }
 
     //==========================================================================================
+    // setupSoundPoolAndLoadSounds function
+    //==========================================================================================
+    private fun setupSoundPoolAndLoadSounds() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(2)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        soundClick = soundPool.load(requireContext(), R.raw.brevicep_normal_click, 1)
+        soundCorrectAnswer =
+            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 1)
+        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 1)
+    }
+
+    //==========================================================================================
     // subscribeToObservers function
     //==========================================================================================
     /**
@@ -140,7 +170,9 @@ class MainGameScreen : Fragment() {
         is correct or not.
         */
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, Observer { answerIsCorrect ->
-            if (answerIsCorrect == true) {
+            if (answerIsCorrect) {
+                soundPool.play(soundCorrectAnswer!!, 1F, 1F, 1, 0, 1F)
+
                 buildAlertDialog(
                     R.string.alertDialogCorrectAnswer_title,
                     getString(R.string.alertDialogCorrectAnswer_msg),
@@ -160,6 +192,8 @@ class MainGameScreen : Fragment() {
                     })
             } else {
                 // Building an AlertDialog to alert the user that his answer is incorrect
+                soundPool.play(soundWrongAnswer!!, 1F, 1F, 1, 0, 1F)
+
                 buildAlertDialog(
                     R.string.alertDialogWrongAnswer_title,
                     getString(
@@ -180,6 +214,8 @@ class MainGameScreen : Fragment() {
 
         viewModel.eventTimeOver.observe(viewLifecycleOwner, Observer { timeIsOver ->
             if (timeIsOver) {
+                soundPool.play(soundWrongAnswer!!, 1F, 1F, 1, 0, 1F)
+
                 buildAlertDialog(
                     R.string.alertDialogTimeOver_title,
                     getString(

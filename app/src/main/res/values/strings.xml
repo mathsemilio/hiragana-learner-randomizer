@@ -6,20 +6,23 @@
     <string name="settings_activity_label">Settings</string>
 
     <!-- Settings fragment strings -->
+    <string name="preference_training_notification_summary_on">Time set: %1$d:%2$d</string>
     <string name="preference_training_notification_summary_off">Remind yourself to train.</string>
-    <string name="preference_training_notification_title">Setup a remainder</string>
+    <string name="preference_training_notification_title">Training remainder</string>
     <string name="difficulty_entry_beginner">Beginner</string>
     <string name="difficulty_entry_medium">Medium</string>
     <string name="difficulty_entry_hard">Hard</string>
     <string name="difficulty_entry_default">Choose every time before starting the game</string>
     <string name="preference_summary_default_game_difficulty">Select a default difficulty for playing the game</string>
-    <string name="preference_title_default_game_difficulty">Set default game difficulty</string>
+    <string name="preference_title_default_game_difficulty">Default game difficulty</string>
     <string name="preference_dialog_title_default_game_difficulty">Select a option below:</string>
-    <string name="app_build_version_title">Build version</string>
+    <string name="preference_title_app_build_version">Build version</string>
 
     <!-- Training Notifications strings -->
     <string name="training_notification_content_title">Time to train your Hiragana!</string>
     <string name="training_notification_content_text">Touch here to start training.</string>
+    <string name="training_notifications_channel_name">Hiragana Learner training remainder</string>
+    <string name="training_notifications_channel_description">Hiragana Training Remainder</string>
 
     <!-- Game Welcome Screen -->
     <string name="config_switch_icon">Application Configuration icon</string>

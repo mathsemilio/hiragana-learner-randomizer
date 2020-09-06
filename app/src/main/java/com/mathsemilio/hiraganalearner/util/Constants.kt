@@ -28,14 +28,14 @@ const val PROGRESS_BAR_MAX_HARD = 4
 const val SHARED_PREF_GAME_TIME = "gameTimeSharedPreferences"
 const val TIME_REMAINING = "timeRemaining"
 
+const val SHARED_PREF_TIME_SET = "timeSetSharedPreferences"
+
 // Preference screen constants
 const val APP_BUILD_VERSION = "alpha-1.0"
-const val APP_BUILD = "app_build"
+const val APP_BUILD = "appBuild"
 const val NOTIFICATION = "notification"
 const val GAME_DIFFICULTY_CONFIG_KEY = "gameDifficulty"
 
 // Training notification constants
 const val NOTIFICATION_ID = 1
-const val NOTIFICATION_CHANNEL_ID = "HiraganaRandomizerTrainingNotification"
-const val CHANNEL_NAME = "Hiragana Randomizer Training Notifications"
-const val CHANNEL_DESCRIPTION = "Hiragana Training notification"
+const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
