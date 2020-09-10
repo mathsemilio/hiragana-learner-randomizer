@@ -105,7 +105,9 @@ class MainGameScreen : Fragment() {
             }
         }
 
-        binding.buttonExit.setOnClickListener { navigateToWelcomeScreen() }
+        binding.buttonExit.setOnClickListener {
+            findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
+        }
 
         // Returning the root of the inflated layout
         return binding.root
@@ -236,16 +238,6 @@ class MainGameScreen : Fragment() {
     }
 
     //==========================================================================================
-    // navigateToWelcomeScreen function
-    //==========================================================================================
-    /**
-     * Function to navigate from the current screen to the welcome screen.
-     */
-    private fun navigateToWelcomeScreen() {
-        findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
-    }
-
-    //==========================================================================================
     // navigateToScoreScreen function
     //==========================================================================================
     /**
@@ -255,7 +247,14 @@ class MainGameScreen : Fragment() {
      * @param gameScore - Integer for the game score to be passed to the score fragment
      */
     private fun navigateToScoreScreen(gameScore: Int) {
-        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(gameScore)
+        if (gameScore == PERFECT_SCORE)
+            SharedPreferencesPerfectScores(requireContext()).updatePerfectScore()
+
+        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
+            gameScore,
+            gameDifficultyValue!!
+        )
+
         findNavController().navigate(action)
     }
 

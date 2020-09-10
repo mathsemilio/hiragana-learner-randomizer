@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_BEGINNER
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_MEDIUM
 import com.mathsemilio.hiraganalearner.util.PERFECT_SCORE
+import com.mathsemilio.hiraganalearner.util.SharedPreferencesPerfectScores
 
 /**
  * Fragment class for the game score screen
@@ -35,16 +38,23 @@ class GameScoreScreen : Fragment() {
         string for the textBodyYouScored TextView will be shown
         */
         if (gameScore == PERFECT_SCORE) {
-            binding.textBodyYouScored.text = getString(R.string.perfect_score)
+            binding.textHeadlineCongratulations.text =
+                getString(R.string.perfect_score)
         }
 
-        binding.textHeadlineScoreNumber.text = gameScore.toString()
+        binding.textHeadlineGameScore.text = gameScore.toString()
 
-        binding.buttonFinishGame.setOnClickListener {
+        binding.textHeadlinePerfectScores.text =
+            SharedPreferencesPerfectScores(requireContext()).retrievePerfectScoresNumber()
+                .toString()
+
+        binding.textHeadlineGameDifficulty.text = getGameDifficultyString()
+
+        binding.fabHome.setOnClickListener {
             findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }
 
-        binding.buttonPlayAgain.setOnClickListener {
+        binding.fabPlayAgain.setOnClickListener {
             findNavController().navigate(R.id.action_gameScoreScreen_to_mainGameScreen)
         }
 
@@ -53,9 +63,9 @@ class GameScoreScreen : Fragment() {
         a listener will be attached.
         */
         if (gameScore == 0) {
-            binding.textButtonShare.visibility = View.GONE
+            binding.fabShare.visibility = View.GONE
         } else {
-            binding.textButtonShare.setOnClickListener { shareGameScore(gameScore) }
+            binding.fabShare.setOnClickListener { shareGameScore(gameScore) }
         }
 
         // Returning the root of the inflated layout
@@ -70,6 +80,21 @@ class GameScoreScreen : Fragment() {
      */
     private fun retrieveGameScore(): Int {
         return GameScoreScreenArgs.fromBundle(requireArguments()).gameScore
+    }
+
+    //==========================================================================================
+    // getGameDifficultyString function
+    //==========================================================================================
+    /**
+     * Function that returns a string which represents the game difficulty based on the value
+     * from the argument bundle.
+     */
+    private fun getGameDifficultyString(): String {
+        return when (GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
+            else -> getString(R.string.game_difficulty_hard)
+        }
     }
 
     //==========================================================================================

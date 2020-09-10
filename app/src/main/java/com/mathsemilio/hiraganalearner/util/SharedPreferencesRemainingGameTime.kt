@@ -3,6 +3,8 @@ package com.mathsemilio.hiraganalearner.util
 import android.content.Context
 import android.content.SharedPreferences
 
+private const val SHARED_PREF_GAME_TIME = "gameTimeSharedPreferences"
+
 class SharedPreferencesRemainingGameTime(context: Context) {
 
     private val sharedPreferencesAppTheme: SharedPreferences =

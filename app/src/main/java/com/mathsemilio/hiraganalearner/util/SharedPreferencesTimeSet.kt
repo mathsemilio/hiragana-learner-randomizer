@@ -31,4 +31,9 @@ class SharedPreferencesTimeSet(context: Context) {
     fun retrieveMinuteSet(): Int {
         return sharedPreferencesTimeSet.getInt(MINUTE_SET, 0)
     }
+
+    fun clearTimeSet() {
+        editor.clear()
+        editor.apply()
+    }
 }

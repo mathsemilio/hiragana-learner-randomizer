@@ -11,24 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.32" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_2_welcome_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horizontal_3_welcome_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.50" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_horizontal_4_welcome_screen"
+        android:id="@+id/guideline_horizontal_3_welcome_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,29 +31,27 @@
         android:id="@+id/app_config_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:backgroundTint="?attr/colorControlNormal"
         android:contentDescription="@string/config_switch_icon"
         android:src="@drawable/ic_baseline_settings_24"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1_welcome_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/app_theme_switch_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:backgroundTint="?attr/colorControlNormal"
         android:contentDescription="@string/dark_theme_switch_icon_content_description"
         android:src="@drawable/ic_baseline_brightness_4_24"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1_welcome_screen"
         app:layout_constraintEnd_toStartOf="@id/app_config_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_body_get_ready_guess"
@@ -68,10 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/get_ready_to_associate"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_3_welcome_screen"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_2_welcome_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_2_welcome_screen"
+        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_1_welcome_screen"
         app:layout_constraintVertical_bias="0.16" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -97,10 +88,10 @@
         android:maxLines="2"
         android:text="@string/select_a_difficulty_level"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_4_welcome_screen"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_3_welcome_screen"
         app:layout_constraintEnd_toEndOf="@id/chip_group_game_difficulty"
         app:layout_constraintStart_toStartOf="@id/chip_group_game_difficulty"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_3_welcome_screen" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2_welcome_screen" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_game_difficulty"
@@ -146,6 +137,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_4_welcome_screen" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_3_welcome_screen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

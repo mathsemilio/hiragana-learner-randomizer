@@ -81,6 +81,11 @@
             android:defaultValue="0"
             app:argType="integer" />
 
+        <argument
+            android:name="game_difficulty"
+            android:defaultValue="0"
+            app:argType="integer" />
+
     </fragment>
 
 </navigation>

@@ -76,7 +76,7 @@ class GameWelcomeScreen : Fragment() {
     // configGameDifficultyOptions function
     //==========================================================================================
     private fun configGameDifficultyOptions() {
-        when (defaultSharedPreferences?.getString(GAME_DIFFICULTY_CONFIG_KEY, "0")) {
+        when (defaultSharedPreferences?.getString(GAME_DIFFICULTY_PREF_KEY, "0")) {
             "0" -> {
                 binding.chipGroupGameDifficulty.setOnCheckedChangeListener { group, checkedId ->
                     if (checkedId == -1) {

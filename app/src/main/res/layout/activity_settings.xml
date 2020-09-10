@@ -10,13 +10,13 @@
     <include
         android:id="@+id/toolbar_settings"
         layout="@layout/settings_toolbar"
-        app:layout_constraintBottom_toTopOf="@id/fl_settings"
+        app:layout_constraintBottom_toTopOf="@id/frame_layout_settings_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/fl_settings"
+        android:id="@+id/frame_layout_settings_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

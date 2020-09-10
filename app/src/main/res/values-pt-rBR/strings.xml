@@ -8,11 +8,16 @@
     <string name="difficulty_entry_beginner">Iniciante</string>
     <string name="difficulty_entry_medium">Médio</string>
     <string name="difficulty_entry_hard">Difícil</string>
-    <string name="difficulty_entry_default">Escolher toda vez antes de inicar o jogo</string>
+    <string name="difficulty_entry_default">Escolher toda vez antes de iniciar o jogo</string>
     <string name="preference_summary_default_game_difficulty">Selecione uma dificuldade padrão para jogar.</string>
-    <string name="preference_notification_set_toast_message">Pronto! Horário configurado: %1$d:%2$d</string>
+    <string name="preference_notification_set_toast_message">Pronto! Lembrete configurado</string>
     <string name="preference_title_default_game_difficulty">Dificuldade padrão</string>
     <string name="preference_dialog_title_default_game_difficulty">Selecione uma opção abaixo:</string>
+    <string name="preference_summary_clear_perfect_scores">Número de Pontuações perfeitas alcançadas: %d</string>
+    <string name="clear_perfect_score_dialog_title">Você tem certeza?</string>
+    <string name="clear_perfect_score_dialog_message">Esta ação não pode ser desfeita.</string>
+    <string name="clear_perfect_score_dialog_positive_button_text">Limpar</string>
+    <string name="clear_perfect_score_dialog_negative_button_text">Cancelar</string>
     <string name="preference_title_app_build_version">Versão de compilação</string>
     <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
     <string name="training_notification_content_text">Toque aqui para começar a treinar.</string>
@@ -33,9 +38,8 @@
     <string name="game_score">Pontuação: %d</string>
     <string name="you_scored">Você Pontuou</string>
     <string name="perfect_score">Você conseguiu uma pontuação perfeita! Parabéns!</string>
-    <string name="finish_game">Terminar Jogo</string>
-    <string name="play_again">Jogar Novamente</string>
-    <string name="share">Compartilhar</string>
+    <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
+    <string name="game_difficulty_score_screen">Dificuldade do Jogo</string>
     <string name="alertDialogCorrectAnswer_title">Resposta Correta!</string>
     <string name="alertDialogCorrectAnswer_msg">Muito Bem! Continue Praticando!</string>
     <string name="alertDialogCorrectAnswer_positive_button_text">Continuar</string>
@@ -46,4 +50,5 @@
     <string name="alertDialogTimeOver_msg">O rõmaji correto para aquela letra era: \"%1$s\". Continue Praticando!</string>
     <string name="alertDialogTimeOver_positive_button_text">Continuar</string>
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
+    <string name="preference_title_clear_perfect_scores">Clear perfect scores</string>
 </resources>

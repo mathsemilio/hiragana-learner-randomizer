@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <SwitchPreferenceCompat
         app:icon="@drawable/ic_baseline_add_alert_24"
@@ -16,6 +17,12 @@
         app:key="gameDifficulty"
         app:summary="@string/preference_summary_default_game_difficulty"
         app:title="@string/preference_title_default_game_difficulty" />
+
+    <Preference
+        app:icon="@drawable/ic_baseline_delete_forever_24"
+        app:key="clearPerfectScores"
+        app:title="@string/preference_title_clear_perfect_scores"
+        tools:summary="Number of Perfect scores achieved: 6" />
 
     <PreferenceCategory android:title="App info">
 
