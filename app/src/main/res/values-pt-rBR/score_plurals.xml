@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="game_score_plurals_pt_br">
+    <plurals name="game_score_plurals">
         <item quantity="one">Eu alcancei %d ponto no App Hiragana Learner. Você consegue bater?</item>
         <item quantity="other">Eu alcancei %d pontos no App Hiragana Learner. Você consegue igualar ou me superar?</item>
     </plurals>

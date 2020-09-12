@@ -3,28 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <SwitchPreferenceCompat
-        app:icon="@drawable/ic_baseline_add_alert_24"
-        app:key="notification"
-        app:summaryOff="@string/preference_training_notification_summary_off"
-        app:title="@string/preference_training_notification_title" />
+    <PreferenceCategory android:title="@string/preference_category_title_notification">
 
-    <ListPreference
-        app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
-        app:entries="@array/difficulty_value_entries"
-        app:entryValues="@array/difficulty_entry_values"
-        app:icon="@drawable/ic_baseline_videogame_asset_24"
-        app:key="gameDifficulty"
-        app:summary="@string/preference_summary_default_game_difficulty"
-        app:title="@string/preference_title_default_game_difficulty" />
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_baseline_add_alert_24"
+            app:key="notification"
+            app:title="@string/preference_training_notification_title_unchecked" />
 
-    <Preference
-        app:icon="@drawable/ic_baseline_delete_forever_24"
-        app:key="clearPerfectScores"
-        app:title="@string/preference_title_clear_perfect_scores"
-        tools:summary="Number of Perfect scores achieved: 6" />
+    </PreferenceCategory>
 
-    <PreferenceCategory android:title="App info">
+    <PreferenceCategory app:title="@string/preference_title_game_options">
+
+        <ListPreference
+            app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
+            app:entries="@array/difficulty_value_entries"
+            app:entryValues="@array/difficulty_entry_values"
+            app:icon="@drawable/ic_baseline_videogame_asset_24"
+            app:key="gameDifficulty"
+            app:summary="@string/preference_summary_default_game_difficulty"
+            app:title="@string/preference_title_default_game_difficulty" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_delete_forever_24"
+            app:key="clearPerfectScores"
+            app:title="@string/preference_title_clear_perfect_scores"
+            tools:summary="Number of Perfect scores achieved: 6" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_title_app_info">
 
         <Preference
             app:icon="@drawable/ic_baseline_info_24"

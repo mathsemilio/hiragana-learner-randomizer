@@ -15,31 +15,36 @@ import androidx.work.WorkManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.NotificationWorkManager
 import com.mathsemilio.hiraganalearner.R
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_PREF_KEY
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_VERSION
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.CLEAR_PERFECT_SCORES_PREF_KEY
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.NOTIFICATION_PREF_KEY
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.TRAINING_NOTIFICATION_TAG
 import com.mathsemilio.hiraganalearner.util.SharedPreferencesPerfectScores
-import com.mathsemilio.hiraganalearner.util.SharedPreferencesTimeSet
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-private const val TRAINING_NOTIFICATION_TAG = "trainingNotification"
-private const val APP_BUILD_VERSION = "alpha-1.0"
-private const val APP_BUILD_PREF_KEY = "appBuild"
-private const val NOTIFICATION_PREF_KEY = "notification"
-private const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
-
 /**
- * Activity class that hosts the Settings Fragment
+ * Activity class that hosts the Settings Fragment.
  */
 class SettingsActivity : AppCompatActivity() {
+
+    companion object {
+        const val TRAINING_NOTIFICATION_TAG = "trainingNotification"
+        const val APP_BUILD_VERSION = "alpha-1.0"
+        const val APP_BUILD_PREF_KEY = "appBuild"
+        const val NOTIFICATION_PREF_KEY = "notification"
+        const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        // Setting up the toolbar
         setSupportActionBar(toolbar_settings as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Replacing the frame_layout_settings_container with the SettingsFragment
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_layout_settings_container, SettingsFragment())
@@ -48,7 +53,7 @@ class SettingsActivity : AppCompatActivity() {
 }
 
 /**
- * PreferenceFragment that hosts the settings screen
+ * Fragment class that extends PreferenceFragmentCompat for the Settings screen.
  */
 class SettingsFragment : PreferenceFragmentCompat(),
     PreferenceManager.OnPreferenceTreeClickListener {
@@ -61,15 +66,14 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.app_settings, rootKey)
 
-        updateNotificationPreferenceSummary()
+        updateTrainingNotificationTitle()
 
-        if (SharedPreferencesPerfectScores(requireContext()).retrievePerfectScoresNumber() == 0) {
+        if (SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore() == 0) {
             findPreference<Preference>(CLEAR_PERFECT_SCORES_PREF_KEY)?.isVisible = false
         } else {
             updateClearPerfectScoresNumberPreferenceSummary()
         }
 
-        // Setting up the Summary for the App Build preference
         findPreference<Preference>(APP_BUILD_PREF_KEY)?.summary = APP_BUILD_VERSION
     }
 
@@ -77,7 +81,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
     // onPreferenceTreeClick
     //==========================================================================================
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        // Checking the preference's key
         when (preference?.key) {
             NOTIFICATION_PREF_KEY -> {
                 when (findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.isChecked) {
@@ -86,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
                     }
                     false -> {
                         cancelTrainingNotification()
-                        SharedPreferencesTimeSet(requireContext()).clearTimeSet()
+                        updateTrainingNotificationTitle()
                     }
                 }
             }
@@ -98,9 +101,10 @@ class SettingsFragment : PreferenceFragmentCompat(),
                         getString(R.string.clear_perfect_score_dialog_positive_button_text),
                         DialogInterface.OnClickListener { _, _ ->
                             SharedPreferencesPerfectScores(requireContext())
-                                .clearPerfectScoresSharedPreferences()
+                                .clearPerfectScores()
 
-                            updateClearPerfectScoresNumberPreferenceSummary()
+                            findPreference<Preference>(CLEAR_PERFECT_SCORES_PREF_KEY)
+                                ?.isVisible = false
                         })
                     setNegativeButton(
                         getString(R.string.clear_perfect_score_dialog_negative_button_text),
@@ -119,30 +123,38 @@ class SettingsFragment : PreferenceFragmentCompat(),
     // setupTimePickerDialog function
     //==========================================================================================
     /**
-     * Function that builds a time picker dialog for the training notification.
+     * Builds a time picker dialog allowing the user to set the time when the notification
+     * should pop up.
      */
     private fun setupTimePickerDialog(calendar: Calendar) {
         val timePicker = TimePickerDialog(
             requireContext(),
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                // Getting the time set by the user and putting in a calendar object
                 val timeSetByTheUser = calendar.apply {
                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                     set(Calendar.MINUTE, minute)
                 }
 
-                // Saving the time set by the user in a SharedPreferences object
-                SharedPreferencesTimeSet(requireContext()).saveHourSet(hourOfDay)
-                SharedPreferencesTimeSet(requireContext()).saveMinuteSet(minute)
+                if (timeSetByTheUser.timeInMillis > System.currentTimeMillis()) {
+                    scheduleTrainingNotification(
+                        timeSetByTheUser.timeInMillis - System.currentTimeMillis()
+                    )
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.training_notification_toast_message_please_select_a_time_in_future),
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                scheduleTrainingNotification(calculateTimeDelayForNotification(timeSetByTheUser))
+                    return@OnTimeSetListener
+                }
 
-                updateNotificationPreferenceSummary()
+                updateTrainingNotificationTitle()
 
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.preference_notification_set_toast_message),
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
             },
             calendar.get(Calendar.HOUR_OF_DAY),
@@ -152,46 +164,47 @@ class SettingsFragment : PreferenceFragmentCompat(),
         timePicker.show()
     }
 
-    private fun scheduleTrainingNotification(delay: Long) {
+    //==========================================================================================
+    // scheduleTrainingNotification function
+    //==========================================================================================
+    /**
+     * Schedules the Work that triggers the training notification based on the initialDelay
+     * parameter.
+     *
+     * @param initialDelay Long that represents the time that the work will be delayed.
+     */
+    private fun scheduleTrainingNotification(initialDelay: Long) {
         val notificationWork = OneTimeWorkRequestBuilder<NotificationWorkManager>()
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
             .addTag(TRAINING_NOTIFICATION_TAG)
             .build()
 
-        val workManagerInstance = WorkManager.getInstance(requireContext())
-        workManagerInstance.enqueue(notificationWork)
-    }
-
-    private fun cancelTrainingNotification() {
-        val workManagerInstance = WorkManager.getInstance(requireContext())
-        workManagerInstance.cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG)
-    }
-
-    private fun calculateTimeDelayForNotification(timeSetByUser: Calendar): Long {
-        return timeSetByUser.timeInMillis - System.currentTimeMillis()
+        val workManager = WorkManager.getInstance(requireContext())
+        workManager.enqueue(notificationWork)
     }
 
     //==========================================================================================
-    // updateNotificationPreferenceSummary function
+    // cancelTrainingNotification function
     //==========================================================================================
     /**
-     * Function that updates the summary for the training notifications preference, based on
-     * it's state.
+     * Cancels the work that triggers the training notification.
      */
-    private fun updateNotificationPreferenceSummary() {
-        findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.setSummaryProvider {
-            return@setSummaryProvider if (findPreference<SwitchPreferenceCompat>(
-                    NOTIFICATION_PREF_KEY
-                )?.isChecked!!
-            ) {
-                getString(
-                    R.string.preference_training_notification_summary_on,
-                    SharedPreferencesTimeSet(requireContext()).retrieveHourSet(),
-                    SharedPreferencesTimeSet(requireContext()).retrieveMinuteSet()
-                )
-            } else {
-                getString(R.string.preference_training_notification_summary_off)
-            }
+    private fun cancelTrainingNotification() {
+        val workManager = WorkManager.getInstance(requireContext())
+        workManager.cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG)
+    }
+
+    //==========================================================================================
+    // updateTrainingNotificationSummary function
+    //==========================================================================================
+    /**
+     * Updates the title for the training notification preference.
+     */
+    private fun updateTrainingNotificationTitle() {
+        when (findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.isChecked) {
+            true -> findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.title =
+                getString(R.string.preference_training_notification_title_checked)
+            false -> getString(R.string.preference_training_notification_title_unchecked)
         }
     }
 
@@ -199,13 +212,13 @@ class SettingsFragment : PreferenceFragmentCompat(),
     // updateClearPerfectScoresNumberPreferenceSummary function
     //==========================================================================================
     /**
-     * Function that updates the summary for the clear perfect scores number preference.
+     * Updates the summary for the clear perfect scores number preference.
      */
     private fun updateClearPerfectScoresNumberPreferenceSummary() {
         findPreference<Preference>(CLEAR_PERFECT_SCORES_PREF_KEY)?.setSummaryProvider {
             return@setSummaryProvider getString(
                 R.string.preference_summary_clear_perfect_scores,
-                SharedPreferencesPerfectScores(requireContext()).retrievePerfectScoresNumber()
+                SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
             )
         }
     }

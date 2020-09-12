@@ -6,19 +6,22 @@
     <string name="settings_activity_label">Settings</string>
 
     <!-- Settings fragment strings -->
-    <string name="preference_training_notification_summary_on">Time configured: %1$d:%2$d</string>
-    <string name="preference_training_notification_summary_off">Remind yourself to train.</string>
-    <string name="preference_training_notification_title">Training remainder</string>
+    <string name="preference_category_title_notification">Notification</string>
+    <string name="preference_title_game_options">Game options</string>
+    <string name="preference_title_app_info">App info</string>
+    <string name="preference_training_notification_title_unchecked">Enable training remainder</string>
+    <string name="preference_training_notification_title_checked">Disable training remainder</string>
     <string name="difficulty_entry_beginner">Beginner</string>
     <string name="difficulty_entry_medium">Medium</string>
     <string name="difficulty_entry_hard">Hard</string>
     <string name="difficulty_entry_default">Choose every time before starting the game</string>
     <string name="preference_summary_default_game_difficulty">Select a default difficulty for playing the game</string>
     <string name="preference_notification_set_toast_message">Done! Remainder set</string>
+    <string name="training_notification_toast_message_please_select_a_time_in_future">Please select a time in the future.</string>
     <string name="preference_title_default_game_difficulty">Default game difficulty</string>
     <string name="preference_dialog_title_default_game_difficulty">Select a option below:</string>
     <string name="preference_title_clear_perfect_scores">Clear perfect scores</string>
-    <string name="preference_summary_clear_perfect_scores">Number of Perfect scores achieved: %d</string>
+    <string name="preference_summary_clear_perfect_scores">Perfect scores achieved: %d</string>
     <string name="clear_perfect_score_dialog_title">Are you sure?</string>
     <string name="clear_perfect_score_dialog_message">This action cannot be undone.</string>
     <string name="clear_perfect_score_dialog_positive_button_text">Clear</string>
@@ -49,10 +52,10 @@
     <string name="game_score">Score: %d</string>
 
     <!-- Score screen strings -->
-    <string name="perfect_score">You got a perfect score! Congratulations!</string>
+    <string name="perfect_score">Perfect score!</string>
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>
-    <string name="you_scored">You Scored</string>
+    <string name="final_score">Final Score</string>
 
     <!-- Alert Dialog Correct answer strings -->
     <string name="alertDialogCorrectAnswer_title">Correct Answer!</string>

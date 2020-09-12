@@ -36,7 +36,6 @@ class GameWelcomeScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflating the layout with the inflate function from the fragment's binding class
         binding = GameWelcomeScreenBinding.inflate(inflater, container, false)
 
         defaultSharedPreferences =
@@ -75,6 +74,10 @@ class GameWelcomeScreen : Fragment() {
     //==========================================================================================
     // configGameDifficultyOptions function
     //==========================================================================================
+    /**
+     * Sets up the UI based on the defaultSharedPreferences value, and navigates to main game
+     * screen passing the game difficulty value accordingly.
+     */
     private fun configGameDifficultyOptions() {
         when (defaultSharedPreferences?.getString(GAME_DIFFICULTY_PREF_KEY, "0")) {
             "0" -> {
@@ -146,6 +149,9 @@ class GameWelcomeScreen : Fragment() {
     //==========================================================================================
     // setupSoundPoolAndLoadSounds function
     //==========================================================================================
+    /**
+     * Builds a SoundPool object and loads the sound effect to be played in this fragment.
+     */
     private fun setupSoundPoolAndLoadSounds() {
         val audioAttributes = AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -163,6 +169,10 @@ class GameWelcomeScreen : Fragment() {
     //==========================================================================================
     // setupUIForDifficultyPreviouslySelected function
     //==========================================================================================
+    /**
+     * Sets up the UI for the users that have selected a default game difficulty in the app's
+     * settings.
+     */
     private fun setupUIForDifficultyPreviouslySelected() {
         binding.textBodySelectADifficulty.visibility = View.INVISIBLE
         binding.chipGroupGameDifficulty.visibility = View.INVISIBLE

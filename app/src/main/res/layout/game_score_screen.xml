@@ -1,197 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.fragment.GameScoreScreen">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_1_horizontal_score_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_2_horizontal_score_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_headline_final_score"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/final_score"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.16" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_3_horizontal_score_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.56" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_headline_game_score"
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_final_score"
+            tools:text="24" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_1_vertical_score_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
+        <ImageView
+            android:id="@+id/image_view_grade_1"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_grade_24"
+            app:layout_constraintEnd_toStartOf="@id/image_view_grade_2"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_2_vertical_score_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.92" />
+        <ImageView
+            android:id="@+id/image_view_grade_2"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_grade_24"
+            app:layout_constraintEnd_toStartOf="@id/image_view_grade_3"
+            app:layout_constraintStart_toEndOf="@id/image_view_grade_1"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_congratulations"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="@string/you_scored"
-        android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_2_horizontal_score_screen"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_2_vertical_score_screen"
-        app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical_score_screen"
-        app:layout_constraintTop_toTopOf="@+id/guideline_1_horizontal_score_screen"
-        app:layout_constraintVertical_bias="0.08" />
+        <ImageView
+            android:id="@+id/image_view_grade_3"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_grade_24"
+            app:layout_constraintEnd_toStartOf="@id/image_view_grade_4"
+            app:layout_constraintStart_toEndOf="@id/image_view_grade_2"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_game_score"
-        style="@style/TextAppearance.MaterialComponents.Headline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:textColor="?android:textColorPrimary"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_2_vertical_score_screen"
-        app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical_score_screen"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline_congratulations"
-        tools:text="48" />
+        <ImageView
+            android:id="@+id/image_view_grade_4"
+            android:layout_width="@dimen/margin_48dp"
+            android:layout_height="@dimen/margin_48dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_grade_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_view_grade_3"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score"
+            tools:visibility="gone" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardBackgroundColor="@color/transparent"
-        app:cardCornerRadius="@dimen/margin_16dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal_score_screen"
-        app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical_score_screen"
-        app:layout_constraintStart_toStartOf="@id/guideline_1_vertical_score_screen"
-        app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal_score_screen"
-        app:strokeColor="?colorControlNormal"
-        app:strokeWidth="0.8dp">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_game_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@id/fab_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view_grade_1"
+            app:strokeColor="?colorControlNormal"
+            app:strokeWidth="0.8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_8dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
-            <View
-                android:id="@+id/line_divider_card_game_result"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="@+id/text_headline_game_difficulty"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_body_game_difficulty" />
+                <View
+                    android:id="@+id/list_divider_card_view_game_result"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="@id/text_headline_game_difficulty_score_screen"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_body_game_difficulty_score_screen" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_game_difficulty"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_8dp"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:maxLines="2"
-                android:text="@string/game_difficulty_score_screen"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/line_divider_card_game_result"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.24" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_body_game_difficulty_score_screen"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="4dp"
+                    android:maxLines="2"
+                    android:text="@string/game_difficulty_score_screen"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toStartOf="@id/list_divider_card_view_game_result"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_headline_game_difficulty"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                app:layout_constraintEnd_toStartOf="@+id/line_divider_card_game_result"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_body_game_difficulty"
-                tools:text="Hard" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_headline_game_difficulty_score_screen"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/list_divider_card_view_game_result"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_body_game_difficulty_score_screen"
+                    tools:text="Hard" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_perfect_scores"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_8dp"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:maxLines="2"
-                android:text="@string/perfect_scores_score_screen"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/line_divider_card_game_result"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.24" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_body_perfect_score_score_screen"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="4dp"
+                    android:maxLines="2"
+                    android:text="@string/perfect_scores_score_screen"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/list_divider_card_view_game_result"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_headline_perfect_scores"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/line_divider_card_game_result"
-                app:layout_constraintTop_toBottomOf="@id/text_body_perfect_scores"
-                tools:text="6" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_headline_perfect_scores_number_score_screen"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/list_divider_card_view_game_result"
+                    app:layout_constraintTop_toBottomOf="@id/text_body_perfect_score_score_screen"
+                    tools:text="6" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_home_24"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fab_play_again"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/guideline_1_vertical_score_screen"
-        app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal_score_screen"
-        app:layout_constraintVertical_bias="0.16" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_home_24"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@id/fab_play_again"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_view_game_result" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_play_again"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_refresh_24"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fab_share"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fab_home"
-        app:layout_constraintTop_toTopOf="@+id/guideline_3_horizontal_score_screen"
-        app:layout_constraintVertical_bias="0.16" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_play_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_baseline_refresh_24"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@id/fab_share"
+            app:layout_constraintStart_toEndOf="@id/fab_home"
+            app:layout_constraintTop_toBottomOf="@id/card_view_game_result" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_share_black_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_2_vertical_score_screen"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fab_play_again"
-        app:layout_constraintTop_toTopOf="@+id/guideline_3_horizontal_score_screen"
-        app:layout_constraintVertical_bias="0.16" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_share_black_24dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fab_play_again"
+            app:layout_constraintTop_toBottomOf="@id/card_view_game_result" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

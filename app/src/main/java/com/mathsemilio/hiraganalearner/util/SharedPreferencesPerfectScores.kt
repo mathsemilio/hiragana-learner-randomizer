@@ -3,10 +3,12 @@ package com.mathsemilio.hiraganalearner.util
 import android.content.Context
 import android.content.SharedPreferences
 
-private const val SHARED_PREF_PERFECT_SCORES = "sharedPreferencesPerfectScores"
-private const val PERFECT_SCORES = "perfectScores"
-
 class SharedPreferencesPerfectScores(context: Context) {
+
+    companion object {
+        const val SHARED_PREF_PERFECT_SCORES = "sharedPreferencesPerfectScores"
+        const val PERFECT_SCORES = "perfectScores"
+    }
 
     private val sharedPreferencesPerfectScores: SharedPreferences =
         context.getSharedPreferences(SHARED_PREF_PERFECT_SCORES, 0)
@@ -21,11 +23,11 @@ class SharedPreferencesPerfectScores(context: Context) {
         editor.apply()
     }
 
-    fun retrievePerfectScoresNumber(): Int {
+    fun retrievePerfectScore(): Int {
         return sharedPreferencesPerfectScores.getInt(PERFECT_SCORES, 0)
     }
 
-    fun clearPerfectScoresSharedPreferences() {
+    fun clearPerfectScores() {
         editor.clear()
         editor.apply()
     }

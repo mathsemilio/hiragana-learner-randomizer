@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mathsemilio.hiraganalearner.R
@@ -20,6 +19,9 @@ import com.mathsemilio.hiraganalearner.util.SharedPreferencesPerfectScores
  */
 class GameScoreScreen : Fragment() {
 
+    private lateinit var binding: GameScoreScreenBinding
+    private var gameScore: Int? = null
+
     //==========================================================================================
     // onCreateView
     //==========================================================================================
@@ -27,29 +29,47 @@ class GameScoreScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflating the layout with the inflate function from the fragment's binding class
-        val binding: GameScoreScreenBinding =
-            GameScoreScreenBinding.inflate(inflater, container, false)
+        binding = GameScoreScreenBinding.inflate(inflater, container, false)
 
-        val gameScore = retrieveGameScore()
+        gameScore = retrieveGameScore()
 
-        /*
-        Checking if the game score is equal to 48 (a perfect score), if it is, a different
-        string for the textBodyYouScored TextView will be shown
-        */
-        if (gameScore == PERFECT_SCORE) {
-            binding.textHeadlineCongratulations.text =
-                getString(R.string.perfect_score)
-        }
+        setupUI(gameScore!!)
+
+        attachFABListeners()
+
+        return binding.root
+    }
+
+    //==========================================================================================
+    // setupUI function
+    //==========================================================================================
+    /**
+     * Sets up the UI for this fragment
+     *
+     * @param gameScore - The final game score.
+     */
+    private fun setupUI(gameScore: Int) {
+        if (gameScore == PERFECT_SCORE)
+            binding.textHeadlineFinalScore.text = getString(R.string.perfect_score)
 
         binding.textHeadlineGameScore.text = gameScore.toString()
 
-        binding.textHeadlinePerfectScores.text =
-            SharedPreferencesPerfectScores(requireContext()).retrievePerfectScoresNumber()
+        binding.textHeadlineGameDifficultyScoreScreen.text = getGameDifficultyString()
+
+        binding.textHeadlinePerfectScoresNumberScoreScreen.text =
+            SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
                 .toString()
 
-        binding.textHeadlineGameDifficulty.text = getGameDifficultyString()
+        changeGradeIconVisibilityBasedOnGameScore(gameScore)
+    }
 
+    //==========================================================================================
+    // attachFABListeners function
+    //==========================================================================================
+    /**
+     * Attaches listeners for the Floating Action Buttons in this Fragment.
+     */
+    private fun attachFABListeners() {
         binding.fabHome.setOnClickListener {
             findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }
@@ -58,25 +78,70 @@ class GameScoreScreen : Fragment() {
             findNavController().navigate(R.id.action_gameScoreScreen_to_mainGameScreen)
         }
 
-        /*
-        Checking if the game score equals 0, if it is, the Share button will be hidden, else,
-        a listener will be attached.
-        */
         if (gameScore == 0) {
             binding.fabShare.visibility = View.GONE
         } else {
-            binding.fabShare.setOnClickListener { shareGameScore(gameScore) }
+            binding.fabShare.setOnClickListener { shareGameScore(gameScore!!) }
+        }
+    }
+
+    //==========================================================================================
+    // changeGradeIconVisibilityBasedOnGameScore function
+    //==========================================================================================
+    /**
+     * Based on the game score value, it will change the visibility value of the grade ImageViews
+     * to reflect the user success.
+     *
+     * @param gameScore The final game score to be evaluated.
+     */
+    private fun changeGradeIconVisibilityBasedOnGameScore(gameScore: Int) {
+        when {
+            gameScore <= 12 -> {
+                binding.imageViewGrade4.visibility = View.GONE
+                binding.imageViewGrade3.visibility = View.GONE
+                binding.imageViewGrade2.visibility = View.GONE
+            }
+            gameScore in 13..23 -> {
+                binding.imageViewGrade4.visibility = View.GONE
+                binding.imageViewGrade3.visibility = View.GONE
+            }
+            gameScore in 24..47 -> {
+                binding.imageViewGrade2.visibility = View.GONE
+            }
+        }
+    }
+
+    //==========================================================================================
+    // shareGameScore function
+    //==========================================================================================
+    /**
+     * Builds an intent chooser, enabling the user to share his game score.
+     *
+     * @param gameScore The game score to be shared
+     */
+    private fun shareGameScore(gameScore: Int) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                resources.getQuantityString(R.plurals.game_score_plurals, gameScore, gameScore)
+            )
+            type = "text/plain"
         }
 
-        // Returning the root of the inflated layout
-        return binding.root
+        val shareIntent =
+            Intent.createChooser(sendIntent, getString(R.string.game_score_create_chooser_title))
+
+        startActivity(shareIntent)
     }
 
     //==========================================================================================
     // retrieveGameScore function
     //==========================================================================================
     /**
-     * Function that returns the game score value from the argument bundle.
+     * Returns the game score value from the argument bundle.
+     *
+     * @return The game score from the arguments bundle.
      */
     private fun retrieveGameScore(): Int {
         return GameScoreScreenArgs.fromBundle(requireArguments()).gameScore
@@ -86,8 +151,10 @@ class GameScoreScreen : Fragment() {
     // getGameDifficultyString function
     //==========================================================================================
     /**
-     * Function that returns a string which represents the game difficulty based on the value
+     * Returns a string which represents the game difficulty based on the value
      * from the argument bundle.
+     *
+     * @return String corresponding the game difficulty.
      */
     private fun getGameDifficultyString(): String {
         return when (GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty) {
@@ -95,60 +162,5 @@ class GameScoreScreen : Fragment() {
             GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
             else -> getString(R.string.game_difficulty_hard)
         }
-    }
-
-    //==========================================================================================
-    // getGameScorePluralsBasedOnTheLocale function
-    //==========================================================================================
-    /**
-     * Function that based on the device's locale, returns a game score quantity string.
-     */
-    private fun getGameScorePluralsBasedOnTheLocale(
-        countryString: String,
-        gameScoreForComparison: Int,
-        gameScore: Int
-    ): String {
-        return when (countryString) {
-            "BR" -> {
-                resources.getQuantityString(
-                    R.plurals.game_score_plurals_pt_br,
-                    gameScoreForComparison,
-                    gameScore
-                )
-            }
-            else -> {
-                resources.getQuantityString(
-                    R.plurals.game_score_plurals_en,
-                    gameScoreForComparison,
-                    gameScore
-                )
-            }
-        }
-    }
-
-    //==========================================================================================
-    // shareGameScore function
-    //==========================================================================================
-    /**
-     * Function that builds an intent chooser, to enabled a user to share his game score.
-     */
-    private fun shareGameScore(gameScore: Int) {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT,
-                getGameScorePluralsBasedOnTheLocale(
-                    ConfigurationCompat.getLocales(resources.configuration)[0].country,
-                    gameScore,
-                    gameScore
-                )
-            )
-            type = "text/plain"
-        }
-
-        val shareIntent =
-            Intent.createChooser(sendIntent, getString(R.string.game_score_create_chooser_title))
-
-        startActivity(shareIntent)
     }
 }

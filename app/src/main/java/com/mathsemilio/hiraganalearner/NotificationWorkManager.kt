@@ -12,11 +12,13 @@ import androidx.work.WorkerParameters
 import com.mathsemilio.hiraganalearner.ui.activity.MainActivity
 import com.mathsemilio.hiraganalearner.util.NOTIFICATION_CHANNEL_ID
 
-private const val NOTIFICATION_ID = 1000
-private const val PENDING_INTENT_REQ_ID = 1001
-
 class NotificationWorkManager(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
+
+    companion object {
+        const val NOTIFICATION_ID = 1000
+        const val PENDING_INTENT_REQ_ID = 1001
+    }
 
     override fun doWork(): Result {
 
