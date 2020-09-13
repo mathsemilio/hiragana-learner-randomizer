@@ -3,10 +3,12 @@ package com.mathsemilio.hiraganalearner.util
 import android.content.Context
 import android.content.SharedPreferences
 
-private const val SHARED_PREF_APP_THEME = "appThemeSharedPreferences"
-private const val APP_THEME_KEY = "appTheme"
-
 class SharedPreferencesAppTheme(context: Context) {
+
+    companion object {
+        const val SHARED_PREF_APP_THEME = "appThemeSharedPreferences"
+        const val APP_THEME_KEY = "appTheme"
+    }
 
     private val sharedPreferencesAppTheme: SharedPreferences =
         context.getSharedPreferences(SHARED_PREF_APP_THEME, 0)

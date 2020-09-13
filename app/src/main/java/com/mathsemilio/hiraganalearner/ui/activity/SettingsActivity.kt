@@ -17,25 +17,28 @@ import com.mathsemilio.hiraganalearner.NotificationWorkManager
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_VERSION
+import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_THEME_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.CLEAR_PERFECT_SCORES_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.NOTIFICATION_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.TRAINING_NOTIFICATION_TAG
+import com.mathsemilio.hiraganalearner.ui.dialogFragment.AppThemeDialogFragment
 import com.mathsemilio.hiraganalearner.util.SharedPreferencesPerfectScores
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * Activity class that hosts the Settings Fragment.
+ * Activity class that host the Settings Fragment.
  */
 class SettingsActivity : AppCompatActivity() {
 
     companion object {
         const val TRAINING_NOTIFICATION_TAG = "trainingNotification"
         const val APP_BUILD_VERSION = "alpha-1.0"
-        const val APP_BUILD_PREF_KEY = "appBuild"
         const val NOTIFICATION_PREF_KEY = "notification"
         const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
+        const val APP_THEME_KEY = "appTheme"
+        const val APP_BUILD_PREF_KEY = "appBuild"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +117,10 @@ class SettingsFragment : PreferenceFragmentCompat(),
                     show()
                 }
             }
+            APP_THEME_KEY -> {
+                val appThemeDialogFragment = AppThemeDialogFragment()
+                appThemeDialogFragment.show(parentFragmentManager, "AppThemeDialog")
+            }
         }
 
         return super.onPreferenceTreeClick(preference)
@@ -145,8 +152,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
                         getString(R.string.training_notification_toast_message_please_select_a_time_in_future),
                         Toast.LENGTH_LONG
                     ).show()
-
-                    return@OnTimeSetListener
                 }
 
                 updateTrainingNotificationTitle()

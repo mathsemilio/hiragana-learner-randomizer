@@ -2,14 +2,12 @@ package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -17,7 +15,10 @@ import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity
-import com.mathsemilio.hiraganalearner.util.*
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_PREF_KEY
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_BEGINNER
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_HARD
+import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_MEDIUM
 
 /**
  * Fragment class for game's welcome screen
@@ -44,25 +45,6 @@ class GameWelcomeScreen : Fragment() {
         configGameDifficultyOptions()
 
         setupSoundPoolAndLoadSounds()
-
-        binding.appThemeSwitchIcon.setOnClickListener {
-            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    AppCompatDelegate.setDefaultNightMode(
-                        AppCompatDelegate.MODE_NIGHT_NO
-                    )
-
-                    SharedPreferencesAppTheme(requireContext()).saveThemeValue(APP_THEME_LIGHT_THEME)
-                }
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    AppCompatDelegate.setDefaultNightMode(
-                        AppCompatDelegate.MODE_NIGHT_YES
-                    )
-
-                    SharedPreferencesAppTheme(requireContext()).saveThemeValue(APP_THEME_DARK_MODE)
-                }
-            }
-        }
 
         binding.appConfigIcon.setOnClickListener {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
@@ -159,7 +141,7 @@ class GameWelcomeScreen : Fragment() {
             .build()
 
         soundPool = SoundPool.Builder()
-            .setMaxStreams(2)
+            .setMaxStreams(1)
             .setAudioAttributes(audioAttributes)
             .build()
 

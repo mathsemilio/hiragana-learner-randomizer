@@ -26,6 +26,9 @@
     <string name="clear_perfect_score_dialog_message">This action cannot be undone.</string>
     <string name="clear_perfect_score_dialog_positive_button_text">Clear</string>
     <string name="clear_perfect_score_dialog_negative_button_text">Cancel</string>
+    <string name="preference_category_title_app_theme">App theme</string>
+    <string name="preference_summary_app_theme">Change the application\'s theme</string>
+    <string name="preference_title_app_theme">Application theme</string>
     <string name="preference_title_app_build_version">Build version</string>
 
     <!-- Training Notifications strings -->
@@ -36,7 +39,6 @@
 
     <!-- Game Welcome Screen -->
     <string name="config_switch_icon">Application Configuration icon</string>
-    <string name="dark_theme_switch_icon_content_description">Dark theme switch icon</string>
     <string name="get_ready_to_associate">Get ready to associate…</string>
     <string name="hiragana_letters_and_romanizations">The Hiragana letters and their romanizations</string>
     <string name="select_a_difficulty_level">Select a difficulty level:</string>
@@ -56,6 +58,13 @@
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>
     <string name="final_score">Final Score</string>
+
+    <!-- App theme dialog strings -->
+    <string name="app_theme_dialog_option_follow_system">Follow System</string>
+    <string name="app_theme_dialog_option_dark_theme">Dark theme</string>
+    <string name="app_theme_dialog_option_light_theme">Light theme</string>
+    <string name="app_theme_dialog_title">Select a option below:</string>
+    <string name="app_theme_dialog_negative_button_text">Cancel</string>
 
     <!-- Alert Dialog Correct answer strings -->
     <string name="alertDialogCorrectAnswer_title">Correct Answer!</string>

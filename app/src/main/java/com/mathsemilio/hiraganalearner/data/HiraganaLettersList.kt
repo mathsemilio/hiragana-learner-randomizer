@@ -2,7 +2,7 @@ package com.mathsemilio.hiraganalearner.data
 
 import com.mathsemilio.hiraganalearner.data.model.Hiragana
 
-// List of Hiragana Symbols and its associated Hepburn romanization
+// List of Hiragana Symbols and their associated Hepburn romanization
 val hiraganaLetters: List<Hiragana> = listOf(
     Hiragana(letter = "あ", romanization = "A"),
     Hiragana(letter = "い", romanization = "I"),

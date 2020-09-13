@@ -114,57 +114,10 @@ class MainGameScreen : Fragment() {
     }
 
     //==========================================================================================
-    // setGameDifficultyStringBasedOnTheDifficultyValue function
-    //==========================================================================================
-    /**
-     * Function that based on the game difficulty value, returns a String that corresponds the
-     * game difficulty value.
-     */
-    private fun getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue: Int): String {
-        return when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
-            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
-            else -> getString(R.string.game_difficulty_hard)
-        }
-    }
-
-    //==========================================================================================
-    // getGameTimeRemainingDefaultValue function
-    //==========================================================================================
-    private fun getGameTimeRemainingDefaultValue(gameDifficultyValue: Int): Long {
-        return when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
-            GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
-            else -> COUNTDOWN_TIME_HARD
-        }
-    }
-
-    //==========================================================================================
-    // setupSoundPoolAndLoadSounds function
-    //==========================================================================================
-    private fun setupSoundPoolAndLoadSounds() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .build()
-
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(2)
-            .setAudioAttributes(audioAttributes)
-            .build()
-
-        soundClick = soundPool.load(requireContext(), R.raw.brevicep_normal_click, 1)
-        soundCorrectAnswer =
-            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 1)
-        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 1)
-    }
-
-    //==========================================================================================
     // subscribeToObservers function
     //==========================================================================================
     /**
-     * Function that subscribes (attaches) the observers to each LiveData variables to be
-     * observed.
+     * Subscribes (attaches) the observers to each LiveData variables to be observed.
      */
     private fun subscribeToObservers() {
         /*
@@ -186,7 +139,10 @@ class MainGameScreen : Fragment() {
                         called and the radioGroupHiraganaLetters radio group is cleared.
                         */
                         if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!)
+                            navigateToScoreScreen(
+                                viewModel.gameScore.value!!,
+                                gameDifficultyValue!!
+                            )
                         } else {
                             binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
@@ -205,7 +161,10 @@ class MainGameScreen : Fragment() {
                     R.string.alertDialogWrongAnswer_positive_button_text,
                     DialogInterface.OnClickListener { _, _ ->
                         if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!)
+                            navigateToScoreScreen(
+                                viewModel.gameScore.value!!,
+                                gameDifficultyValue!!
+                            )
                         } else {
                             binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
@@ -227,7 +186,10 @@ class MainGameScreen : Fragment() {
                     R.string.alertDialogTimeOver_positive_button_text,
                     DialogInterface.OnClickListener { _, _ ->
                         if (viewModel.eventGameFinished.value == true) {
-                            navigateToScoreScreen(viewModel.gameScore.value!!)
+                            navigateToScoreScreen(
+                                viewModel.gameScore.value!!,
+                                gameDifficultyValue!!
+                            )
                         } else {
                             binding.chipGroupRomanizationOptions.clearCheck()
                             viewModel.getNextLetter()
@@ -238,36 +200,38 @@ class MainGameScreen : Fragment() {
     }
 
     //==========================================================================================
-    // navigateToScoreScreen function
+    // setupSoundPoolAndLoadSounds function
     //==========================================================================================
     /**
-     * Function to navigate from the current screen to the score screen, while passing the game's
-     * score to the destination.
-     *
-     * @param gameScore - Integer for the game score to be passed to the score fragment
+     * Builds a SoundPool object and loads the sound effect to be played in this fragment.
      */
-    private fun navigateToScoreScreen(gameScore: Int) {
-        if (gameScore == PERFECT_SCORE)
-            SharedPreferencesPerfectScores(requireContext()).updatePerfectScore()
+    private fun setupSoundPoolAndLoadSounds() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .build()
 
-        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
-            gameScore,
-            gameDifficultyValue!!
-        )
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(2)
+            .setAudioAttributes(audioAttributes)
+            .build()
 
-        findNavController().navigate(action)
+        soundClick = soundPool.load(requireContext(), R.raw.brevicep_normal_click, 1)
+        soundCorrectAnswer =
+            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 1)
+        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 1)
     }
 
     //==========================================================================================
     // buildAlertDialog function
     //==========================================================================================
     /**
-     * Function to build an alert dialog to alert the user about certain game events.
+     * Build an alert dialog to alert the user about certain game events.
      *
-     * @param title - Integer for title's resource id
-     * @param message - String for the dialog's message
-     * @param positiveButtonText - Integer for the dialog's positive button resource id
-     * @param listener - DialogInterface.OnClickListener for listening when the positive button
+     * @param title Integer for title's resource id
+     * @param message String for the dialog's message
+     * @param positiveButtonText Integer for the dialog's positive button resource id
+     * @param listener DialogInterface.OnClickListener for listening when the positive button
      * is clicked
      */
     private fun buildAlertDialog(
@@ -281,6 +245,60 @@ class MainGameScreen : Fragment() {
             setCancelable(false)
             show()
         }
+    }
+
+    //==========================================================================================
+    // setGameDifficultyStringBasedOnTheDifficultyValue function
+    //==========================================================================================
+    /**
+     * Based on the game difficulty value, returns a String that corresponds the
+     * game difficulty value.
+     */
+    private fun getGameDifficultyStringBasedOnTheDifficultyValue(gameDifficultyValue: Int): String {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
+            else -> getString(R.string.game_difficulty_hard)
+        }
+    }
+
+    //==========================================================================================
+    // getGameTimeRemainingDefaultValue function
+    //==========================================================================================
+    /**
+     * Returns the default remaining game time based on the game's difficulty.
+     *
+     * @param gameDifficultyValue Game difficulty value to be evaluated.
+     * @return The countdown time in Long.
+     */
+    private fun getGameTimeRemainingDefaultValue(gameDifficultyValue: Int): Long {
+        return when (gameDifficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
+            GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
+            else -> COUNTDOWN_TIME_HARD
+        }
+    }
+
+    //==========================================================================================
+    // navigateToScoreScreen function
+    //==========================================================================================
+    /**
+     * Navigates from the current screen to the score screen, while passing the game's score and
+     * difficulty value to the destination.
+     *
+     * @param gameScore Integer for the game score to be passed to the score fragment
+     * @param gameDifficultyValue Integer that corresponds the game difficulty
+     */
+    private fun navigateToScoreScreen(gameScore: Int, gameDifficultyValue: Int) {
+        if (gameScore == PERFECT_SCORE)
+            SharedPreferencesPerfectScores(requireContext()).updatePerfectScore()
+
+        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
+            gameScore,
+            gameDifficultyValue
+        )
+
+        findNavController().navigate(action)
     }
 
     //==========================================================================================

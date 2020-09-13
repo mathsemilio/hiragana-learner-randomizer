@@ -27,7 +27,17 @@
             app:icon="@drawable/ic_baseline_delete_forever_24"
             app:key="clearPerfectScores"
             app:title="@string/preference_title_clear_perfect_scores"
-            tools:summary="Number of Perfect scores achieved: 6" />
+            tools:summary="Perfect scores achieved: 6" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/preference_category_title_app_theme">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_brightness_4_24"
+            app:key="appTheme"
+            app:summary="@string/preference_summary_app_theme"
+            app:title="@string/preference_title_app_theme" />
 
     </PreferenceCategory>
 
