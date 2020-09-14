@@ -11,6 +11,7 @@
     <string name="preference_title_app_info">App info</string>
     <string name="preference_training_notification_title_unchecked">Enable training remainder</string>
     <string name="preference_training_notification_title_checked">Disable training remainder</string>
+    <string name="preference_summary_off_training_notification">Remind yourself to train at a later time</string>
     <string name="difficulty_entry_beginner">Beginner</string>
     <string name="difficulty_entry_medium">Medium</string>
     <string name="difficulty_entry_hard">Hard</string>

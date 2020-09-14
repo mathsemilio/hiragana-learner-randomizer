@@ -11,9 +11,15 @@ import com.mathsemilio.hiraganalearner.util.*
 import kotlin.random.Random
 
 /**
- * ViewModel class that implements most of the game's logic.
+ * ViewModel class that implements most of the games and UI logic.
  */
 class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
+
+    companion object {
+        const val PROGRESS_BAR_MAX_BEGINNER = 14
+        const val PROGRESS_BAR_MAX_MEDIUM = 9
+        const val PROGRESS_BAR_MAX_HARD = 4
+    }
 
     //==========================================================================================
     // MutableLiveData variables for the UI elements
@@ -114,7 +120,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // startGame function
     //==========================================================================================
     /**
-     * Private function that is responsible for key tasks necessary for starting the game
+     * Performs essential tasks necessary for starting the game.
      */
     private fun startGame() {
         // Shuffling the hiraganaLettersList list
@@ -136,6 +142,11 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     //==========================================================================================
     // startGameTimer function
     //==========================================================================================
+    /**
+     * Sets up and starts the game timer.
+     *
+     * @param countDownTime Long to be used as the countdown time for the timer.
+     */
     fun startGameTimer(countDownTime: Long) {
         countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
@@ -155,9 +166,9 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // checkUserInput function
     //==========================================================================================
     /**
-     * Function responsible for checking the user's input (answer).
+     * Checks the user's input (answer).
      *
-     * @param selectedRomanization - String of the current checked radio button
+     * @param selectedRomanization String of the current checked chip button.
      */
     fun checkUserInput(selectedRomanization: String) {
         /*
@@ -177,8 +188,8 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // getNextLetter function
     //==========================================================================================
     /**
-     * Function responsible for removing the current letter, and getting the next one from the
-     * list.
+     * Removes the current letter, and gets the next one from the list. It also calls other
+     * functions to set up the UI for the game.
      */
     fun getNextLetter() {
         // Removing the first element (Hiragana letter) from the list
@@ -199,10 +210,10 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // getLastLetter function
     //==========================================================================================
     /**
-     * Function responsible for getting the last letter from the list and setting its contents
-     * to the UI. It also checks the user input and finishes the game.
+     * Gets the last letter from the list and sets its contents to the UI. It also checks the
+     * user input and finishes the game.
      *
-     * @param selectedRomanization - String of the current checked radio button
+     * @param selectedRomanization String of the current checked chip button.
      */
     fun getLastLetter(selectedRomanization: String) {
         /*
@@ -235,7 +246,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // updateGameScore function
     //==========================================================================================
     /**
-     * Function that increments the game score by 1.
+     * Increments the game score by 1 point.
      */
     private fun updateGameScore() {
         _gameScore.value = (_gameScore.value)?.inc()
@@ -245,7 +256,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // updateGameProgress function
     //==========================================================================================
     /**
-     * Function that increments the game progress by 1.
+     * Increments the game progress by 1.
      */
     private fun updateGameProgress() {
         _gameProgress.value = (_gameProgress.value)?.inc()
@@ -255,8 +266,8 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     // generateRadioButtonRomanization function
     //==========================================================================================
     /**
-     * Function that generates random romanizations for the radio buttons. It also selects which
-     * button will receive the current letter romanization (the correct answer).
+     * Generates random romanizations for the chip buttons. It also selects which of them will
+     * receive the current letter romanization (the correct answer).
      */
     private fun generateChipGroupRomanization() {
         // List containing romanizations to be used as distractions

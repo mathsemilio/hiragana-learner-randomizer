@@ -207,7 +207,7 @@ class MainGameScreen : Fragment() {
      */
     private fun setupSoundPoolAndLoadSounds() {
         val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .setUsage(AudioAttributes.USAGE_GAME)
             .build()
 

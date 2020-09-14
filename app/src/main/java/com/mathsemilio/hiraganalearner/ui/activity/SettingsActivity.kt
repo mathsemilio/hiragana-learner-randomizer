@@ -17,11 +17,11 @@ import com.mathsemilio.hiraganalearner.NotificationWorkManager
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_BUILD_VERSION
-import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.APP_THEME_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.CLEAR_PERFECT_SCORES_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.NOTIFICATION_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity.Companion.TRAINING_NOTIFICATION_TAG
 import com.mathsemilio.hiraganalearner.ui.dialogFragment.AppThemeDialogFragment
+import com.mathsemilio.hiraganalearner.util.APP_THEME_KEY
 import com.mathsemilio.hiraganalearner.util.SharedPreferencesPerfectScores
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
@@ -37,7 +37,6 @@ class SettingsActivity : AppCompatActivity() {
         const val APP_BUILD_VERSION = "alpha-1.1"
         const val NOTIFICATION_PREF_KEY = "notification"
         const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
-        const val APP_THEME_KEY = "appTheme"
         const val APP_BUILD_PREF_KEY = "appBuild"
     }
 
@@ -62,6 +61,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     PreferenceManager.OnPreferenceTreeClickListener {
 
     private val calendar = Calendar.getInstance()
+    private lateinit var timerPickerDialog: TimePickerDialog
 
     //==========================================================================================
     // onCreatePreferences
@@ -91,8 +91,9 @@ class SettingsFragment : PreferenceFragmentCompat(),
                         setupTimePickerDialog(calendar)
                     }
                     false -> {
+                        findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.title =
+                            getString(R.string.preference_training_notification_title_unchecked)
                         cancelTrainingNotification()
-                        updateTrainingNotificationTitle()
                     }
                 }
             }
@@ -134,7 +135,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
      * should pop up.
      */
     private fun setupTimePickerDialog(calendar: Calendar) {
-        val timePicker = TimePickerDialog(
+        timerPickerDialog = TimePickerDialog(
             requireContext(),
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val timeSetByTheUser = calendar.apply {
@@ -146,27 +147,32 @@ class SettingsFragment : PreferenceFragmentCompat(),
                     scheduleTrainingNotification(
                         timeSetByTheUser.timeInMillis - System.currentTimeMillis()
                     )
+
+                    updateTrainingNotificationTitle()
+
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.preference_notification_set_toast_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
+                    findPreference<SwitchPreferenceCompat>(NOTIFICATION_PREF_KEY)?.isChecked =
+                        false
+
+                    timerPickerDialog.cancel()
+
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.training_notification_toast_message_please_select_a_time_in_future),
                         Toast.LENGTH_LONG
                     ).show()
                 }
-
-                updateTrainingNotificationTitle()
-
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.preference_notification_set_toast_message),
-                    Toast.LENGTH_SHORT
-                ).show()
             },
             calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE),
             false
         )
-        timePicker.show()
+        timerPickerDialog.show()
     }
 
     //==========================================================================================

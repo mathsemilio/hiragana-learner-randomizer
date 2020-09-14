@@ -21,6 +21,7 @@ class GameScoreScreen : Fragment() {
 
     private lateinit var binding: GameScoreScreenBinding
     private var gameScore: Int? = null
+    private var gameDifficultyValue: Int? = null
 
     //==========================================================================================
     // onCreateView
@@ -33,7 +34,9 @@ class GameScoreScreen : Fragment() {
 
         gameScore = retrieveGameScore()
 
-        setupUI(gameScore!!)
+        gameDifficultyValue = retrieveGameDifficultyValue()
+
+        setupUI()
 
         attachFABListeners()
 
@@ -45,12 +48,12 @@ class GameScoreScreen : Fragment() {
     //==========================================================================================
     /**
      * Sets up the UI for this fragment
-     *
-     * @param gameScore - The final game score.
      */
-    private fun setupUI(gameScore: Int) {
+    private fun setupUI() {
         if (gameScore == PERFECT_SCORE)
             binding.textHeadlineFinalScore.text = getString(R.string.perfect_score)
+
+        changeGradeIconVisibilityBasedOnGameScore(gameScore!!)
 
         binding.textHeadlineGameScore.text = gameScore.toString()
 
@@ -59,8 +62,6 @@ class GameScoreScreen : Fragment() {
         binding.textHeadlinePerfectScoresNumberScoreScreen.text =
             SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
                 .toString()
-
-        changeGradeIconVisibilityBasedOnGameScore(gameScore)
     }
 
     //==========================================================================================
@@ -75,13 +76,16 @@ class GameScoreScreen : Fragment() {
         }
 
         binding.fabPlayAgain.setOnClickListener {
-            findNavController().navigate(R.id.action_gameScoreScreen_to_mainGameScreen)
+            val action = GameScoreScreenDirections
+                .actionGameScoreScreenToMainGameScreen(gameDifficultyValue!!)
+
+            findNavController().navigate(action)
         }
 
         if (gameScore == 0) {
             binding.fabShare.visibility = View.GONE
         } else {
-            binding.fabShare.setOnClickListener { shareGameScore(gameScore!!) }
+            binding.fabShare.setOnClickListener { shareGameScore() }
         }
     }
 
@@ -116,15 +120,13 @@ class GameScoreScreen : Fragment() {
     //==========================================================================================
     /**
      * Builds an intent chooser, enabling the user to share his game score.
-     *
-     * @param gameScore The game score to be shared
      */
-    private fun shareGameScore(gameScore: Int) {
+    private fun shareGameScore() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                resources.getQuantityString(R.plurals.game_score_plurals, gameScore, gameScore)
+                resources.getQuantityString(R.plurals.game_score_plurals, gameScore!!, gameScore)
             )
             type = "text/plain"
         }
@@ -148,6 +150,18 @@ class GameScoreScreen : Fragment() {
     }
 
     //==========================================================================================
+    // retrieveGameDifficultyValue function
+    //==========================================================================================
+    /**
+     * Returns the game difficulty value from the argument bundle.
+     *
+     * @return The game difficulty from the arguments bundle.
+     */
+    private fun retrieveGameDifficultyValue(): Int {
+        return GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty
+    }
+
+    //==========================================================================================
     // getGameDifficultyString function
     //==========================================================================================
     /**
@@ -157,7 +171,7 @@ class GameScoreScreen : Fragment() {
      * @return String corresponding the game difficulty.
      */
     private fun getGameDifficultyString(): String {
-        return when (GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty) {
+        return when (gameDifficultyValue) {
             GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
             GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
             else -> getString(R.string.game_difficulty_hard)

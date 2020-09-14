@@ -8,6 +8,7 @@
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_baseline_add_alert_24"
             app:key="notification"
+            app:summaryOff="@string/preference_summary_off_training_notification"
             app:title="@string/preference_training_notification_title_unchecked" />
 
     </PreferenceCategory>

@@ -7,7 +7,6 @@ class SharedPreferencesAppTheme(context: Context) {
 
     companion object {
         const val SHARED_PREF_APP_THEME = "appThemeSharedPreferences"
-        const val APP_THEME_KEY = "appTheme"
     }
 
     private val sharedPreferencesAppTheme: SharedPreferences =

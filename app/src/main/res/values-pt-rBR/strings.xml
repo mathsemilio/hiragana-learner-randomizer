@@ -7,6 +7,7 @@
     <string name="preference_title_app_info">Info. da Aplicação</string>
     <string name="preference_training_notification_title_unchecked">Ativar lembrete de treino</string>
     <string name="preference_training_notification_title_checked">Desativar lembrete de treino</string>
+    <string name="preference_summary_off_training_notification">Lembre-se de treinar mais tarde</string>
     <string name="difficulty_entry_beginner">Iniciante</string>
     <string name="difficulty_entry_medium">Médio</string>
     <string name="difficulty_entry_hard">Difícil</string>
