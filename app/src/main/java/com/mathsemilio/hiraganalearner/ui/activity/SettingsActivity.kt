@@ -37,13 +37,13 @@ class SettingsActivity : AppCompatActivity() {
 }
 
 /**
- * Fragment class that extends PreferenceFragmentCompat for the Settings screen.
+ * PreferenceFragmentCompat for the Settings screen.
  */
 class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         const val TRAINING_NOTIFICATION_TAG = "trainingNotification"
-        const val APP_BUILD_VERSION = "beta-stable-0.1.0"
+        const val APP_BUILD_VERSION = "beta-stable-0.1.1"
         const val NOTIFICATION_PREF_KEY = "notification"
         const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
         const val APP_THEME_PREF_KEY = "appTheme"
