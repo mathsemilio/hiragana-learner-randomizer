@@ -82,11 +82,11 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
-                app:layout_constraintEnd_toStartOf="@id/guideline_2_vertical"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@id/circle_divider"
+                app:layout_constraintEnd_toStartOf="@+id/circle_divider"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Medium" />
 
@@ -95,12 +95,12 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
                 app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
-                app:layout_constraintEnd_toStartOf="@id/circle_divider"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_2_vertical"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/circle_divider"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Score: 24" />
 

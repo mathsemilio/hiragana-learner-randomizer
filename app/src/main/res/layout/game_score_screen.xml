@@ -13,7 +13,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_headline_final_score"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16dp"
@@ -28,55 +28,17 @@
             app:layout_constraintVertical_bias="0.16" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_headline_out_of"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_32dp"
-            android:text="@string/out_of"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_headline_final_score" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_headline_game_score"
             style="@style/TextAppearance.MaterialComponents.Headline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+
             android:textColor="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/text_headline_out_of"
-            app:layout_constraintEnd_toStartOf="@id/text_headline_out_of"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="@id/text_headline_final_score"
             app:layout_constraintStart_toStartOf="@id/text_headline_final_score"
-            app:layout_constraintTop_toTopOf="@id/text_headline_out_of"
+            app:layout_constraintTop_toBottomOf="@id/text_headline_final_score"
             tools:text="24" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_headline_48"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:text="@string/perfect_score_48"
-            android:textColor="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/text_headline_out_of"
-            app:layout_constraintEnd_toEndOf="@id/text_headline_final_score"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/text_headline_out_of"
-            app:layout_constraintTop_toTopOf="@+id/text_headline_out_of" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_body_symbols_associated_correctly"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
-            android:text="@string/symbols_associated_correctly"
-            android:textColor="?android:textColorPrimary"
-            app:layout_constraintEnd_toEndOf="@id/text_headline_final_score"
-            app:layout_constraintStart_toStartOf="@id/text_headline_final_score"
-            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
         <ImageView
             android:id="@+id/image_view_grade_1"
@@ -88,7 +50,7 @@
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_2"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_body_symbols_associated_correctly" />
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
         <ImageView
             android:id="@+id/image_view_grade_2"
@@ -99,7 +61,7 @@
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_3"
             app:layout_constraintStart_toEndOf="@id/image_view_grade_1"
-            app:layout_constraintTop_toBottomOf="@id/text_body_symbols_associated_correctly" />
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
         <ImageView
             android:id="@+id/image_view_grade_3"
@@ -110,7 +72,7 @@
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_4"
             app:layout_constraintStart_toEndOf="@id/image_view_grade_2"
-            app:layout_constraintTop_toBottomOf="@id/text_body_symbols_associated_correctly" />
+            app:layout_constraintTop_toBottomOf="@id/text_headline_game_score" />
 
         <ImageView
             android:id="@+id/image_view_grade_4"

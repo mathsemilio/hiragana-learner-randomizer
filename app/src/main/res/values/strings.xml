@@ -61,9 +61,6 @@
     <!-- Score screen strings -->
     <string name="content_description_grade_star">Grade star</string>
     <string name="perfect_score">Perfect score!</string>
-    <string name="out_of">out of</string>
-    <string name="perfect_score_48">48</string>
-    <string name="symbols_associated_correctly">Symbols associated correctly!</string>
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>
     <string name="final_score">Final Score</string>

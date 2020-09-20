@@ -57,14 +57,11 @@
     <string name="content_description_button_for_pausing_game">Botão para pausar jogo</string>
     <string name="content_description_button_for_verifying_answer">Botão para verificar resposta</string>
     <string name="this_letter_corresponds_to_which_romaji">Este símbolo corresponde a que Rōmaji Hepburn?</string>
-    <string name="game_score">Pontuação: %d</string>
+    <string name="game_score">Pont.: %d</string>
 
     <!-- Strings do fragmento GameScoreScreen -->
     <string name="content_description_grade_star">Estrela de pontuação</string>
     <string name="perfect_score">Pontuação perfeita!</string>
-    <string name="out_of">de</string>
-    <string name="perfect_score_48">48</string>
-    <string name="symbols_associated_correctly">Símbolos associados corretamente!</string>
     <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
     <string name="game_difficulty_score_screen">Dificuldade do Jogo</string>
     <string name="final_score">Pontuação Final</string>
@@ -109,7 +106,7 @@
     <string name="alert_dialog_on_back_pressed_negative_button_text">Sair</string>
 
     <!-- Pontuação final perfeita -->
-    <string name="final_perfect_score">Acabei de conseguir uma pontuação perfeita (48 / 48 símbolos do Hiragana)no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
+    <string name="final_perfect_score">Acabei de conseguir uma pontuação perfeita (48 / 48 símbolos) no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
 
     <!-- Título do Create Chooser intent -->
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
