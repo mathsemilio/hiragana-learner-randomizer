@@ -14,25 +14,28 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
+import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_BEGINNER
+import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_HARD
+import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_MEDIUM
+import com.mathsemilio.hiraganalearner.others.SOUND_EFFECTS_VOLUME_PREF_KEY
 import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_PREF_KEY
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_BEGINNER
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_HARD
-import com.mathsemilio.hiraganalearner.util.GAME_DIFFICULTY_VALUE_MEDIUM
 
 /**
  * Fragment class for game's welcome screen
  */
 class GameWelcomeScreen : Fragment() {
 
-    private lateinit var binding: GameWelcomeScreenBinding
-    private lateinit var soundPool: SoundPool
-    private var soundClick: Int? = null
-    private var defaultSharedPreferences: SharedPreferences? = null
+    companion object {
+        const val GAME_DIFFICULTY = "gameDifficulty"
+    }
 
-    //==========================================================================================
-    // onCreateView
-    //==========================================================================================
+    private lateinit var binding: GameWelcomeScreenBinding
+    private lateinit var defaultSharedPreferences: SharedPreferences
+    private lateinit var soundPool: SoundPool
+    private var soundEffectsVolume = 0f
+    private var soundButtonClick = 0
+    private var soundClick = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,32 +45,42 @@ class GameWelcomeScreen : Fragment() {
         defaultSharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
 
+        soundEffectsVolume =
+            defaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
+
         configGameDifficultyOptions()
 
         setupSoundPoolAndLoadSounds()
 
-        binding.appConfigIcon.setOnClickListener {
+        binding.imageViewAppConfigIcon.setOnClickListener {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
 
         return binding.root
     }
 
-    //==========================================================================================
-    // configGameDifficultyOptions function
-    //==========================================================================================
     /**
-     * Sets up the UI based on the defaultSharedPreferences value, and navigates to main game
-     * screen passing the game difficulty value accordingly.
+     * Configures and sets up based on the game difficulty value from the default
+     * Shared Preferences.
      */
     private fun configGameDifficultyOptions() {
-        when (defaultSharedPreferences?.getString(GAME_DIFFICULTY_PREF_KEY, "0")) {
+
+        /**
+         * Hides the chip group and enables the Start button
+         */
+        fun setupUIForDifficultyPreviouslySelected() {
+            binding.textBodySelectADifficulty.visibility = View.INVISIBLE
+            binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
+            binding.buttonStart.isEnabled = true
+        }
+
+        when (defaultSharedPreferences.getString(GAME_DIFFICULTY, "0")) {
             "0" -> {
                 binding.chipGroupGameDifficulty.setOnCheckedChangeListener { group, checkedId ->
                     if (checkedId == -1) {
                         binding.buttonStart.isEnabled = false
                     } else {
-                        soundPool.play(soundClick!!, 1F, 1F, 1, 0, 1F)
+                        soundPool.play(soundClick, soundEffectsVolume, soundEffectsVolume, 1, 0, 1F)
 
                         binding.buttonStart.isEnabled = true
 
@@ -80,6 +93,15 @@ class GameWelcomeScreen : Fragment() {
                         }
 
                         binding.buttonStart.setOnClickListener {
+                            soundPool.play(
+                                soundButtonClick,
+                                soundEffectsVolume,
+                                soundEffectsVolume,
+                                1,
+                                0,
+                                1F
+                            )
+
                             binding.chipGroupGameDifficulty.clearCheck()
 
                             val action =
@@ -94,7 +116,25 @@ class GameWelcomeScreen : Fragment() {
             }
             "1" -> {
                 setupUIForDifficultyPreviouslySelected()
+
+                binding.textBodyOnGameDifficulty.apply {
+                    visibility = View.VISIBLE
+                    text = getString(
+                        R.string.on_game_difficulty,
+                        getString(R.string.game_difficulty_beginner)
+                    )
+                }
+
                 binding.buttonStart.setOnClickListener {
+                    soundPool.play(
+                        soundButtonClick,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        0,
+                        0,
+                        1F
+                    )
+
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
                             GAME_DIFFICULTY_VALUE_BEGINNER
@@ -105,7 +145,25 @@ class GameWelcomeScreen : Fragment() {
             }
             "2" -> {
                 setupUIForDifficultyPreviouslySelected()
+
+                binding.textBodyOnGameDifficulty.apply {
+                    visibility = View.VISIBLE
+                    text = getString(
+                        R.string.on_game_difficulty,
+                        getString(R.string.game_difficulty_medium)
+                    )
+                }
+
                 binding.buttonStart.setOnClickListener {
+                    soundPool.play(
+                        soundButtonClick,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        0,
+                        0,
+                        1F
+                    )
+
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
                             GAME_DIFFICULTY_VALUE_MEDIUM
@@ -116,7 +174,25 @@ class GameWelcomeScreen : Fragment() {
             }
             "3" -> {
                 setupUIForDifficultyPreviouslySelected()
+
+                binding.textBodyOnGameDifficulty.apply {
+                    visibility = View.VISIBLE
+                    text = getString(
+                        R.string.on_game_difficulty,
+                        getString(R.string.game_difficulty_hard)
+                    )
+                }
+
                 binding.buttonStart.setOnClickListener {
+                    soundPool.play(
+                        soundButtonClick,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        0,
+                        0,
+                        1F
+                    )
+
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
                             GAME_DIFFICULTY_VALUE_HARD
@@ -128,15 +204,12 @@ class GameWelcomeScreen : Fragment() {
         }
     }
 
-    //==========================================================================================
-    // setupSoundPoolAndLoadSounds function
-    //==========================================================================================
     /**
-     * Builds a SoundPool object and loads the sound effect to be played in this fragment.
+     * Sets up Sound Pool and loads the sounds to be used in this fragment.
      */
     private fun setupSoundPoolAndLoadSounds() {
         val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .setUsage(AudioAttributes.USAGE_GAME)
             .build()
 
@@ -145,19 +218,7 @@ class GameWelcomeScreen : Fragment() {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        soundClick = soundPool.load(requireContext(), R.raw.brevicep_normal_click, 1)
-    }
-
-    //==========================================================================================
-    // setupUIForDifficultyPreviouslySelected function
-    //==========================================================================================
-    /**
-     * Sets up the UI for the users that have selected a default game difficulty in the app's
-     * settings.
-     */
-    private fun setupUIForDifficultyPreviouslySelected() {
-        binding.textBodySelectADifficulty.visibility = View.INVISIBLE
-        binding.chipGroupGameDifficulty.visibility = View.INVISIBLE
-        binding.buttonStart.isEnabled = true
+        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+        soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
     }
 }

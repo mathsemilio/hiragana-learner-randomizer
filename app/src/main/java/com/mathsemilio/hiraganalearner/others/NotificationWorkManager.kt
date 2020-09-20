@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner
+package com.mathsemilio.hiraganalearner.others
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,8 +9,8 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.ui.activity.MainActivity
-import com.mathsemilio.hiraganalearner.util.NOTIFICATION_CHANNEL_ID
 
 class NotificationWorkManager(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
@@ -18,11 +18,12 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
     companion object {
         const val NOTIFICATION_ID = 1000
         const val PENDING_INTENT_REQ_ID = 1001
+        const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
     }
 
     override fun doWork(): Result {
-
         buildTrainingNotification()
+        SharedPreferencesSwitchState(applicationContext).saveSwitchState(false)
 
         return Result.success()
     }
@@ -62,7 +63,7 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
 
         val trainingNotification =
             NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID).apply {
-                setSmallIcon(R.drawable.ic_baseline_add_alert_24)
+                setSmallIcon(R.drawable.ic_hiragana_learner_notification_icon)
                 setContentTitle(
                     applicationContext
                         .getString(R.string.training_notification_content_title)

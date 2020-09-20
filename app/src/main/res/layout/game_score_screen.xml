@@ -34,13 +34,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_headline_final_score"
-            tools:text="24" />
+            tools:text="24 / 48" />
 
         <ImageView
             android:id="@+id/image_view_grade_1"
             android:layout_width="@dimen/margin_48dp"
             android:layout_height="@dimen/margin_48dp"
             android:layout_marginTop="32dp"
+            android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_2"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -52,6 +53,7 @@
             android:layout_width="@dimen/margin_48dp"
             android:layout_height="@dimen/margin_48dp"
             android:layout_marginTop="32dp"
+            android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_3"
             app:layout_constraintStart_toEndOf="@id/image_view_grade_1"
@@ -62,6 +64,7 @@
             android:layout_width="@dimen/margin_48dp"
             android:layout_height="@dimen/margin_48dp"
             android:layout_marginTop="32dp"
+            android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toStartOf="@id/image_view_grade_4"
             app:layout_constraintStart_toEndOf="@id/image_view_grade_2"
@@ -72,6 +75,7 @@
             android:layout_width="@dimen/margin_48dp"
             android:layout_height="@dimen/margin_48dp"
             android:layout_marginTop="32dp"
+            android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_view_grade_3"

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.util
+package com.mathsemilio.hiraganalearner.others
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -8,12 +8,11 @@
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_baseline_add_alert_24"
             app:key="notification"
-            app:summaryOff="@string/preference_summary_off_training_notification"
-            app:title="@string/preference_training_notification_title_unchecked" />
+            app:title="@string/preference_title_training_notification_unchecked" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/preference_title_game_options">
+    <PreferenceCategory app:title="@string/preference_category_title_game_options">
 
         <ListPreference
             app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
@@ -29,6 +28,18 @@
             app:key="clearPerfectScores"
             app:title="@string/preference_title_clear_perfect_scores"
             tools:summary="Perfect scores achieved: 6" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/preference_category_title_game_sound">
+
+        <SeekBarPreference
+            android:max="10"
+            app:defaultValue="5"
+            app:icon="@drawable/ic_baseline_volume_up_24"
+            app:key="soundEffects"
+            app:showSeekBarValue="true"
+            app:title="@string/preference_title_sound_effects_volume" />
 
     </PreferenceCategory>
 

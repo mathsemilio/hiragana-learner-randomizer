@@ -82,11 +82,11 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
                 app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
-                app:layout_constraintEnd_toStartOf="@id/circle_divider"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
+                app:layout_constraintEnd_toStartOf="@id/guideline_2_vertical"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/circle_divider"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Medium" />
 
@@ -95,14 +95,14 @@
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 android:text="@{@string/game_score(mainGameViewModel.gameScore)}"
                 app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
-                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@id/circle_divider"
+                app:layout_constraintEnd_toStartOf="@id/circle_divider"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Score: 24" />
+                tools:text="Score: 24 / 48" />
 
             <ProgressBar
                 android:id="@+id/game_timer_progress_bar"
@@ -189,25 +189,41 @@
 
             </com.google.android.material.chip.ChipGroup>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_verify_answer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16dp"
-                android:text="@string/verify_answer"
-                app:icon="@drawable/ic_check_circle_black_24dp"
-                app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
-                app:layout_constraintStart_toEndOf="@+id/button_exit"
-                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_exit"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/exit"
-                app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
+                android:contentDescription="@string/content_description_button_for_exiting_the_game"
+                android:src="@drawable/ic_baseline_exit_to_app_24"
+                app:backgroundTint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/fab_pause_timer"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_pause_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_button_for_pausing_game"
+                android:src="@drawable/ic_baseline_pause_24"
+                app:backgroundTint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/fab_check_answer"
+                app:layout_constraintStart_toEndOf="@id/fab_exit"
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_check_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_button_for_verifying_answer"
+                android:enabled="false"
+                android:src="@drawable/ic_check_circle_black_24dp"
+                app:backgroundTint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/guideline_2_vertical"
+                app:layout_constraintStart_toEndOf="@id/fab_pause_timer"
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal"
+                tools:enabled="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

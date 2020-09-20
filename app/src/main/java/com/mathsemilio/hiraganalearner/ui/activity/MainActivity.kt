@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mathsemilio.hiraganalearner.R
 
 /**
- * Activity that hosts all the Game fragments.
+ * Activity that hosts the Game fragments.
  */
 class MainActivity : AppCompatActivity() {
 

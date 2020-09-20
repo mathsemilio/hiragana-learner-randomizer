@@ -5,9 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.mathsemilio.hiraganalearner.data.hiraganaLetters
-import com.mathsemilio.hiraganalearner.data.model.Hiragana
-import com.mathsemilio.hiraganalearner.util.*
+import com.mathsemilio.hiraganalearner.data.hiraganaSymbolsList
+import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_BEGINNER
+import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_MEDIUM
 import kotlin.random.Random
 
 /**
@@ -16,6 +17,11 @@ import kotlin.random.Random
 class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
     companion object {
+        const val ONE_SECOND = 1000L
+        const val COUNTDOWN_TIME_BEGINNER = 15000L
+        const val COUNTDOWN_TIME_MEDIUM = 10000L
+        const val COUNTDOWN_TIME_HARD = 5000L
+
         const val PROGRESS_BAR_MAX_BEGINNER = 14
         const val PROGRESS_BAR_MAX_MEDIUM = 9
         const val PROGRESS_BAR_MAX_HARD = 4
@@ -82,18 +88,16 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     //==========================================================================================
     // Other variables
     //==========================================================================================
-    val hiraganaLettersList: MutableList<Hiragana> = hiraganaLetters.toMutableList()
+    val hiraganaSymbolsMutableList: MutableList<HiraganaSymbol> =
+        hiraganaSymbolsList.toMutableList()
 
-    private var lastHiraganaLetterDrawableId: String? = null
-    private var lastHiraganaLetterRomanization: String? = null
+    private var lastHiraganaLetterDrawableId = ""
+    private var lastHiraganaLetterRomanization = ""
 
-    var countDownTimer: CountDownTimer? = null
+    lateinit var countDownTimer: CountDownTimer
     var gameTimerProgressBarValue: Int
     private var difficultyCountDownTime: Long
 
-    //==========================================================================================
-    // init block
-    //==========================================================================================
     init {
         _gameProgress.value = 0
 
@@ -116,34 +120,28 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGame()
     }
 
-    //==========================================================================================
-    // startGame function
-    //==========================================================================================
     /**
      * Performs essential tasks necessary for starting the game.
      */
     private fun startGame() {
         // Shuffling the hiraganaLettersList list
-        hiraganaLettersList.shuffle()
+        hiraganaSymbolsMutableList.shuffle()
 
         // Getting the first drawableSymbolId and romanization from the list
-        _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
-        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization
+        _currentHiraganaLetterString.value = hiraganaSymbolsMutableList.first().symbol
+        _currentHiraganaLetterRomanization.value = hiraganaSymbolsMutableList.first().romanization
 
         // Getting the last drawableSymbolId and romanization from the list
-        lastHiraganaLetterDrawableId = hiraganaLettersList.last().letter
-        lastHiraganaLetterRomanization = hiraganaLettersList.last().romanization
+        lastHiraganaLetterDrawableId = hiraganaSymbolsMutableList.last().symbol
+        lastHiraganaLetterRomanization = hiraganaSymbolsMutableList.last().romanization
 
         generateChipGroupRomanization()
 
         startGameTimer(difficultyCountDownTime)
     }
 
-    //==========================================================================================
-    // startGameTimer function
-    //==========================================================================================
     /**
-     * Sets up and starts the game timer.
+     * Sets up the game timer.
      *
      * @param countDownTime Long to be used as the countdown time for the timer.
      */
@@ -158,17 +156,13 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
                 _eventTimeOver.value = true
             }
         }
-
-        (countDownTimer as CountDownTimer).start()
+        countDownTimer.start()
     }
 
-    //==========================================================================================
-    // checkUserInput function
-    //==========================================================================================
     /**
      * Checks the user's input (answer).
      *
-     * @param selectedRomanization String of the current checked chip button.
+     * @param selectedRomanization String of the romanization to be evaluated.
      */
     fun checkUserInput(selectedRomanization: String) {
         /*
@@ -184,20 +178,17 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         }
     }
 
-    //==========================================================================================
-    // getNextLetter function
-    //==========================================================================================
     /**
      * Removes the current letter, and gets the next one from the list. It also calls other
      * functions to set up the UI for the game.
      */
     fun getNextLetter() {
         // Removing the first element (Hiragana letter) from the list
-        hiraganaLettersList.removeAt(0)
+        hiraganaSymbolsMutableList.removeAt(0)
 
         // Getting the first letter from the hiraganaLettersList list
-        _currentHiraganaLetterString.value = hiraganaLettersList.first().letter
-        _currentHiraganaLetterRomanization.value = hiraganaLettersList.first().romanization
+        _currentHiraganaLetterString.value = hiraganaSymbolsMutableList.first().symbol
+        _currentHiraganaLetterRomanization.value = hiraganaSymbolsMutableList.first().romanization
 
         generateChipGroupRomanization()
 
@@ -206,9 +197,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         updateGameProgress()
     }
 
-    //==========================================================================================
-    // getLastLetter function
-    //==========================================================================================
     /**
      * Gets the last letter from the list and sets its contents to the UI. It also checks the
      * user input and finishes the game.
@@ -220,8 +208,8 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
          Setting the value of the current hiragana letter as the value of the last letter
          from the list
         */
-        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId!!
-        _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization!!
+        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId
+        _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
 
         if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
             _eventCorrectAnswer.value = true
@@ -242,9 +230,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         }
     }
 
-    //==========================================================================================
-    // updateGameScore function
-    //==========================================================================================
     /**
      * Increments the game score by 1 point.
      */
@@ -252,9 +237,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         _gameScore.value = (_gameScore.value)?.inc()
     }
 
-    //==========================================================================================
-    // updateGameProgress function
-    //==========================================================================================
     /**
      * Increments the game progress by 1.
      */
@@ -262,9 +244,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         _gameProgress.value = (_gameProgress.value)?.inc()
     }
 
-    //==========================================================================================
-    // generateRadioButtonRomanization function
-    //==========================================================================================
     /**
      * Generates random romanizations for the chip buttons. It also selects which of them will
      * receive the current letter romanization (the correct answer).
@@ -309,6 +288,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        countDownTimer?.cancel()
+        countDownTimer.cancel()
     }
 }
