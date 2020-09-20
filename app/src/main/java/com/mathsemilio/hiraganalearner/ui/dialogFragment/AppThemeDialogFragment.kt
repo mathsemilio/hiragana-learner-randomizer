@@ -13,6 +13,9 @@ import com.mathsemilio.hiraganalearner.others.APP_THEME_FOLLOW_SYSTEM
 import com.mathsemilio.hiraganalearner.others.APP_THEME_LIGHT_THEME
 import com.mathsemilio.hiraganalearner.others.SharedPreferencesAppTheme
 
+/**
+ * DialogFragment class for the changing the application theme within the Settings fragment.
+ */
 class AppThemeDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -42,11 +45,7 @@ class AppThemeDialogFragment : DialogFragment() {
                         }
                     }
                 }
-                setNegativeButton(
-                    getString(R.string.app_theme_dialog_negative_button_text)
-                ) { _, _ ->
-                    dialog?.cancel()
-                }
+                setNegativeButton(getString(R.string.app_theme_dialog_negative_button_text)) { _, _ -> dialog?.cancel() }
             }
 
             builder.create()
@@ -67,7 +66,7 @@ class AppThemeDialogFragment : DialogFragment() {
             }
         } else {
             when (SharedPreferencesAppTheme(context).retrieveThemeValue()) {
-                APP_THEME_FOLLOW_SYSTEM -> 0
+                APP_THEME_LIGHT_THEME -> 0
                 APP_THEME_DARK_MODE -> 1
                 else -> 2
             }
@@ -75,7 +74,8 @@ class AppThemeDialogFragment : DialogFragment() {
     }
 
     /**
-     * Returns, based on SDK Int, a integer corresponding the app theme array resource id.
+     * Returns, based on the SDK Int value, a integer corresponding the app theme array resource
+     * id.
      *
      * @return Integer that corresponds the app theme array resource id.
      */

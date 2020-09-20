@@ -322,7 +322,7 @@ class MainGameScreen : Fragment() {
 
     /**
      * Checks if the eventGameFinished value is true, if it is, the navigateToScreen will be
-     * called, else, the chip group will be cleared of any checked button and the getNextLetter
+     * called, else, the chip group will be cleared of any checked buttons and the getNextLetter
      * function from the ViewModel will be called.
      */
     private fun checkEventGameFinished() {

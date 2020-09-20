@@ -58,7 +58,7 @@
             <ProgressBar
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
-                android:layout_height="4dp"
+                android:layout_height="@dimen/game_progress_progress_bar_height"
                 android:indeterminateOnly="false"
                 android:max="48"
                 android:progress="@{mainGameViewModel.gameProgress}"
@@ -69,8 +69,8 @@
 
             <View
                 android:id="@+id/circle_divider"
-                android:layout_width="3dp"
-                android:layout_height="3dp"
+                android:layout_width="@dimen/circle_divider_width"
+                android:layout_height="@dimen/circle_divider_height"
                 android:background="@drawable/circle_divider"
                 app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
@@ -102,7 +102,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Score: 24 / 48" />
+                tools:text="Score: 24" />
 
             <ProgressBar
                 android:id="@+id/game_timer_progress_bar"
@@ -114,7 +114,6 @@
                 android:progressDrawable="@drawable/circle_progress_bar"
                 app:layout_constraintBottom_toTopOf="@id/guideline_2_horizontal"
                 app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
                 app:layout_constraintTop_toBottomOf="@id/guideline_1_horizontal"
                 tools:progress="50" />
@@ -137,7 +136,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/margin_24dp"
                 android:maxLines="2"
                 android:text="@string/this_letter_corresponds_to_which_romaji"
                 android:textAlignment="center"

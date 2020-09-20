@@ -5,6 +5,17 @@ import android.content.DialogInterface
 import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+/**
+ * Function that builds a Material Alert Dialog with the specified parameters.
+ *
+ * @param dialogTitle String for the dialog's title
+ * @param dialogMessage String for the dialog's title
+ * @param positiveButtonText String for the dialog's positive button text
+ * @param negativeButtonText Nullable String for the dialog's negative button text
+ * @param cancelable Boolean that determines whether the dialog can be canceled or not
+ * @param positiveListener Listener for the positive button
+ * @param negativeListener Nullable Listener for the negative button
+ */
 fun Context.buildMaterialDialog(
     dialogTitle: String, dialogMessage: String,
     positiveButtonText: String, negativeButtonText: String?,
@@ -22,6 +33,12 @@ fun Context.buildMaterialDialog(
     }
 }
 
+/**
+ * Builds and shows a Toast widget with the parameters supplied.
+ *
+ * @param message String for the toast message to be displayed
+ * @param length Integer that determines how long the toast will be visible.
+ */
 fun Context.showToast(message: String, length: Int) {
     Toast.makeText(this, message, length).show()
 }

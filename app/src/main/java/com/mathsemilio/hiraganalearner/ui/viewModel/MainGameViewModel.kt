@@ -18,25 +18,25 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
     companion object {
         const val ONE_SECOND = 1000L
-        const val COUNTDOWN_TIME_BEGINNER = 15000L
-        const val COUNTDOWN_TIME_MEDIUM = 10000L
-        const val COUNTDOWN_TIME_HARD = 5000L
+        const val COUNTDOWN_TIME_BEGINNER = 16000L
+        const val COUNTDOWN_TIME_MEDIUM = 11000L
+        const val COUNTDOWN_TIME_HARD = 6000L
 
-        const val PROGRESS_BAR_MAX_BEGINNER = 14
-        const val PROGRESS_BAR_MAX_MEDIUM = 9
-        const val PROGRESS_BAR_MAX_HARD = 4
+        const val PROGRESS_BAR_MAX_BEGINNER = 15
+        const val PROGRESS_BAR_MAX_MEDIUM = 10
+        const val PROGRESS_BAR_MAX_HARD = 5
     }
 
     //==========================================================================================
     // MutableLiveData variables for the UI elements
     //==========================================================================================
-    private val _currentHiraganaLetterString = MutableLiveData<String>()
+    private val _currentHiraganaSymbolString = MutableLiveData<String>()
     val currentHiraganaLetterString: LiveData<String>
-        get() = _currentHiraganaLetterString
+        get() = _currentHiraganaSymbolString
 
-    private val _currentHiraganaLetterRomanization = MutableLiveData<String>()
+    private val _currentHiraganaSymbolRomanization = MutableLiveData<String>()
     val currentHiraganaLetterRomanization: LiveData<String>
-        get() = _currentHiraganaLetterRomanization
+        get() = _currentHiraganaSymbolRomanization
 
     private val _chip1StringRomanization = MutableLiveData<String>()
     val chip1StringRomanization: LiveData<String>
@@ -66,9 +66,7 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     val currentGameTime: LiveData<Long>
         get() = _currentGameTime
 
-    val currentGameTimeInt = Transformations.map(currentGameTime) { currentGameTime ->
-        currentGameTime.toInt()
-    }
+    val currentGameTimeInt = Transformations.map(currentGameTime) { it.toInt() }
 
     //==========================================================================================
     // MutableLiveData variables for game events
@@ -91,12 +89,12 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
     val hiraganaSymbolsMutableList: MutableList<HiraganaSymbol> =
         hiraganaSymbolsList.toMutableList()
 
-    private var lastHiraganaLetterDrawableId = ""
-    private var lastHiraganaLetterRomanization = ""
+    private var lastHiraganaSymbolString = ""
+    private var lastHiraganaSymbolRomanization = ""
 
     lateinit var countDownTimer: CountDownTimer
-    var gameTimerProgressBarValue: Int
     private var difficultyCountDownTime: Long
+    var gameTimerProgressBarValue: Int
 
     init {
         _gameProgress.value = 0
@@ -124,16 +122,13 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
      * Performs essential tasks necessary for starting the game.
      */
     private fun startGame() {
-        // Shuffling the hiraganaLettersList list
         hiraganaSymbolsMutableList.shuffle()
 
-        // Getting the first drawableSymbolId and romanization from the list
-        _currentHiraganaLetterString.value = hiraganaSymbolsMutableList.first().symbol
-        _currentHiraganaLetterRomanization.value = hiraganaSymbolsMutableList.first().romanization
+        _currentHiraganaSymbolString.value = hiraganaSymbolsMutableList.first().symbol
+        _currentHiraganaSymbolRomanization.value = hiraganaSymbolsMutableList.first().romanization
 
-        // Getting the last drawableSymbolId and romanization from the list
-        lastHiraganaLetterDrawableId = hiraganaSymbolsMutableList.last().symbol
-        lastHiraganaLetterRomanization = hiraganaSymbolsMutableList.last().romanization
+        lastHiraganaSymbolString = hiraganaSymbolsMutableList.last().symbol
+        lastHiraganaSymbolRomanization = hiraganaSymbolsMutableList.last().romanization
 
         generateChipGroupRomanization()
 
@@ -165,14 +160,10 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
      * @param selectedRomanization String of the romanization to be evaluated.
      */
     fun checkUserInput(selectedRomanization: String) {
-        /*
-        Checking if the current romanization equals the selected romanization, if it is, the
-        answer is correct and the game score is updated, else it's incorrect
-        */
-        if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
+        if (_currentHiraganaSymbolRomanization.value == selectedRomanization) {
             _eventCorrectAnswer.value = true
 
-            updateGameScore()
+            incrementGameScore()
         } else {
             _eventCorrectAnswer.value = false
         }
@@ -183,18 +174,16 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
      * functions to set up the UI for the game.
      */
     fun getNextLetter() {
-        // Removing the first element (Hiragana letter) from the list
         hiraganaSymbolsMutableList.removeAt(0)
 
-        // Getting the first letter from the hiraganaLettersList list
-        _currentHiraganaLetterString.value = hiraganaSymbolsMutableList.first().symbol
-        _currentHiraganaLetterRomanization.value = hiraganaSymbolsMutableList.first().romanization
+        _currentHiraganaSymbolString.value = hiraganaSymbolsMutableList.first().symbol
+        _currentHiraganaSymbolRomanization.value = hiraganaSymbolsMutableList.first().romanization
 
         generateChipGroupRomanization()
 
-        startGameTimer(difficultyCountDownTime)
+        incrementGameProgress()
 
-        updateGameProgress()
+        startGameTimer(difficultyCountDownTime)
     }
 
     /**
@@ -204,43 +193,37 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
      * @param selectedRomanization String of the current checked chip button.
      */
     fun getLastLetter(selectedRomanization: String) {
-        /*
-         Setting the value of the current hiragana letter as the value of the last letter
-         from the list
-        */
-        _currentHiraganaLetterString.value = lastHiraganaLetterDrawableId
-        _currentHiraganaLetterRomanization.value = lastHiraganaLetterRomanization
+        _currentHiraganaSymbolString.value = lastHiraganaSymbolString
+        _currentHiraganaSymbolRomanization.value = lastHiraganaSymbolRomanization
 
-        if (_currentHiraganaLetterRomanization.value == selectedRomanization) {
+        if (_currentHiraganaSymbolRomanization.value == selectedRomanization) {
             _eventCorrectAnswer.value = true
 
-            updateGameScore()
+            incrementGameScore()
 
-            updateGameProgress()
+            incrementGameProgress()
 
-            // Setting the value of _eventGameFinished as TRUE to finish the game
             _eventGameFinished.value = true
         } else {
-            updateGameProgress()
+            incrementGameProgress()
 
             _eventCorrectAnswer.value = false
 
-            // Setting the value of _eventGameFinished as TRUE to finish the game
             _eventGameFinished.value = true
         }
     }
 
     /**
-     * Increments the game score by 1 point.
+     * Increments the game score.
      */
-    private fun updateGameScore() {
+    private fun incrementGameScore() {
         _gameScore.value = (_gameScore.value)?.inc()
     }
 
     /**
-     * Increments the game progress by 1.
+     * Increments the game progress.
      */
-    private fun updateGameProgress() {
+    private fun incrementGameProgress() {
         _gameProgress.value = (_gameProgress.value)?.inc()
     }
 
@@ -249,7 +232,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
      * receive the current letter romanization (the correct answer).
      */
     private fun generateChipGroupRomanization() {
-        // List containing romanizations to be used as distractions
         val hiraganaRomanizationList = listOf(
             "A", "I", "U", "E", "O", "KA", "KI", "KU", "KE", "KO", "SA", "SHI", "SU", "SE", "SO",
             "TA", "CHI", "TSU", "TE", "TO", "NA", "NI", "NU", "NE", "NO", "HA", "HI", "FU", "HE",
@@ -257,15 +239,10 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
             "WA", "WI", "WE", "WO", "N"
         )
 
-        /*
-         List that takes the hiraganaRomanizationList, applies a filter (to remove the
-         romanization that matches the current one), and shuffles it.
-        */
         val filteredList =
-            hiraganaRomanizationList.filterNot { it == _currentHiraganaLetterRomanization.value }
+            hiraganaRomanizationList.filterNot { it == _currentHiraganaSymbolRomanization.value }
                 .shuffled()
 
-        // Getting a random romanization for each chip from the filteredList
         _chip1StringRomanization.value = filteredList.slice(0..13).random()
 
         _chip2StringRomanization.value = filteredList.slice(14..27).random()
@@ -274,15 +251,11 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
         _chip4StringRomanization.value = filteredList.slice(43..46).random()
 
-        /*
-        Generating a random number between 0 and 4, and based on that number, a chip will be
-        selected to contain the current romanization for the letter on the screen.
-        */
         when (Random.nextInt(4)) {
-            0 -> _chip1StringRomanization.value = _currentHiraganaLetterRomanization.value
-            1 -> _chip2StringRomanization.value = _currentHiraganaLetterRomanization.value
-            2 -> _chip3StringRomanization.value = _currentHiraganaLetterRomanization.value
-            3 -> _chip4StringRomanization.value = _currentHiraganaLetterRomanization.value
+            0 -> _chip1StringRomanization.value = _currentHiraganaSymbolRomanization.value
+            1 -> _chip2StringRomanization.value = _currentHiraganaSymbolRomanization.value
+            2 -> _chip3StringRomanization.value = _currentHiraganaSymbolRomanization.value
+            3 -> _chip4StringRomanization.value = _currentHiraganaSymbolRomanization.value
         }
     }
 

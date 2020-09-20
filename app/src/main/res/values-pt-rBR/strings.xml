@@ -57,12 +57,14 @@
     <string name="content_description_button_for_pausing_game">Botão para pausar jogo</string>
     <string name="content_description_button_for_verifying_answer">Botão para verificar resposta</string>
     <string name="this_letter_corresponds_to_which_romaji">Este símbolo corresponde a que Rōmaji Hepburn?</string>
-    <string name="game_score">Pontuação: %d / 48</string>
+    <string name="game_score">Pontuação: %d</string>
 
     <!-- Strings do fragmento GameScoreScreen -->
     <string name="content_description_grade_star">Estrela de pontuação</string>
     <string name="perfect_score">Pontuação perfeita!</string>
-    <string name="final_game_score">%d / 48</string>
+    <string name="out_of">de</string>
+    <string name="perfect_score_48">48</string>
+    <string name="symbols_associated_correctly">Símbolos associados corretamente!</string>
     <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
     <string name="game_difficulty_score_screen">Dificuldade do Jogo</string>
     <string name="final_score">Pontuação Final</string>

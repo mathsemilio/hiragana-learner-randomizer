@@ -12,6 +12,9 @@ import androidx.work.WorkerParameters
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.ui.activity.MainActivity
 
+/**
+ * Worker class for handling the work to be done with the WorkManager.
+ */
 class NotificationWorkManager(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
 
@@ -28,6 +31,10 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
         return Result.success()
     }
 
+    /**
+     * Builds the notification and the notification channel. It also notifies the user when this
+     * it is called.
+     */
     private fun buildTrainingNotification() {
         val intentLaunchMainActivity = Intent(applicationContext, MainActivity::class.java)
             .apply {

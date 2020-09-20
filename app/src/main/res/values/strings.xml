@@ -56,12 +56,14 @@
     <string name="content_description_button_for_pausing_game">Button for pausing the game</string>
     <string name="content_description_button_for_verifying_answer">Button for verifying answer</string>
     <string name="this_letter_corresponds_to_which_romaji">This symbol corresponds to which Hepburn Rōmaji?</string>
-    <string name="game_score">Score: %d / 48</string>
+    <string name="game_score">Score: %d</string>
 
     <!-- Score screen strings -->
     <string name="content_description_grade_star">Grade star</string>
     <string name="perfect_score">Perfect score!</string>
-    <string name="final_game_score">%d / 48</string>
+    <string name="out_of">out of</string>
+    <string name="perfect_score_48">48</string>
+    <string name="symbols_associated_correctly">Symbols associated correctly!</string>
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>
     <string name="final_score">Final Score</string>
@@ -106,7 +108,7 @@
     <string name="alert_dialog_on_back_pressed_negative_button_text">Exit</string>
 
     <!-- Perfect Final score -->
-    <string name="final_perfect_score">I just got a perfect score (48 / 48 Hiragana Symbols) on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
+    <string name="final_perfect_score">I just got a perfect score (48 out of 48 Symbols) on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
 
     <!-- Intent Create Chooser title -->
     <string name="game_score_create_chooser_title">Share your game score!</string>

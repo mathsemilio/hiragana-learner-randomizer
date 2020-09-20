@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/image_view_app_config_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/settings_icon_width"
+        android:layout_height="@dimen/settings_icon_height"
         android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:backgroundTint="?attr/colorControlNormal"
@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/margin_4dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:maxLines="2"
         android:text="@string/hiragana_letters_and_romanizations"
@@ -53,7 +53,7 @@
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_8dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/text_body_get_ready_to_associate"
         app:layout_constraintStart_toStartOf="@id/text_body_get_ready_to_associate"

@@ -55,9 +55,9 @@ class GameScoreScreen : Fragment() {
         if (gameScore == PERFECT_SCORE)
             binding.textHeadlineFinalScore.text = getString(R.string.perfect_score)
 
-        changeGradeIconVisibilityBasedOnGameScore(gameScore)
+        binding.textHeadlineGameScore.text = gameScore.toString()
 
-        binding.textHeadlineGameScore.text = getString(R.string.final_game_score, gameScore)
+        changeGradeIconVisibilityBasedOnGameScore(gameScore)
 
         binding.textHeadlineGameDifficultyScoreScreen.text = getGameDifficultyString()
 
@@ -90,7 +90,6 @@ class GameScoreScreen : Fragment() {
         } else {
             binding.fabShare.setOnClickListener {
                 soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
-
                 shareGameScore()
             }
         }
@@ -100,7 +99,7 @@ class GameScoreScreen : Fragment() {
      * Based on the game score value, it will change the visibility value of the grade ImageViews
      * to reflect the user success.
      *
-     * @param gameScore The final game score to be evaluated.
+     * @param gameScore The game score to be evaluated.
      */
     private fun changeGradeIconVisibilityBasedOnGameScore(gameScore: Int) {
         when {

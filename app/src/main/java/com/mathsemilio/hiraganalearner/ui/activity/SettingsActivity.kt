@@ -150,6 +150,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return super.onPreferenceTreeClick(preference)
     }
 
+    /**
+     * Sets up the Time Picker dialog for the Training notification.
+     *
+     * @param calendar Calendar instance required for the dialog
+     */
     private fun setupTimePickerDialog(calendar: Calendar) {
         timePickerDialog = TimePickerDialog(
             requireContext(),
