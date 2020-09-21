@@ -18,6 +18,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
 
+        <action
+            android:id="@+id/action_gameWelcomeScreen_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+
     </fragment>
 
     <fragment
@@ -85,6 +93,24 @@
             android:name="game_difficulty"
             android:defaultValue="0"
             app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mathsemilio.hiraganalearner.ui.fragment.SettingsFragment"
+        android:label="@string/settings_toolbar_title">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_gameWelcomeScreen"
+            app:destination="@id/gameWelcomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/gameWelcomeScreen"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

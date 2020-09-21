@@ -8,4 +8,7 @@
 
     <!-- White transparent -->
     <color name="transparent">#00FFFFFF</color>
+
+    <!-- FAB Icon color -->
+    <color name="fabIconColor">@android:color/black</color>
 </resources>

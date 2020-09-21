@@ -3,8 +3,8 @@
     <!-- Nome da Aplicação -->
     <string name="app_name">Hiragana Randomizer</string>
 
-    <!-- Label para Activity -->
-    <string name="settings_activity_label">Configurações</string>
+    <!-- Título da Toolbar de Configurações -->
+    <string name="settings_toolbar_title">Configurações</string>
 
     <!-- Strings do fragmento de configurações -->
     <string name="preference_category_title_notification">Notificação</string>

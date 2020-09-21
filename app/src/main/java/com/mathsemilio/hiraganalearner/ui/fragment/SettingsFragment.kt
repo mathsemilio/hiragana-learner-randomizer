@@ -1,49 +1,24 @@
-package com.mathsemilio.hiraganalearner.ui.activity
+package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.mathsemilio.hiraganalearner.BuildConfig
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.others.*
 import com.mathsemilio.hiraganalearner.ui.dialogFragment.AppThemeDialogFragment
-import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/**
- * Activity class that hosts the Settings Fragment.
- */
-class SettingsActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-
-        setSupportActionBar(toolbar_settings as Toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frame_layout_settings_container, SettingsFragment())
-            .commit()
-    }
-}
-
-/**
- * PreferenceFragmentCompat for the Settings screen.
- */
 class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
         const val TRAINING_NOTIFICATION_TAG = "trainingNotification"
-        const val APP_BUILD_VERSION = "beta-stable-0.1.1"
         const val NOTIFICATION_PREF_KEY = "notification"
         const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
         const val APP_THEME_PREF_KEY = "appTheme"
@@ -60,7 +35,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         updateClearPerfectScoresSummary()
 
-        findPreference<Preference>(APP_BUILD_PREF_KEY)?.summary = APP_BUILD_VERSION
+        findPreference<Preference>(APP_BUILD_PREF_KEY)?.summary = BuildConfig.VERSION_NAME
     }
 
     /**

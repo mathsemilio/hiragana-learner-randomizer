@@ -3,4 +3,5 @@
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="fabIconColor">@android:color/white</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -18,7 +17,6 @@ import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_BEGINNER
 import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_HARD
 import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_MEDIUM
 import com.mathsemilio.hiraganalearner.others.SOUND_EFFECTS_VOLUME_PREF_KEY
-import com.mathsemilio.hiraganalearner.ui.activity.SettingsActivity
 
 /**
  * Fragment class for game's welcome screen
@@ -53,7 +51,7 @@ class GameWelcomeScreen : Fragment() {
         setupSoundPoolAndLoadSounds()
 
         binding.imageViewAppConfigIcon.setOnClickListener {
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+            findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
         }
 
         return binding.root
