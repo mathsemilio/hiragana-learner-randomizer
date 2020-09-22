@@ -198,7 +198,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/fab_pause_timer"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toEndOf="@id/guideline_1_vertical"
-                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal"
+                app:tint="@color/fabIconColor" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_pause_timer"
@@ -209,7 +210,8 @@
                 app:backgroundTint="@color/colorPrimary"
                 app:layout_constraintEnd_toStartOf="@id/fab_check_answer"
                 app:layout_constraintStart_toEndOf="@id/fab_exit"
-                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal" />
+                app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal"
+                app:tint="@color/fabIconColor" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_check_answer"
@@ -218,11 +220,12 @@
                 android:contentDescription="@string/content_description_button_for_verifying_answer"
                 android:enabled="false"
                 android:src="@drawable/ic_check_circle_black_24dp"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/fab_verify_answer_color_state_list"
                 app:layout_constraintEnd_toStartOf="@id/guideline_2_vertical"
                 app:layout_constraintStart_toEndOf="@id/fab_pause_timer"
                 app:layout_constraintTop_toBottomOf="@id/guideline_3_horizontal"
-                tools:enabled="true" />
+                app:tint="@color/fabIconColor"
+                tools:enabled="false" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

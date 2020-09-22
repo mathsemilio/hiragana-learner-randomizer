@@ -29,19 +29,25 @@ class AppThemeDialogFragment : DialogFragment() {
                             AppCompatDelegate
                                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-                            SharedPreferencesAppTheme(it).saveThemeValue(APP_THEME_LIGHT_THEME)
+                            SharedPreferencesAppTheme(requireContext()).saveThemeValue(
+                                APP_THEME_LIGHT_THEME
+                            )
                         }
                         1 -> {
                             AppCompatDelegate
                                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
-                            SharedPreferencesAppTheme(it).saveThemeValue(APP_THEME_DARK_MODE)
+                            SharedPreferencesAppTheme(requireContext()).saveThemeValue(
+                                APP_THEME_DARK_MODE
+                            )
                         }
                         2 -> {
                             AppCompatDelegate
                                 .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
-                            SharedPreferencesAppTheme(it).saveThemeValue(APP_THEME_FOLLOW_SYSTEM)
+                            SharedPreferencesAppTheme(requireContext()).saveThemeValue(
+                                APP_THEME_FOLLOW_SYSTEM
+                            )
                         }
                     }
                 }
@@ -56,7 +62,7 @@ class AppThemeDialogFragment : DialogFragment() {
      * Returns a integer value to preselect a option in the Dialog Fragment.
      *
      * @param context The context of the activity that host the dialog fragment.
-     * @return Integer that represents the default option to selected in the dialog.
+     * @return Integer that represents the default option to be selected in the dialog.
      */
     private fun getDefaultOption(context: Context): Int {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {

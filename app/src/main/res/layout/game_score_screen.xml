@@ -188,7 +188,8 @@
             app:layout_constraintEnd_toStartOf="@id/fab_play_again"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/fabIconColor" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_play_again"
@@ -202,7 +203,8 @@
             app:layout_constraintEnd_toStartOf="@id/fab_share"
             app:layout_constraintStart_toEndOf="@id/fab_home"
             app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/fabIconColor" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
@@ -216,7 +218,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fab_play_again"
             app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/fabIconColor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

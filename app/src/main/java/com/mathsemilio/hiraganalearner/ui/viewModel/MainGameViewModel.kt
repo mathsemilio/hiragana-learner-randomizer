@@ -18,13 +18,13 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
     companion object {
         const val ONE_SECOND = 1000L
-        const val COUNTDOWN_TIME_BEGINNER = 16000L
-        const val COUNTDOWN_TIME_MEDIUM = 11000L
-        const val COUNTDOWN_TIME_HARD = 6000L
+        const val COUNTDOWN_TIME_BEGINNER = 15000L
+        const val COUNTDOWN_TIME_MEDIUM = 10000L
+        const val COUNTDOWN_TIME_HARD = 5000L
 
-        const val PROGRESS_BAR_MAX_BEGINNER = 15
-        const val PROGRESS_BAR_MAX_MEDIUM = 10
-        const val PROGRESS_BAR_MAX_HARD = 5
+        const val PROGRESS_BAR_MAX_BEGINNER = 14
+        const val PROGRESS_BAR_MAX_MEDIUM = 9
+        const val PROGRESS_BAR_MAX_HARD = 4
     }
 
     //==========================================================================================
