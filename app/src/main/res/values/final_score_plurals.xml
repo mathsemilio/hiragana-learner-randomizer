@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="final_score_plurals">
-        <item quantity="one">%d &lt;small>point&lt;/small></item>
-        <item quantity="other">%d &lt;small>points&lt;/small></item>
-    </plurals>
-</resources>
