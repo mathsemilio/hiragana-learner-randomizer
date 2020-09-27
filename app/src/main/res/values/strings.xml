@@ -18,7 +18,7 @@
     <string name="preference_title_sound_effects_volume">Sound effects volume</string>
     <string name="preference_title_app_theme">Application theme</string>
     <string name="preference_title_app_build_version">App version</string>
-    <string name="preference_summary_on_training_notification">Time configured: %s</string>
+    <string name="preference_summary_on_training_notification">Reminder configured for %s</string>
     <string name="preference_summary_clear_perfect_scores">Perfect scores achieved: %d</string>
     <string name="preference_summary_app_theme">Change the application\'s theme</string>
     <string name="preference_dialog_title_default_game_difficulty">Select a option below:</string>
@@ -27,7 +27,7 @@
     <string name="difficulty_entry_medium">Medium</string>
     <string name="difficulty_entry_hard">Hard</string>
     <string name="preference_notification_set_toast_message">Done! Remainder set!</string>
-    <string name="preference_notification_time_in_future_toast_message">Please select a time in the future.</string>
+    <string name="preference_notification_time_in_future_toast_message">Invalid time! Please select a time for current day.</string>
     <string name="clear_perfect_score_dialog_title">Are you sure?</string>
     <string name="clear_perfect_score_dialog_message">This action cannot be undone.</string>
     <string name="clear_perfect_score_dialog_positive_button_text">Clear</string>
