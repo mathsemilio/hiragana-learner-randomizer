@@ -19,7 +19,7 @@
     <string name="preference_title_sound_effects_volume">Volume dos efeitos sonoros</string>
     <string name="preference_title_app_theme">Tema da aplicação</string>
     <string name="preference_title_app_build_version">Versão da aplicação</string>
-    <string name="preference_summary_default_game_difficulty">Selecione uma dificuldade padrão para jogar.</string>
+    <string name="preference_summary_on_training_notification">Horário configurado: %s</string>
     <string name="preference_summary_clear_perfect_scores">Pontuações perfeitas alcançadas: %d</string>
     <string name="preference_summary_app_theme">Mudar o tema da aplicação</string>
     <string name="preference_dialog_title_default_game_difficulty">Selecione uma opção abaixo:</string>
@@ -27,7 +27,7 @@
     <string name="difficulty_entry_beginner">Iniciante</string>
     <string name="difficulty_entry_medium">Médio</string>
     <string name="difficulty_entry_hard">Difícil</string>
-    <string name="preference_notification_set_toast_message">Pronto! Lembrete configurado</string>
+    <string name="preference_notification_set_toast_message">Pronto! Lembrete configurado!</string>
     <string name="preference_notification_time_in_future_toast_message">Por favor, selecione um horário no futuro.</string>
     <string name="clear_perfect_score_dialog_title">Você tem certeza?</string>
     <string name="clear_perfect_score_dialog_message">Esta ação não pode ser desfeita.</string>
@@ -106,7 +106,7 @@
     <string name="alert_dialog_on_back_pressed_negative_button_text">Sair</string>
 
     <!-- Pontuação final perfeita -->
-    <string name="final_perfect_score">Acabei de conseguir uma pontuação perfeita (48 / 48 símbolos) no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
+    <string name="final_perfect_score">Acabei de conseguir uma pontuação perfeita no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
 
     <!-- Título do Create Chooser intent -->
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>

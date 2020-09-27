@@ -18,7 +18,7 @@
     <string name="preference_title_sound_effects_volume">Sound effects volume</string>
     <string name="preference_title_app_theme">Application theme</string>
     <string name="preference_title_app_build_version">App version</string>
-    <string name="preference_summary_default_game_difficulty">Select a default difficulty for playing the game</string>
+    <string name="preference_summary_on_training_notification">Time configured: %s</string>
     <string name="preference_summary_clear_perfect_scores">Perfect scores achieved: %d</string>
     <string name="preference_summary_app_theme">Change the application\'s theme</string>
     <string name="preference_dialog_title_default_game_difficulty">Select a option below:</string>
@@ -26,7 +26,7 @@
     <string name="difficulty_entry_beginner">Beginner</string>
     <string name="difficulty_entry_medium">Medium</string>
     <string name="difficulty_entry_hard">Hard</string>
-    <string name="preference_notification_set_toast_message">Done! Remainder set</string>
+    <string name="preference_notification_set_toast_message">Done! Remainder set!</string>
     <string name="preference_notification_time_in_future_toast_message">Please select a time in the future.</string>
     <string name="clear_perfect_score_dialog_title">Are you sure?</string>
     <string name="clear_perfect_score_dialog_message">This action cannot be undone.</string>
@@ -66,7 +66,7 @@
     <string name="final_score">Final Score</string>
 
     <!-- App theme dialog strings -->
-    <string name="app_theme_dialog_option_follow_system">Follow System</string>
+    <string name="app_theme_dialog_option_follow_system">Follow System\'s settings</string>
     <string name="app_theme_dialog_option_dark_theme">Dark theme</string>
     <string name="app_theme_dialog_option_light_theme">Light theme</string>
     <string name="app_theme_dialog_title">Select a option below:</string>
@@ -105,7 +105,7 @@
     <string name="alert_dialog_on_back_pressed_negative_button_text">Exit</string>
 
     <!-- Perfect Final score -->
-    <string name="final_perfect_score">I just got a perfect score (48 out of 48 Symbols) on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
+    <string name="final_perfect_score">I just got a perfect score on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
 
     <!-- Intent Create Chooser title -->
     <string name="game_score_create_chooser_title">Share your game score!</string>

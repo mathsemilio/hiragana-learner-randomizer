@@ -20,7 +20,6 @@
             app:entryValues="@array/difficulty_entry_values"
             app:icon="@drawable/ic_baseline_videogame_asset_24"
             app:key="gameDifficulty"
-            app:summary="@string/preference_summary_default_game_difficulty"
             app:title="@string/preference_title_default_game_difficulty" />
 
         <Preference

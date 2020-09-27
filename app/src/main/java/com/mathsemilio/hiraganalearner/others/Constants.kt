@@ -13,5 +13,8 @@ const val GAME_DIFFICULTY_VALUE_HARD = 2
 // Perfect game score constant
 const val PERFECT_SCORE = 48
 
+// Default Game Difficulty preference key
+const val DEFAULT_GAME_DIFFICULTY_PREF_KEY = "gameDifficulty"
+
 // Game sound effects volume preference key
 const val SOUND_EFFECTS_VOLUME_PREF_KEY = "soundEffects"

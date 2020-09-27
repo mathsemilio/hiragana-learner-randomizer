@@ -2,12 +2,15 @@ package com.mathsemilio.hiraganalearner.others
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 
 class SharedPreferencesAppTheme(context: Context) {
 
     companion object {
         const val SHARED_PREF_APP_THEME = "appThemeSharedPreferences"
         const val APP_THEME = "appTheme"
+        const val DEFAULT_VALUE_BELOW_Q = 0
+        const val DEFAULT_VALUE_Q = 2
     }
 
     private val sharedPreferencesAppTheme: SharedPreferences =
@@ -15,22 +18,17 @@ class SharedPreferencesAppTheme(context: Context) {
 
     private val editor: SharedPreferences.Editor = sharedPreferencesAppTheme.edit()
 
-    /**
-     * Saves the theme value on the SharedPreferences.
-     *
-     * @param value Integer that corresponds the value to be saved on the SharedPreferences
-     */
     fun saveThemeValue(value: Int) {
-        editor.putInt(APP_THEME, value)
-        editor.apply()
+        editor.apply {
+            putInt(APP_THEME, value)
+            apply()
+        }
     }
 
-    /**
-     * Retrieves the theme value saved in the SharedPreferences.
-     *
-     * @return Integer corresponding the theme value saved on the SharedPreferences
-     */
     fun retrieveThemeValue(): Int {
-        return sharedPreferencesAppTheme.getInt(APP_THEME, 0)
+        return when (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            true -> sharedPreferencesAppTheme.getInt(APP_THEME, DEFAULT_VALUE_BELOW_Q)
+            false -> sharedPreferencesAppTheme.getInt(APP_THEME, DEFAULT_VALUE_Q)
+        }
     }
 }

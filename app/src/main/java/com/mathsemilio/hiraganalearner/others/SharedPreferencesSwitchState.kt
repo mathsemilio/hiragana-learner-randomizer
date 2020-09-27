@@ -15,21 +15,13 @@ class SharedPreferencesSwitchState(context: Context) {
 
     private val editor: SharedPreferences.Editor = sharedPreferencesPerfectScores.edit()
 
-    /**
-     * Saves the state of the SwitchPreferenceCompat for the Training notification.
-     *
-     * @param state Boolean to represent the Switch state.
-     */
     fun saveSwitchState(state: Boolean) {
-        editor.putBoolean(SWITCH_STATE, state)
-        editor.apply()
+        editor.apply {
+            putBoolean(SWITCH_STATE, state)
+            apply()
+        }
     }
 
-    /**
-     * Retrieves the Switch state value from the SharedPreferences.
-     *
-     * @return Boolean value from the SharedPreferences that represents the state of the Switch
-     */
     fun retrieveSwitchState(): Boolean {
         return sharedPreferencesPerfectScores.getBoolean(SWITCH_STATE, false)
     }

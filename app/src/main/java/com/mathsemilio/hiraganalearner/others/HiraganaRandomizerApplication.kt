@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 
 @Suppress("unused")
-class ApplicationClass : Application() {
+class HiraganaRandomizerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

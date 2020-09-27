@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
- * Function that builds a Material Alert Dialog with the specified parameters.
+ * Builds a Material Alert Dialog with the specified parameters.
  *
  * @param dialogTitle String for the dialog's title
  * @param dialogMessage String for the dialog's title
@@ -37,7 +37,8 @@ fun Context.buildMaterialDialog(
  * Builds and shows a Toast widget with the parameters supplied.
  *
  * @param message String for the toast message to be displayed
- * @param length Integer that determines how long the toast will be visible.
+ * @param length Int constant from the Toast class that determines how long the toast will be
+ * visible.
  */
 fun Context.showToast(message: String, length: Int) {
     Toast.makeText(this, message, length).show()

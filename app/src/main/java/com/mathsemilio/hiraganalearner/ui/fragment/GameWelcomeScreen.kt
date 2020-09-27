@@ -13,19 +13,12 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
-import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_BEGINNER
-import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_HARD
-import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_MEDIUM
-import com.mathsemilio.hiraganalearner.others.SOUND_EFFECTS_VOLUME_PREF_KEY
+import com.mathsemilio.hiraganalearner.others.*
 
 /**
  * Fragment class for game's welcome screen
  */
 class GameWelcomeScreen : Fragment() {
-
-    companion object {
-        const val GAME_DIFFICULTY = "gameDifficulty"
-    }
 
     private lateinit var binding: GameWelcomeScreenBinding
     private lateinit var defaultSharedPreferences: SharedPreferences
@@ -72,7 +65,7 @@ class GameWelcomeScreen : Fragment() {
             binding.buttonStart.isEnabled = true
         }
 
-        when (defaultSharedPreferences.getString(GAME_DIFFICULTY, "0")) {
+        when (defaultSharedPreferences.getString(DEFAULT_GAME_DIFFICULTY_PREF_KEY, "0")) {
             "0" -> {
                 binding.chipGroupGameDifficulty.setOnCheckedChangeListener { group, checkedId ->
                     if (checkedId == -1) {

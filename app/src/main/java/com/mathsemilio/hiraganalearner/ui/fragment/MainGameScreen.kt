@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.databinding.MainGameScreenBinding
+import com.mathsemilio.hiraganalearner.databinding.GameMainScreenBinding
 import com.mathsemilio.hiraganalearner.others.*
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModelFactory
@@ -30,7 +30,7 @@ class MainGameScreen : Fragment() {
      */
     private enum class FragmentState { RUNNING, PAUSED, DIALOG_BEING_SHOWN }
 
-    private lateinit var binding: MainGameScreenBinding
+    private lateinit var binding: GameMainScreenBinding
     private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
     private lateinit var soundPool: SoundPool
@@ -47,7 +47,7 @@ class MainGameScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_game_screen, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.game_main_screen, container, false)
 
         initializeVariables()
 
@@ -310,7 +310,7 @@ class MainGameScreen : Fragment() {
      */
     private fun navigateToScoreScreen(gameScore: Int, gameDifficultyValue: Int) {
         if (gameScore == PERFECT_SCORE)
-            SharedPreferencesPerfectScores(requireContext()).updatePerfectScore()
+            SharedPreferencesPerfectScores(requireContext()).incrementPerfectScore()
 
         val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
             gameScore,

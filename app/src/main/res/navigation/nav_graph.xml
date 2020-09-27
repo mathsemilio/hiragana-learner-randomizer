@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/mainGameScreen"
         android:name="com.mathsemilio.hiraganalearner.ui.fragment.MainGameScreen"
-        tools:layout="@layout/main_game_screen">
+        tools:layout="@layout/game_main_screen">
 
         <action
             android:id="@+id/action_mainGameScreen_to_gameScoreScreen"
