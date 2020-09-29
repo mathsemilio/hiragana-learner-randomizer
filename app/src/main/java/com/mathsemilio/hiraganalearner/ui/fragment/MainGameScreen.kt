@@ -60,9 +60,6 @@ class MainGameScreen : Fragment() {
         return binding.root
     }
 
-    /**
-     * Initializes and assigns key components for this fragment.
-     */
     private fun initializeVariables() {
         gameDifficultyValue = MainGameScreenArgs.fromBundle(requireArguments()).gameDifficultyValue
 
@@ -223,7 +220,10 @@ class MainGameScreen : Fragment() {
                 )
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 
     /**

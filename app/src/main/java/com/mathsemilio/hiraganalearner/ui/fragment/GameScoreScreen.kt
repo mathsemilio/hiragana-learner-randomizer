@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -21,6 +22,7 @@ class GameScoreScreen : Fragment() {
     private var _binding: GameScoreScreenBinding? = null
     private val binding get() = _binding!!
     private lateinit var soundPool: SoundPool
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     private var soundEffectsVolume = 0f
     private var soundButtonClick = 0
     private var gameScore = 0
@@ -32,12 +34,7 @@ class GameScoreScreen : Fragment() {
     ): View? {
         _binding = GameScoreScreenBinding.inflate(inflater, container, false)
 
-        gameScore = retrieveGameScore()
-
-        gameDifficultyValue = retrieveGameDifficultyValue()
-
-        soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
+        initializeVariables()
 
         setupUI()
 
@@ -46,7 +43,26 @@ class GameScoreScreen : Fragment() {
         soundPool = setupSoundPool(1)
         soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
 
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
+
         return binding.root
+    }
+
+    private fun initializeVariables() {
+        gameScore = retrieveGameScore()
+
+        gameDifficultyValue = retrieveGameDifficultyValue()
+
+        soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
     }
 
     /**
