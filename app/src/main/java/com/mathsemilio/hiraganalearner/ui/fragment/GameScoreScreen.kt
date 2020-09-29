@@ -1,7 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.Intent
-import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +18,8 @@ import com.mathsemilio.hiraganalearner.others.*
  */
 class GameScoreScreen : Fragment() {
 
-    private lateinit var binding: GameScoreScreenBinding
+    private var _binding: GameScoreScreenBinding? = null
+    private val binding get() = _binding!!
     private lateinit var soundPool: SoundPool
     private var soundEffectsVolume = 0f
     private var soundButtonClick = 0
@@ -30,7 +30,7 @@ class GameScoreScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = GameScoreScreenBinding.inflate(inflater, container, false)
+        _binding = GameScoreScreenBinding.inflate(inflater, container, false)
 
         gameScore = retrieveGameScore()
 
@@ -43,7 +43,8 @@ class GameScoreScreen : Fragment() {
 
         attachFABListeners()
 
-        setupSoundPoolAndLoadSounds()
+        soundPool = setupSoundPool(1)
+        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
 
         return binding.root
     }
@@ -119,23 +120,6 @@ class GameScoreScreen : Fragment() {
     }
 
     /**
-     * Sets up Sound Pool and loads the sounds to be used in this fragment.
-     */
-    private fun setupSoundPoolAndLoadSounds() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .build()
-
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(1)
-            .setAudioAttributes(audioAttributes)
-            .build()
-
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
-    }
-
-    /**
      * Builds an intent chooser, enabling the user to share his game score.
      */
     private fun shareGameScore() {
@@ -186,5 +170,10 @@ class GameScoreScreen : Fragment() {
             GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
             else -> getString(R.string.game_difficulty_hard)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

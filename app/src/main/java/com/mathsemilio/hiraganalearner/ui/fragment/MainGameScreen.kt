@@ -1,6 +1,5 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
-import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,7 +29,8 @@ class MainGameScreen : Fragment() {
      */
     private enum class FragmentState { RUNNING, PAUSED, DIALOG_BEING_SHOWN }
 
-    private lateinit var binding: GameMainScreenBinding
+    private var _binding: GameMainScreenBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
     private lateinit var soundPool: SoundPool
@@ -47,7 +47,7 @@ class MainGameScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.game_main_screen, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.game_main_screen, container, false)
 
         initializeVariables()
 
@@ -55,7 +55,7 @@ class MainGameScreen : Fragment() {
 
         subscribeToObservers()
 
-        setupSoundPoolAndLoadSounds()
+        loadSounds()
 
         return binding.root
     }
@@ -76,6 +76,8 @@ class MainGameScreen : Fragment() {
 
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
+
+        soundPool = setupSoundPool(2)
     }
 
     /**
@@ -279,25 +281,12 @@ class MainGameScreen : Fragment() {
         })
     }
 
-    /**
-     * Sets up Sound Pool and loads the sounds to be used in this fragment.
-     */
-    private fun setupSoundPoolAndLoadSounds() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .build()
-
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(1)
-            .setAudioAttributes(audioAttributes)
-            .build()
-
+    private fun loadSounds() {
         soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 2)
         soundCorrectAnswer =
-            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 1)
-        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 1)
+            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 3)
+        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 3)
     }
 
     /**
@@ -349,5 +338,10 @@ class MainGameScreen : Fragment() {
         }
 
         super.onResume()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

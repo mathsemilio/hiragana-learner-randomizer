@@ -1,7 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.fragment
 
 import android.content.SharedPreferences
-import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +19,8 @@ import com.mathsemilio.hiraganalearner.others.*
  */
 class GameWelcomeScreen : Fragment() {
 
-    private lateinit var binding: GameWelcomeScreenBinding
+    private var _binding: GameWelcomeScreenBinding? = null
+    private val binding get() = _binding!!
     private lateinit var defaultSharedPreferences: SharedPreferences
     private lateinit var soundPool: SoundPool
     private var soundEffectsVolume = 0f
@@ -31,7 +31,7 @@ class GameWelcomeScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = GameWelcomeScreenBinding.inflate(inflater, container, false)
+        _binding = GameWelcomeScreenBinding.inflate(inflater, container, false)
 
         defaultSharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -39,9 +39,10 @@ class GameWelcomeScreen : Fragment() {
         soundEffectsVolume =
             defaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
 
-        configGameDifficultyOptions()
+        soundPool = setupSoundPool(1)
+        loadSoundEffects()
 
-        setupSoundPoolAndLoadSounds()
+        configGameDifficultyOptions()
 
         binding.imageViewAppConfigIcon.setOnClickListener {
             findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
@@ -195,21 +196,13 @@ class GameWelcomeScreen : Fragment() {
         }
     }
 
-    /**
-     * Sets up Sound Pool and loads the sounds to be used in this fragment.
-     */
-    private fun setupSoundPoolAndLoadSounds() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .build()
-
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(1)
-            .setAudioAttributes(audioAttributes)
-            .build()
-
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+    private fun loadSoundEffects() {
         soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
+        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 2)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
