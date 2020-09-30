@@ -2,14 +2,14 @@
 A simple, yet effective, Hiragana Syllabary randomization game for Android.
 
 ## Application Objective
-This app aims to help learners of the Japanese language, quickly make visual associations with the Hiragana letters and 
+This app aims to help learners of the Japanese language, quickly make visual associations with the Hiragana symbols and 
 their associated Hepburn romanizations.
 
 <i>For more info on Hiragana, please refer to this page:</i>
 [Wikipedia - Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 
 ### How it works?
-Before the game starts, the user selects a difficulty for the game (which can also be selected on the Settings screen). The app's algorithm then generates a random order of all the 48 Hiragana letters. The objective of the user is to select a romanization for the letter currently being displayed on the screen before the time's run out. The amount of time available for the user depends on the difficulty he selected on the start screen. Once the user goes through all the letters, he will be directed to a result screen, where the final score is presented along with the option to play the game again or share his score.
+Before the game starts, the user selects a difficulty for the game (which can also be selected on the Settings screen). The app's algorithm then generates a random order of all the 48 Hiragana symbols. The objective of the user is to select a romanization for the symbol currently being displayed on the screen before the time's run out. The amount of time available for the user depends on the difficulty he selected on the start screen. Once the user goes through all the letters, he will be directed to a result screen, where the final score is presented along with the option to play the game again or share his score.
 
 ### Application Screenshots
 <b>**To be updated**</b>
