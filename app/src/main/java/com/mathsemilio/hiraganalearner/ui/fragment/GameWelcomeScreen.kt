@@ -23,6 +23,7 @@ class GameWelcomeScreen : Fragment() {
     private val binding get() = _binding!!
     private lateinit var defaultSharedPreferences: SharedPreferences
     private lateinit var soundPool: SoundPool
+    private var soundEffectsEnabled = true
     private var soundEffectsVolume = 0f
     private var soundButtonClick = 0
     private var soundClick = 0
@@ -39,8 +40,12 @@ class GameWelcomeScreen : Fragment() {
         soundEffectsVolume =
             defaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
 
-        soundPool = setupSoundPool(1)
-        loadSoundEffects()
+        if (soundEffectsVolume == 0f) {
+            soundEffectsEnabled = false
+        } else {
+            soundPool = setupSoundPool(1)
+            loadSoundEffects()
+        }
 
         configGameDifficultyOptions()
 
@@ -72,7 +77,15 @@ class GameWelcomeScreen : Fragment() {
                     if (checkedId == -1) {
                         binding.buttonStart.isEnabled = false
                     } else {
-                        soundPool.play(soundClick, soundEffectsVolume, soundEffectsVolume, 1, 0, 1F)
+                        if (soundEffectsEnabled)
+                            soundPool.play(
+                                soundClick,
+                                soundEffectsVolume,
+                                soundEffectsVolume,
+                                1,
+                                0,
+                                1F
+                            )
 
                         binding.buttonStart.isEnabled = true
 
@@ -85,14 +98,15 @@ class GameWelcomeScreen : Fragment() {
                         }
 
                         binding.buttonStart.setOnClickListener {
-                            soundPool.play(
-                                soundButtonClick,
-                                soundEffectsVolume,
-                                soundEffectsVolume,
-                                1,
-                                0,
-                                1F
-                            )
+                            if (soundEffectsEnabled)
+                                soundPool.play(
+                                    soundButtonClick,
+                                    soundEffectsVolume,
+                                    soundEffectsVolume,
+                                    1,
+                                    0,
+                                    1F
+                                )
 
                             binding.chipGroupGameDifficulty.clearCheck()
 
@@ -118,14 +132,15 @@ class GameWelcomeScreen : Fragment() {
                 }
 
                 binding.buttonStart.setOnClickListener {
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnabled)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
 
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
@@ -147,14 +162,15 @@ class GameWelcomeScreen : Fragment() {
                 }
 
                 binding.buttonStart.setOnClickListener {
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnabled)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
 
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(
@@ -176,14 +192,15 @@ class GameWelcomeScreen : Fragment() {
                 }
 
                 binding.buttonStart.setOnClickListener {
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnabled)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
 
                     val action =
                         GameWelcomeScreenDirections.actionGameWelcomeScreenToMainGameScreen(

@@ -37,6 +37,7 @@ class MainGameScreen : Fragment() {
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private var currentFragmentState = FragmentState.RUNNING
     private var gameDifficultyValue = 0
+    private var soundEffectsEnable = true
     private var soundEffectsVolume = 0f
     private var soundClick = 0
     private var soundButtonClick = 0
@@ -55,8 +56,6 @@ class MainGameScreen : Fragment() {
 
         subscribeToObservers()
 
-        loadSounds()
-
         return binding.root
     }
 
@@ -74,7 +73,12 @@ class MainGameScreen : Fragment() {
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
 
-        soundPool = setupSoundPool(2)
+        if (soundEffectsVolume == 0f) {
+            soundEffectsEnable = false
+        } else {
+            soundPool = setupSoundPool(2)
+            loadSounds()
+        }
     }
 
     /**
@@ -92,7 +96,8 @@ class MainGameScreen : Fragment() {
             if (checkedId == -1) {
                 binding.fabCheckAnswer.isEnabled = false
             } else {
-                soundPool.play(soundClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+                if (soundEffectsEnable)
+                    soundPool.play(soundClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
                 binding.fabCheckAnswer.isEnabled = true
 
@@ -114,7 +119,8 @@ class MainGameScreen : Fragment() {
         }
 
         binding.fabExit.setOnClickListener {
-            soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnable)
+                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -127,25 +133,27 @@ class MainGameScreen : Fragment() {
                 getString(R.string.alert_dialog_exit_game_negative_button_text),
                 false,
                 { _, _ ->
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnable)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
                     findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
                 },
                 { _, _ ->
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnable)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
 
                     viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
                     currentFragmentState = FragmentState.RUNNING
@@ -154,7 +162,8 @@ class MainGameScreen : Fragment() {
         }
 
         binding.fabPauseTimer.setOnClickListener {
-            soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnable)
+                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -166,14 +175,15 @@ class MainGameScreen : Fragment() {
                 getString(R.string.alert_dialog_game_paused_positive_button_text),
                 null, false,
                 { _, _ ->
-                    soundPool.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
+                    if (soundEffectsEnable)
+                        soundPool.play(
+                            soundButtonClick,
+                            soundEffectsVolume,
+                            soundEffectsVolume,
+                            0,
+                            0,
+                            1F
+                        )
                     viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
                     currentFragmentState = FragmentState.RUNNING
                 },
@@ -194,26 +204,28 @@ class MainGameScreen : Fragment() {
                     getString(R.string.alert_dialog_on_back_pressed_negative_button_text),
                     false,
                     { _, _ ->
-                        soundPool.play(
-                            soundButtonClick,
-                            soundEffectsVolume,
-                            soundEffectsVolume,
-                            0,
-                            0,
-                            1F
-                        )
+                        if (soundEffectsEnable)
+                            soundPool.play(
+                                soundButtonClick,
+                                soundEffectsVolume,
+                                soundEffectsVolume,
+                                0,
+                                0,
+                                1F
+                            )
                         viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
                         currentFragmentState = FragmentState.RUNNING
                     },
                     { _, _ ->
-                        soundPool.play(
-                            soundButtonClick,
-                            soundEffectsVolume,
-                            soundEffectsVolume,
-                            0,
-                            0,
-                            1F
-                        )
+                        if (soundEffectsEnable)
+                            soundPool.play(
+                                soundButtonClick,
+                                soundEffectsVolume,
+                                soundEffectsVolume,
+                                0,
+                                0,
+                                1F
+                            )
 
                         findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
                     }
@@ -232,7 +244,15 @@ class MainGameScreen : Fragment() {
     private fun subscribeToObservers() {
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, { answerIsCorrect ->
             if (answerIsCorrect) {
-                soundPool.play(soundCorrectAnswer, soundEffectsVolume, soundEffectsVolume, 1, 0, 1F)
+                if (soundEffectsEnable)
+                    soundPool.play(
+                        soundCorrectAnswer,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        1,
+                        0,
+                        1F
+                    )
 
                 requireContext().buildMaterialDialog(
                     getString(R.string.alert_dialog_correct_answer_title),
@@ -244,7 +264,15 @@ class MainGameScreen : Fragment() {
                     null
                 )
             } else {
-                soundPool.play(soundWrongAnswer, soundEffectsVolume, soundEffectsVolume, 1, 0, 1F)
+                if (soundEffectsEnable)
+                    soundPool.play(
+                        soundWrongAnswer,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        1,
+                        0,
+                        1F
+                    )
 
                 requireContext().buildMaterialDialog(
                     getString(R.string.alert_dialog_wrong_answer_title),
@@ -263,7 +291,15 @@ class MainGameScreen : Fragment() {
 
         viewModel.eventTimeOver.observe(viewLifecycleOwner, { timeIsOver ->
             if (timeIsOver) {
-                soundPool.play(soundWrongAnswer, soundEffectsVolume, soundEffectsVolume, 1, 0, 1F)
+                if (soundEffectsEnable)
+                    soundPool.play(
+                        soundWrongAnswer,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        1,
+                        0,
+                        1F
+                    )
 
                 requireContext().buildMaterialDialog(
                     getString(R.string.alert_dialog_time_over_title),

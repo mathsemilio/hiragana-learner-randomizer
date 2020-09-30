@@ -23,6 +23,7 @@ class GameScoreScreen : Fragment() {
     private val binding get() = _binding!!
     private lateinit var soundPool: SoundPool
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private var soundEffectsEnabled = true
     private var soundEffectsVolume = 0f
     private var soundButtonClick = 0
     private var gameScore = 0
@@ -40,19 +41,6 @@ class GameScoreScreen : Fragment() {
 
         attachFABListeners()
 
-        soundPool = setupSoundPool(1)
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
-
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
-
         return binding.root
     }
 
@@ -63,6 +51,23 @@ class GameScoreScreen : Fragment() {
 
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
+
+        if (soundEffectsVolume == 0f) {
+            soundEffectsEnabled = false
+        } else {
+            soundPool = setupSoundPool(1)
+            soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+        }
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 
     /**
@@ -88,13 +93,15 @@ class GameScoreScreen : Fragment() {
      */
     private fun attachFABListeners() {
         binding.fabHome.setOnClickListener {
-            soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnabled)
+                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }
 
         binding.fabPlayAgain.setOnClickListener {
-            soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnabled)
+                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             val action = GameScoreScreenDirections
                 .actionGameScoreScreenToMainGameScreen(gameDifficultyValue)
@@ -106,7 +113,15 @@ class GameScoreScreen : Fragment() {
             binding.fabShare.visibility = View.GONE
         } else {
             binding.fabShare.setOnClickListener {
-                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+                if (soundEffectsEnabled)
+                    soundPool.play(
+                        soundButtonClick,
+                        soundEffectsVolume,
+                        soundEffectsVolume,
+                        0,
+                        0,
+                        1F
+                    )
                 shareGameScore()
             }
         }
