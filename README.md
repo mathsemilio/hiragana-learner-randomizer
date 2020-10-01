@@ -12,9 +12,8 @@ their Hepburn romanizations.
 Before the game starts, the user selects a difficulty for the game (which can also be selected on the Settings screen). The app's algorithm then generates a random order of all the 48 Hiragana symbols. The objective of the user is to select a romanization for the symbol currently being displayed on the screen before the time's run out. The amount of time available for the user depends on the difficulty he selected on the start screen. Once the user goes through all the letters, he will be directed to a result screen, where the final score is presented along with the option to play the game again or share his score.
 
 ### Application Screenshots
-<b>**To be updated!**</b>
 <p>To checkout screenshots, please visit this gallery:</p>
-<p><a href="https://postimg.cc/gallery/Kv2mdR5">Hiragana Learner Randomizer Gallery</a></p>
+<p><a href="https://postimg.cc/gallery/2ngdTtG">Hiragana Learner Randomizer Gallery</a></p>
 
 ### Development Technologies
 Programming Language - **Kotlin**
