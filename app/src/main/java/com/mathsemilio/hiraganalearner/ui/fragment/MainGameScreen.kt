@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameMainScreenBinding
@@ -35,6 +38,7 @@ class MainGameScreen : Fragment() {
     private lateinit var viewModel: MainGameViewModel
     private lateinit var soundPool: SoundPool
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var interstitialAd: InterstitialAd
     private var currentFragmentState = FragmentState.RUNNING
     private var gameDifficultyValue = 0
     private var soundEffectsEnable = true
@@ -55,6 +59,8 @@ class MainGameScreen : Fragment() {
         setupUI()
 
         subscribeToObservers()
+
+        setupInterstitialAd()
 
         return binding.root
     }
@@ -81,10 +87,6 @@ class MainGameScreen : Fragment() {
         }
     }
 
-    /**
-     * Sets up the UI, attaches listeners for the Floating Action Buttons and configures a
-     * onBackPressed callback.
-     */
     private fun setupUI() {
         binding.textBodyGameDifficulty.text = when (gameDifficultyValue) {
             GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
@@ -131,7 +133,7 @@ class MainGameScreen : Fragment() {
                 getString(R.string.alert_dialog_exit_game_message),
                 getString(R.string.alert_dialog_exit_game_positive_button_text),
                 getString(R.string.alert_dialog_exit_game_negative_button_text),
-                false,
+                cancelable = false,
                 { _, _ ->
                     if (soundEffectsEnable)
                         soundPool.play(
@@ -142,6 +144,7 @@ class MainGameScreen : Fragment() {
                             0,
                             1F
                         )
+
                     findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
                 },
                 { _, _ ->
@@ -155,7 +158,9 @@ class MainGameScreen : Fragment() {
                             1F
                         )
 
-                    viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
+                    viewModel.currentGameTime.value?.let { currentGameTime ->
+                        viewModel.startGameTimer(currentGameTime.times(1000))
+                    }
                     currentFragmentState = FragmentState.RUNNING
                 }
             )
@@ -173,7 +178,8 @@ class MainGameScreen : Fragment() {
                 getString(R.string.alert_dialog_game_paused_title),
                 getString(R.string.alert_dialog_game_paused_message),
                 getString(R.string.alert_dialog_game_paused_positive_button_text),
-                null, false,
+                negativeButtonText = null,
+                cancelable = false,
                 { _, _ ->
                     if (soundEffectsEnable)
                         soundPool.play(
@@ -184,10 +190,13 @@ class MainGameScreen : Fragment() {
                             0,
                             1F
                         )
-                    viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
+
+                    viewModel.currentGameTime.value?.let { currentGameTime ->
+                        viewModel.startGameTimer(currentGameTime.times(1000))
+                    }
                     currentFragmentState = FragmentState.RUNNING
                 },
-                null
+                negativeButtonListener = null
             )
         }
 
@@ -202,7 +211,7 @@ class MainGameScreen : Fragment() {
                     getString(R.string.alert_dialog_on_back_pressed_message),
                     getString(R.string.alert_dialog_on_back_pressed_positive_button_text),
                     getString(R.string.alert_dialog_on_back_pressed_negative_button_text),
-                    false,
+                    cancelable = false,
                     { _, _ ->
                         if (soundEffectsEnable)
                             soundPool.play(
@@ -213,7 +222,10 @@ class MainGameScreen : Fragment() {
                                 0,
                                 1F
                             )
-                        viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
+
+                        viewModel.currentGameTime.value?.let { currentGameTime ->
+                            viewModel.startGameTimer(currentGameTime.times(1000))
+                        }
                         currentFragmentState = FragmentState.RUNNING
                     },
                     { _, _ ->
@@ -232,15 +244,13 @@ class MainGameScreen : Fragment() {
                 )
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
         )
     }
 
-    /**
-     * Subscribes to the observers to observe game event related LiveData variables.
-     */
     private fun subscribeToObservers() {
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, { answerIsCorrect ->
             if (answerIsCorrect) {
@@ -258,10 +268,10 @@ class MainGameScreen : Fragment() {
                     getString(R.string.alert_dialog_correct_answer_title),
                     getString(R.string.alert_dialog_correct_answer_message),
                     getString(R.string.alert_dialog_correct_answer_positive_button_text),
-                    null,
-                    false,
+                    negativeButtonText = null,
+                    cancelable = false,
                     { _, _ -> checkEventGameFinished() },
-                    null
+                    negativeButtonListener = null
                 )
             } else {
                 if (soundEffectsEnable)
@@ -281,10 +291,10 @@ class MainGameScreen : Fragment() {
                         viewModel.currentHiraganaLetterRomanization.value!!
                     ),
                     getString(R.string.alert_dialog_wrong_answer_positive_button_text),
-                    null,
-                    false,
+                    negativeButtonText = null,
+                    cancelable = false,
                     { _, _ -> checkEventGameFinished() },
-                    null
+                    negativeButtonListener = null
                 )
             }
         })
@@ -308,13 +318,58 @@ class MainGameScreen : Fragment() {
                         viewModel.currentHiraganaLetterRomanization.value!!
                     ),
                     getString(R.string.alert_dialog_time_over_positive_button_text),
-                    null,
-                    false,
+                    negativeButtonText = null,
+                    cancelable = false,
                     { _, _ -> checkEventGameFinished() },
-                    null
+                    negativeButtonListener = null
                 )
             }
         })
+    }
+
+    private fun setupInterstitialAd() {
+        interstitialAd = InterstitialAd(requireContext()).apply {
+            adUnitId = getString(R.string.interstitialAdUnitId)
+            adListener = (object : AdListener() {
+                override fun onAdClosed() {
+                    viewModel.gameScore.value?.let { gameScore ->
+                        navigateToScoreScreen(gameScore, gameDifficultyValue)
+                    }
+                }
+            })
+            loadAd(AdRequest.Builder().build())
+        }
+    }
+
+    private fun showAdAndNavigateToScoreScreen() {
+        if (interstitialAd.isLoaded) {
+            interstitialAd.show()
+        } else {
+            viewModel.gameScore.value?.let { gameScore ->
+                navigateToScoreScreen(gameScore, gameDifficultyValue)
+            }
+        }
+    }
+
+    private fun checkEventGameFinished() {
+        if (viewModel.eventGameFinished.value == true) {
+            showAdAndNavigateToScoreScreen()
+        } else {
+            binding.chipGroupRomanizationOptions.clearCheck()
+            viewModel.getNextLetter()
+        }
+    }
+
+    private fun navigateToScoreScreen(gameScore: Int, gameDifficultyValue: Int) {
+        if (gameScore == PERFECT_SCORE)
+            SharedPreferencesPerfectScores(requireContext()).incrementPerfectScore()
+
+        findNavController().navigate(
+            MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
+                gameScore,
+                gameDifficultyValue
+            )
+        )
     }
 
     private fun loadSounds() {
@@ -323,40 +378,6 @@ class MainGameScreen : Fragment() {
         soundCorrectAnswer =
             soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 3)
         soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 3)
-    }
-
-    /**
-     * Navigates, checks if the game score is equal to a perfect score, and passes the game
-     * difficulty value and the game score to GameScoreScreen.
-     *
-     * @param gameScore Integer that represents the game score to sent to the GameScoreScreen
-     * @param gameDifficultyValue Integer that represents the game difficulty value to be sent
-     * to the GameScoreScreen.
-     */
-    private fun navigateToScoreScreen(gameScore: Int, gameDifficultyValue: Int) {
-        if (gameScore == PERFECT_SCORE)
-            SharedPreferencesPerfectScores(requireContext()).incrementPerfectScore()
-
-        val action = MainGameScreenDirections.actionMainGameScreenToGameScoreScreen(
-            gameScore,
-            gameDifficultyValue
-        )
-
-        findNavController().navigate(action)
-    }
-
-    /**
-     * Checks if the eventGameFinished value is true, if it is, the navigateToScreen will be
-     * called, else, the chip group will be cleared of any checked buttons and the getNextLetter
-     * function from the ViewModel will be called.
-     */
-    private fun checkEventGameFinished() {
-        if (viewModel.eventGameFinished.value == true) {
-            navigateToScoreScreen(viewModel.gameScore.value!!, gameDifficultyValue)
-        } else {
-            binding.chipGroupRomanizationOptions.clearCheck()
-            viewModel.getNextLetter()
-        }
     }
 
     override fun onPause() {
@@ -370,7 +391,9 @@ class MainGameScreen : Fragment() {
 
     override fun onResume() {
         if (currentFragmentState == FragmentState.PAUSED) {
-            viewModel.startGameTimer(viewModel.currentGameTime.value!!.times(1000))
+            viewModel.currentGameTime.value?.let { currentGameTime ->
+                viewModel.startGameTimer(currentGameTime.times(1000))
+            }
         }
 
         super.onResume()

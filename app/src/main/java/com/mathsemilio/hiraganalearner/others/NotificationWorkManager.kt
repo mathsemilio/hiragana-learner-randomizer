@@ -31,10 +31,6 @@ class NotificationWorkManager(appContext: Context, workerParams: WorkerParameter
         return Result.success()
     }
 
-    /**
-     * Builds the notification and the notification channel. It also notifies the user when this
-     * it is called.
-     */
     private fun buildTrainingNotification() {
         val intentLaunchMainActivity = Intent(applicationContext, MainActivity::class.java)
             .apply {

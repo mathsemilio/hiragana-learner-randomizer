@@ -1,6 +1,6 @@
 <resources>
     <!-- App name -->
-    <string name="app_name">Hiragana Randomizer</string>
+    <string name="app_name" translatable="false">Hiragana Randomizer</string>
 
     <!-- Settings toolbar title -->
     <string name="settings_toolbar_title">Settings</string>
@@ -109,5 +109,7 @@
 
     <!-- Intent Create Chooser title -->
     <string name="game_score_create_chooser_title">Share your game score!</string>
+
+    <string name="interstitialAdUnitId" translatable="false">ca-app-pub-5242007423595790/3244661193</string>
 
 </resources>

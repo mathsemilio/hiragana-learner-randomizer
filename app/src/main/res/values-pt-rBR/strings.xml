@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Nome da Aplicação -->
-    <string name="app_name">Hiragana Randomizer</string>
-
     <!-- Título da Toolbar de Configurações -->
     <string name="settings_toolbar_title">Configurações</string>
 

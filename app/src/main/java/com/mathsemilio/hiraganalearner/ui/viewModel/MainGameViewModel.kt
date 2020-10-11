@@ -12,7 +12,7 @@ import com.mathsemilio.hiraganalearner.others.GAME_DIFFICULTY_VALUE_MEDIUM
 import kotlin.random.Random
 
 /**
- * ViewModel class that implements most of the games and UI logic.
+ * ViewModel class that implements most of the game and UI logic.
  */
 class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
 
@@ -118,9 +118,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGame()
     }
 
-    /**
-     * Performs essential tasks necessary for starting the game.
-     */
     private fun startGame() {
         hiraganaSymbolsMutableList.shuffle()
 
@@ -135,11 +132,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGameTimer(difficultyCountDownTime)
     }
 
-    /**
-     * Sets up the game timer.
-     *
-     * @param countDownTime Long to be used as the countdown time for the timer.
-     */
     fun startGameTimer(countDownTime: Long) {
         countDownTimer = object : CountDownTimer(countDownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
@@ -154,11 +146,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         countDownTimer.start()
     }
 
-    /**
-     * Checks the user's input (answer).
-     *
-     * @param selectedRomanization String of the romanization to be evaluated.
-     */
     fun checkUserInput(selectedRomanization: String) {
         if (_currentHiraganaSymbolRomanization.value == selectedRomanization) {
             _eventCorrectAnswer.value = true
@@ -169,10 +156,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         }
     }
 
-    /**
-     * Removes the current letter, and gets the next one from the list. It also calls other
-     * functions to set up the UI for the game.
-     */
     fun getNextLetter() {
         hiraganaSymbolsMutableList.removeAt(0)
 
@@ -186,12 +169,6 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         startGameTimer(difficultyCountDownTime)
     }
 
-    /**
-     * Gets the last letter from the list and sets its contents to the UI. It also checks the
-     * user input and finishes the game.
-     *
-     * @param selectedRomanization String of the current checked chip button.
-     */
     fun getLastLetter(selectedRomanization: String) {
         _currentHiraganaSymbolString.value = lastHiraganaSymbolString
         _currentHiraganaSymbolRomanization.value = lastHiraganaSymbolRomanization
@@ -213,24 +190,14 @@ class MainGameViewModel(gameDifficultyValue: Int) : ViewModel() {
         }
     }
 
-    /**
-     * Increments the game score.
-     */
     private fun incrementGameScore() {
         _gameScore.value = (_gameScore.value)?.inc()
     }
 
-    /**
-     * Increments the game progress.
-     */
     private fun incrementGameProgress() {
         _gameProgress.value = (_gameProgress.value)?.inc()
     }
 
-    /**
-     * Generates random romanizations for the chip buttons. It also selects which of them will
-     * receive the current letter romanization (the correct answer).
-     */
     private fun generateChipGroupRomanization() {
         val hiraganaRomanizationList = listOf(
             "A", "I", "U", "E", "O", "KA", "KI", "KU", "KE", "KO", "SA", "SHI", "SU", "SE", "SO",

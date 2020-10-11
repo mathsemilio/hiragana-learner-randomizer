@@ -2,21 +2,17 @@ package com.mathsemilio.hiraganalearner.others
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.gms.ads.MobileAds
 
 @Suppress("unused")
 class HiraganaRandomizerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        MobileAds.initialize(this) {}
         setupAppTheme(SharedPreferencesAppTheme(this).retrieveThemeValue())
     }
 
-    /**
-     * Sets up the application theme based on the theme value from the SharedPreferences
-     *
-     * @param prefValue Integer value to be evaluated for selecting the app's theme.
-     */
     private fun setupAppTheme(prefValue: Int) {
         when (prefValue) {
             APP_THEME_LIGHT_THEME ->

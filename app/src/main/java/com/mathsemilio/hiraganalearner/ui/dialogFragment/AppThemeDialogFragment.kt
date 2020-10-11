@@ -58,12 +58,6 @@ class AppThemeDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    /**
-     * Returns a integer value to preselect a option in the Dialog Fragment.
-     *
-     * @param context The context of the activity that host the dialog fragment.
-     * @return Integer that represents the default option to be selected in the dialog.
-     */
     private fun getDefaultOption(context: Context): Int {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             when (SharedPreferencesAppTheme(context).retrieveThemeValue()) {
@@ -79,12 +73,6 @@ class AppThemeDialogFragment : DialogFragment() {
         }
     }
 
-    /**
-     * Returns, based on the SDK Int value, a integer corresponding the app theme array resource
-     * id.
-     *
-     * @return Integer that corresponds the app theme array resource id.
-     */
     private fun getThemeArray(): Int {
         return when (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             true -> R.array.app_theme_array_sdk_version_below_q

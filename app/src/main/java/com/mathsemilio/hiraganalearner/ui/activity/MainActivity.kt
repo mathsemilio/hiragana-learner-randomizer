@@ -22,9 +22,17 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
+        setupUI()
+
+        setupOnDestinationChangedListener()
+    }
+
+    private fun setupUI() {
         setSupportActionBar(toolbar_app as Toolbar?)
         NavigationUI.setupActionBarWithNavController(this, navController)
+    }
 
+    private fun setupOnDestinationChangedListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id != R.id.settingsFragment) {
                 supportActionBar?.hide()

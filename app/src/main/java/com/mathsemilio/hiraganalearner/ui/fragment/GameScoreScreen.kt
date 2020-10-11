@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
 import com.mathsemilio.hiraganalearner.others.*
@@ -39,6 +40,8 @@ class GameScoreScreen : Fragment() {
 
         setupUI()
 
+        loadAdBanner()
+
         attachFABListeners()
 
         return binding.root
@@ -64,15 +67,13 @@ class GameScoreScreen : Fragment() {
                 findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
         )
     }
 
-    /**
-     * Sets up the UI for this fragment
-     */
     private fun setupUI() {
         if (gameScore == PERFECT_SCORE)
             binding.textHeadlineFinalScore.text = getString(R.string.perfect_score)
@@ -88,9 +89,10 @@ class GameScoreScreen : Fragment() {
                 .toString()
     }
 
-    /**
-     * Attaches listeners for the Floating Action Buttons in this Fragment.
-     */
+    private fun loadAdBanner() {
+        binding.gameScoreScreenBannerAd.loadAd(AdRequest.Builder().build())
+    }
+
     private fun attachFABListeners() {
         binding.fabHome.setOnClickListener {
             if (soundEffectsEnabled)
@@ -127,12 +129,6 @@ class GameScoreScreen : Fragment() {
         }
     }
 
-    /**
-     * Based on the game score value, it will change the visibility value of the grade ImageViews
-     * to reflect the user success.
-     *
-     * @param gameScore The game score to be evaluated.
-     */
     private fun changeGradeIconVisibilityBasedOnGameScore(gameScore: Int) {
         when {
             gameScore <= 12 -> {
@@ -150,9 +146,6 @@ class GameScoreScreen : Fragment() {
         }
     }
 
-    /**
-     * Builds an intent chooser, enabling the user to share his game score.
-     */
     private fun shareGameScore() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -171,30 +164,14 @@ class GameScoreScreen : Fragment() {
         startActivity(shareIntent)
     }
 
-    /**
-     * Returns the game score value from the argument bundle.
-     *
-     * @return The game score from the arguments bundle.
-     */
     private fun retrieveGameScore(): Int {
         return GameScoreScreenArgs.fromBundle(requireArguments()).gameScore
     }
 
-    /**
-     * Returns the game difficulty value from the argument bundle.
-     *
-     * @return The game difficulty from the arguments bundle.
-     */
     private fun retrieveGameDifficultyValue(): Int {
         return GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty
     }
 
-    /**
-     * Returns a string which represents the game difficulty based on the value
-     * from the argument bundle.
-     *
-     * @return String corresponding the game difficulty.
-     */
     private fun getGameDifficultyString(): String {
         return when (gameDifficultyValue) {
             GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
