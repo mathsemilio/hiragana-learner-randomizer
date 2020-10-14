@@ -12,12 +12,9 @@
     <dimen name="padding_8dp">8dp</dimen>
 
     <!-- View dimens -->
-    <dimen name="settings_icon_width">32dp</dimen>
-    <dimen name="settings_icon_height">32dp</dimen>
+    <dimen name="settings_icon_dimen">32dp</dimen>
     <dimen name="game_progress_progress_bar_height">4dp</dimen>
-    <dimen name="circle_divider_width">3dp</dimen>
-    <dimen name="circle_divider_height">3dp</dimen>
-    <dimen name="grade_star_height">48dp</dimen>
-    <dimen name="grade_star_width">48dp</dimen>
+    <dimen name="circle_divider_dimen">3dp</dimen>
+    <dimen name="grade_star_dimen">48dp</dimen>
 
 </resources>

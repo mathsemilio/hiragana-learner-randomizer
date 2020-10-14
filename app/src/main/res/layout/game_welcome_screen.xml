@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/image_view_app_config_icon"
-        android:layout_width="@dimen/settings_icon_width"
-        android:layout_height="@dimen/settings_icon_height"
+        android:layout_width="@dimen/settings_icon_dimen"
+        android:layout_height="@dimen/settings_icon_dimen"
         android:layout_marginTop="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:backgroundTint="?attr/colorControlNormal"

@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/image_view_grade_1"
-            android:layout_width="@dimen/grade_star_width"
-            android:layout_height="@dimen/grade_star_height"
+            android:layout_width="@dimen/grade_star_dimen"
+            android:layout_height="@dimen/grade_star_dimen"
             android:layout_marginTop="@dimen/margin_32dp"
             android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
@@ -54,8 +54,8 @@
 
         <ImageView
             android:id="@+id/image_view_grade_2"
-            android:layout_width="@dimen/grade_star_width"
-            android:layout_height="@dimen/grade_star_height"
+            android:layout_width="@dimen/grade_star_dimen"
+            android:layout_height="@dimen/grade_star_dimen"
             android:layout_marginTop="@dimen/margin_32dp"
             android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
@@ -65,8 +65,8 @@
 
         <ImageView
             android:id="@+id/image_view_grade_3"
-            android:layout_width="@dimen/grade_star_width"
-            android:layout_height="@dimen/grade_star_height"
+            android:layout_width="@dimen/grade_star_dimen"
+            android:layout_height="@dimen/grade_star_dimen"
             android:layout_marginTop="@dimen/margin_32dp"
             android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
@@ -76,8 +76,8 @@
 
         <ImageView
             android:id="@+id/image_view_grade_4"
-            android:layout_width="@dimen/grade_star_width"
-            android:layout_height="@dimen/grade_star_height"
+            android:layout_width="@dimen/grade_star_dimen"
+            android:layout_height="@dimen/grade_star_dimen"
             android:layout_marginTop="@dimen/margin_32dp"
             android:contentDescription="@string/content_description_grade_star"
             android:src="@drawable/ic_baseline_grade_24"
@@ -182,6 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginBottom="@dimen/margin_32dp"
+            android:contentDescription="@string/content_description_button_for_navigating_to_the_home_screen"
             android:src="@drawable/ic_baseline_home_24"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -197,6 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginBottom="@dimen/margin_32dp"
+            android:contentDescription="@string/content_description_button_for_playing_again"
             android:src="@drawable/ic_baseline_refresh_24"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -212,6 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginBottom="@dimen/margin_32dp"
+            android:contentDescription="@string/content_description_button_for_sharing_score"
             android:src="@drawable/ic_share_black_24dp"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"

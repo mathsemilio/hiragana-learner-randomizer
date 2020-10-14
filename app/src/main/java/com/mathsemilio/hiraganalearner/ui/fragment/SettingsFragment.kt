@@ -216,9 +216,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             android.text.format.DateFormat.is24HourFormat(requireContext())
         )
 
-        timePickerDialog.setOnCancelListener {
-            notificationPreference.isChecked = false
-        }
+        timePickerDialog.setOnCancelListener { notificationPreference.isChecked = false }
 
         timePickerDialog.setCancelable(false)
         timePickerDialog.setCanceledOnTouchOutside(false)
@@ -231,13 +229,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             .addTag(TRAINING_NOTIFICATION_TAG)
             .build()
 
-        val workManager = WorkManager.getInstance(requireContext())
-        workManager.enqueue(notificationWork)
+        WorkManager.getInstance(requireContext())
+            .apply { enqueue(notificationWork) }
     }
 
     private fun cancelTrainingNotification() {
-        val workManager = WorkManager.getInstance(requireContext())
-        workManager.cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG)
+        WorkManager.getInstance(requireContext())
+            .apply { cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG) }
     }
 
     private fun formatTimeSetByUser(timeSetInMillis: Long): String {

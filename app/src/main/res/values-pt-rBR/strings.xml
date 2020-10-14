@@ -58,6 +58,9 @@
 
     <!-- Strings do fragmento GameScoreScreen -->
     <string name="content_description_grade_star">Estrela de pontuação</string>
+    <string name="content_description_button_for_navigating_to_the_home_screen">Botão para navegar para a tela inicial</string>
+    <string name="content_description_button_for_playing_again">Botão para jogar novamente</string>
+    <string name="content_description_button_for_sharing_score">Botão para compartilhar sua pontuação</string>
     <string name="perfect_score">Pontuação perfeita!</string>
     <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
     <string name="game_difficulty_score_screen">Dificuldade do Jogo</string>

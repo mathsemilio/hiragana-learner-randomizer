@@ -60,6 +60,9 @@
 
     <!-- Score screen strings -->
     <string name="content_description_grade_star">Grade star</string>
+    <string name="content_description_button_for_navigating_to_the_home_screen">Button for navigating to the home screen</string>
+    <string name="content_description_button_for_playing_again">Button for playing the game again</string>
+    <string name="content_description_button_for_sharing_score">Button for sharing the final score</string>
     <string name="perfect_score">Perfect score!</string>
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>

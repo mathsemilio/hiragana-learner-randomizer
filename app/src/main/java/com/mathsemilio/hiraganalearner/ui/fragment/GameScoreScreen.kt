@@ -67,7 +67,6 @@ class GameScoreScreen : Fragment() {
                 findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
