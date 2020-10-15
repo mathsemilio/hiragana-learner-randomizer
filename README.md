@@ -15,6 +15,10 @@ Before the game starts, the user selects a difficulty for the game (which can al
 <p>To checkout screenshots, please visit this gallery:</p>
 <p><a href="https://postimg.cc/gallery/2ngdTtG">Hiragana Learner Randomizer Gallery</a></p>
 
+### How can i get it?
+<p>The application is available in the Google Play Store! Be sure to try it out!</p>
+<p><a href="https://play.google.com/store/apps/details?id=com.mathsemilio.hiraganalearner">Play Store - Hiragana Learner Randomizer</a></p>
+
 ### Development Technologies
 Programming Language - **Kotlin**
 <p>3rd party Libraries and Technologies used:</p>
