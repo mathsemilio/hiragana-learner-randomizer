@@ -32,7 +32,7 @@ class GameWelcomeScreen : Fragment() {
     private var _binding: GameWelcomeScreenBinding? = null
     private val binding get() = _binding!!
     private lateinit var defaultSharedPreferences: SharedPreferences
-    private lateinit var soundPool: SoundPool
+    private var soundPool: SoundPool? = null
     private lateinit var interstitialAd: InterstitialAd
     private var gameDifficultyValue = 0
     private var soundEffectsEnabled = true
@@ -93,11 +93,7 @@ class GameWelcomeScreen : Fragment() {
     }
 
     private fun loadAdAndStartGame(gameDifficultyValue: Int) {
-        if (interstitialAd.isLoaded) {
-            interstitialAd.show()
-        } else {
-            startGame(gameDifficultyValue)
-        }
+        if (interstitialAd.isLoaded) interstitialAd.show() else startGame(gameDifficultyValue)
     }
 
     private fun configureGameDifficultyOptions() {
@@ -115,7 +111,7 @@ class GameWelcomeScreen : Fragment() {
                         binding.buttonStart.isEnabled = false
                     } else {
                         if (soundEffectsEnabled)
-                            soundPool.play(
+                            soundPool?.play(
                                 soundClick,
                                 soundEffectsVolume,
                                 soundEffectsVolume,
@@ -136,7 +132,7 @@ class GameWelcomeScreen : Fragment() {
 
                         binding.buttonStart.setOnClickListener {
                             if (soundEffectsEnabled)
-                                soundPool.play(
+                                soundPool?.play(
                                     soundButtonClick,
                                     soundEffectsVolume,
                                     soundEffectsVolume,
@@ -163,7 +159,7 @@ class GameWelcomeScreen : Fragment() {
 
                 binding.buttonStart.setOnClickListener {
                     if (soundEffectsEnabled)
-                        soundPool.play(
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -190,7 +186,7 @@ class GameWelcomeScreen : Fragment() {
 
                 binding.buttonStart.setOnClickListener {
                     if (soundEffectsEnabled)
-                        soundPool.play(
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -217,7 +213,7 @@ class GameWelcomeScreen : Fragment() {
 
                 binding.buttonStart.setOnClickListener {
                     if (soundEffectsEnabled)
-                        soundPool.play(
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -235,12 +231,19 @@ class GameWelcomeScreen : Fragment() {
     }
 
     private fun loadSoundEffects() {
-        soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 2)
+        soundPool?.let { soundPool ->
+            soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+            soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 2)
+        }
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        if (soundEffectsEnabled) {
+            soundPool?.release()
+            soundPool = null
+        }
         _binding = null
+
+        super.onDestroyView()
     }
 }

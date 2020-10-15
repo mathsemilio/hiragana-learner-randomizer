@@ -10,7 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
 import com.mathsemilio.hiraganalearner.others.*
@@ -20,10 +22,17 @@ import com.mathsemilio.hiraganalearner.others.*
  */
 class GameScoreScreen : Fragment() {
 
+    /**
+     * Enum to represent the intended user action after the Interstitial Advertisement is shown.
+     */
+    private enum class UserAction { GO_TO_MAIN_GAME_SCREEN, GO_TO_WELCOME_SCREEN }
+
     private var _binding: GameScoreScreenBinding? = null
     private val binding get() = _binding!!
-    private lateinit var soundPool: SoundPool
+    private var soundPool: SoundPool? = null
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var interstitialAd: InterstitialAd
+    private lateinit var userAction: UserAction
     private var soundEffectsEnabled = true
     private var soundEffectsVolume = 0f
     private var soundButtonClick = 0
@@ -42,6 +51,8 @@ class GameScoreScreen : Fragment() {
 
         loadAdBanner()
 
+        setupInterstitialAd()
+
         attachFABListeners()
 
         return binding.root
@@ -59,7 +70,10 @@ class GameScoreScreen : Fragment() {
             soundEffectsEnabled = false
         } else {
             soundPool = setupSoundPool(1)
-            soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+            soundPool?.let { soundPool ->
+                soundButtonClick =
+                    soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+            }
         }
 
         onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -67,6 +81,7 @@ class GameScoreScreen : Fragment() {
                 findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
@@ -88,6 +103,22 @@ class GameScoreScreen : Fragment() {
                 .toString()
     }
 
+    private fun setupInterstitialAd() {
+        interstitialAd = InterstitialAd(requireContext()).apply {
+            adUnitId = getString(R.string.interstitialAdUnitId)
+            adListener = (object : AdListener() {
+                override fun onAdClosed() {
+                    handleNavigation()
+                }
+            })
+            loadAd(AdRequest.Builder().build())
+        }
+    }
+
+    private fun showAdAndNavigate() {
+        if (interstitialAd.isLoaded) interstitialAd.show() else handleNavigation()
+    }
+
     private fun loadAdBanner() {
         binding.gameScoreScreenBannerAd.loadAd(AdRequest.Builder().build())
     }
@@ -95,19 +126,18 @@ class GameScoreScreen : Fragment() {
     private fun attachFABListeners() {
         binding.fabHome.setOnClickListener {
             if (soundEffectsEnabled)
-                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
-            findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+            userAction = UserAction.GO_TO_WELCOME_SCREEN
+            showAdAndNavigate()
         }
 
         binding.fabPlayAgain.setOnClickListener {
             if (soundEffectsEnabled)
-                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
-            val action = GameScoreScreenDirections
-                .actionGameScoreScreenToMainGameScreen(gameDifficultyValue)
-
-            findNavController().navigate(action)
+            userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
+            showAdAndNavigate()
         }
 
         if (gameScore == 0) {
@@ -115,7 +145,7 @@ class GameScoreScreen : Fragment() {
         } else {
             binding.fabShare.setOnClickListener {
                 if (soundEffectsEnabled)
-                    soundPool.play(
+                    soundPool?.play(
                         soundButtonClick,
                         soundEffectsVolume,
                         soundEffectsVolume,
@@ -157,10 +187,26 @@ class GameScoreScreen : Fragment() {
             type = "text/plain"
         }
 
-        val shareIntent =
-            Intent.createChooser(sendIntent, getString(R.string.game_score_create_chooser_title))
+        startActivity(
+            Intent.createChooser(
+                sendIntent,
+                getString(R.string.game_score_create_chooser_title)
+            )
+        )
+    }
 
-        startActivity(shareIntent)
+    private fun handleNavigation() {
+        when (userAction) {
+            UserAction.GO_TO_MAIN_GAME_SCREEN -> {
+                findNavController().navigate(
+                    GameScoreScreenDirections
+                        .actionGameScoreScreenToMainGameScreen(gameDifficultyValue)
+                )
+            }
+            UserAction.GO_TO_WELCOME_SCREEN -> {
+                findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+            }
+        }
     }
 
     private fun retrieveGameScore(): Int {
@@ -180,7 +226,12 @@ class GameScoreScreen : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        if (soundEffectsEnabled) {
+            soundPool?.release()
+            soundPool = null
+        }
         _binding = null
+
+        super.onDestroyView()
     }
 }

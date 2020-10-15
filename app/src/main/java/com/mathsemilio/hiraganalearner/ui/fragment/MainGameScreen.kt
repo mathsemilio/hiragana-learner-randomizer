@@ -36,12 +36,12 @@ class MainGameScreen : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModelFactory: MainGameViewModelFactory
     private lateinit var viewModel: MainGameViewModel
-    private lateinit var soundPool: SoundPool
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private lateinit var interstitialAd: InterstitialAd
     private var currentFragmentState = FragmentState.RUNNING
+    private var soundPool: SoundPool? = null
     private var gameDifficultyValue = 0
-    private var soundEffectsEnable = true
+    private var soundEffectsEnabled = true
     private var soundEffectsVolume = 0f
     private var soundClick = 0
     private var soundButtonClick = 0
@@ -80,7 +80,7 @@ class MainGameScreen : Fragment() {
             .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
 
         if (soundEffectsVolume == 0f) {
-            soundEffectsEnable = false
+            soundEffectsEnabled = false
         } else {
             soundPool = setupSoundPool(2)
             loadSounds()
@@ -98,8 +98,8 @@ class MainGameScreen : Fragment() {
             if (checkedId == -1) {
                 binding.fabCheckAnswer.isEnabled = false
             } else {
-                if (soundEffectsEnable)
-                    soundPool.play(soundClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+                if (soundEffectsEnabled)
+                    soundPool?.play(soundClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
                 binding.fabCheckAnswer.isEnabled = true
 
@@ -121,8 +121,8 @@ class MainGameScreen : Fragment() {
         }
 
         binding.fabExit.setOnClickListener {
-            if (soundEffectsEnable)
-                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnabled)
+                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -135,8 +135,8 @@ class MainGameScreen : Fragment() {
                 getString(R.string.alert_dialog_exit_game_negative_button_text),
                 cancelable = false,
                 { _, _ ->
-                    if (soundEffectsEnable)
-                        soundPool.play(
+                    if (soundEffectsEnabled)
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -148,8 +148,8 @@ class MainGameScreen : Fragment() {
                     findNavController().navigate(R.id.action_mainGameScreen_to_gameWelcomeScreen)
                 },
                 { _, _ ->
-                    if (soundEffectsEnable)
-                        soundPool.play(
+                    if (soundEffectsEnabled)
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -167,8 +167,8 @@ class MainGameScreen : Fragment() {
         }
 
         binding.fabPauseTimer.setOnClickListener {
-            if (soundEffectsEnable)
-                soundPool.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
+            if (soundEffectsEnabled)
+                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
 
             currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -181,8 +181,8 @@ class MainGameScreen : Fragment() {
                 negativeButtonText = null,
                 cancelable = false,
                 { _, _ ->
-                    if (soundEffectsEnable)
-                        soundPool.play(
+                    if (soundEffectsEnabled)
+                        soundPool?.play(
                             soundButtonClick,
                             soundEffectsVolume,
                             soundEffectsVolume,
@@ -213,8 +213,8 @@ class MainGameScreen : Fragment() {
                     getString(R.string.alert_dialog_on_back_pressed_negative_button_text),
                     cancelable = false,
                     { _, _ ->
-                        if (soundEffectsEnable)
-                            soundPool.play(
+                        if (soundEffectsEnabled)
+                            soundPool?.play(
                                 soundButtonClick,
                                 soundEffectsVolume,
                                 soundEffectsVolume,
@@ -229,8 +229,8 @@ class MainGameScreen : Fragment() {
                         currentFragmentState = FragmentState.RUNNING
                     },
                     { _, _ ->
-                        if (soundEffectsEnable)
-                            soundPool.play(
+                        if (soundEffectsEnabled)
+                            soundPool?.play(
                                 soundButtonClick,
                                 soundEffectsVolume,
                                 soundEffectsVolume,
@@ -253,8 +253,8 @@ class MainGameScreen : Fragment() {
     private fun subscribeToObservers() {
         viewModel.eventCorrectAnswer.observe(viewLifecycleOwner, { answerIsCorrect ->
             if (answerIsCorrect) {
-                if (soundEffectsEnable)
-                    soundPool.play(
+                if (soundEffectsEnabled)
+                    soundPool?.play(
                         soundCorrectAnswer,
                         soundEffectsVolume,
                         soundEffectsVolume,
@@ -273,8 +273,8 @@ class MainGameScreen : Fragment() {
                     negativeButtonListener = null
                 )
             } else {
-                if (soundEffectsEnable)
-                    soundPool.play(
+                if (soundEffectsEnabled)
+                    soundPool?.play(
                         soundWrongAnswer,
                         soundEffectsVolume,
                         soundEffectsVolume,
@@ -300,8 +300,8 @@ class MainGameScreen : Fragment() {
 
         viewModel.eventTimeOver.observe(viewLifecycleOwner, { timeIsOver ->
             if (timeIsOver) {
-                if (soundEffectsEnable)
-                    soundPool.play(
+                if (soundEffectsEnabled)
+                    soundPool?.play(
                         soundWrongAnswer,
                         soundEffectsVolume,
                         soundEffectsVolume,
@@ -372,11 +372,13 @@ class MainGameScreen : Fragment() {
     }
 
     private fun loadSounds() {
-        soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
-        soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 2)
-        soundCorrectAnswer =
-            soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 3)
-        soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 3)
+        soundPool?.let { soundPool ->
+            soundButtonClick = soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 2)
+            soundClick = soundPool.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, 1)
+            soundCorrectAnswer =
+                soundPool.load(requireContext(), R.raw.mativve_electro_success_sound, 3)
+            soundWrongAnswer = soundPool.load(requireContext(), R.raw.autistic_lucario_error, 3)
+        }
     }
 
     override fun onPause() {
@@ -399,7 +401,12 @@ class MainGameScreen : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        if (soundEffectsEnabled) {
+            soundPool?.release()
+            soundPool = null
+        }
         _binding = null
+
+        super.onDestroyView()
     }
 }
