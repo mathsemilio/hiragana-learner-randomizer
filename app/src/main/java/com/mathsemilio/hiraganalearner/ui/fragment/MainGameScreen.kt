@@ -244,7 +244,6 @@ class MainGameScreen : Fragment() {
                 )
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
@@ -334,7 +333,7 @@ class MainGameScreen : Fragment() {
                 override fun onAdClosed() {
                     viewModel.gameScore.value?.let { gameScore ->
                         navigateToScoreScreen(gameScore, gameDifficultyValue)
-                    }
+                    } ?: navigateToScoreScreen(0, gameDifficultyValue)
                 }
             })
             loadAd(AdRequest.Builder().build())
@@ -347,7 +346,7 @@ class MainGameScreen : Fragment() {
         } else {
             viewModel.gameScore.value?.let { gameScore ->
                 navigateToScoreScreen(gameScore, gameDifficultyValue)
-            }
+            } ?: navigateToScoreScreen(0, gameDifficultyValue)
         }
     }
 
