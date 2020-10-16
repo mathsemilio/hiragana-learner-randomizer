@@ -195,7 +195,7 @@ class GameWelcomeScreen : Fragment() {
                             1F
                         )
 
-                    gameDifficultyValue = GAME_DIFFICULTY_VALUE_BEGINNER
+                    gameDifficultyValue = GAME_DIFFICULTY_VALUE_MEDIUM
 
                     loadAdAndStartGame(gameDifficultyValue)
                 }

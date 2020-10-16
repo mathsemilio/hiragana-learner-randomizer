@@ -396,7 +396,6 @@ class MainGameScreen : Fragment() {
                 viewModel.startGameTimer(currentGameTime.times(1000))
             }
         }
-
         super.onResume()
     }
 

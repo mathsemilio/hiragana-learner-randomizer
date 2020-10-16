@@ -81,7 +81,6 @@ class GameScoreScreen : Fragment() {
                 findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             onBackPressedCallback
@@ -199,8 +198,9 @@ class GameScoreScreen : Fragment() {
         when (userAction) {
             UserAction.GO_TO_MAIN_GAME_SCREEN -> {
                 findNavController().navigate(
-                    GameScoreScreenDirections
-                        .actionGameScoreScreenToMainGameScreen(gameDifficultyValue)
+                    GameScoreScreenDirections.actionGameScoreScreenToMainGameScreen(
+                        gameDifficultyValue
+                    )
                 )
             }
             UserAction.GO_TO_WELCOME_SCREEN -> {
