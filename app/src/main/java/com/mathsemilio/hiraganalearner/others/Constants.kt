@@ -1,20 +1,32 @@
 package com.mathsemilio.hiraganalearner.others
 
-// App theme constants
 const val APP_THEME_LIGHT_THEME = 0
 const val APP_THEME_DARK_MODE = 1
 const val APP_THEME_FOLLOW_SYSTEM = 2
 
-// Game difficulty value constants
 const val GAME_DIFFICULTY_VALUE_BEGINNER = 0
 const val GAME_DIFFICULTY_VALUE_MEDIUM = 1
 const val GAME_DIFFICULTY_VALUE_HARD = 2
 
-// Perfect game score constant
+const val SHOW_DIFFICULTY_OPTIONS = "0"
+const val DEFAULT_DIFFICULTY_EASY = "1"
+const val DEFAULT_DIFFICULTY_MEDIUM = "2"
+const val DEFAULT_DIFFICULTY_HARD = "3"
+
+const val ONE_SECOND = 1000L
+const val COUNTDOWN_TIME_BEGINNER = 15000L
+const val COUNTDOWN_TIME_MEDIUM = 10000L
+const val COUNTDOWN_TIME_HARD = 5000L
+
+const val PROGRESS_BAR_MAX_VALUE_BEGINNER = 14
+const val PROGRESS_BAR_MAX_VALUE_MEDIUM = 9
+const val PROGRESS_BAR_MAX_VALUE_HARD = 4
+
+const val PRIORITY_LOW = 1
+const val PRIORITY_MEDIUM = 2
+const val PRIORITY_HIGH = 3
+
 const val PERFECT_SCORE = 48
 
-// Default Game Difficulty preference key
-const val DEFAULT_GAME_DIFFICULTY_PREF_KEY = "gameDifficulty"
-
-// Game sound effects volume preference key
-const val SOUND_EFFECTS_VOLUME_PREF_KEY = "soundEffects"
+const val DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY = "gameDifficulty"
+const val SOUND_EFFECTS_VOLUME_PREFERENCE_KEY = "soundEffects"

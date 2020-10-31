@@ -15,7 +15,7 @@ import com.mathsemilio.hiraganalearner.ui.activity.MainActivity
 /**
  * Worker class for handling the work to be done with the WorkManager.
  */
-class NotificationWorkManager(appContext: Context, workerParams: WorkerParameters) :
+class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
 
     companion object {

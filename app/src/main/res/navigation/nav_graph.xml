@@ -11,10 +11,11 @@
         tools:layout="@layout/game_welcome_screen">
 
         <action
-            android:id="@+id/action_gameWelcomeScreen_to_mainGameScreen"
-            app:destination="@id/mainGameScreen"
+            android:id="@+id/action_gameWelcomeScreen_to_gameMainScreen"
+            app:destination="@id/gameMainScreen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
 
@@ -23,26 +24,28 @@
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/mainGameScreen"
-        android:name="com.mathsemilio.hiraganalearner.ui.fragment.MainGameScreen"
+        android:id="@+id/gameMainScreen"
+        android:name="com.mathsemilio.hiraganalearner.ui.fragment.GameMainScreen"
         tools:layout="@layout/game_main_screen">
 
         <action
-            android:id="@+id/action_mainGameScreen_to_gameScoreScreen"
+            android:id="@+id/action_gameMainScreen_to_gameScoreScreen"
             app:destination="@id/gameScoreScreen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
 
         <action
-            android:id="@+id/action_mainGameScreen_to_gameWelcomeScreen"
+            android:id="@+id/action_gameMainScreen_to_gameWelcomeScreen"
             app:destination="@id/gameWelcomeScreen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -52,7 +55,7 @@
             app:popUpTo="@id/gameWelcomeScreen" />
 
         <argument
-            android:name="game_difficulty_value"
+            android:name="difficulty_value"
             android:defaultValue="0"
             app:argType="integer" />
 
@@ -76,7 +79,7 @@
 
         <action
             android:id="@+id/action_gameScoreScreen_to_mainGameScreen"
-            app:destination="@id/mainGameScreen"
+            app:destination="@id/gameMainScreen"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
@@ -85,12 +88,12 @@
             app:popUpToInclusive="true" />
 
         <argument
-            android:name="game_score"
+            android:name="score"
             android:defaultValue="0"
             app:argType="integer" />
 
         <argument
-            android:name="game_difficulty"
+            android:name="difficulty_value"
             android:defaultValue="0"
             app:argType="integer" />
 

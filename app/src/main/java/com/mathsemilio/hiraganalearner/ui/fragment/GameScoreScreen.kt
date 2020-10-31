@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -33,52 +34,63 @@ class GameScoreScreen : Fragment() {
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var userAction: UserAction
-    private var soundEffectsEnabled = true
-    private var soundEffectsVolume = 0f
-    private var soundButtonClick = 0
-    private var gameScore = 0
-    private var gameDifficultyValue = 0
+    private var isSoundEffectsEnabled = true
+    private var soundEffectsVolume = 0F
+    private var soundEffectButtonClick = 0
+    var score = 0
+    var difficultyValue = 0
+    var perfectScores = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = GameScoreScreenBinding.inflate(inflater, container, false)
-
-        initializeVariables()
-
-        setupUI()
-
-        loadAdBanner()
-
-        setupInterstitialAd()
-
-        attachFABListeners()
+        _binding = DataBindingUtil.inflate(inflater, R.layout.game_score_screen, container, false)
 
         return binding.root
     }
 
-    private fun initializeVariables() {
-        gameScore = retrieveGameScore()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        gameDifficultyValue = retrieveGameDifficultyValue()
+        initializeVariables()
+
+        attachOnBackPressedCallback()
+
+        setupInterstitialAd()
+
+        loadAdBanner()
+    }
+
+    private fun initializeVariables() {
+        binding.gameScoreScreen = this
+        binding.lifecycleOwner = this
+
+        score = GameScoreScreenArgs.fromBundle(requireArguments()).score
+
+        difficultyValue = GameScoreScreenArgs.fromBundle(requireArguments()).difficultyValue
+
+        perfectScores = SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
 
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getInt(SOUND_EFFECTS_VOLUME_PREF_KEY, 0).toFloat().div(10f)
+            .getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0).toFloat().div(10F)
 
-        if (soundEffectsVolume == 0f) {
-            soundEffectsEnabled = false
+        if (soundEffectsVolume == 0F) {
+            isSoundEffectsEnabled = false
         } else {
             soundPool = setupSoundPool(1)
-            soundPool?.let { soundPool ->
-                soundButtonClick =
-                    soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, 1)
+            soundPool?.let {
+                soundEffectButtonClick =
+                    it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_LOW)
             }
         }
+    }
 
+    private fun attachOnBackPressedCallback() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
+                userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
+                showAdAndNavigate()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -87,19 +99,53 @@ class GameScoreScreen : Fragment() {
         )
     }
 
-    private fun setupUI() {
-        if (gameScore == PERFECT_SCORE)
-            binding.textHeadlineFinalScore.text = getString(R.string.perfect_score)
+    fun navigateToGameWelcomeScreen() {
+        soundPool?.playSFX(
+            isSoundEffectsEnabled,
+            soundEffectButtonClick,
+            soundEffectsVolume,
+            PRIORITY_LOW
+        )
+        userAction = UserAction.GO_TO_WELCOME_SCREEN
+        showAdAndNavigate()
+    }
 
-        binding.textHeadlineGameScore.text = gameScore.toString()
+    fun playGameAgain() {
+        soundPool?.playSFX(
+            isSoundEffectsEnabled,
+            soundEffectButtonClick,
+            soundEffectsVolume,
+            PRIORITY_LOW
+        )
+        userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
+        showAdAndNavigate()
+    }
 
-        changeGradeIconVisibilityBasedOnGameScore(gameScore)
+    fun shareGameScore() {
+        soundPool?.playSFX(
+            isSoundEffectsEnabled,
+            soundEffectButtonClick,
+            soundEffectsVolume,
+            PRIORITY_LOW
+        )
 
-        binding.textHeadlineGameDifficultyScoreScreen.text = getGameDifficultyString()
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                if (score == PERFECT_SCORE)
+                    getString(R.string.final_perfect_score)
+                else resources.getQuantityString(R.plurals.game_score_plurals, score, score)
+            )
+            type = "text/plain"
+        }
 
-        binding.textHeadlinePerfectScoresNumberScoreScreen.text =
-            SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
-                .toString()
+        startActivity(
+            Intent.createChooser(
+                sendIntent,
+                getString(R.string.game_score_create_chooser_title)
+            )
+        )
     }
 
     private fun setupInterstitialAd() {
@@ -114,84 +160,12 @@ class GameScoreScreen : Fragment() {
         }
     }
 
-    private fun showAdAndNavigate() {
-        if (interstitialAd.isLoaded) interstitialAd.show() else handleNavigation()
-    }
-
     private fun loadAdBanner() {
         binding.gameScoreScreenBannerAd.loadAd(AdRequest.Builder().build())
     }
 
-    private fun attachFABListeners() {
-        binding.fabHome.setOnClickListener {
-            if (soundEffectsEnabled)
-                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
-
-            userAction = UserAction.GO_TO_WELCOME_SCREEN
-            showAdAndNavigate()
-        }
-
-        binding.fabPlayAgain.setOnClickListener {
-            if (soundEffectsEnabled)
-                soundPool?.play(soundButtonClick, soundEffectsVolume, soundEffectsVolume, 0, 0, 1F)
-
-            userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
-            showAdAndNavigate()
-        }
-
-        if (gameScore == 0) {
-            binding.fabShare.visibility = View.GONE
-        } else {
-            binding.fabShare.setOnClickListener {
-                if (soundEffectsEnabled)
-                    soundPool?.play(
-                        soundButtonClick,
-                        soundEffectsVolume,
-                        soundEffectsVolume,
-                        0,
-                        0,
-                        1F
-                    )
-                shareGameScore()
-            }
-        }
-    }
-
-    private fun changeGradeIconVisibilityBasedOnGameScore(gameScore: Int) {
-        when {
-            gameScore <= 12 -> {
-                binding.imageViewGrade4.visibility = View.GONE
-                binding.imageViewGrade3.visibility = View.GONE
-                binding.imageViewGrade2.visibility = View.GONE
-            }
-            gameScore in 13..23 -> {
-                binding.imageViewGrade4.visibility = View.GONE
-                binding.imageViewGrade3.visibility = View.GONE
-            }
-            gameScore in 24..47 -> {
-                binding.imageViewGrade2.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun shareGameScore() {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT,
-                if (gameScore == PERFECT_SCORE)
-                    getString(R.string.final_perfect_score)
-                else resources.getQuantityString(R.plurals.game_score_plurals, gameScore, gameScore)
-            )
-            type = "text/plain"
-        }
-
-        startActivity(
-            Intent.createChooser(
-                sendIntent,
-                getString(R.string.game_score_create_chooser_title)
-            )
-        )
+    private fun showAdAndNavigate() {
+        if (interstitialAd.isLoaded) interstitialAd.show() else handleNavigation()
     }
 
     private fun handleNavigation() {
@@ -199,7 +173,7 @@ class GameScoreScreen : Fragment() {
             UserAction.GO_TO_MAIN_GAME_SCREEN -> {
                 findNavController().navigate(
                     GameScoreScreenDirections.actionGameScoreScreenToMainGameScreen(
-                        gameDifficultyValue
+                        difficultyValue
                     )
                 )
             }
@@ -209,24 +183,8 @@ class GameScoreScreen : Fragment() {
         }
     }
 
-    private fun retrieveGameScore(): Int {
-        return GameScoreScreenArgs.fromBundle(requireArguments()).gameScore
-    }
-
-    private fun retrieveGameDifficultyValue(): Int {
-        return GameScoreScreenArgs.fromBundle(requireArguments()).gameDifficulty
-    }
-
-    private fun getGameDifficultyString(): String {
-        return when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> getString(R.string.game_difficulty_beginner)
-            GAME_DIFFICULTY_VALUE_MEDIUM -> getString(R.string.game_difficulty_medium)
-            else -> getString(R.string.game_difficulty_hard)
-        }
-    }
-
     override fun onDestroyView() {
-        if (soundEffectsEnabled) {
+        if (isSoundEffectsEnabled) {
             soundPool?.release()
             soundPool = null
         }

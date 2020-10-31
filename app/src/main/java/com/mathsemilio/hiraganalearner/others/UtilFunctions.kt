@@ -12,7 +12,7 @@ fun Context.buildMaterialDialog(
     dialogMessage: String,
     positiveButtonText: String,
     negativeButtonText: String?,
-    cancelable: Boolean,
+    isCancelable: Boolean,
     positiveButtonListener: DialogInterface.OnClickListener,
     negativeButtonListener: DialogInterface.OnClickListener?
 ) {
@@ -21,7 +21,7 @@ fun Context.buildMaterialDialog(
         setMessage(dialogMessage)
         setPositiveButton(positiveButtonText, positiveButtonListener)
         setNegativeButton(negativeButtonText, negativeButtonListener)
-        setCancelable(cancelable)
+        setCancelable(isCancelable)
         show()
     }
 }
@@ -30,14 +30,24 @@ fun Context.showToast(message: String, length: Int) {
     Toast.makeText(this, message, length).show()
 }
 
-fun setupSoundPool(maxStreams: Int): SoundPool {
+fun setupSoundPool(maxAudioStreams: Int): SoundPool {
     val audioAttributes = AudioAttributes.Builder()
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
         .setUsage(AudioAttributes.USAGE_GAME)
         .build()
 
     return SoundPool.Builder()
-        .setMaxStreams(maxStreams)
+        .setMaxStreams(maxAudioStreams)
         .setAudioAttributes(audioAttributes)
         .build()
+}
+
+fun SoundPool.playSFX(
+    isSoundEffectsEnabled: Boolean,
+    soundEffectID: Int,
+    volume: Float,
+    priority: Int
+) {
+    if (isSoundEffectsEnabled)
+        play(soundEffectID, volume, volume, priority, 0, 1F)
 }

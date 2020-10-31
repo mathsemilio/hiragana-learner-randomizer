@@ -17,7 +17,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     companion object {
         const val APP_THEME_DIALOG_TAG = "AppThemeDialog"
         const val TRAINING_NOTIFICATION_TAG = "TrainingNotification"
-        const val APP_BUILD_VERSION = "stable-0.0.5"
+        const val APP_BUILD_VERSION = "stable-0.1.0"
         const val NOTIFICATION_PREF_KEY = "notification"
         const val CLEAR_PERFECT_SCORES_PREF_KEY = "clearPerfectScores"
         const val APP_THEME_PREF_KEY = "appTheme"
@@ -130,10 +130,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupSummaryProviderForGameDefaultDifficultyPreference() {
-        findPreference<ListPreference>(DEFAULT_GAME_DIFFICULTY_PREF_KEY)?.setSummaryProvider {
+        findPreference<ListPreference>(DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY)?.setSummaryProvider {
             return@setSummaryProvider when (PreferenceManager.getDefaultSharedPreferences(
                 requireContext()
-            ).getString(DEFAULT_GAME_DIFFICULTY_PREF_KEY, "0")) {
+            ).getString(DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY, "0")) {
                 "0" -> getString(R.string.difficulty_entry_default)
                 "1" -> getString(R.string.game_difficulty_beginner)
                 "2" -> getString(R.string.game_difficulty_medium)
@@ -215,7 +215,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             calendar.get(Calendar.MINUTE),
             android.text.format.DateFormat.is24HourFormat(requireContext())
         )
-
         timePickerDialog.setOnCancelListener { notificationPreference.isChecked = false }
 
         timePickerDialog.setCancelable(false)
@@ -224,18 +223,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun scheduleTrainingNotification(initialDelay: Long) {
-        val notificationWork = OneTimeWorkRequestBuilder<NotificationWorkManager>()
+        val notificationWork = OneTimeWorkRequestBuilder<NotificationWorker>()
             .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
             .addTag(TRAINING_NOTIFICATION_TAG)
             .build()
 
         WorkManager.getInstance(requireContext())
-            .apply { enqueue(notificationWork) }
+            .apply {
+                enqueue(notificationWork)
+            }
     }
 
     private fun cancelTrainingNotification() {
         WorkManager.getInstance(requireContext())
-            .apply { cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG) }
+            .apply {
+                cancelAllWorkByTag(TRAINING_NOTIFICATION_TAG)
+            }
     }
 
     private fun formatTimeSetByUser(timeSetInMillis: Long): String {
