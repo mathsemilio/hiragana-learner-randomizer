@@ -42,12 +42,6 @@ fun setupSoundPool(maxAudioStreams: Int): SoundPool {
         .build()
 }
 
-fun SoundPool.playSFX(
-    isSoundEffectsEnabled: Boolean,
-    soundEffectID: Int,
-    volume: Float,
-    priority: Int
-) {
-    if (isSoundEffectsEnabled)
-        play(soundEffectID, volume, volume, priority, 0, 1F)
+fun SoundPool.playSFX(id: Int, volume: Float, priority: Int) {
+    play(id, volume, volume, priority, 0, 1F)
 }

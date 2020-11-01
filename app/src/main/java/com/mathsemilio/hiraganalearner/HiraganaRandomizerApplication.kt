@@ -17,8 +17,8 @@ class HiraganaRandomizerApplication : Application() {
         setupAppTheme(SharedPreferencesAppTheme(this).retrieveThemeValue())
     }
 
-    private fun setupAppTheme(preferenceValue: Int) {
-        when (preferenceValue) {
+    private fun setupAppTheme(themePreferenceValue: Int) {
+        when (themePreferenceValue) {
             APP_THEME_LIGHT_THEME ->
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             APP_THEME_DARK_MODE ->

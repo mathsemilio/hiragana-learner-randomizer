@@ -40,7 +40,6 @@ class GameMainScreen : Fragment() {
     private lateinit var interstitialAd: InterstitialAd
     private var currentFragmentState = FragmentState.RUNNING
     private var soundPool: SoundPool? = null
-    private var isSoundEffectsEnabled = true
     private var soundEffectsVolume = 0F
     private var soundEffectClick = 0
     private var soundEffectButtonClick = 0
@@ -83,19 +82,15 @@ class GameMainScreen : Fragment() {
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0).toFloat().div(10F)
 
-        if (soundEffectsVolume == 0F) {
-            isSoundEffectsEnabled = false
-        } else {
-            soundPool = setupSoundPool(2).also {
-                soundEffectButtonClick =
-                    it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_MEDIUM)
-                soundEffectClick =
-                    it.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, PRIORITY_LOW)
-                soundEffectCorrectAnswer =
-                    it.load(requireContext(), R.raw.mativve_electro_success_sound, PRIORITY_HIGH)
-                soundEffectWrongAnswer =
-                    it.load(requireContext(), R.raw.autistic_lucario_error, PRIORITY_HIGH)
-            }
+        soundPool = setupSoundPool(2).also {
+            soundEffectButtonClick =
+                it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_MEDIUM)
+            soundEffectClick =
+                it.load(requireContext(), R.raw.brandondelehoy_series_of_clicks, PRIORITY_LOW)
+            soundEffectCorrectAnswer =
+                it.load(requireContext(), R.raw.mativve_electro_success_sound, PRIORITY_HIGH)
+            soundEffectWrongAnswer =
+                it.load(requireContext(), R.raw.autistic_lucario_error, PRIORITY_HIGH)
         }
     }
 
@@ -104,12 +99,7 @@ class GameMainScreen : Fragment() {
             if (checkedId == -1) {
                 binding.fabCheckAnswer.isEnabled = false
             } else {
-                soundPool?.playSFX(
-                    isSoundEffectsEnabled,
-                    soundEffectClick,
-                    soundEffectsVolume,
-                    PRIORITY_LOW
-                )
+                soundPool?.playSFX(soundEffectClick, soundEffectsVolume, PRIORITY_LOW)
 
                 binding.fabCheckAnswer.isEnabled = true
 
@@ -131,12 +121,7 @@ class GameMainScreen : Fragment() {
         gameViewModel.eventCorrectAnswer.observe(viewLifecycleOwner, {
             it?.let { answerIsCorrect ->
                 if (answerIsCorrect) {
-                    soundPool?.playSFX(
-                        isSoundEffectsEnabled,
-                        soundEffectCorrectAnswer,
-                        soundEffectsVolume,
-                        PRIORITY_HIGH
-                    )
+                    soundPool?.playSFX(soundEffectCorrectAnswer, soundEffectsVolume, PRIORITY_HIGH)
 
                     currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -163,12 +148,7 @@ class GameMainScreen : Fragment() {
 
         gameViewModel.eventWrongAnswer.observe(viewLifecycleOwner, {
             it?.let { correctRomanization ->
-                soundPool?.playSFX(
-                    isSoundEffectsEnabled,
-                    soundEffectWrongAnswer,
-                    soundEffectsVolume,
-                    PRIORITY_HIGH
-                )
+                soundPool?.playSFX(soundEffectWrongAnswer, soundEffectsVolume, PRIORITY_HIGH)
 
                 currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -194,12 +174,7 @@ class GameMainScreen : Fragment() {
 
         gameViewModel.eventTimeOver.observe(viewLifecycleOwner, {
             it?.let { romanizationAnswer ->
-                soundPool?.playSFX(
-                    isSoundEffectsEnabled,
-                    soundEffectWrongAnswer,
-                    soundEffectsVolume,
-                    PRIORITY_HIGH
-                )
+                soundPool?.playSFX(soundEffectWrongAnswer, soundEffectsVolume, PRIORITY_HIGH)
 
                 currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -226,12 +201,7 @@ class GameMainScreen : Fragment() {
         gameViewModel.eventButtonPauseClicked.observe(viewLifecycleOwner, {
             it?.let { gameIsPaused ->
                 if (gameIsPaused) {
-                    soundPool?.playSFX(
-                        isSoundEffectsEnabled,
-                        soundEffectButtonClick,
-                        soundEffectsVolume,
-                        PRIORITY_MEDIUM
-                    )
+                    soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
 
                     currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -243,7 +213,6 @@ class GameMainScreen : Fragment() {
                         isCancelable = false,
                         positiveButtonListener = { _, _ ->
                             soundPool?.playSFX(
-                                isSoundEffectsEnabled,
                                 soundEffectButtonClick,
                                 soundEffectsVolume,
                                 PRIORITY_MEDIUM
@@ -260,12 +229,7 @@ class GameMainScreen : Fragment() {
 
         gameViewModel.eventButtonExitGameClicked.observe(viewLifecycleOwner, {
             it?.let { exitGame ->
-                soundPool?.playSFX(
-                    isSoundEffectsEnabled,
-                    soundEffectButtonClick,
-                    soundEffectsVolume,
-                    PRIORITY_MEDIUM
-                )
+                soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
 
                 currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
@@ -278,7 +242,6 @@ class GameMainScreen : Fragment() {
                         isCancelable = false,
                         positiveButtonListener = { _, _ ->
                             soundPool?.playSFX(
-                                isSoundEffectsEnabled,
                                 soundEffectButtonClick,
                                 soundEffectsVolume,
                                 PRIORITY_MEDIUM
@@ -306,10 +269,11 @@ class GameMainScreen : Fragment() {
                 SharedPreferencesPerfectScores(requireContext()).incrementPerfectScore()
 
             findNavController().navigate(
-                GameMainScreenDirections.actionGameMainScreenToGameScoreScreen(
-                    score,
-                    difficultyValue
-                )
+                GameMainScreenDirections
+                    .actionGameMainScreenToGameScoreScreen(
+                        score,
+                        difficultyValue
+                    )
             )
         }
     }
@@ -343,10 +307,8 @@ class GameMainScreen : Fragment() {
     }
 
     override fun onDestroyView() {
-        if (isSoundEffectsEnabled) {
-            soundPool?.release()
-            soundPool = null
-        }
+        soundPool?.release()
+        soundPool = null
         _binding = null
 
         super.onDestroyView()

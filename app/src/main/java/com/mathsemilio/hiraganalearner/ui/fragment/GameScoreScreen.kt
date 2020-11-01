@@ -34,7 +34,6 @@ class GameScoreScreen : Fragment() {
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var userAction: UserAction
-    private var isSoundEffectsEnabled = true
     private var soundEffectsVolume = 0F
     private var soundEffectButtonClick = 0
     var score = 0
@@ -75,14 +74,10 @@ class GameScoreScreen : Fragment() {
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0).toFloat().div(10F)
 
-        if (soundEffectsVolume == 0F) {
-            isSoundEffectsEnabled = false
-        } else {
-            soundPool = setupSoundPool(1)
-            soundPool?.let {
-                soundEffectButtonClick =
-                    it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_LOW)
-            }
+        soundPool = setupSoundPool(1)
+        soundPool?.let {
+            soundEffectButtonClick =
+                it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_LOW)
         }
     }
 
@@ -100,34 +95,19 @@ class GameScoreScreen : Fragment() {
     }
 
     fun navigateToGameWelcomeScreen() {
-        soundPool?.playSFX(
-            isSoundEffectsEnabled,
-            soundEffectButtonClick,
-            soundEffectsVolume,
-            PRIORITY_LOW
-        )
+        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
         userAction = UserAction.GO_TO_WELCOME_SCREEN
         showAdAndNavigate()
     }
 
     fun playGameAgain() {
-        soundPool?.playSFX(
-            isSoundEffectsEnabled,
-            soundEffectButtonClick,
-            soundEffectsVolume,
-            PRIORITY_LOW
-        )
+        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
         userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
         showAdAndNavigate()
     }
 
     fun shareGameScore() {
-        soundPool?.playSFX(
-            isSoundEffectsEnabled,
-            soundEffectButtonClick,
-            soundEffectsVolume,
-            PRIORITY_LOW
-        )
+        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
 
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -184,10 +164,8 @@ class GameScoreScreen : Fragment() {
     }
 
     override fun onDestroyView() {
-        if (isSoundEffectsEnabled) {
-            soundPool?.release()
-            soundPool = null
-        }
+        soundPool?.release()
+        soundPool = null
         _binding = null
 
         super.onDestroyView()

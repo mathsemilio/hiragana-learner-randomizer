@@ -28,7 +28,6 @@ class GameWelcomeScreen : Fragment() {
     private lateinit var defaultSharedPreferences: SharedPreferences
     private lateinit var interstitialAd: InterstitialAd
     private var soundPool: SoundPool? = null
-    private var isSoundEffectsEnabled = true
     private var soundEffectsVolume = 0F
     private var soundEffectButtonClick = 0
     private var soundEffectClick = 0
@@ -57,56 +56,47 @@ class GameWelcomeScreen : Fragment() {
         binding.gameWelcomeScreen = this
         binding.lifecycleOwner = this
 
-        defaultSharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(requireContext())
+        defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         soundEffectsVolume =
             defaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0).toFloat()
                 .div(10F)
 
-        defaultDifficultyValue = when (defaultSharedPreferences.getString(
-            DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY, "0"
-        )) {
-            "0" -> SHOW_DIFFICULTY_OPTIONS
-            "1" -> DEFAULT_DIFFICULTY_EASY
-            "2" -> DEFAULT_DIFFICULTY_MEDIUM
-            else -> DEFAULT_DIFFICULTY_HARD
-        }.also {
-            when (it) {
-                SHOW_DIFFICULTY_OPTIONS -> attachListenerForDifficultyChipGroup()
-                DEFAULT_DIFFICULTY_EASY -> difficultyValue = GAME_DIFFICULTY_VALUE_BEGINNER
-                DEFAULT_DIFFICULTY_MEDIUM -> difficultyValue = GAME_DIFFICULTY_VALUE_MEDIUM
-                DEFAULT_DIFFICULTY_HARD -> difficultyValue = GAME_DIFFICULTY_VALUE_HARD
+        defaultDifficultyValue =
+            when (defaultSharedPreferences.getString(DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY, "0")) {
+                "0" -> SHOW_DIFFICULTY_OPTIONS
+                "1" -> DEFAULT_DIFFICULTY_EASY
+                "2" -> DEFAULT_DIFFICULTY_MEDIUM
+                "3" -> DEFAULT_DIFFICULTY_HARD
+                else -> throw IllegalArgumentException("Invalid default difficulty value")
+            }.also {
+                when (it) {
+                    SHOW_DIFFICULTY_OPTIONS -> attachListenerForDifficultyChipGroup()
+                    DEFAULT_DIFFICULTY_EASY -> difficultyValue = GAME_DIFFICULTY_VALUE_BEGINNER
+                    DEFAULT_DIFFICULTY_MEDIUM -> difficultyValue = GAME_DIFFICULTY_VALUE_MEDIUM
+                    DEFAULT_DIFFICULTY_HARD -> difficultyValue = GAME_DIFFICULTY_VALUE_HARD
+                }
             }
-        }
 
-        if (soundEffectsVolume == 0F) {
-            isSoundEffectsEnabled = false
-        } else {
-            soundPool = setupSoundPool(1).also {
-                soundEffectButtonClick =
-                    it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_LOW)
-                soundEffectClick = it.load(
+        soundPool = setupSoundPool(1).also { soundPool ->
+            soundEffectButtonClick =
+                soundPool.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_MEDIUM)
+            soundEffectClick =
+                soundPool.load(
                     requireContext(),
                     R.raw.brandondelehoy_series_of_clicks,
-                    PRIORITY_MEDIUM
+                    PRIORITY_LOW
                 )
-            }
         }
     }
 
     private fun attachListenerForDifficultyChipGroup() {
         binding.chipGroupGameDifficulty.setOnCheckedChangeListener { group, checkedId ->
-            soundPool?.playSFX(
-                isSoundEffectsEnabled,
-                soundEffectClick,
-                soundEffectsVolume,
-                PRIORITY_LOW
-            )
-
             if (checkedId == -1) {
                 binding.buttonStart.isEnabled = false
             } else {
+                soundPool?.playSFX(soundEffectClick, soundEffectsVolume, PRIORITY_LOW)
+
                 binding.buttonStart.isEnabled = true
 
                 val checkedRadioButton = group.findViewById<Chip>(checkedId)
@@ -114,7 +104,8 @@ class GameWelcomeScreen : Fragment() {
                 difficultyValue = when (checkedRadioButton.text.toString()) {
                     getString(R.string.game_difficulty_beginner) -> GAME_DIFFICULTY_VALUE_BEGINNER
                     getString(R.string.game_difficulty_medium) -> GAME_DIFFICULTY_VALUE_MEDIUM
-                    else -> GAME_DIFFICULTY_VALUE_HARD
+                    getString(R.string.game_difficulty_hard) -> GAME_DIFFICULTY_VALUE_HARD
+                    else -> throw IllegalArgumentException("Invalid difficulty value")
                 }
             }
         }
@@ -133,12 +124,7 @@ class GameWelcomeScreen : Fragment() {
     }
 
     fun loadAdAndStartGame() {
-        soundPool?.playSFX(
-            isSoundEffectsEnabled,
-            soundEffectButtonClick,
-            soundEffectsVolume,
-            PRIORITY_LOW
-        )
+        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
         if (interstitialAd.isLoaded) interstitialAd.show() else startGame()
     }
 
@@ -151,14 +137,13 @@ class GameWelcomeScreen : Fragment() {
     }
 
     fun navigateToSettingsFragment() {
+        binding.chipGroupGameDifficulty.clearCheck()
         findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
     }
 
     override fun onDestroyView() {
-        if (isSoundEffectsEnabled) {
-            soundPool?.release()
-            soundPool = null
-        }
+        soundPool?.release()
+        soundPool = null
         _binding = null
 
         super.onDestroyView()
