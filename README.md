@@ -24,12 +24,12 @@ Programming Language - **Kotlin**
 <p>3rd party Libraries and Technologies used:</p>
 <ol>
   <li>Material Design Components;</li>
-  <li>Navigation Components;</li>
+  <li>Jetpack Navigation Component;</li>
   <li>Preferences (PreferenceX);</li>
   <li>WorkManager;</li>
   <li>ViewModel;</li>
   <li>LiveData;</li>
-  <li>SafeArgs Gradle Plugin</li>
+  <li>SafeArgs Gradle Plugin;</li>
   <li>View Binding;</li>
   <li>Data Binding.</li>
 </ol >
