@@ -6,10 +6,15 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="hiragana_learner_chip_style">
+    <style name="AppTheme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:statusBarColor">@color/colorSplashScreenStatusBar</item>
+    </style>
+
+    <style name="Widget.TransparentChipButton" parent="Widget.MaterialComponents.Chip.Action">
         <item name="android:checkable">true</item>
         <item name="chipStrokeWidth">0.8dp</item>
-        <item name="chipBackgroundColor">@color/transparent</item>
+        <item name="chipBackgroundColor">@android:color/transparent</item>
     </style>
 
 </resources>

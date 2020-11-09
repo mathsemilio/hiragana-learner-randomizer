@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.data
+package com.mathsemilio.hiraganalearner.others
 
 import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
 

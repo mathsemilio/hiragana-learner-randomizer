@@ -10,8 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.chip.Chip
 import com.mathsemilio.hiraganalearner.R
@@ -26,7 +24,7 @@ class GameWelcomeScreen : Fragment() {
     private var _binding: GameWelcomeScreenBinding? = null
     private val binding get() = _binding!!
     private lateinit var defaultSharedPreferences: SharedPreferences
-    private lateinit var interstitialAd: InterstitialAd
+    private var interstitialAd: InterstitialAd? = null
     private var soundPool: SoundPool? = null
     private var soundEffectsVolume = 0F
     private var soundEffectButtonClick = 0
@@ -48,8 +46,6 @@ class GameWelcomeScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeVariables()
-
-        setupInterstitialAd()
     }
 
     private fun initializeVariables() {
@@ -88,6 +84,11 @@ class GameWelcomeScreen : Fragment() {
                     PRIORITY_LOW
                 )
         }
+
+        interstitialAd =
+            requireContext().setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") {
+                startGame()
+            }
     }
 
     private fun attachListenerForDifficultyChipGroup() {
@@ -111,21 +112,16 @@ class GameWelcomeScreen : Fragment() {
         }
     }
 
-    private fun setupInterstitialAd() {
-        interstitialAd = InterstitialAd(requireContext()).apply {
-            adUnitId = getString(R.string.interstitialAdUnitId)
-            adListener = (object : AdListener() {
-                override fun onAdClosed() {
-                    startGame()
-                }
-            })
-            loadAd(AdRequest.Builder().build())
-        }
+    fun navigateToSettingsFragment() {
+        binding.chipGroupGameDifficulty.clearCheck()
+        findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
     }
 
-    fun loadAdAndStartGame() {
+    fun loadAd() {
         soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
-        if (interstitialAd.isLoaded) interstitialAd.show() else startGame()
+        interstitialAd?.let { interstitialAd ->
+            if (interstitialAd.isLoaded) interstitialAd.show() else startGame()
+        }
     }
 
     private fun startGame() {
@@ -136,15 +132,11 @@ class GameWelcomeScreen : Fragment() {
             )
     }
 
-    fun navigateToSettingsFragment() {
-        binding.chipGroupGameDifficulty.clearCheck()
-        findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
-    }
-
     override fun onDestroyView() {
         soundPool?.release()
         soundPool = null
         _binding = null
+        interstitialAd = null
 
         super.onDestroyView()
     }

@@ -36,8 +36,8 @@
     <!-- Training Notifications strings -->
     <string name="training_notification_content_title">Time to train your Hiragana!</string>
     <string name="training_notification_content_text">Touch here to start training.</string>
-    <string name="training_notifications_channel_name">Hiragana Learner training remainder</string>
-    <string name="training_notifications_channel_description">Hiragana Training Remainder</string>
+    <string name="training_notification_channel_name">Hiragana Learner training remainder</string>
+    <string name="training_notification_channel_description">Hiragana Training Remainder</string>
 
     <!-- Game Welcome Screen -->
     <string name="get_ready_to_associate">Get ready to associate…</string>

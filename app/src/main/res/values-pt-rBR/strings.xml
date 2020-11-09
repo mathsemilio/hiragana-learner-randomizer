@@ -34,8 +34,8 @@
     <!-- Strings da Notificação de Treino -->
     <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
     <string name="training_notification_content_text">Toque aqui para começar a treinar.</string>
-    <string name="training_notifications_channel_name">Lembrete de Treino do Hiragana Learner</string>
-    <string name="training_notifications_channel_description">Lembrete de Treino para Hiragana</string>
+    <string name="training_notification_channel_name">Lembrete de Treino do Hiragana Learner</string>
+    <string name="training_notification_channel_description">Lembrete de Treino para Hiragana</string>
 
     <!-- Strings do fragmento GameWelcomeScreen -->
     <string name="content_description_image_view_settings_icon">Ícone para acessar as configurações da aplicação</string>

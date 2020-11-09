@@ -11,10 +11,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.mathsemilio.hiraganalearner.R
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
 import com.mathsemilio.hiraganalearner.others.*
 
@@ -32,7 +32,7 @@ class GameScoreScreen : Fragment() {
     private val binding get() = _binding!!
     private var soundPool: SoundPool? = null
     private lateinit var onBackPressedCallback: OnBackPressedCallback
-    private lateinit var interstitialAd: InterstitialAd
+    private var interstitialAd: InterstitialAd? = null
     private lateinit var userAction: UserAction
     private var soundEffectsVolume = 0F
     private var soundEffectButtonClick = 0
@@ -56,9 +56,7 @@ class GameScoreScreen : Fragment() {
 
         attachOnBackPressedCallback()
 
-        setupInterstitialAd()
-
-        loadAdBanner()
+        loadBannerAd()
     }
 
     private fun initializeVariables() {
@@ -69,7 +67,7 @@ class GameScoreScreen : Fragment() {
 
         difficultyValue = GameScoreScreenArgs.fromBundle(requireArguments()).difficultyValue
 
-        perfectScores = SharedPreferencesPerfectScores(requireContext()).retrievePerfectScore()
+        perfectScores = PreferencesRepository(requireContext()).getPerfectScoresValue()
 
         soundEffectsVolume = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0).toFloat().div(10F)
@@ -79,13 +77,18 @@ class GameScoreScreen : Fragment() {
             soundEffectButtonClick =
                 it.load(requireContext(), R.raw.jaoreir_button_simple_01, PRIORITY_LOW)
         }
+
+        interstitialAd =
+            requireContext().setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") {
+                handleNavigation()
+            }
     }
 
     private fun attachOnBackPressedCallback() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
-                showAdAndNavigate()
+                showAd()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -94,19 +97,23 @@ class GameScoreScreen : Fragment() {
         )
     }
 
-    fun navigateToGameWelcomeScreen() {
+    private fun loadBannerAd() {
+        binding.gameScoreScreenBannerAd.loadAd(AdRequest.Builder().build())
+    }
+
+    fun navigateToWelcomeScreen() {
         soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
         userAction = UserAction.GO_TO_WELCOME_SCREEN
-        showAdAndNavigate()
+        showAd()
     }
 
-    fun playGameAgain() {
+    fun playAgain() {
         soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
         userAction = UserAction.GO_TO_MAIN_GAME_SCREEN
-        showAdAndNavigate()
+        showAd()
     }
 
-    fun shareGameScore() {
+    fun shareScore() {
         soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
 
         val sendIntent: Intent = Intent().apply {
@@ -128,24 +135,10 @@ class GameScoreScreen : Fragment() {
         )
     }
 
-    private fun setupInterstitialAd() {
-        interstitialAd = InterstitialAd(requireContext()).apply {
-            adUnitId = getString(R.string.interstitialAdUnitId)
-            adListener = (object : AdListener() {
-                override fun onAdClosed() {
-                    handleNavigation()
-                }
-            })
-            loadAd(AdRequest.Builder().build())
+    private fun showAd() {
+        interstitialAd?.let { interstitialAd ->
+            if (interstitialAd.isLoaded) interstitialAd.show() else handleNavigation()
         }
-    }
-
-    private fun loadAdBanner() {
-        binding.gameScoreScreenBannerAd.loadAd(AdRequest.Builder().build())
-    }
-
-    private fun showAdAndNavigate() {
-        if (interstitialAd.isLoaded) interstitialAd.show() else handleNavigation()
     }
 
     private fun handleNavigation() {
@@ -167,6 +160,7 @@ class GameScoreScreen : Fragment() {
         soundPool?.release()
         soundPool = null
         _binding = null
+        interstitialAd = null
 
         super.onDestroyView()
     }

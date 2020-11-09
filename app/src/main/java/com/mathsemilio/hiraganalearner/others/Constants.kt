@@ -28,5 +28,23 @@ const val PRIORITY_HIGH = 3
 
 const val PERFECT_SCORE = 48
 
-const val DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY = "gameDifficulty"
-const val SOUND_EFFECTS_VOLUME_PREFERENCE_KEY = "soundEffects"
+const val NOTIFICATION_ID = 1000
+const val PENDING_INTENT_REQUEST_ID = 1001
+const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
+
+const val APP_THEME_DIALOG_FRAGMENT_TAG = "appThemeDialog"
+const val NOTIFICATION_WORK_TAG = "trainingNotification"
+
+const val SWITCH_STATE_KEY = "switchState"
+const val TIME_CONFIGURED_KEY = "timeConfigured"
+const val PERFECT_SCORES_KEY = "perfectScores"
+const val APP_THEME_KEY = "appTheme"
+
+const val TRAINING_NOTIFICATION_PREFERENCE_KEY = "trainingNotificationPreference"
+const val DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY = "gameDifficultyPreference"
+const val CLEAR_PERFECT_SCORES_PREFERENCE_KEY = "clearPerfectScoresPreference"
+const val SOUND_EFFECTS_VOLUME_PREFERENCE_KEY = "soundEffectsPreferences"
+const val APP_THEME_PREFERENCE_KEY = "appThemePreference"
+const val APP_BUILD_PREFERENCE_KEY = "appBuildPreference"
+
+const val APP_BUILD_VERSION = "stable-0.1.1"

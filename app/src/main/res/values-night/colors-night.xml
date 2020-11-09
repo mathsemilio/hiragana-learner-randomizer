@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary color desaturated -->
-    <color name="colorPrimary">#e57373</color>
-
-    <!-- Primary Variant -->
+    <color name="colorPrimary">#FF7961</color>
     <color name="colorPrimaryDark">#121212</color>
-
-    <!-- White transparent -->
-    <color name="transparent">#00FFFFFF</color>
-
-    <!-- FAB Icon color -->
-    <color name="fabIconColor">@android:color/black</color>
+    <color name="colorFabIconTint">@android:color/black</color>
+    <color name="colorSplashScreenLogo">@android:color/white</color>
+    <color name="colorSplashScreenStatusBar">@color/colorPrimaryDark</color>
 </resources>

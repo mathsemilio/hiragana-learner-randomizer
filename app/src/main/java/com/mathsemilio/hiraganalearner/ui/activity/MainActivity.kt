@@ -11,7 +11,7 @@ import com.mathsemilio.hiraganalearner.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * Activity that hosts the Game fragments.
+ * Activity that host the Game fragments.
  */
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
 
         val navHostFragmentContainer =
