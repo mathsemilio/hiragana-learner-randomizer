@@ -17,6 +17,11 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.databinding.GameMainScreenBinding
 import com.mathsemilio.hiraganalearner.others.*
+import com.mathsemilio.hiraganalearner.others.AlertUser.onCorrectAnswer
+import com.mathsemilio.hiraganalearner.others.AlertUser.onExitGame
+import com.mathsemilio.hiraganalearner.others.AlertUser.onGameIsPaused
+import com.mathsemilio.hiraganalearner.others.AlertUser.onTimeOver
+import com.mathsemilio.hiraganalearner.others.AlertUser.onWrongAnswer
 import com.mathsemilio.hiraganalearner.ui.viewModel.MainGameViewModel
 
 /**
@@ -50,7 +55,6 @@ class GameMainScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.game_main_screen, container, false)
-
         return binding.root
     }
 
@@ -124,44 +128,25 @@ class GameMainScreen : Fragment() {
 
                     currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
-                    requireContext().showMaterialDialog(
-                        getString(R.string.alert_dialog_correct_answer_title),
-                        getString(R.string.alert_dialog_correct_answer_message),
-                        getString(R.string.alert_dialog_correct_answer_positive_button_text),
-                        negativeButtonText = null,
-                        isCancelable = false,
-                        positiveButtonListener = { _, _ ->
-                            if (viewModel.gameFinished) {
-                                showAd()
-                            } else {
-                                viewModel.onCheckAnswerCompleted()
-                                currentFragmentState = FragmentState.RUNNING
-                                binding.chipGroupRomanizationOptions.clearCheck()
-                            }
-                        },
-                        negativeButtonListener = null
-                    )
+                    onCorrectAnswer {
+                        if (viewModel.gameFinished) {
+                            showAd()
+                        } else {
+                            viewModel.onCheckAnswerCompleted()
+                            currentFragmentState = FragmentState.RUNNING
+                            binding.chipGroupRomanizationOptions.clearCheck()
+                        }
+                    }
                 } else {
-                    requireContext().showMaterialDialog(
-                        getString(R.string.alert_dialog_wrong_answer_title),
-                        getString(
-                            R.string.alert_dialog_wrong_answer_message,
-                            viewModel.currentHiraganaRomanization.value
-                        ),
-                        getString(R.string.alert_dialog_wrong_answer_positive_button_text),
-                        negativeButtonText = null,
-                        isCancelable = false,
-                        positiveButtonListener = { _, _ ->
-                            if (viewModel.gameFinished) {
-                                showAd()
-                            } else {
-                                viewModel.onCheckAnswerCompleted()
-                                currentFragmentState = FragmentState.RUNNING
-                                binding.chipGroupRomanizationOptions.clearCheck()
-                            }
-                        },
-                        negativeButtonListener = null
-                    )
+                    onWrongAnswer {
+                        if (viewModel.gameFinished) {
+                            showAd()
+                        } else {
+                            viewModel.onCheckAnswerCompleted()
+                            currentFragmentState = FragmentState.RUNNING
+                            binding.chipGroupRomanizationOptions.clearCheck()
+                        }
+                    }
                 }
             }
         })
@@ -172,26 +157,15 @@ class GameMainScreen : Fragment() {
 
                 currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
-                requireContext().showMaterialDialog(
-                    getString(R.string.alert_dialog_time_over_title),
-                    getString(
-                        R.string.alert_dialog_time_over_message,
-                        viewModel.currentHiraganaRomanization.value
-                    ),
-                    getString(R.string.alert_dialog_time_over_positive_button_text),
-                    negativeButtonText = null,
-                    isCancelable = false,
-                    positiveButtonListener = { _, _ ->
-                        if (viewModel.gameFinished) {
-                            showAd()
-                        } else {
-                            viewModel.onTimeOverCompleted()
-                            currentFragmentState = FragmentState.RUNNING
-                            binding.chipGroupRomanizationOptions.clearCheck()
-                        }
-                    },
-                    negativeButtonListener = null
-                )
+                onTimeOver {
+                    if (viewModel.gameFinished) {
+                        showAd()
+                    } else {
+                        viewModel.onCheckAnswerCompleted()
+                        currentFragmentState = FragmentState.RUNNING
+                        binding.chipGroupRomanizationOptions.clearCheck()
+                    }
+                }
             }
         })
 
@@ -202,51 +176,35 @@ class GameMainScreen : Fragment() {
 
                     currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
-                    requireContext().showMaterialDialog(
-                        getString(R.string.alert_dialog_game_paused_title),
-                        getString(R.string.alert_dialog_game_paused_message),
-                        getString(R.string.alert_dialog_game_paused_positive_button_text),
-                        negativeButtonText = null,
-                        isCancelable = false,
-                        positiveButtonListener = { _, _ ->
-                            soundPool?.playSFX(
-                                soundEffectButtonClick,
-                                soundEffectsVolume,
-                                PRIORITY_MEDIUM
-                            )
-
-                            viewModel.onPauseGameCompleted()
-                            currentFragmentState = FragmentState.RUNNING
-                        },
-                        negativeButtonListener = null
-                    )
+                    onGameIsPaused {
+                        soundPool?.playSFX(
+                            soundEffectButtonClick,
+                            soundEffectsVolume,
+                            PRIORITY_MEDIUM
+                        )
+                        viewModel.onPauseGameCompleted()
+                        currentFragmentState = FragmentState.RUNNING
+                    }
                 }
             }
         })
 
         viewModel.eventButtonExitGameClicked.observe(viewLifecycleOwner, {
-            it?.let { exitGame ->
-                soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
+            it?.let { exitGameRequested ->
+                if (exitGameRequested) {
+                    soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_MEDIUM)
 
-                currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
+                    currentFragmentState = FragmentState.DIALOG_BEING_SHOWN
 
-                if (exitGame) {
-                    requireContext().showMaterialDialog(
-                        getString(R.string.alert_dialog_exit_game_title),
-                        getString(R.string.alert_dialog_exit_game_message),
-                        getString(R.string.alert_dialog_exit_game_positive_button_text),
-                        getString(R.string.alert_dialog_exit_game_negative_button_text),
-                        isCancelable = false,
-                        positiveButtonListener = { _, _ ->
+                    onExitGame(
+                        {
                             soundPool?.playSFX(
                                 soundEffectButtonClick,
                                 soundEffectsVolume,
                                 PRIORITY_MEDIUM
                             )
-
                             findNavController().navigate(R.id.action_gameMainScreen_to_gameWelcomeScreen)
-                        },
-                        negativeButtonListener = { _, _ ->
+                        }, {
                             viewModel.onExitGameCancelled()
                             currentFragmentState = FragmentState.RUNNING
                         }

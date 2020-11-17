@@ -71,12 +71,12 @@
     <string name="app_theme_dialog_option_dark_theme">Tema escuro</string>
     <string name="app_theme_dialog_option_light_theme">Tema claro</string>
     <string name="app_theme_dialog_title">Selecione uma opção abaixo:</string>
-    <string name="app_theme_dialog_negative_button_text">Cancelar</string>
+    <string name="alert_dialog_cancel_button_text">Cancelar</string>
 
     <!-- Strings do dialog correct answer -->
     <string name="alert_dialog_correct_answer_title">Resposta Correta!</string>
     <string name="alert_dialog_correct_answer_message">Muito Bem! Continue Praticando!</string>
-    <string name="alert_dialog_correct_answer_positive_button_text">Continuar</string>
+    <string name="alert_dialog_continue_button_text">Continuar</string>
 
     <!-- Strings do dialog wrong answer -->
     <string name="alert_dialog_wrong_answer_title">Resposta Incorreta!</string>
@@ -96,13 +96,13 @@
     <!-- Strings do dialog exit game -->
     <string name="alert_dialog_exit_game_title">Sair do jogo</string>
     <string name="alert_dialog_exit_game_message">Você tem certeza? O seu progresso será perdido!</string>
-    <string name="alert_dialog_exit_game_positive_button_text">Sair</string>
+    <string name="alert_dialog_exit_button_text">Sair</string>
     <string name="alert_dialog_exit_game_negative_button_text">Cancelar</string>
 
     <!-- Strings do dialog exit game -->
-    <string name="alert_dialog_on_back_pressed_title">Sair do jogo</string>
-    <string name="alert_dialog_on_back_pressed_message">Você tem certeza? O seu progresso será perdido!</string>
-    <string name="alert_dialog_on_back_pressed_positive_button_text">Ficar no Jogo!</string>
+    <string name="alert_dialog_exit_game_title">Sair do jogo</string>
+    <string name="alert_dialog_exit_game_message">Você tem certeza? O seu progresso será perdido!</string>
+    <string name="alert_dialog_exit_game_positive_button_text">Ficar no Jogo!</string>
     <string name="alert_dialog_on_back_pressed_negative_button_text">Sair</string>
 
     <!-- Pontuação final perfeita -->

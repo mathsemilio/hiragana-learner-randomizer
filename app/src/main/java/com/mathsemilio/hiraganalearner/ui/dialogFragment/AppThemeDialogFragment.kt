@@ -40,7 +40,7 @@ class AppThemeDialogFragment : DialogFragment() {
                         }
                     }
                 }
-                setNegativeButton(getString(R.string.app_theme_dialog_negative_button_text))
+                setNegativeButton(getString(R.string.alert_dialog_cancel_button_text))
                 { _, _ -> dialog?.cancel() }
             }
             builder.create()

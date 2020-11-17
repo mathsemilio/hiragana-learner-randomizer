@@ -7,6 +7,7 @@ import androidx.preference.*
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.*
+import com.mathsemilio.hiraganalearner.others.AlertUser.onClearPerfectScoresPreference
 import com.mathsemilio.hiraganalearner.ui.dialogFragment.AppThemeDialogFragment
 import java.util.*
 
@@ -134,20 +135,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
             CLEAR_PERFECT_SCORES_PREFERENCE_KEY -> {
-                requireContext().showMaterialDialog(
-                    getString(R.string.clear_perfect_score_dialog_title),
-                    getString(R.string.clear_perfect_score_dialog_message),
-                    getString(R.string.clear_perfect_score_dialog_positive_button_text),
-                    getString(R.string.clear_perfect_score_dialog_negative_button_text),
-                    isCancelable = true,
-                    positiveButtonListener = { _, _ ->
-                        preferencesRepository.clearPerfectScoresValue()
+                onClearPerfectScoresPreference {
+                    preferencesRepository.clearPerfectScoresValue()
 
-                        findPreference<Preference>(CLEAR_PERFECT_SCORES_PREFERENCE_KEY)?.isVisible =
-                            false
-                    },
-                    negativeButtonListener = null
-                )
+                    findPreference<Preference>(CLEAR_PERFECT_SCORES_PREFERENCE_KEY)?.isVisible =
+                        false
+                }
             }
             APP_THEME_PREFERENCE_KEY -> {
                 val appThemeDialogFragment = AppThemeDialogFragment()

@@ -83,7 +83,7 @@ dependencies {
     /* WorkManager */
     implementation "androidx.work:work-runtime-ktx:$workManager_version"
 
-    /* Preference */
+    /* PreferenceX */
     implementation "androidx.preference:preference-ktx:$preference_version"
 
     /* Play Services Ads */

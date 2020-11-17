@@ -12,10 +12,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-//==========================================================================================
-// Utility functions to build UI elements
-//==========================================================================================
-fun Context.showMaterialDialog(
+fun Fragment.showMaterialDialog(
     dialogTitle: String,
     dialogMessage: String,
     positiveButtonText: String,
@@ -24,7 +21,7 @@ fun Context.showMaterialDialog(
     positiveButtonListener: DialogInterface.OnClickListener,
     negativeButtonListener: DialogInterface.OnClickListener?
 ) {
-    MaterialAlertDialogBuilder(this).apply {
+    MaterialAlertDialogBuilder(requireContext()).apply {
         setTitle(dialogTitle)
         setMessage(dialogMessage)
         setPositiveButton(positiveButtonText, positiveButtonListener)
@@ -38,9 +35,6 @@ fun Fragment.showToast(message: String, length: Int) {
     Toast.makeText(requireContext(), message, length).show()
 }
 
-//==========================================================================================
-// Utility functions for SoundPool
-//==========================================================================================
 fun setupSoundPool(maxAudioStreams: Int): SoundPool {
     val audioAttributes = AudioAttributes.Builder()
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -56,20 +50,15 @@ fun setupSoundPool(maxAudioStreams: Int): SoundPool {
 fun SoundPool.playSFX(id: Int, volume: Float, priority: Int) =
     play(id, volume, volume, priority, 0, 1F)
 
-//==========================================================================================
-// Others
-//==========================================================================================
 fun Context.setupAndLoadInterstitialAd(
     adUnitId: String,
-    actionToBePerformedWhenAdClosed: () -> Unit
+    handleOnAdClosedEvent: () -> Unit
 ): InterstitialAd {
     return InterstitialAd(this).apply {
         setAdUnitId(adUnitId)
-        adListener = (object : AdListener() {
-            override fun onAdClosed() {
-                actionToBePerformedWhenAdClosed.invoke()
-            }
-        })
+        adListener = object : AdListener() {
+            override fun onAdClosed() = handleOnAdClosedEvent()
+        }
         loadAd(AdRequest.Builder().build())
     }
 }
