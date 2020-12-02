@@ -6,13 +6,13 @@
     <data>
         <variable
             name="gameWelcomeScreen"
-            type="com.mathsemilio.hiraganalearner.ui.fragment.GameWelcomeScreen" />
+            type="com.mathsemilio.hiraganalearner.ui.screens.welcome.GameWelcomeScreen" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.GameWelcomeScreen">
+        tools:context=".ui.screens.welcome.GameWelcomeScreen">
 
         <ImageView
             android:id="@+id/image_view_app_config_icon"
@@ -99,7 +99,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_beginner"
-                style="@style/Widget.TransparentChipButton"
+                style="@style/Widget.Chip.Transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_8dp"
@@ -107,7 +107,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_medium"
-                style="@style/Widget.TransparentChipButton"
+                style="@style/Widget.Chip.Transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_8dp"
@@ -115,7 +115,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_hard"
-                style="@style/Widget.TransparentChipButton"
+                style="@style/Widget.Chip.Transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_difficulty_hard" />
@@ -129,7 +129,7 @@
             android:layout_marginBottom="@dimen/margin_16dp"
             android:contentDescription="@string/content_description_button_for_starting_the_game"
             android:enabled="false"
-            android:onClick="@{() -> gameWelcomeScreen.loadAd()}"
+            android:onClick="@{() -> gameWelcomeScreen.showAd()}"
             android:text="@string/start"
             app:enableButtonForDifficultyPreselected="@{gameWelcomeScreen.defaultDifficultyValue}"
             app:icon="@drawable/ic_baseline_play_arrow_24"

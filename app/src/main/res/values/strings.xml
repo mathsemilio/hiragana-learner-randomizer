@@ -6,7 +6,7 @@
     <string name="settings_toolbar_title">Settings</string>
 
     <!-- Settings fragment strings -->
-    <string name="preference_category_title_notification">Notification</string>
+    <string name="preference_category_title_notification">Training Reminder</string>
     <string name="preference_category_title_game_options">Game options</string>
     <string name="preference_category_title_game_sound">App sounds</string>
     <string name="preference_category_title_app_theme">App theme</string>
@@ -35,7 +35,7 @@
 
     <!-- Training Notifications strings -->
     <string name="training_notification_content_title">Time to train your Hiragana!</string>
-    <string name="training_notification_content_text">Touch here to start training.</string>
+    <string name="training_notification_content_text">Tap here to start training.</string>
     <string name="training_notification_channel_name">Hiragana Learner training remainder</string>
     <string name="training_notification_channel_description">Hiragana Training Remainder</string>
 
@@ -99,7 +99,7 @@
     <!-- Alert Dialog Exit Game strings -->
     <string name="alert_dialog_exit_game_title">Exit game</string>
     <string name="alert_dialog_exit_game_message">Are you sure? Your progress will be lost!</string>
-    <string name="alert_dialog_exit_game_positive_button_text">Stay in the Game!</string>
+    <string name="alert_dialog_exit_game_positive_button_text">Stay in the Game</string>
 
     <!-- Perfect Final score -->
     <string name="final_perfect_score">I just got a perfect score on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/gameWelcomeScreen"
-        android:name="com.mathsemilio.hiraganalearner.ui.fragment.GameWelcomeScreen"
+        android:name="com.mathsemilio.hiraganalearner.ui.screens.welcome.GameWelcomeScreen"
         tools:layout="@layout/game_welcome_screen">
 
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/gameMainScreen"
-        android:name="com.mathsemilio.hiraganalearner.ui.fragment.GameMainScreen"
+        android:name="com.mathsemilio.hiraganalearner.ui.screens.main.GameMainScreen"
         tools:layout="@layout/game_main_screen">
 
         <action
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/gameScoreScreen"
-        android:name="com.mathsemilio.hiraganalearner.ui.fragment.GameScoreScreen"
+        android:name="com.mathsemilio.hiraganalearner.ui.screens.score.GameScoreScreen"
         tools:layout="@layout/game_score_screen">
 
         <action
@@ -100,7 +100,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.mathsemilio.hiraganalearner.ui.fragment.SettingsFragment"
+        android:name="com.mathsemilio.hiraganalearner.ui.screens.settings.SettingsFragment"
         android:label="@string/settings_toolbar_title">
 
         <action

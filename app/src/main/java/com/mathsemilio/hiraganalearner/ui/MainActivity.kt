@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.ui.activity
+package com.mathsemilio.hiraganalearner.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,28 +10,24 @@ import androidx.navigation.ui.NavigationUI
 import com.mathsemilio.hiraganalearner.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-/**
- * Activity that host the Game fragments.
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
 
         val navHostFragmentContainer =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragmentContainer.findNavController()
 
-        setupUI()
+        setupSupportActionBar()
 
         setupOnDestinationChangedListener()
     }
 
-    private fun setupUI() {
+    private fun setupSupportActionBar() {
         setSupportActionBar(toolbar_app as Toolbar?)
         NavigationUI.setupActionBarWithNavController(this, navController)
     }

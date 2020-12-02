@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.others
+package com.mathsemilio.hiraganalearner.commom
 
 const val APP_THEME_LIGHT_THEME = 0
 const val APP_THEME_DARK_MODE = 1
@@ -32,7 +32,6 @@ const val NOTIFICATION_ID = 1000
 const val PENDING_INTENT_REQUEST_ID = 1001
 const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
 
-const val APP_THEME_DIALOG_FRAGMENT_TAG = "appThemeDialog"
 const val NOTIFICATION_WORK_TAG = "trainingNotification"
 
 const val SWITCH_STATE_KEY = "switchState"
@@ -40,11 +39,17 @@ const val TIME_CONFIGURED_KEY = "timeConfigured"
 const val PERFECT_SCORES_KEY = "perfectScores"
 const val APP_THEME_KEY = "appTheme"
 
-const val TRAINING_NOTIFICATION_PREFERENCE_KEY = "trainingNotificationPreference"
-const val DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY = "gameDifficultyPreference"
-const val CLEAR_PERFECT_SCORES_PREFERENCE_KEY = "clearPerfectScoresPreference"
-const val SOUND_EFFECTS_VOLUME_PREFERENCE_KEY = "soundEffectsPreferences"
-const val APP_THEME_PREFERENCE_KEY = "appThemePreference"
-const val APP_BUILD_PREFERENCE_KEY = "appBuildPreference"
+const val TRAINING_NOTIFICATION_PREFERENCE_KEY = "training_notification"
+const val DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY = "game_difficulty"
+const val CLEAR_PERFECT_SCORES_PREFERENCE_KEY = "clear_perfect_scores"
+const val SOUND_EFFECTS_VOLUME_PREFERENCE_KEY = "sound_effects"
+const val APP_THEME_PREFERENCE_KEY = "app_theme"
+const val APP_BUILD_PREFERENCE_KEY = "app_build"
+
+const val INVALID_DEFAULT_GAME_OPTION_EXCEPTION = "Invalid default game difficulty value"
+const val INVALID_APP_THEME_VALUE_EXCEPTION = "Invalid app theme value"
+const val INVALID_GAME_DIFFICULTY_VALUE_EXCEPTION = "Invalid game difficulty value"
+const val ILLEGAL_PREFERENCE_TYPE = "Illegal preference value type"
+const val NULL_ACTIVITY_EXCEPTION = "Activity cannot be null"
 
 const val APP_BUILD_VERSION = "stable-0.1.1"

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.others
+package com.mathsemilio.hiraganalearner.ui.commom
 
 import android.view.View
 import android.widget.Button
@@ -7,6 +7,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.mathsemilio.hiraganalearner.R
+import com.mathsemilio.hiraganalearner.commom.*
 
 @BindingAdapter("app:hideOnDifficultyText")
 fun hideOnDifficultyText(textView: TextView, defaultDifficulty: String) {
