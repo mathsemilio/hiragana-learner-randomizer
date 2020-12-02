@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.commom
 
 const val APP_THEME_LIGHT_THEME = 0
-const val APP_THEME_DARK_MODE = 1
+const val APP_THEME_DARK_THEME = 1
 const val APP_THEME_FOLLOW_SYSTEM = 2
 
 const val GAME_DIFFICULTY_VALUE_BEGINNER = 0
@@ -32,7 +32,7 @@ const val NOTIFICATION_ID = 1000
 const val PENDING_INTENT_REQUEST_ID = 1001
 const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
 
-const val NOTIFICATION_WORK_TAG = "trainingNotification"
+const val TRAINING_NOTIFICATION_WORK_TAG = "trainingNotification"
 
 const val SWITCH_STATE_KEY = "switchState"
 const val TIME_CONFIGURED_KEY = "timeConfigured"
@@ -49,7 +49,6 @@ const val APP_BUILD_PREFERENCE_KEY = "app_build"
 const val INVALID_DEFAULT_GAME_OPTION_EXCEPTION = "Invalid default game difficulty value"
 const val INVALID_APP_THEME_VALUE_EXCEPTION = "Invalid app theme value"
 const val INVALID_GAME_DIFFICULTY_VALUE_EXCEPTION = "Invalid game difficulty value"
-const val ILLEGAL_PREFERENCE_TYPE = "Illegal preference value type"
 const val NULL_ACTIVITY_EXCEPTION = "Activity cannot be null"
 
-const val APP_BUILD_VERSION = "stable-0.1.1"
+const val APP_BUILD_VERSION = "stable-0.1.2"

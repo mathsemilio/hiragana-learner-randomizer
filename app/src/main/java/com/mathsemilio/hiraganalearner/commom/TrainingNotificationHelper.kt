@@ -66,14 +66,15 @@ object TrainingNotificationHelper {
     fun scheduleNotification(context: Context, initialDelay: Long) {
         val notifyUserWorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
             .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
-            .addTag(NOTIFICATION_WORK_TAG)
+            .addTag(TRAINING_NOTIFICATION_WORK_TAG)
             .build()
 
         WorkManager.getInstance(context).apply { enqueue(notifyUserWorkRequest) }
     }
 
     fun cancelNotification(context: Context) {
-        WorkManager.getInstance(context).apply { cancelAllWorkByTag(NOTIFICATION_WORK_TAG) }
+        WorkManager.getInstance(context)
+            .apply { cancelAllWorkByTag(TRAINING_NOTIFICATION_WORK_TAG) }
     }
 
     fun notifyUser(context: Context) {

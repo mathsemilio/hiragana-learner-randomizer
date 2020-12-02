@@ -16,10 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_HiraganaLearner)
         setContentView(R.layout.activity_main)
 
         val navHostFragmentContainer =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
         navController = navHostFragmentContainer.findNavController()
 
         setupSupportActionBar()

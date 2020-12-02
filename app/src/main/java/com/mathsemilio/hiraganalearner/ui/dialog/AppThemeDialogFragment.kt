@@ -45,13 +45,13 @@ class AppThemeDialogFragment : DialogFragment() {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             when (appThemeUtil.getAppThemeValue()) {
                 APP_THEME_LIGHT_THEME -> 0
-                APP_THEME_DARK_MODE -> 1
+                APP_THEME_DARK_THEME -> 1
                 else -> throw IllegalArgumentException(INVALID_APP_THEME_VALUE_EXCEPTION)
             }
         } else {
             when (appThemeUtil.getAppThemeValue()) {
                 APP_THEME_LIGHT_THEME -> 0
-                APP_THEME_DARK_MODE -> 1
+                APP_THEME_DARK_THEME -> 1
                 APP_THEME_FOLLOW_SYSTEM -> 2
                 else -> throw IllegalArgumentException(INVALID_APP_THEME_VALUE_EXCEPTION)
             }

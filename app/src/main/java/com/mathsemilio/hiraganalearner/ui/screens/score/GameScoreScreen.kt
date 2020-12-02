@@ -55,10 +55,7 @@ class GameScoreScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            gameScoreScreen = this@GameScoreScreen
-            lifecycleOwner = this@GameScoreScreen
-        }
+        binding.gameScoreScreen = this
 
         preferencesRepository = PreferencesRepository(requireContext())
 
@@ -147,11 +144,12 @@ class GameScoreScreen : Fragment() {
 
     private fun handleNavigation() {
         when (userAction) {
-            UserAction.GO_TO_MAIN_GAME_SCREEN -> findNavController().navigate(
-                GameScoreScreenDirections.actionGameScoreScreenToMainGameScreen(
-                    difficultyValue
+            UserAction.GO_TO_MAIN_GAME_SCREEN ->
+                findNavController().navigate(
+                    GameScoreScreenDirections.actionGameScoreScreenToMainGameScreen(
+                        difficultyValue
+                    )
                 )
-            )
             UserAction.GO_TO_WELCOME_SCREEN ->
                 findNavController().navigate(R.id.action_gameScoreScreen_to_gameWelcomeScreen)
         }

@@ -2,7 +2,7 @@ package com.mathsemilio.hiraganalearner.ui.commom.util
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.mathsemilio.hiraganalearner.commom.APP_THEME_DARK_MODE
+import com.mathsemilio.hiraganalearner.commom.APP_THEME_DARK_THEME
 import com.mathsemilio.hiraganalearner.commom.APP_THEME_FOLLOW_SYSTEM
 import com.mathsemilio.hiraganalearner.commom.APP_THEME_LIGHT_THEME
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
@@ -22,7 +22,7 @@ class AppThemeUtil(context: Context) {
 
     fun setDarkAppTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        preferencesRepository.saveAppThemeValue(APP_THEME_DARK_MODE)
+        preferencesRepository.saveAppThemeValue(APP_THEME_DARK_THEME)
     }
 
     fun setFollowSystemAppTheme() {
@@ -34,7 +34,7 @@ class AppThemeUtil(context: Context) {
         when (preferencesRepository.getAppThemeValue()) {
             APP_THEME_LIGHT_THEME ->
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            APP_THEME_DARK_MODE ->
+            APP_THEME_DARK_THEME ->
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             APP_THEME_FOLLOW_SYSTEM ->
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)

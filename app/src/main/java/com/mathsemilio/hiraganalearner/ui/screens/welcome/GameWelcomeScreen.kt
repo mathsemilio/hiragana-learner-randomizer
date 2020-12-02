@@ -48,13 +48,12 @@ class GameWelcomeScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            gameWelcomeScreen = this@GameWelcomeScreen
-            lifecycleOwner = this@GameWelcomeScreen
-        }
+        binding.gameWelcomeScreen = this
 
         interstitialAd =
-            setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") { startGame() }
+            setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") {
+                navigateToMainScreen()
+            }
 
         preferencesRepository = PreferencesRepository(requireContext())
 
@@ -110,21 +109,19 @@ class GameWelcomeScreen : Fragment() {
         }
     }
 
+    fun showAd() {
+        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
+        interstitialAd?.run { if (isLoaded) show() else navigateToMainScreen() }
+    }
+
     fun navigateToSettingsFragment() {
         findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
     }
 
-    fun showAd() {
-        soundPool?.playSFX(soundEffectButtonClick, soundEffectsVolume, PRIORITY_LOW)
-        interstitialAd?.run { if (isLoaded) show() else startGame() }
-    }
-
-    private fun startGame() {
-        findNavController()
-            .navigate(
-                GameWelcomeScreenDirections
-                    .actionGameWelcomeScreenToGameMainScreen(difficultyValue)
-            )
+    private fun navigateToMainScreen() {
+        findNavController().navigate(
+            GameWelcomeScreenDirections.actionGameWelcomeScreenToGameMainScreen(difficultyValue)
+        )
     }
 
     override fun onDestroyView() {

@@ -34,6 +34,7 @@ class PreferencesSource(context: Context) {
     fun saveAppThemeValue(themeValue: Int) {
         editor.apply {
             putInt(APP_THEME_KEY, themeValue)
+            apply()
         }
     }
 

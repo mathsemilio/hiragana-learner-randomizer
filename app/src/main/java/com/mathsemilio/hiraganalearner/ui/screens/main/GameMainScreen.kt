@@ -207,8 +207,7 @@ class GameMainScreen : Fragment() {
 
             findNavController().navigate(
                 GameMainScreenDirections.actionGameMainScreenToGameScoreScreen(
-                    score,
-                    difficultyValue
+                    score, difficultyValue
                 )
             )
         }
