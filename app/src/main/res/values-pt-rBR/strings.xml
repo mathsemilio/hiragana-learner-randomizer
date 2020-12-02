@@ -4,7 +4,7 @@
     <string name="settings_toolbar_title">Configurações</string>
 
     <!-- Strings do fragmento de configurações -->
-    <string name="preference_category_title_notification">Notificação</string>
+    <string name="preference_category_title_notification">Lembrete de Treino</string>
     <string name="preference_category_title_game_options">Opções do Jogo</string>
     <string name="preference_category_title_game_sound">Sons da Aplicação</string>
     <string name="preference_category_title_app_theme">Temas</string>
@@ -34,8 +34,8 @@
     <!-- Strings da Notificação de Treino -->
     <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
     <string name="training_notification_content_text">Toque aqui para começar a treinar.</string>
-    <string name="training_notifications_channel_name">Lembrete de Treino do Hiragana Learner</string>
-    <string name="training_notifications_channel_description">Lembrete de Treino para Hiragana</string>
+    <string name="training_notification_channel_name">Lembrete de Treino do Hiragana Learner</string>
+    <string name="training_notification_channel_description">Lembrete de Treino para Hiragana</string>
 
     <!-- Strings do fragmento GameWelcomeScreen -->
     <string name="content_description_image_view_settings_icon">Ícone para acessar as configurações da aplicação</string>
@@ -66,49 +66,43 @@
     <string name="game_difficulty_score_screen">Dificuldade do Jogo</string>
     <string name="final_score">Pontuação Final</string>
 
-    <!-- Strings do dialog App Theme -->
-    <string name="app_theme_dialog_option_follow_system">Seguir configuração do sistema</string>
-    <string name="app_theme_dialog_option_dark_theme">Tema escuro</string>
-    <string name="app_theme_dialog_option_light_theme">Tema claro</string>
+    <!-- Strings do diálogo Tema da Aplicação -->
+    <string name="app_theme_dialog_option_follow_system">Seguir configurações do sistema</string>
+    <string name="app_theme_dialog_option_dark_theme">Tema Escuro</string>
+    <string name="app_theme_dialog_option_light_theme">Tema Claro</string>
     <string name="app_theme_dialog_title">Selecione uma opção abaixo:</string>
-    <string name="app_theme_dialog_negative_button_text">Cancelar</string>
 
-    <!-- Strings do dialog correct answer -->
+    <!-- Strings dos botões dos diálogos -->
+    <string name="alert_dialog_continue_button_text">Continuar</string>
+    <string name="alert_dialog_cancel_button_text">Cancelar</string>
+    <string name="alert_dialog_exit_button_text">Sair</string>
+
+    <!-- Strings do diálogo resposta correta -->
     <string name="alert_dialog_correct_answer_title">Resposta Correta!</string>
-    <string name="alert_dialog_correct_answer_message">Muito Bem! Continue Praticando!</string>
-    <string name="alert_dialog_correct_answer_positive_button_text">Continuar</string>
+    <string name="alert_dialog_correct_answer_message">Muito bem! Continue Praticando!</string>
 
-    <!-- Strings do dialog wrong answer -->
+    <!-- Strings do diálogo resposta incorreta -->
     <string name="alert_dialog_wrong_answer_title">Resposta Incorreta!</string>
-    <string name="alert_dialog_wrong_answer_message">O Rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
-    <string name="alert_dialog_wrong_answer_positive_button_text">Continuar</string>
+    <string name="alert_dialog_wrong_answer_message">O rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
 
-    <!-- Strings do dialog time's over -->
-    <string name="alert_dialog_time_over_title">O tempo acabou!</string>
-    <string name="alert_dialog_time_over_message">O Rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
-    <string name="alert_dialog_time_over_positive_button_text">Continuar</string>
+    <!-- Strings do diálogo o tempo acabou -->
+    <string name="alert_dialog_time_over_title">O Tempo Acabou!</string>
+    <string name="alert_dialog_time_over_message">O rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
 
-    <!-- Strings do dialog game paused -->
+    <!-- Strings do diálogo jogo pausado -->
     <string name="alert_dialog_game_paused_title">Jogo Pausado</string>
     <string name="alert_dialog_game_paused_message">O jogo está pausado.</string>
     <string name="alert_dialog_game_paused_positive_button_text">Continuar</string>
 
-    <!-- Strings do dialog exit game -->
-    <string name="alert_dialog_exit_game_title">Sair do jogo</string>
-    <string name="alert_dialog_exit_game_message">Você tem certeza? O seu progresso será perdido!</string>
-    <string name="alert_dialog_exit_game_positive_button_text">Sair</string>
-    <string name="alert_dialog_exit_game_negative_button_text">Cancelar</string>
-
-    <!-- Strings do dialog exit game -->
-    <string name="alert_dialog_on_back_pressed_title">Sair do jogo</string>
-    <string name="alert_dialog_on_back_pressed_message">Você tem certeza? O seu progresso será perdido!</string>
-    <string name="alert_dialog_on_back_pressed_positive_button_text">Ficar no Jogo!</string>
-    <string name="alert_dialog_on_back_pressed_negative_button_text">Sair</string>
+    <!-- Strings do diálogo sair do jogo -->
+    <string name="alert_dialog_exit_game_title">Sair do Jogo</string>
+    <string name="alert_dialog_exit_game_message">Você tem certeza? O seu prgresso será perdido!</string>
+    <string name="alert_dialog_exit_game_positive_button_text">Ficar no Jogo</string>
 
     <!-- Pontuação final perfeita -->
-    <string name="final_perfect_score">Acabei de conseguir uma pontuação perfeita no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
+    <string name="final_perfect_score">Eu acabei de conseguir uma pontuação perfeita no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
 
-    <!-- Título do Create Chooser intent -->
+    <!-- Título do Intento Create Chooser -->
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
 
 </resources>

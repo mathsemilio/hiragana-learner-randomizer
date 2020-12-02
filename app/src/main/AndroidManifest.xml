@@ -16,20 +16,27 @@
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_hiragana_learner_launcher_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.HiraganaLearner"
         tools:targetApi="n">
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5242007423595790~7375477899" />
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".ui.screens.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
