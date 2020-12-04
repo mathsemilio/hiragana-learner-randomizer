@@ -45,13 +45,13 @@ android {
 
 dependencies {
     def material_design_version = "1.2.1"
-    def nav_version = "2.3.1"
+    def nav_version = "2.3.2"
     def view_model_ktx_version = "2.3.0-beta01"
     def live_data_ktx_version = "2.3.0-beta01"
     def fragment_ktx_version = "1.2.5"
     def workManager_version = "2.4.0"
     def preference_version = "1.1.1"
-    def play_services_ads_version = "19.5.0"
+    def play_services_ads_version = "19.6.0"
     def leak_canary_version = "2.5"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

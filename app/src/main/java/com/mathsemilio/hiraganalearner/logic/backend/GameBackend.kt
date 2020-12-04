@@ -146,7 +146,6 @@ class GameBackend : IObserverContract {
             backendObservers.remove(IBackendObserver)
     }
 
-    override fun notifyObserver(event: BackendEvent) {
+    override fun notifyObserver(event: BackendEvent) =
         backendObservers.forEach { it.onBackendEvent(event) }
-    }
 }
