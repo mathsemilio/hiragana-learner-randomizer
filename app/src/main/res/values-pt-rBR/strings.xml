@@ -99,8 +99,11 @@
     <string name="alert_dialog_exit_game_message">Você tem certeza? O seu prgresso será perdido!</string>
     <string name="alert_dialog_exit_game_positive_button_text">Ficar no Jogo</string>
 
-    <!-- Pontuação final perfeita -->
-    <string name="final_perfect_score">Eu acabei de conseguir uma pontuação perfeita no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
+    <!-- String compartilhar pontuação final -->
+    <string name="share_final_score">Eu acertei %d de 48 símbolos no App Hiragana Learner Randomizer. Você consegue igualar ou me superar?</string>
+
+    <!-- String compartilhar pontuação final perfeita -->
+    <string name="share_perfect_final_score">Eu acabei de conseguir uma pontuação perfeita no Hiragana Learner Randomizer! Você consegue repetir o meu feito?</string>
 
     <!-- Título do Intento Create Chooser -->
     <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>

@@ -22,7 +22,7 @@
             android:layout_marginEnd="@dimen/margin_8dp"
             android:backgroundTint="?attr/colorControlNormal"
             android:contentDescription="@string/content_description_image_view_settings_icon"
-            android:onClick="@{() -> gameWelcomeScreen.navigateToSettingsFragment()}"
+            android:onClick="@{() -> gameWelcomeScreen.navigateToSettingsScreen()}"
             android:src="@drawable/ic_baseline_settings_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

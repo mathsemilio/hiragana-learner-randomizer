@@ -120,8 +120,8 @@ class GameScoreScreen : Fragment() {
             putExtra(
                 Intent.EXTRA_TEXT,
                 if (score == PERFECT_SCORE)
-                    getString(R.string.final_perfect_score)
-                else resources.getQuantityString(R.plurals.game_score_plurals, score, score)
+                    getString(R.string.share_perfect_final_score)
+                else getString(R.string.share_final_score)
             )
             type = "text/plain"
         }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="game_score_plurals">
-        <item quantity="one">Eu acertei %d de 48 símbolos no App Hiragana Learner Randomizer. Você consegue bater?</item>
-        <item quantity="other">Eu acertei %d de 48 símbolos no App Hiragana Learner Randomizer. Você consegue igualar ou me superar?</item>
-    </plurals>
-</resources>

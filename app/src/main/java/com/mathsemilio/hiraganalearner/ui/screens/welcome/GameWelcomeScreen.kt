@@ -114,7 +114,7 @@ class GameWelcomeScreen : Fragment() {
         interstitialAd?.run { if (isLoaded) show() else navigateToMainScreen() }
     }
 
-    fun navigateToSettingsFragment() {
+    fun navigateToSettingsScreen() {
         findNavController().navigate(R.id.action_gameWelcomeScreen_to_settingsFragment)
     }
 
