@@ -59,7 +59,7 @@ class GameScoreScreen : Fragment() {
 
         preferencesRepository = PreferencesRepository(requireContext())
 
-        interstitialAd = setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") {
+        interstitialAd = setupAndLoadInterstitialAd(getString(R.string.interstitialAdUnitId)) {
             handleNavigation()
         }
 

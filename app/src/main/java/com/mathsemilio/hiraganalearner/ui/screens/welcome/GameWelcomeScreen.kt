@@ -51,7 +51,7 @@ class GameWelcomeScreen : Fragment() {
         binding.gameWelcomeScreen = this
 
         interstitialAd =
-            setupAndLoadInterstitialAd("ca-app-pub-3940256099942544/1033173712") {
+            setupAndLoadInterstitialAd(getString(R.string.interstitialAdUnitId)) {
                 navigateToMainScreen()
             }
 

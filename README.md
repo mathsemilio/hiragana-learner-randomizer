@@ -15,7 +15,7 @@ Before the game starts, the user selects a difficulty for the game (which can al
 <p>To checkout screenshots, please visit this gallery:</p>
 <p><a href="https://postimg.cc/gallery/2ngdTtG">Hiragana Learner Randomizer Gallery</a></p>
 
-### How can i get it?
+### How can i try it?
 <p>The application is available in the Google Play Store! Be sure to try it out!</p>
 <p><a href="https://play.google.com/store/apps/details?id=com.mathsemilio.hiraganalearner">Play Store - Hiragana Learner Randomizer</a></p>
 
@@ -30,7 +30,6 @@ Programming Language - **Kotlin**
   <li>ViewModel;</li>
   <li>LiveData;</li>
   <li>SafeArgs Gradle Plugin;</li>
-  <li>View Binding;</li>
   <li>Data Binding.</li>
 </ol >
 
@@ -42,5 +41,4 @@ Programming Language - **Kotlin**
 <p><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a></p>
 <p><a href="https://developer.android.com/guide/navigation/navigation-pass-data#Safe-args">SafeArgs</a></p>
-<p><a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a></p>
 <p><a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a></p>
