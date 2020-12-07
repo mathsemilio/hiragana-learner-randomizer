@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.InterstitialAd
@@ -19,17 +18,16 @@ import com.mathsemilio.hiraganalearner.commom.PRIORITY_LOW
 import com.mathsemilio.hiraganalearner.commom.PRIORITY_MEDIUM
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.databinding.GameMainScreenBinding
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.GameEvent
+import com.mathsemilio.hiraganalearner.logic.event.GameEvent
 import com.mathsemilio.hiraganalearner.ui.commom.AlertUserHelper.onCorrectAnswer
 import com.mathsemilio.hiraganalearner.ui.commom.AlertUserHelper.onExitGame
 import com.mathsemilio.hiraganalearner.ui.commom.AlertUserHelper.onGameIsPaused
 import com.mathsemilio.hiraganalearner.ui.commom.AlertUserHelper.onTimeOver
 import com.mathsemilio.hiraganalearner.ui.commom.AlertUserHelper.onWrongAnswer
+import com.mathsemilio.hiraganalearner.ui.commom.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.commom.util.playSFX
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupAndLoadInterstitialAd
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupSoundPool
 
-class GameMainScreen : Fragment() {
+class GameMainScreen : BaseFragment() {
 
     private enum class FragmentState { RUNNING, PAUSED, DIALOG_BEING_SHOWN }
 
@@ -67,23 +65,7 @@ class GameMainScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            mainGameScreen = this@GameMainScreen
-            mainGameViewModel = viewModel
-            lifecycleOwner = this@GameMainScreen
-        }
-
-        interstitialAd = setupAndLoadInterstitialAd(getString(R.string.interstitialAdUnitId)) {
-            navigateToScoreScreen()
-        }
-
-        preferencesRepository = PreferencesRepository(requireContext())
-
-        soundPool = setupSoundPool(maxAudioStreams = 2)
-
-        soundEffectsVolume = preferencesRepository.getSoundEffectsVolume()
-
-        difficultyValue = GameMainScreenArgs.fromBundle(requireArguments()).difficultyValue
+        initialize()
 
         loadSoundEffects()
 
@@ -92,6 +74,25 @@ class GameMainScreen : Fragment() {
         startGame()
 
         observeGameEvents()
+    }
+
+    private fun initialize() {
+        binding.apply {
+            mainGameScreen = this@GameMainScreen
+            mainGameViewModel = viewModel
+            lifecycleOwner = this@GameMainScreen
+        }
+
+        interstitialAd =
+            getCompositionRoot().getInterstitialAd(requireContext()) { navigateToScoreScreen() }
+
+        preferencesRepository = getCompositionRoot().getPreferencesRepository(requireContext())
+
+        soundPool = getCompositionRoot().getSoundPool(maxAudioStreams = 2)
+
+        soundEffectsVolume = preferencesRepository.getSoundEffectsVolume()
+
+        difficultyValue = GameMainScreenArgs.fromBundle(requireArguments()).difficultyValue
     }
 
     private fun attachListeners() {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.chip.Chip
@@ -14,11 +13,10 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.commom.*
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
+import com.mathsemilio.hiraganalearner.ui.commom.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.commom.util.playSFX
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupAndLoadInterstitialAd
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupSoundPool
 
-class GameWelcomeScreen : Fragment() {
+class GameWelcomeScreen : BaseFragment() {
 
     private var _binding: GameWelcomeScreenBinding? = null
     private val binding get() = _binding!!
@@ -48,18 +46,23 @@ class GameWelcomeScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initialize()
+
+        loadSoundEffects()
+    }
+
+    private fun initialize() {
         binding.gameWelcomeScreen = this
 
         interstitialAd =
-            setupAndLoadInterstitialAd(getString(R.string.interstitialAdUnitId)) {
-                navigateToMainScreen()
-            }
+            getCompositionRoot().getInterstitialAd(requireContext()) { navigateToMainScreen() }
 
-        preferencesRepository = PreferencesRepository(requireContext())
+        preferencesRepository = getCompositionRoot().getPreferencesRepository(requireContext())
 
-        soundPool = setupSoundPool(maxAudioStreams = 1)
+        soundPool = getCompositionRoot().getSoundPool(maxAudioStreams = 1)
 
-        soundEffectsVolume = preferencesRepository.getSoundEffectsVolume()
+        soundEffectsVolume =
+            getCompositionRoot().getPreferencesRepository(requireContext()).getSoundEffectsVolume()
 
         defaultDifficultyValue = when (preferencesRepository.getGameDefaultOption()) {
             "0" -> SHOW_DIFFICULTY_OPTIONS
@@ -75,8 +78,6 @@ class GameWelcomeScreen : Fragment() {
                 DEFAULT_DIFFICULTY_HARD -> difficultyValue = GAME_DIFFICULTY_VALUE_HARD
             }
         }
-
-        loadSoundEffects()
     }
 
     private fun loadSoundEffects() {

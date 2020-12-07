@@ -1,23 +1,22 @@
 package com.mathsemilio.hiraganalearner.ui.commom.util
 
+import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
-import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.mathsemilio.hiraganalearner.R
 
-fun Fragment.setupAndLoadInterstitialAd(
-    adUnitId: String,
-    handleOnAdClosedEvent: () -> Unit
+fun setupAndLoadInterstitialAd(
+    context: Context,
+    onAdClosed: () -> Unit
 ): InterstitialAd {
-    return InterstitialAd(requireContext()).apply {
-        setAdUnitId(adUnitId)
-        adListener = (object : AdListener() {
-            override fun onAdClosed() {
-                handleOnAdClosedEvent()
-            }
-        })
+    return InterstitialAd(context).apply {
+        adUnitId = context.getString(R.string.interstitialAdUnitId)
+        adListener = object : AdListener() {
+            override fun onAdClosed() = onAdClosed()
+        }
         loadAd(AdRequest.Builder().build())
     }
 }

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.logic.eventWrapper
+package com.mathsemilio.hiraganalearner.logic.event
 
 sealed class UIRequest {
     data class StartGame(val gameDifficultyValue: Int) : UIRequest()

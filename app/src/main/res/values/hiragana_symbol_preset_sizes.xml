@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="hiragana_symbol_preset_sizes_phone">
+        <item>72sp</item>
+        <item>80sp</item>
+        <item>88sp</item>
+        <item>96sp</item>
+    </array>
+
+    <array name="hiragana_symbol_preset_sizes_tablet">
+        <item>124sp</item>
+        <item>132sp</item>
+    </array>
+</resources>

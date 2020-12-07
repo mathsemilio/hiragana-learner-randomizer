@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.logic.eventWrapper
+package com.mathsemilio.hiraganalearner.logic.event
 
 import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
 

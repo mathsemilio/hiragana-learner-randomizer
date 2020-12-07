@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -17,11 +16,10 @@ import com.mathsemilio.hiraganalearner.commom.PERFECT_SCORE
 import com.mathsemilio.hiraganalearner.commom.PRIORITY_LOW
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.databinding.GameScoreScreenBinding
+import com.mathsemilio.hiraganalearner.ui.commom.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.commom.util.playSFX
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupAndLoadInterstitialAd
-import com.mathsemilio.hiraganalearner.ui.commom.util.setupSoundPool
 
-class GameScoreScreen : Fragment() {
+class GameScoreScreen : BaseFragment() {
 
     private enum class UserAction { GO_TO_MAIN_GAME_SCREEN, GO_TO_WELCOME_SCREEN }
 
@@ -55,15 +53,24 @@ class GameScoreScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initialize()
+
+        setupOnBackPressedCallback()
+
+        loadAdBanner()
+
+        loadSoundEffects()
+    }
+
+    private fun initialize() {
         binding.gameScoreScreen = this
 
-        preferencesRepository = PreferencesRepository(requireContext())
+        interstitialAd =
+            getCompositionRoot().getInterstitialAd(requireContext()) { handleNavigation() }
 
-        interstitialAd = setupAndLoadInterstitialAd(getString(R.string.interstitialAdUnitId)) {
-            handleNavigation()
-        }
+        preferencesRepository = getCompositionRoot().getPreferencesRepository(requireContext())
 
-        soundPool = setupSoundPool(maxAudioStreams = 1)
+        soundPool = getCompositionRoot().getSoundPool(maxAudioStreams = 1)
 
         GameScoreScreenArgs.fromBundle(requireArguments()).let { args ->
             score = args.score
@@ -71,12 +78,6 @@ class GameScoreScreen : Fragment() {
         }
 
         perfectScores = preferencesRepository.getPerfectScoresValue()
-
-        setupOnBackPressedCallback()
-
-        loadAdBanner()
-
-        loadSoundEffects()
     }
 
     private fun setupOnBackPressedCallback() {

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.logic.eventWrapper
+package com.mathsemilio.hiraganalearner.logic.event
 
 sealed class GameEvent {
     object AnswerIsCorrect : GameEvent()

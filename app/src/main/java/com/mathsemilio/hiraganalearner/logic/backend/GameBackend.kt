@@ -2,8 +2,8 @@ package com.mathsemilio.hiraganalearner.logic.backend
 
 import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.commom.*
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.BackendEvent
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.UIRequest
+import com.mathsemilio.hiraganalearner.logic.event.BackendEvent
+import com.mathsemilio.hiraganalearner.logic.event.UIRequest
 import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
 import kotlin.random.Random
 

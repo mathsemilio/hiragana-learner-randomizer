@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.logic.backend.GameBackend
 import com.mathsemilio.hiraganalearner.logic.backend.IBackendObserver
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.BackendEvent
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.GameEvent
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.UIRequest
+import com.mathsemilio.hiraganalearner.logic.event.BackendEvent
+import com.mathsemilio.hiraganalearner.logic.event.GameEvent
+import com.mathsemilio.hiraganalearner.logic.event.UIRequest
 
 class MainGameViewModel : ViewModel(), IBackendObserver {
 

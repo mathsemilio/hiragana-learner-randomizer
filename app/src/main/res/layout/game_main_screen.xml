@@ -124,12 +124,13 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_headline_current_hiragana_letter"
-                style="@style/TextAppearance.MaterialComponents.Headline1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:gravity="center"
                 android:text="@{mainGameViewModel.currentHiraganaSymbol}"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/game_timer_progress_bar"
+                app:autoSizePresetSizes="@array/hiragana_symbol_preset_sizes_phone"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="@id/game_timer_progress_bar"
                 app:layout_constraintEnd_toEndOf="@+id/game_timer_progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/game_timer_progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/game_timer_progress_bar"

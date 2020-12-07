@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.logic.backend
 
-import com.mathsemilio.hiraganalearner.logic.eventWrapper.BackendEvent
+import com.mathsemilio.hiraganalearner.logic.event.BackendEvent
 
 interface IObserverContract {
     fun registerObserver(IBackendObserver: IBackendObserver)
