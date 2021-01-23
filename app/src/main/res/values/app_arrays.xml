@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="app_theme_array">
+        <item>@string/app_theme_dialog_option_light_theme</item>
+        <item>@string/app_theme_dialog_option_dark_theme</item>
+        <item>@string/app_theme_dialog_option_follow_system</item>
+    </array>
+
+    <array name="app_theme_array_sdk_version_below_q">
+        <item>@string/app_theme_dialog_option_light_theme</item>
+        <item>@string/app_theme_dialog_option_dark_theme</item>
+    </array>
+
+    <string-array name="difficulty_value_entries">
+        <item>@string/difficulty_entry_default</item>
+        <item>@string/difficulty_entry_beginner</item>
+        <item>@string/difficulty_entry_medium</item>
+        <item>@string/difficulty_entry_hard</item>
+    </string-array>
+
+    <string-array name="difficulty_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <array name="hiragana_symbol_preset_sizes_phone">
+        <item>72sp</item>
+        <item>80sp</item>
+        <item>88sp</item>
+        <item>96sp</item>
+    </array>
+
+    <array name="hiragana_symbol_preset_sizes_tablet">
+        <item>124sp</item>
+        <item>132sp</item>
+    </array>
+
+</resources>
