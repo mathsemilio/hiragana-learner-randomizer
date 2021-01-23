@@ -14,12 +14,12 @@ import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUserCaseEventListener
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCaseEventListener
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.ViewModelEventListener
 
 class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEventListener,
-    AlertUserUserCaseEventListener {
+    AlertUserUseCaseEventListener {
 
     companion object {
         fun newInstance(difficultyValue: Int): GameMainScreen {

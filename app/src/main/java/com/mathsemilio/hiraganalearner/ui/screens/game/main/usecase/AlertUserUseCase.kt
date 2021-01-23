@@ -7,7 +7,7 @@ import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservable
 
 class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
-    BaseObservable<AlertUserUserCaseEventListener>() {
+    BaseObservable<AlertUserUseCaseEventListener>() {
 
     private val mDialogHelper = DialogHelper(context, fragmentManager)
 
