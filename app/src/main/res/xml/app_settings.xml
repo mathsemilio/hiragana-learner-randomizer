@@ -31,13 +31,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/preference_category_title_game_sound">
-
-        <CheckBoxPreference
-            app:defaultValue="true"
-            app:icon="@drawable/ic_outline_record_voice_over_24"
-            app:key="hiragana_sounds"
-            app:title="@string/preference_title_play_hiragana_sounds" />
-
+        
         <SeekBarPreference
             android:max="10"
             app:defaultValue="5"

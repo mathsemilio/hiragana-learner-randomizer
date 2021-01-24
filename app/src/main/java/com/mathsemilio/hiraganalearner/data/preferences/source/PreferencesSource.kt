@@ -47,10 +47,6 @@ class PreferencesSource(context: Context) {
         return mDefaultSharedPreferences.getInt(PERFECT_SCORES_KEY, 0)
     }
 
-    fun getIsHiraganaSoundsOnValue(): Boolean {
-        return mDefaultSharedPreferences.getBoolean(HIRAGANA_SOUNDS_PREFERENCE_KEY, true)
-    }
-
     fun getSoundEffectsVolume(): Float {
         return mDefaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0)
             .toFloat().div(10F)

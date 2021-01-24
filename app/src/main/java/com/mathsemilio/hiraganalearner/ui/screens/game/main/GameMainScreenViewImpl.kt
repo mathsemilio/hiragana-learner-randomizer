@@ -35,10 +35,10 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
         initializeViews()
     }
 
-    override fun onControllerViewCreated(difficultyValue: Int, isHiraganaSoundsOn: Boolean) {
+    override fun onControllerViewCreated(difficultyValue: Int) {
         setGameDifficultyTextBasedOnDifficultyValue(difficultyValue)
         setupGameTimerProgressBarMax(difficultyValue)
-        attachRomanizationOptionsChipGroupOnCheckChangedListener(isHiraganaSoundsOn)
+        attachRomanizationOptionsChipGroupOnCheckChangedListener()
         attachClickListeners()
     }
 
@@ -103,15 +103,15 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
         }
     }
 
-    private fun attachRomanizationOptionsChipGroupOnCheckChangedListener(isHiraganaSoundsOn: Boolean) {
+    private fun attachRomanizationOptionsChipGroupOnCheckChangedListener() {
         mChipGroupRomanizationOptions.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == -1)
                 mButtonCheckAnswer.isEnabled = false
             else {
+                playClickSoundEffect()
                 mButtonCheckAnswer.isEnabled = true
                 val checkedChip = group.findViewById<Chip>(checkedId)
                 mSelectedRomanization = checkedChip.text.toString()
-                playHiraganaSymbolSoundEffect(isHiraganaSoundsOn, mSelectedRomanization)
             }
         }
     }
@@ -122,14 +122,8 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
         mButtonCheckAnswer.setOnClickListener { checkAnswerButtonClicked(mSelectedRomanization) }
     }
 
-    private fun playHiraganaSymbolSoundEffect(
-        isHiraganaSoundsOn: Boolean,
-        selectedRomanization: String
-    ) = getListeners().forEach {
-        it.onPlayHiraganaSymbolSoundEffect(
-            isHiraganaSoundsOn, selectedRomanization
-        )
-    }
+    private fun playClickSoundEffect() =
+        getListeners().forEach { it.playClickSoundEffect() }
 
     private fun exitGameButtonClicked() =
         getListeners().forEach { it.onExitButtonClicked() }

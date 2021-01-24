@@ -5,7 +5,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.TrainingNotificationHelper
-import com.mathsemilio.hiraganalearner.others.soundeffects.HiraganaSoundsModule
 import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.*
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
@@ -34,10 +33,6 @@ class ControllerCompositionRoot(
 
     fun getSoundEffectsModule(volume: Float): SoundEffectsModule {
         return mCompositionRoot.getSoundEffectsModule(mFragment.requireContext(), volume)
-    }
-
-    fun getHiraganaSoundsModule(volume: Float): HiraganaSoundsModule {
-        return HiraganaSoundsModule(mFragment.requireContext(), volume)
     }
 
     fun getScreensNavigator(): ScreensNavigator {

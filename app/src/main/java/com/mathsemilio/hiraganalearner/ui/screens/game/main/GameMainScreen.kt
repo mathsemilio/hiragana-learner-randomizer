@@ -8,7 +8,6 @@ import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.PERFECT_SCORE
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
-import com.mathsemilio.hiraganalearner.others.soundeffects.HiraganaSoundsModule
 import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
@@ -34,7 +33,6 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
     private lateinit var mViewModel: GameMainScreenViewModel
 
     private lateinit var mPreferencesRepository: PreferencesRepository
-    private lateinit var mHiraganaSoundsModule: HiraganaSoundsModule
     private lateinit var mSoundEffectsModule: SoundEffectsModule
     private lateinit var mScreensNavigator: ScreensNavigator
     private lateinit var mAlertUserUseCase: AlertUserUseCase
@@ -57,12 +55,7 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
 
         initialize()
 
-        initializeHiraganaSoundsModule()
-
-        mView.onControllerViewCreated(
-            mDifficultyValue,
-            mPreferencesRepository.getIsHiraganaSoundsOnValue()
-        )
+        mView.onControllerViewCreated(mDifficultyValue)
 
         registerListeners()
 
@@ -89,15 +82,6 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
         getCompositionRoot().getBackPressedDispatcher { onExitButtonClicked() }
     }
 
-    private fun initializeHiraganaSoundsModule() {
-        mPreferencesRepository.apply {
-            if (getIsHiraganaSoundsOnValue())
-                mHiraganaSoundsModule = getCompositionRoot().getHiraganaSoundsModule(
-                    getSoundEffectsVolume()
-                )
-        }
-    }
-
     private fun registerListeners() {
         mView.registerListener(this)
         mViewModel.registerListener(this)
@@ -121,14 +105,8 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
             mViewModel.getNextSymbol()
     }
 
-    override fun onPlayHiraganaSymbolSoundEffect(
-        isHiraganaSoundsOn: Boolean,
-        selectedRomanization: String
-    ) {
-        if (!isHiraganaSoundsOn)
-            mSoundEffectsModule.playClickSoundEffect()
-        else
-            mHiraganaSoundsModule.playHiraganaSymbolSoundEffect(selectedRomanization)
+    override fun playClickSoundEffect() {
+        mSoundEffectsModule.playClickSoundEffect()
     }
 
     override fun onExitButtonClicked() {

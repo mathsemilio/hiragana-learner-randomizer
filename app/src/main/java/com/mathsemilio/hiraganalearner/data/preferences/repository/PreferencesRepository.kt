@@ -27,8 +27,6 @@ class PreferencesRepository(context: Context) {
 
     fun getPerfectScoresValue() = mPreferencesSource.getPerfectScoresValue()
 
-    fun getIsHiraganaSoundsOnValue() = mPreferencesSource.getIsHiraganaSoundsOnValue()
-
     fun getSoundEffectsVolume() = mPreferencesSource.getSoundEffectsVolume()
 
     fun getAppThemeValue() = mPreferencesSource.getAppThemeValue()

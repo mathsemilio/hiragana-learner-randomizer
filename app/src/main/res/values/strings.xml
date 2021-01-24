@@ -45,7 +45,6 @@
     <string name="preference_title_training_notification_checked">Disable training remainder</string>
     <string name="preference_title_default_game_difficulty">Default game difficulty</string>
     <string name="preference_title_clear_perfect_scores">Clear perfect scores</string>
-    <string name="preference_title_play_hiragana_sounds">Play Hiragana sounds</string>
     <string name="preference_title_sound_effects_volume">Sound effects volume</string>
     <string name="preference_title_app_theme">Application theme</string>
     <string name="preference_title_app_build_version">App version</string>
