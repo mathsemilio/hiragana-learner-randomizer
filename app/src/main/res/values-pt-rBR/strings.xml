@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- String do Título da Toolbar-->
+    <string name="settings_toolbar_title">Configurações</string>
+
+    <!-- Strings dos Descritores de Contéudo -->
+    <string name="content_description_app_settings">Configuraões da Aplicação</string>
+    <string name="content_description_start_button">Iniciar Jogo</string>
+    <string name="content_description_fab_exit_game">Sair do Jogo</string>
+    <string name="content_description_fab_pause_game">Pausar Jogo</string>
+    <string name="content_description_fab_verify_answer">Verificar Resposta</string>
+    <string name="content_description_button_home">Navegar para a Tela Inicial</string>
+    <string name="content_description_button_play_again">Jogar Novamente</string>
+    <string name="content_description_button_share">Compartilhar a Pontuação Final</string>
+
+    <!-- Strings da tela inicial -->
+    <string name="hiragana_letters_and_romanizations">Pronto para Associar os Símbolos do Hiragana com suas Romanizações?</string>
+    <string name="on_game_difficulty">Na dificuldade %s!</string>
+    <string name="select_a_difficulty">Primeiro, selecione uma dificuldade:</string>
+    <string name="game_difficulty_beginner">Iniciante</string>
+    <string name="game_difficulty_medium">Médio</string>
+    <string name="game_difficulty_hard">Difícil</string>
+    <string name="start">Iniciar</string>
+
+    <!-- Strings da tela principal -->
+    <string name="this_letter_corresponds_to_which_romaji">Este símbolo corresponde a qual Rōmaji Hepburn?</string>
+    <string name="game_score">Pontuação: %d</string>
+
+    <!-- Strings da tela de resultado -->
+    <string name="you_made_it">Você Terminou!</string>
+    <string name="you_got_one_symbol_correctly">Você acertou %d símbolo!</string>
+    <string name="you_got_symbol_correctly">Você acertou %d símbolos!</string>
+    <string name="you_got_all_symbols_correctly">Você acertou todos os símbolos! Parabéns!</string>
+    <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
+    <string name="game_difficulty_score_screen">Dificuldade</string>
+
+    <!-- Strings da tela de configurações -->
+    <string name="preference_category_title_notification">Lembrete de Treino</string>
+    <string name="preference_category_title_game_options">Opções do Jogo</string>
+    <string name="preference_category_title_game_sound">Sons da Aplicação</string>
+    <string name="preference_category_title_app_theme">Tema da Aplicação</string>
+    <string name="preference_title_app_info">Infor. da App</string>
+    <string name="preference_title_training_notification_unchecked">Lembre-me de treinar mais tarde</string>
+    <string name="preference_title_training_notification_checked">Desativar lembrete</string>
+    <string name="preference_title_default_game_difficulty">Dificuldade Padrão</string>
+    <string name="preference_title_clear_perfect_scores">Limpar pontuçãoes perfeitas</string>
+    <string name="preference_title_sound_effects_volume">Volume dos Efeitos Sonoros</string>
+    <string name="preference_title_app_theme">Tema da Aplicação</string>
+    <string name="preference_title_app_build_version">Versão da Aplicação</string>
+    <string name="preference_summary_on_training_notification">Lembrete configurado para %s</string>
+    <string name="preference_summary_clear_perfect_scores">Pontuações perfeitas alcançadas: %d</string>
+    <string name="preference_summary_app_theme">Mudar o tema da aplicação</string>
+    <string name="preference_dialog_title_default_game_difficulty">Selecione uma opção abaixo:</string>
+    <string name="difficulty_entry_default">Escolher toda vez antes de iniciar o jogo</string>
+    <string name="preference_notification_set_toast_message">Pronto! Lembrete configurado!</string>
+    <string name="preference_notification_time_in_future_toast_message">Horário invalido! Selecione um horário para o dia de hoje.</string>
+    <string name="clear_perfect_score_dialog_title">Você tem certeza?</string>
+    <string name="clear_perfect_score_dialog_message">Esta ação não pode ser desfeita.</string>
+    <string name="clear_perfect_score_dialog_positive_button_text">Limpar</string>
+
+    <!-- Strings da Notificação de Treino -->
+    <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
+    <string name="training_notification_content_text">Toque aqui para começar.</string>
+    <string name="training_notification_channel_name">Lembrete de treino do Hiragana Learner</string>
+    <string name="training_notification_channel_description">Lembrete de Treino de Hiragana</string>
+
+    <!-- Strings do Diálogo de Tema da Aplicação -->
+    <string name="app_theme_dialog_option_follow_system">Seguir configurações do Sistema</string>
+    <string name="app_theme_dialog_option_dark_theme">Tema Escuro</string>
+    <string name="app_theme_dialog_option_light_theme">Tema Claro</string>
+    <string name="app_theme_dialog_title">Selecione uma opção abaixo:</string>
+
+    <!-- Strings Comuns de Diálogos -->
+    <string name="alert_dialog_continue_button_text">Continuar</string>
+    <string name="alert_dialog_cancel_button_text">Cancelar</string>
+    <string name="alert_dialog_exit_button_text">Sair</string>
+
+    <!-- Strings do Diálogo de Resposta Correta -->
+    <string name="alert_dialog_correct_answer_title">Resposta Correta!</string>
+    <string name="alert_dialog_correct_answer_message">Muito bem! Continue Praticando!</string>
+
+    <!-- Strings do Diálogo de Resposta Incorreta -->
+    <string name="alert_dialog_wrong_answer_title">Resposta Incorreta!</string>
+    <string name="alert_dialog_wrong_answer_message">O rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
+
+    <!-- Strings do Diálogo Tempo Acabou -->
+    <string name="alert_dialog_time_over_title">O Tempo acabou!</string>
+    <string name="alert_dialog_time_over_message">O rōmaji correto para aquele símbolo era: \"%1$s\". Continue Praticando!</string>
+
+    <!-- Strings do Diálogo Jogo Pausado -->
+    <string name="alert_dialog_game_paused_title">Jogo Pausado</string>
+    <string name="alert_dialog_game_paused_message">O jogo está pausado.</string>
+    <string name="alert_dialog_game_paused_positive_button_text">Continuar</string>
+
+    <!-- Strings do Diálogo Sair do Jogo -->
+    <string name="alert_dialog_exit_game_title">Sair do Jogo</string>
+    <string name="alert_dialog_exit_game_message">Você tem certeza? O seu progresso será perdido!</string>
+    <string name="alert_dialog_exit_game_positive_button_text">Ficar no Jogo</string>
+
+    <!-- Strings Compartilhar Pontuação -->
+    <string name="share_final_score">Eu acertei %d de 46 símbolos no app Hiragana Learner Randomizer! Você consegue superar minha pontuação?</string>
+    <string name="share_perfect_final_score">Eu consegui uma pontuação perfeita no app Hiragana Learner! Será que você consegue repetir o meu feito?</string>
+
+    <!-- String do Intent Create Chooser Compartilhar Pontuação -->
+    <string name="game_score_create_chooser_title">Compartilhe sua pontuação!</string>
+
+</resources>

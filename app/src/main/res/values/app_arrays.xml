@@ -14,9 +14,9 @@
 
     <string-array name="difficulty_value_entries">
         <item>@string/difficulty_entry_default</item>
-        <item>@string/difficulty_entry_beginner</item>
-        <item>@string/difficulty_entry_medium</item>
-        <item>@string/difficulty_entry_hard</item>
+        <item>@string/game_difficulty_beginner</item>
+        <item>@string/game_difficulty_medium</item>
+        <item>@string/game_difficulty_hard</item>
     </string-array>
 
     <string-array name="difficulty_entry_values">

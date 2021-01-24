@@ -89,7 +89,7 @@ class DialogHelper(private val context: Context, private val fragmentManager: Fr
                 getString(R.string.clear_perfect_score_dialog_title),
                 getString(R.string.clear_perfect_score_dialog_message),
                 getString(R.string.clear_perfect_score_dialog_positive_button_text),
-                getString(R.string.clear_perfect_score_dialog_negative_button_text),
+                getString(R.string.alert_dialog_cancel_button_text),
                 isCancelable = true,
                 positiveButtonListener = { _, _ -> onPositiveButtonClicked() },
                 negativeButtonListener = null
