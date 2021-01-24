@@ -1,8 +1,7 @@
 package com.mathsemilio.hiraganalearner.others
 
-import com.mathsemilio.hiraganalearner.data.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 
-// List of Hiragana Symbols and their associated Hepburn romanization
 val hiraganaSymbolsList: List<HiraganaSymbol> = listOf(
     HiraganaSymbol(symbol = "あ", romanization = "A"),
     HiraganaSymbol(symbol = "い", romanization = "I"),
@@ -57,8 +56,6 @@ val hiraganaSymbolsList: List<HiraganaSymbol> = listOf(
     HiraganaSymbol(symbol = "ろ", romanization = "RO"),
 
     HiraganaSymbol(symbol = "わ", romanization = "WA"),
-    HiraganaSymbol(symbol = "ゐ", romanization = "WI"),
-    HiraganaSymbol(symbol = "ゑ", romanization = "WE"),
     HiraganaSymbol(symbol = "を", romanization = "WO"),
 
     HiraganaSymbol(symbol = "ん", romanization = "N")

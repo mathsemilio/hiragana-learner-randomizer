@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#e57373</color>
-    <color name="colorPrimaryDark">#121212</color>
-    <color name="colorFabIconTint">@android:color/black</color>
-    <color name="colorSplashScreenStatusBar">@color/colorPrimaryDark</color>
-    <color name="colorSplashScreenLogo">@android:color/white</color>
-</resources>

@@ -1,11 +1,41 @@
 <resources>
-    <!-- App name -->
     <string name="app_name" translatable="false">Hiragana Randomizer</string>
 
-    <!-- Settings toolbar title -->
+    <!-- Toolbar title strings -->
     <string name="settings_toolbar_title">Settings</string>
 
-    <!-- Settings fragment strings -->
+    <!-- Content Descriptions strings -->
+    <string name="content_description_app_settings">App Settings</string>
+    <string name="content_description_start_button">Start Game</string>
+    <string name="content_description_fab_exit_game">Exit Game</string>
+    <string name="content_description_fab_pause_game">Pause Game</string>
+    <string name="content_description_fab_verify_answer">Verify Answer</string>
+    <string name="content_description_button_home">Navigate to the Home Screen</string>
+    <string name="content_description_button_play_again">Play the Game Again</string>
+    <string name="content_description_button_share">Share the Final Score</string>
+
+    <!-- Game Welcome Screen strings -->
+    <string name="hiragana_letters_and_romanizations">Ready to associate the Hiragana symbols with their Romanizations?</string>
+    <string name="on_game_difficulty">On %s difficulty!</string>
+    <string name="select_a_difficulty">First, select a difficulty:</string>
+    <string name="game_difficulty_beginner">Beginner</string>
+    <string name="game_difficulty_medium">Medium</string>
+    <string name="game_difficulty_hard">Hard</string>
+    <string name="start">Start</string>
+
+    <!-- Game Main Screen strings -->
+    <string name="this_letter_corresponds_to_which_romaji">This symbol corresponds to which Hepburn Rōmaji?</string>
+    <string name="game_score">Score: %d</string>
+
+    <!-- Game Result Screen -->
+    <string name="you_made_it">You made it!</string>
+    <string name="you_got_one_symbol_correctly">You got %d symbol correctly!</string>
+    <string name="you_got_symbol_correctly">You got %d symbols correctly!</string>
+    <string name="you_got_all_symbols_correctly">You got all symbols correctly! Congratulations!</string>
+    <string name="perfect_scores_score_screen">Perfect Scores</string>
+    <string name="game_difficulty_score_screen">Game Difficulty</string>
+
+    <!-- Settings Screen strings -->
     <string name="preference_category_title_notification">Training Reminder</string>
     <string name="preference_category_title_game_options">Game options</string>
     <string name="preference_category_title_game_sound">App sounds</string>
@@ -23,15 +53,11 @@
     <string name="preference_summary_app_theme">Change the application\'s theme</string>
     <string name="preference_dialog_title_default_game_difficulty">Select a option below:</string>
     <string name="difficulty_entry_default">Choose every time before starting the game</string>
-    <string name="difficulty_entry_beginner">Beginner</string>
-    <string name="difficulty_entry_medium">Medium</string>
-    <string name="difficulty_entry_hard">Hard</string>
     <string name="preference_notification_set_toast_message">Done! Remainder set!</string>
     <string name="preference_notification_time_in_future_toast_message">Invalid time! Please select a time for current day.</string>
     <string name="clear_perfect_score_dialog_title">Are you sure?</string>
     <string name="clear_perfect_score_dialog_message">This action cannot be undone.</string>
     <string name="clear_perfect_score_dialog_positive_button_text">Clear</string>
-    <string name="clear_perfect_score_dialog_negative_button_text">Cancel</string>
 
     <!-- Training Notifications strings -->
     <string name="training_notification_content_title">Time to train your Hiragana!</string>
@@ -39,36 +65,7 @@
     <string name="training_notification_channel_name">Hiragana Learner training remainder</string>
     <string name="training_notification_channel_description">Hiragana Training Remainder</string>
 
-    <!-- Game Welcome Screen -->
-    <string name="get_ready_to_associate">Get ready to associate…</string>
-    <string name="hiragana_letters_and_romanizations">The Hiragana symbols with their Romanizations.</string>
-    <string name="on_game_difficulty">On %s difficulty!</string>
-    <string name="select_a_difficulty_level">Select a difficulty level:</string>
-    <string name="game_difficulty_beginner">Beginner</string>
-    <string name="game_difficulty_medium">Medium</string>
-    <string name="game_difficulty_hard">Hard</string>
-    <string name="start">Start</string>
-    <string name="content_description_image_view_settings_icon">Application Configuration icon</string>
-    <string name="content_description_button_for_starting_the_game">Button for starting the game</string>
-
-    <!-- Main game screen strings -->
-    <string name="content_description_button_for_exiting_the_game">Button for exiting the game</string>
-    <string name="content_description_button_for_pausing_game">Button for pausing the game</string>
-    <string name="content_description_button_for_verifying_answer">Button for verifying answer</string>
-    <string name="this_letter_corresponds_to_which_romaji">This symbol corresponds to which Hepburn Rōmaji?</string>
-    <string name="game_score">Score: %d</string>
-
-    <!-- Score screen strings -->
-    <string name="content_description_grade_star">Grade star</string>
-    <string name="content_description_button_for_navigating_to_the_home_screen">Button for navigating to the home screen</string>
-    <string name="content_description_button_for_playing_again">Button for playing the game again</string>
-    <string name="content_description_button_for_sharing_score">Button for sharing the final score</string>
-    <string name="perfect_score">Perfect score!</string>
-    <string name="perfect_scores_score_screen">Perfect Scores</string>
-    <string name="game_difficulty_score_screen">Game Difficulty</string>
-    <string name="final_score">Final Score</string>
-
-    <!-- App theme dialog strings -->
+    <!-- App Theme Dialog strings -->
     <string name="app_theme_dialog_option_follow_system">Follow System\'s settings</string>
     <string name="app_theme_dialog_option_dark_theme">Dark theme</string>
     <string name="app_theme_dialog_option_light_theme">Light theme</string>
@@ -101,15 +98,11 @@
     <string name="alert_dialog_exit_game_message">Are you sure? Your progress will be lost!</string>
     <string name="alert_dialog_exit_game_positive_button_text">Stay in the Game</string>
 
-    <!-- Share final score string -->
-    <string name="share_final_score">I got %d out of 48 symbols on the Hiragana Learner Randomizer app. Can you beat my score?</string>
-
-    <!-- Share perfect final score string -->
+    <!-- Share final score strings -->
+    <string name="share_final_score">I got %d out of 46 symbols on the Hiragana Learner Randomizer app. Can you beat my score?</string>
     <string name="share_perfect_final_score">I just got a perfect score on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
 
-    <!-- Intent Create Chooser title -->
+    <!-- Share Game Score Intent Create Chooser title string -->
     <string name="game_score_create_chooser_title">Share your game score!</string>
-
-    <string name="interstitialAdUnitId" translatable="false">ca-app-pub-5242007423595790/3244661193</string>
 
 </resources>

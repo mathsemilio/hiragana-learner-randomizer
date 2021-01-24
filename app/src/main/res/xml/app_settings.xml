@@ -6,7 +6,7 @@
     <PreferenceCategory android:title="@string/preference_category_title_notification">
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_baseline_add_alert_24"
+            app:icon="@drawable/ic_outline_add_alert_24"
             app:key="training_notification"
             app:title="@string/preference_title_training_notification_unchecked" />
 
@@ -18,12 +18,12 @@
             app:dialogTitle="@string/preference_dialog_title_default_game_difficulty"
             app:entries="@array/difficulty_value_entries"
             app:entryValues="@array/difficulty_entry_values"
-            app:icon="@drawable/ic_baseline_videogame_asset_24"
+            app:icon="@drawable/ic_outline_videogame_asset_24"
             app:key="game_difficulty"
             app:title="@string/preference_title_default_game_difficulty" />
 
         <Preference
-            app:icon="@drawable/ic_baseline_delete_forever_24"
+            app:icon="@drawable/ic_outline_score_24"
             app:key="clear_perfect_scores"
             app:title="@string/preference_title_clear_perfect_scores"
             tools:summary="Perfect scores achieved: 6" />
@@ -35,7 +35,7 @@
         <SeekBarPreference
             android:max="10"
             app:defaultValue="5"
-            app:icon="@drawable/ic_baseline_volume_up_24"
+            app:icon="@drawable/ic_outline_volume_up_24"
             app:key="sound_effects"
             app:showSeekBarValue="true"
             app:title="@string/preference_title_sound_effects_volume" />
@@ -45,7 +45,7 @@
     <PreferenceCategory app:title="@string/preference_category_title_app_theme">
 
         <Preference
-            app:icon="@drawable/ic_baseline_brightness_medium_24"
+            app:icon="@drawable/ic_outline_dark_mode_24"
             app:key="app_theme"
             app:summary="@string/preference_summary_app_theme"
             app:title="@string/preference_title_app_theme" />
@@ -55,7 +55,7 @@
     <PreferenceCategory android:title="@string/preference_title_app_info">
 
         <Preference
-            app:icon="@drawable/ic_baseline_info_24"
+            app:icon="@drawable/ic_outline_info_24"
             app:key="app_build"
             app:title="@string/preference_title_app_build_version" />
 
