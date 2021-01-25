@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.result
 
-interface IGameResultScreenView {
+interface GameResultScreenView {
     interface Listener {
         fun onHomeButtonClicked()
         fun onPlayAgainClicked(difficultyValue: Int)

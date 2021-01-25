@@ -4,7 +4,6 @@ import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservable
 import kotlin.random.Random
 
 class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEventListener {
@@ -24,17 +23,17 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
     private var mFourthRomanizationGroupString = ""
 
     private fun startGame(difficultyValue: Int) {
-        mDifficultyCountDownTime = getCountDownTimeBasedOnDifficultyValue(difficultyValue)
+        mDifficultyCountDownTime = getCountdownTimeBasedOnDifficultyValue(difficultyValue)
 
         mHiraganaSymbolList.shuffle()
 
-        onGameScoreUpdated(mScore)
-        onSymbolUpdated(mHiraganaSymbolList.first())
+        gameScoreUpdated(mScore)
+        symbolUpdated(mHiraganaSymbolList.first())
         generateRomanizationGroup()
         startTimer(mDifficultyCountDownTime)
     }
 
-    private fun getCountDownTimeBasedOnDifficultyValue(difficultyValue: Int): Long {
+    private fun getCountdownTimeBasedOnDifficultyValue(difficultyValue: Int): Long {
         return when (difficultyValue) {
             GAME_DIFFICULTY_VALUE_BEGINNER -> COUNTDOWN_TIME_BEGINNER
             GAME_DIFFICULTY_VALUE_MEDIUM -> COUNTDOWN_TIME_MEDIUM
@@ -43,11 +42,11 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
         }
     }
 
-    private fun startTimer(difficultyCountDownTimer: Long) {
-        mCountDownTimer = object : CountDownTimer(difficultyCountDownTimer, ONE_SECOND) {
+    private fun startTimer(difficultyCountdownTime: Long) {
+        mCountDownTimer = object : CountDownTimer(difficultyCountdownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 mCurrentCountDownTime = (millisUntilFinished / 1000).also {
-                    onCountDownTimerUpdated(it.toInt())
+                    countDownTimeUpdated(it.toInt())
                 }
             }
 
@@ -59,29 +58,29 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
         mCountDownTimer.start()
     }
 
-    private fun cancelTimer() = mCountDownTimer.cancel()
+    private fun pauseTimer() = mCountDownTimer.cancel()
 
-    private fun resumeTimer() = startTimer(mCurrentCountDownTime.times(ONE_SECOND))
+    private fun resumeTimer() = startTimer(mCurrentCountDownTime.times(1000L))
 
     private fun checkAnswer(selectedRomanization: String) {
-        cancelTimer()
+        pauseTimer()
 
         if (mHiraganaSymbolList.first().romanization == selectedRomanization) {
-            onGameScoreUpdated(++mScore)
-            onCorrectAnswer()
+            gameScoreUpdated(mScore.inc())
+            correctAnswer()
         } else
-            onWrongAnswer()
+            wrongAnswer()
     }
 
     private fun getNextSymbol() {
-        onGameProgressUpdated(++mProgress)
+        gameProgressUpdated(mProgress.inc())
         mHiraganaSymbolList.removeAt(0)
-        onSymbolUpdated(mHiraganaSymbolList.first())
+        symbolUpdated(mHiraganaSymbolList.first())
 
         if (mHiraganaSymbolList.size == 1) {
             generateRomanizationGroup()
             startTimer(mDifficultyCountDownTime)
-            onGameFinished()
+            gameFinished()
         } else {
             generateRomanizationGroup()
             startTimer(mDifficultyCountDownTime)
@@ -106,7 +105,7 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
 
         setCorrectRomanizationAnswer()
 
-        onRomanizationGroupUpdated(
+        romanizationGroupUpdated(
             listOf(
                 mFirstRomanizationGroupString,
                 mSecondRomanizationGroupString,
@@ -138,37 +137,46 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
     }
 
     override fun onPauseGameTimerRequested() {
-        cancelTimer()
+        pauseTimer()
     }
 
     override fun onResumeGameTimerRequested() {
         resumeTimer()
     }
 
-    private fun onSymbolUpdated(symbol: HiraganaSymbol) =
+    private fun symbolUpdated(symbol: HiraganaSymbol) {
         getListeners().forEach { it.onSymbolUpdated(symbol) }
+    }
 
-    private fun onCountDownTimerUpdated(countDownTime: Int) =
+    private fun countDownTimeUpdated(countDownTime: Int) {
         getListeners().forEach { it.onGameCountdownTimeUpdated(countDownTime) }
+    }
 
-    private fun onCorrectAnswer() =
+    private fun correctAnswer() {
         getListeners().forEach { it.onCorrectAnswer() }
+    }
 
-    private fun onWrongAnswer() =
+    private fun wrongAnswer() {
         getListeners().forEach { it.onWrongAnswer() }
+    }
 
-    private fun onGameTimeOver() =
+    private fun onGameTimeOver() {
         getListeners().forEach { it.onGameTimeOver() }
+    }
 
-    private fun onGameFinished() =
+    private fun gameFinished() {
         getListeners().forEach { it.onGameFinished() }
+    }
 
-    private fun onGameScoreUpdated(score: Int) =
+    private fun gameScoreUpdated(score: Int) {
         getListeners().forEach { it.onGameScoreUpdated(score) }
+    }
 
-    private fun onGameProgressUpdated(progress: Int) =
+    private fun gameProgressUpdated(progress: Int) {
         getListeners().forEach { it.onGameProgressUpdated(progress) }
+    }
 
-    private fun onRomanizationGroupUpdated(romanizationGroupList: List<String>) =
+    private fun romanizationGroupUpdated(romanizationGroupList: List<String>) {
         getListeners().forEach { it.onRomanizationGroupUpdated(romanizationGroupList) }
+    }
 }

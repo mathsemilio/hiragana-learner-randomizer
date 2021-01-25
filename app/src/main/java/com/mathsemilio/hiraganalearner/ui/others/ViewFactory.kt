@@ -6,14 +6,14 @@ import com.mathsemilio.hiraganalearner.ui.screens.game.main.GameMainScreenViewIm
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.GameResultScreenViewImpl
 import com.mathsemilio.hiraganalearner.ui.screens.game.welcome.GameWelcomeScreenViewImpl
 
-class ViewFactory(private val mInflater: LayoutInflater) {
+class ViewFactory(private val inflater: LayoutInflater) {
 
     fun getGameWelcomeScreenView(container: ViewGroup?) =
-        GameWelcomeScreenViewImpl(mInflater, container)
+        GameWelcomeScreenViewImpl(inflater, container)
 
     fun getGameMainScreenView(container: ViewGroup?) =
-        GameMainScreenViewImpl(mInflater, container)
+        GameMainScreenViewImpl(inflater, container)
 
     fun getGameResultScreenView(container: ViewGroup?) =
-        GameResultScreenViewImpl(mInflater, container)
+        GameResultScreenViewImpl(inflater, container)
 }

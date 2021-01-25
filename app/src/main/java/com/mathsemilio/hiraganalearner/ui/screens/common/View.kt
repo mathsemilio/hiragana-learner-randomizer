@@ -2,6 +2,6 @@ package com.mathsemilio.hiraganalearner.ui.screens.common
 
 import android.view.View
 
-interface IView {
+interface View {
     fun getRootView(): View
 }

@@ -4,7 +4,7 @@ import com.mathsemilio.hiraganalearner.ui.screens.game.main.ControllerState
 
 interface AlertUserUseCaseEventListener {
     fun onPauseGameTimer()
-    fun onControllerStateChanged(newState: ControllerState)
+    fun onControllerStateChanged(newControllerState: ControllerState)
     fun onPlayButtonClickSoundEffect()
     fun onPlaySuccessSoundEffect()
     fun onPlayErrorSoundEffect()

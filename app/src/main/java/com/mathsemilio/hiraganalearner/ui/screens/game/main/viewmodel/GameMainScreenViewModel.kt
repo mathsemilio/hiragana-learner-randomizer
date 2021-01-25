@@ -1,10 +1,10 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel
 
+import com.mathsemilio.hiraganalearner.common.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.game.backend.BackendEventListener
 import com.mathsemilio.hiraganalearner.game.backend.GameBackend
 import com.mathsemilio.hiraganalearner.game.backend.ViewModelRequestEventListener
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservable
 
 class GameMainScreenViewModel : BaseObservable<ViewModelEventListener>(), BackendEventListener {
 
@@ -51,26 +51,26 @@ class GameMainScreenViewModel : BaseObservable<ViewModelEventListener>(), Backen
         mGameBackend.removeListener(this)
     }
 
-    override fun onSymbolUpdated(symbol: HiraganaSymbol) {
-        mCurrentHiraganaSymbol = symbol
-        getListeners().forEach { it.onCurrentHiraganaSymbolUpdated(symbol) }
+    override fun onSymbolUpdated(newSymbol: HiraganaSymbol) {
+        mCurrentHiraganaSymbol = newSymbol
+        getListeners().forEach { it.onCurrentHiraganaSymbolUpdated(newSymbol) }
     }
 
-    override fun onGameScoreUpdated(score: Int) {
-        mCurrentGameScore = score
-        getListeners().forEach { it.onGameScoreUpdated(score) }
+    override fun onGameScoreUpdated(newScore: Int) {
+        mCurrentGameScore = newScore
+        getListeners().forEach { it.onGameScoreUpdated(newScore) }
     }
 
-    override fun onGameProgressUpdated(progress: Int) {
-        getListeners().forEach { it.onGameProgressUpdated(progress) }
+    override fun onGameProgressUpdated(updatedProgress: Int) {
+        getListeners().forEach { it.onGameProgressUpdated(updatedProgress) }
     }
 
-    override fun onGameCountdownTimeUpdated(countDownTime: Int) {
-        getListeners().forEach { it.onGameCountDownTimeUpdated(countDownTime) }
+    override fun onGameCountdownTimeUpdated(updatedCountdownTime: Int) {
+        getListeners().forEach { it.onGameCountDownTimeUpdated(updatedCountdownTime) }
     }
 
-    override fun onRomanizationGroupUpdated(romanizationGroupList: List<String>) {
-        getListeners().forEach { it.onRomanizationGroupUpdated(romanizationGroupList) }
+    override fun onRomanizationGroupUpdated(updatedRomanizationGroupList: List<String>) {
+        getListeners().forEach { it.onRomanizationGroupUpdated(updatedRomanizationGroupList) }
     }
 
     override fun onCorrectAnswer() {

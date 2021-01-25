@@ -9,7 +9,7 @@ import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 
-class GameWelcomeScreen : BaseFragment(), IGameWelcomeScreenView.Listener {
+class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
 
     private lateinit var mView: GameWelcomeScreenViewImpl
 

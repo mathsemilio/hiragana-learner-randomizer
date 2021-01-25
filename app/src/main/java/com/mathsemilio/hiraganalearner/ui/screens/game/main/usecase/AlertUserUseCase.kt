@@ -2,9 +2,9 @@ package com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.ControllerState
+import com.mathsemilio.hiraganalearner.common.BaseObservable
 import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservable
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.ControllerState
 
 class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
     BaseObservable<AlertUserUseCaseEventListener>() {
@@ -23,7 +23,8 @@ class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
             {
                 onDialogPositiveButtonClicked()
                 changeCurrentControllerState(ControllerState.RUNNING)
-            })
+            }
+        )
     }
 
     fun alertUserOnGamePaused(onDialogPositiveButtonClicked: () -> Unit) {
@@ -69,18 +70,23 @@ class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
         }
     }
 
-    private fun pauseGameTimer() =
+    private fun pauseGameTimer() {
         getListeners().forEach { it.onPauseGameTimer() }
+    }
 
-    private fun changeCurrentControllerState(state: ControllerState) =
+    private fun changeCurrentControllerState(state: ControllerState) {
         getListeners().forEach { it.onControllerStateChanged(state) }
+    }
 
-    private fun playButtonClickSoundEffect() =
+    private fun playButtonClickSoundEffect() {
         getListeners().forEach { it.onPlayButtonClickSoundEffect() }
+    }
 
-    private fun playSuccessSoundEffect() =
+    private fun playSuccessSoundEffect() {
         getListeners().forEach { it.onPlaySuccessSoundEffect() }
+    }
 
-    private fun playErrorSoundEffect() =
+    private fun playErrorSoundEffect() {
         getListeners().forEach { it.onPlayErrorSoundEffect() }
+    }
 }

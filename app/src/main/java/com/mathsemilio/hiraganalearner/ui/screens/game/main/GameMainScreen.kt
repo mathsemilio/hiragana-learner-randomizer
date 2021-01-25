@@ -17,7 +17,7 @@ import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUse
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.ViewModelEventListener
 
-class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEventListener,
+class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEventListener,
     AlertUserUseCaseEventListener {
 
     companion object {
@@ -93,16 +93,18 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
     }
 
     private fun checkIfGameIsFinished() {
-        if (mViewModel.gameFinished) {
-            if (mViewModel.getGameScore() == PERFECT_SCORE)
-                mPreferencesRepository.incrementPerfectScoresValue()
+        when (mViewModel.gameFinished) {
+            true -> {
+                if (mViewModel.getGameScore() == PERFECT_SCORE)
+                    mPreferencesRepository.incrementPerfectScoresValue()
 
-            mScreensNavigator.navigateToResultScreen(
-                mDifficultyValue,
-                mViewModel.getGameScore()
-            )
-        } else
-            mViewModel.getNextSymbol()
+                mScreensNavigator.navigateToResultScreen(
+                    mDifficultyValue,
+                    mViewModel.getGameScore()
+                )
+            }
+            false -> mViewModel.getNextSymbol()
+        }
     }
 
     override fun playClickSoundEffect() {
@@ -123,20 +125,20 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
         mViewModel.checkUserAnswer(selectedRomanization)
     }
 
-    override fun onGameScoreUpdated(score: Int) {
-        mView.updateGameScoreTextView(score)
+    override fun onGameScoreUpdated(newScore: Int) {
+        mView.updateGameScoreTextView(newScore)
     }
 
-    override fun onGameProgressUpdated(progressValue: Int) {
-        mView.updateProgressBarGameProgress(progressValue)
+    override fun onGameProgressUpdated(updatedProgress: Int) {
+        mView.updateProgressBarGameProgressValue(updatedProgress)
     }
 
-    override fun onGameCountDownTimeUpdated(countDownTime: Int) {
-        mView.updateProgressBarGameTimerProgress(countDownTime)
+    override fun onGameCountDownTimeUpdated(updatedCountdownTime: Int) {
+        mView.updateProgressBarGameTimerProgressValue(updatedCountdownTime)
     }
 
-    override fun onRomanizationGroupUpdated(romanizationGroupList: List<String>) {
-        mView.updateRomanizationOptionsGroup(romanizationGroupList)
+    override fun onRomanizationGroupUpdated(updatedRomanizationGroupList: List<String>) {
+        mView.updateRomanizationOptionsGroup(updatedRomanizationGroupList)
     }
 
     override fun onCurrentHiraganaSymbolUpdated(newSymbol: HiraganaSymbol) {
@@ -167,8 +169,8 @@ class GameMainScreen : BaseFragment(), IGameMainScreenView.Listener, ViewModelEv
         mViewModel.pauseGameTimer()
     }
 
-    override fun onControllerStateChanged(newState: ControllerState) {
-        mCurrentControllerState = newState
+    override fun onControllerStateChanged(newControllerState: ControllerState) {
+        mCurrentControllerState = newControllerState
     }
 
     override fun onPlayButtonClickSoundEffect() {

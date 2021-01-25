@@ -8,7 +8,8 @@ abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
 
     protected fun getCompositionRoot(): ControllerCompositionRoot {
         return ControllerCompositionRoot(
-            (requireActivity().application as HiraganaRandomizerApplication).compositionRoot, this
+            (requireActivity().application as HiraganaRandomizerApplication).compositionRoot,
+            fragment = this
         )
     }
 }

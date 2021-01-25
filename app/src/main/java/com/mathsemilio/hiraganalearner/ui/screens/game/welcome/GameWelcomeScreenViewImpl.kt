@@ -13,7 +13,7 @@ import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
 
 class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    BaseObservableView<IGameWelcomeScreenView.Listener>(), IGameWelcomeScreenView {
+    BaseObservableView<GameWelcomeScreenView.Listener>(), GameWelcomeScreenView {
 
     private lateinit var mImageViewSettingsIcon: ImageView
     private lateinit var mTextViewOnDifficulty: TextView
@@ -112,16 +112,19 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
             getContext().getString(R.string.game_difficulty_beginner) -> GAME_DIFFICULTY_VALUE_BEGINNER
             getContext().getString(R.string.game_difficulty_medium) -> GAME_DIFFICULTY_VALUE_MEDIUM
             getContext().getString(R.string.game_difficulty_hard) -> GAME_DIFFICULTY_VALUE_HARD
-            else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY)
+            else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY_SETTING)
         }
     }
 
-    private fun playClickSoundEffect() =
+    private fun playClickSoundEffect() {
         getListeners().forEach { it.onPlayClickSoundEffect() }
+    }
 
-    private fun navigateToSettingsScreen() =
+    private fun navigateToSettingsScreen() {
         getListeners().forEach { it.onSettingsIconClicked() }
+    }
 
-    private fun navigateToMainScreen(difficultyValue: Int) =
+    private fun navigateToMainScreen(difficultyValue: Int) {
         getListeners().forEach { it.onStartButtonClicked(difficultyValue) }
+    }
 }

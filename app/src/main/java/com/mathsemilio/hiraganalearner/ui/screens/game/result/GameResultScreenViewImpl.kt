@@ -10,7 +10,7 @@ import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
 
 class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    BaseObservableView<IGameResultScreenView.Listener>(), IGameResultScreenView {
+    BaseObservableView<GameResultScreenView.Listener>(), GameResultScreenView {
 
     private lateinit var mTextViewYouGotSymbolsCorrectly: TextView
     private lateinit var mTextViewGameDifficulty: TextView
@@ -42,16 +42,11 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private fun initializeViews() {
         mTextViewYouGotSymbolsCorrectly = findViewById(R.id.text_headline_you_got_correctly)
         mTextViewGameDifficulty = findViewById(R.id.text_headline_game_difficulty_score_screen)
-        mTextViewGamePerfectScores = findViewById(R.id.text_headline_perfect_scores_number_score_screen)
+        mTextViewGamePerfectScores =
+            findViewById(R.id.text_headline_perfect_scores_number_score_screen)
         mButtonHome = findViewById(R.id.fab_home)
         mButtonPlayAgain = findViewById(R.id.fab_play_again)
         mButtonShareScore = findViewById(R.id.fab_share)
-    }
-
-    private fun attachClickListeners() {
-        mButtonHome.setOnClickListener { homeButtonClicked() }
-        mButtonPlayAgain.setOnClickListener { playAgainButtonClicked(mGameDifficultyValue) }
-        mButtonShareScore.setOnClickListener { shareScoreButtonClicked() }
     }
 
     private fun setupYouGotSymbolsCorrectlyTextView() {
@@ -75,12 +70,21 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         mTextViewGamePerfectScores.text = perfectScores.toString()
     }
 
-    private fun homeButtonClicked() =
+    private fun attachClickListeners() {
+        mButtonHome.setOnClickListener { homeButtonClicked() }
+        mButtonPlayAgain.setOnClickListener { playAgainButtonClicked(mGameDifficultyValue) }
+        mButtonShareScore.setOnClickListener { shareScoreButtonClicked() }
+    }
+
+    private fun homeButtonClicked() {
         getListeners().forEach { it.onHomeButtonClicked() }
+    }
 
-    private fun playAgainButtonClicked(difficultyValue: Int) =
+    private fun playAgainButtonClicked(difficultyValue: Int) {
         getListeners().forEach { it.onPlayAgainClicked(difficultyValue) }
+    }
 
-    private fun shareScoreButtonClicked() =
+    private fun shareScoreButtonClicked() {
         getListeners().forEach { it.onShareScoreButtonClicked() }
+    }
 }

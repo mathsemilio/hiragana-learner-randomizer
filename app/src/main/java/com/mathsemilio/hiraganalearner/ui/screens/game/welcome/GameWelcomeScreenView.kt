@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.welcome
 
-interface IGameWelcomeScreenView {
+interface GameWelcomeScreenView {
     interface Listener {
         fun onPlayClickSoundEffect()
         fun onSettingsIconClicked()

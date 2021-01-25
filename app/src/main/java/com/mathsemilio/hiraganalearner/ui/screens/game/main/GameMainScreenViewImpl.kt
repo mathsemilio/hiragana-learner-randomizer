@@ -12,7 +12,7 @@ import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
 
 class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    BaseObservableView<IGameMainScreenView.Listener>(), IGameMainScreenView {
+    BaseObservableView<GameMainScreenView.Listener>(), GameMainScreenView {
 
     private lateinit var mTextViewGameDifficulty: TextView
     private lateinit var mTextViewGameScore: TextView
@@ -59,19 +59,19 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
         mTextViewCurrentHiraganaSymbol.text = newSymbol
     }
 
-    override fun updateProgressBarGameTimerProgress(countDownTime: Int) {
-        mProgressBarGameTimer.progress = countDownTime
+    override fun updateProgressBarGameTimerProgressValue(updatedCountdownTime: Int) {
+        mProgressBarGameTimer.progress = updatedCountdownTime
     }
 
-    override fun updateRomanizationOptionsGroup(romanizationList: List<String>) {
-        mChipRomanizationOption1.text = romanizationList[0]
-        mChipRomanizationOption2.text = romanizationList[1]
-        mChipRomanizationOption3.text = romanizationList[2]
-        mChipRomanizationOption4.text = romanizationList[3]
+    override fun updateRomanizationOptionsGroup(updatedRomanizationList: List<String>) {
+        mChipRomanizationOption1.text = updatedRomanizationList[0]
+        mChipRomanizationOption2.text = updatedRomanizationList[1]
+        mChipRomanizationOption3.text = updatedRomanizationList[2]
+        mChipRomanizationOption4.text = updatedRomanizationList[3]
     }
 
-    override fun updateProgressBarGameProgress(progress: Int) {
-        mProgressBarGameProgress.progress = progress
+    override fun updateProgressBarGameProgressValue(updatedProgress: Int) {
+        mProgressBarGameProgress.progress = updatedProgress
     }
 
     override fun clearRomanizationOptions() {
@@ -122,15 +122,19 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
         mButtonCheckAnswer.setOnClickListener { checkAnswerButtonClicked(mSelectedRomanization) }
     }
 
-    private fun playClickSoundEffect() =
+    private fun playClickSoundEffect() {
         getListeners().forEach { it.playClickSoundEffect() }
+    }
 
-    private fun exitGameButtonClicked() =
+    private fun exitGameButtonClicked() {
         getListeners().forEach { it.onExitButtonClicked() }
+    }
 
-    private fun pauseGameButtonClicked() =
+    private fun pauseGameButtonClicked() {
         getListeners().forEach { it.onPauseButtonClicked() }
+    }
 
-    private fun checkAnswerButtonClicked(selectedRomanization: String) =
+    private fun checkAnswerButtonClicked(selectedRomanization: String) {
         getListeners().forEach { it.onCheckAnswerClicked(selectedRomanization) }
+    }
 }

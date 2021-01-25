@@ -11,7 +11,6 @@ class TrainingNotificationWorker(appContext: Context, workerParams: WorkerParame
     override fun doWork(): Result {
         TrainingNotificationHelper(applicationContext).notifyUser()
         PreferencesRepository(applicationContext).setTrainingNotificationSwitchState(false)
-
         return Result.success()
     }
 }

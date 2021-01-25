@@ -12,7 +12,7 @@ import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
 
-class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
+class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     companion object {
         fun newInstance(difficultyValue: Int, score: Int): GameResultScreen {

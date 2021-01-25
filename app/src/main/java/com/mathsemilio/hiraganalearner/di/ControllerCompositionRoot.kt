@@ -12,56 +12,52 @@ import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainSc
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
 
 class ControllerCompositionRoot(
-    private val mCompositionRoot: CompositionRoot,
-    private val mFragment: Fragment
+    private val compositionRoot: CompositionRoot,
+    private val fragment: Fragment
 ) {
-    private fun getLayoutInflater(): LayoutInflater {
-        return LayoutInflater.from(mFragment.requireContext())
-    }
-
     private fun getFragmentContainerHelper(): FragmentContainerHelper {
-        return mFragment.requireActivity() as FragmentContainerHelper
+        return fragment.requireActivity() as FragmentContainerHelper
     }
 
     fun getViewFactory(): ViewFactory {
-        return mCompositionRoot.getViewFactory(getLayoutInflater())
+        return compositionRoot.getViewFactory(LayoutInflater.from(fragment.requireContext()))
     }
 
     fun getPreferencesRepository(): PreferencesRepository {
-        return mCompositionRoot.getPreferencesRepository(mFragment.requireContext())
+        return compositionRoot.getPreferencesRepository(fragment.requireContext())
     }
 
     fun getSoundEffectsModule(volume: Float): SoundEffectsModule {
-        return mCompositionRoot.getSoundEffectsModule(mFragment.requireContext(), volume)
+        return compositionRoot.getSoundEffectsModule(fragment.requireContext(), volume)
     }
 
     fun getScreensNavigator(): ScreensNavigator {
-        return mCompositionRoot.getScreensNavigator(
-            mFragment.parentFragmentManager, getFragmentContainerHelper()
+        return compositionRoot.getScreensNavigator(
+            fragment.parentFragmentManager, getFragmentContainerHelper()
         )
     }
 
     fun getTrainingNotificationHelper(): TrainingNotificationHelper {
-        return TrainingNotificationHelper(mFragment.requireContext())
+        return TrainingNotificationHelper(fragment.requireContext())
     }
 
-    fun getAppToolbarHelper(): AppToolbarHelper {
-        return mFragment.requireActivity() as AppToolbarHelper
+    fun getToolbarVisibilityHelper(): ToolbarVisibilityHelper {
+        return fragment.requireActivity() as ToolbarVisibilityHelper
     }
 
     fun getMessagesHelper(): MessagesHelper {
-        return MessagesHelper(mFragment.requireContext())
+        return MessagesHelper(fragment.requireContext())
     }
 
     fun getDialogHelper(): DialogHelper {
-        return mCompositionRoot.getDialogHelper(
-            mFragment.requireContext(),
-            mFragment.parentFragmentManager
+        return compositionRoot.getDialogHelper(
+            fragment.requireContext(),
+            fragment.parentFragmentManager
         )
     }
 
     fun getAppThemeUtil(): AppThemeUtil {
-        return mCompositionRoot.getAppThemeUtil(mFragment.requireContext())
+        return compositionRoot.getAppThemeUtil(fragment.requireContext())
     }
 
     fun getGameMainScreenViewModel(): GameMainScreenViewModel {
@@ -69,8 +65,8 @@ class ControllerCompositionRoot(
     }
 
     fun getBackPressedDispatcher(onBackPressed: () -> Unit) {
-        mFragment.requireActivity().onBackPressedDispatcher.addCallback(
-            mFragment.viewLifecycleOwner,
+        fragment.requireActivity().onBackPressedDispatcher.addCallback(
+            fragment.viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() = onBackPressed()
             }
@@ -78,10 +74,10 @@ class ControllerCompositionRoot(
     }
 
     fun getAlertUserUseCase(): AlertUserUseCase {
-        return AlertUserUseCase(mFragment.requireContext(), mFragment.parentFragmentManager)
+        return AlertUserUseCase(fragment.requireContext(), fragment.parentFragmentManager)
     }
 
     fun getShareGameScoreUseCase(score: Int): ShareGameScoreUseCase {
-        return ShareGameScoreUseCase(mFragment.requireContext(), score)
+        return ShareGameScoreUseCase(fragment.requireContext(), score)
     }
 }
