@@ -66,14 +66,14 @@ class GameBackend : BaseObservable<BackendEventListener>(), ViewModelRequestEven
         pauseTimer()
 
         if (mHiraganaSymbolList.first().romanization == selectedRomanization) {
-            gameScoreUpdated(mScore.inc())
+            gameScoreUpdated(++mScore)
             correctAnswer()
         } else
             wrongAnswer()
     }
 
     private fun getNextSymbol() {
-        gameProgressUpdated(mProgress.inc())
+        gameProgressUpdated(++mProgress)
         mHiraganaSymbolList.removeAt(0)
         symbolUpdated(mHiraganaSymbolList.first())
 

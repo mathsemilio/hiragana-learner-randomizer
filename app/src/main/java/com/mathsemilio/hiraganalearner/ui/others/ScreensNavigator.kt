@@ -31,7 +31,7 @@ class ScreensNavigator(
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             replace(fragmentContainerHelper.getFragmentContainer().id, gameWelcomeScreenFragment)
-            commit()
+            commitNow()
         }
     }
 
@@ -40,7 +40,7 @@ class ScreensNavigator(
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             replace(fragmentContainerHelper.getFragmentContainer().id, gameMainScreenFragment)
-            commit()
+            commitNow()
         }
     }
 
@@ -49,7 +49,7 @@ class ScreensNavigator(
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
             replace(fragmentContainerHelper.getFragmentContainer().id, gameResultScreenFragment)
-            commit()
+            commitNow()
         }
     }
 }
