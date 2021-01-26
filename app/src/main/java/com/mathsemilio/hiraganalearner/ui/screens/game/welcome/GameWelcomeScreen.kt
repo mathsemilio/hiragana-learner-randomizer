@@ -4,6 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
@@ -16,6 +22,9 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
     private lateinit var mPreferencesRepository: PreferencesRepository
     private lateinit var mSoundEffectsModule: SoundEffectsModule
     private lateinit var mScreensNavigator: ScreensNavigator
+
+    private var mInterstitialAd: InterstitialAd? = null
+    private lateinit var mAdRequest: AdRequest
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +41,8 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
         initialize()
 
         mView.onControllerViewCreated(mPreferencesRepository.getGameDefaultOption())
+
+        initializeInterstitialAd()
     }
 
     private fun initialize() {
@@ -42,6 +53,34 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
         )
 
         mScreensNavigator = getCompositionRoot().getScreensNavigator()
+
+        mAdRequest = getCompositionRoot().getAdRequest()
+    }
+
+    private fun initializeInterstitialAd() {
+        InterstitialAd.load(
+            requireContext(),
+            getString(R.string.interstitialAdTestUnitId),
+            mAdRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                    mInterstitialAd?.fullScreenContentCallback = getFullScreenContentCallback()
+                }
+            }
+        )
+    }
+
+    private fun getFullScreenContentCallback(): FullScreenContentCallback {
+        return object : FullScreenContentCallback() {
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                mScreensNavigator.navigateToMainScreen(mView.getDifficultyValue())
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                mScreensNavigator.navigateToMainScreen(mView.getDifficultyValue())
+            }
+        }
     }
 
     override fun onPlayClickSoundEffect() {
@@ -54,7 +93,10 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
 
     override fun onStartButtonClicked(difficultyValue: Int) {
         mSoundEffectsModule.playButtonClickSoundEffect()
-        mScreensNavigator.navigateToMainScreen(difficultyValue)
+        if (mInterstitialAd == null)
+            mScreensNavigator.navigateToMainScreen(difficultyValue)
+        else
+            mInterstitialAd?.show(requireActivity())
     }
 
     override fun onStart() {
@@ -64,6 +106,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener {
 
     override fun onDestroyView() {
         mView.removeListener(this)
+        mInterstitialAd = null
         super.onDestroyView()
     }
 }

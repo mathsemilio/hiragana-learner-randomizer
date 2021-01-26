@@ -26,11 +26,13 @@ Programming Language - **Kotlin**
   <li>Material Design Components;</li>
   <li>Preferences (PreferenceX);</li>
   <li>WorkManager;</li>
-  <li>Leak Canary</li>
+  <li>Play Services Ads;</li>
+  <li>Leak Canary (Debug Implementation)</li>
 </ol >
 
 <i>For info on each of the libraries and technologies listed above:</i>
 <p><a href="https://github.com/material-components/material-components-android">Android Material Components</a></p>
 <p><a href="https://developer.android.com/guide/topics/ui/settings">Preferences (PreferenceX)</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics">WorkManager</a></p>
+<p><a href="https://developers.google.com/admob/android/sdk">Play Services Ads</a></p>
 <p><a href="https://square.github.io/leakcanary/">Leak Canary</a></p>

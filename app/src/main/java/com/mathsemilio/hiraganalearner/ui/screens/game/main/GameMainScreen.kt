@@ -4,6 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.PERFECT_SCORE
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
@@ -38,6 +44,9 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
     private lateinit var mAlertUserUseCase: AlertUserUseCase
     private lateinit var mDialogHelper: DialogHelper
 
+    private var mInterstitialAd: InterstitialAd? = null
+    private lateinit var mAdRequest: AdRequest
+
     private var mDifficultyValue = 0
     private var mCurrentControllerState = ControllerState.RUNNING
 
@@ -60,6 +69,8 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
         registerListeners()
 
         mViewModel.startGame(mDifficultyValue)
+
+        initializeInterstitialAd()
     }
 
     private fun initialize() {
@@ -79,6 +90,8 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
 
         mDialogHelper = getCompositionRoot().getDialogHelper()
 
+        mAdRequest = getCompositionRoot().getAdRequest()
+
         getCompositionRoot().getBackPressedDispatcher { onExitButtonClicked() }
     }
 
@@ -86,6 +99,38 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
         mView.registerListener(this)
         mViewModel.registerListener(this)
         mAlertUserUseCase.registerListener(this)
+    }
+
+    private fun initializeInterstitialAd() {
+        InterstitialAd.load(
+            requireContext(),
+            getString(R.string.interstitialAdTestUnitId),
+            mAdRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                    mInterstitialAd?.fullScreenContentCallback = getFullScreenContentCallback()
+                }
+            }
+        )
+    }
+
+    private fun getFullScreenContentCallback(): FullScreenContentCallback {
+        return object : FullScreenContentCallback() {
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                mScreensNavigator.navigateToResultScreen(
+                    mDifficultyValue,
+                    mViewModel.getGameScore()
+                )
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                mScreensNavigator.navigateToResultScreen(
+                    mDifficultyValue,
+                    mViewModel.getGameScore()
+                )
+            }
+        }
     }
 
     private fun getDifficultyValue(): Int {
@@ -98,13 +143,17 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
                 if (mViewModel.getGameScore() == PERFECT_SCORE)
                     mPreferencesRepository.incrementPerfectScoresValue()
 
-                mScreensNavigator.navigateToResultScreen(
-                    mDifficultyValue,
-                    mViewModel.getGameScore()
-                )
+                showAdAndNavigate()
             }
             false -> mViewModel.getNextSymbol()
         }
+    }
+
+    private fun showAdAndNavigate() {
+        if (mInterstitialAd == null)
+            mScreensNavigator.navigateToResultScreen(mDifficultyValue, mViewModel.getGameScore())
+        else
+            mInterstitialAd?.show(requireActivity())
     }
 
     override fun playClickSoundEffect() {
@@ -206,6 +255,7 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
         mViewModel.onControllerOnDestroyView()
         mViewModel.removeListener(this)
         mAlertUserUseCase.removeListener(this)
+        mInterstitialAd = null
         super.onDestroyView()
     }
 }

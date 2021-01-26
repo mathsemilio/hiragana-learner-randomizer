@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
@@ -18,6 +20,7 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private lateinit var mButtonHome: FloatingActionButton
     private lateinit var mButtonPlayAgain: FloatingActionButton
     private lateinit var mButtonShareScore: FloatingActionButton
+    private lateinit var mGameResultScreenAdBanner: AdView
 
     private var mFinalScore = 0
     private var mGameDifficultyValue = 0
@@ -39,6 +42,10 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         attachClickListeners()
     }
 
+    override fun loadGameResultScreenBannerAd(adRequest: AdRequest) {
+        mGameResultScreenAdBanner.loadAd(adRequest)
+    }
+
     private fun initializeViews() {
         mTextViewYouGotSymbolsCorrectly = findViewById(R.id.text_headline_you_got_correctly)
         mTextViewGameDifficulty = findViewById(R.id.text_headline_game_difficulty_score_screen)
@@ -47,6 +54,7 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         mButtonHome = findViewById(R.id.fab_home)
         mButtonPlayAgain = findViewById(R.id.fab_play_again)
         mButtonShareScore = findViewById(R.id.fab_share)
+        mGameResultScreenAdBanner = findViewById(R.id.game_result_screen_ad_banner)
     }
 
     private fun setupYouGotSymbolsCorrectlyTextView() {

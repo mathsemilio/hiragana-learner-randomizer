@@ -3,6 +3,7 @@ package com.mathsemilio.hiraganalearner.di
 import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.TrainingNotificationHelper
 import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
@@ -35,6 +36,10 @@ class ControllerCompositionRoot(
         return compositionRoot.getScreensNavigator(
             fragment.parentFragmentManager, getFragmentContainerHelper()
         )
+    }
+
+    fun getAdRequest(): AdRequest {
+        return compositionRoot.getAdRequest()
     }
 
     fun getTrainingNotificationHelper(): TrainingNotificationHelper {
