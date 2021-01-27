@@ -106,6 +106,7 @@
     <string name="game_score_create_chooser_title">Share your game score!</string>
 
     <!-- AdMob Test Unit ID strings -->
+    <string name="adMobTestAppId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
     <string name="bannerAdTestUnitId" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitialAdTestUnitId" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.mathsemilio.hiraganalearner.BuildConfig
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
@@ -130,7 +131,7 @@ class SettingsScreen : BasePreferenceFragment() {
     }
 
     private fun setupAppBuildVersionPreference() {
-        findPreference<Preference>(APP_BUILD_PREFERENCE_KEY)?.summary = APP_BUILD_VERSION
+        findPreference<Preference>(APP_BUILD_PREFERENCE_KEY)?.summary = BuildConfig.VERSION_NAME
     }
 
     private fun showClearPerfectScoresDialog() =

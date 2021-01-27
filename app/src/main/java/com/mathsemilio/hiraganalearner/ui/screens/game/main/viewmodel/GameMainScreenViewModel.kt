@@ -47,7 +47,7 @@ class GameMainScreenViewModel : BaseObservable<ViewModelEventListener>(), Backen
         return mCurrentGameScore
     }
 
-    fun onControllerOnDestroyView() {
+    fun onClearInstance() {
         mGameBackend.removeListener(this)
     }
 

@@ -2,11 +2,13 @@ package com.mathsemilio.hiraganalearner.di
 
 import android.content.Context
 import android.view.LayoutInflater
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.*
+import com.mathsemilio.hiraganalearner.ui.usecase.ShowInterstitialAdUseCase
 
 class CompositionRoot {
 
@@ -27,6 +29,13 @@ class CompositionRoot {
         fragmentContainerHelper: FragmentContainerHelper
     ): ScreensNavigator {
         return ScreensNavigator(fragmentManager, fragmentContainerHelper)
+    }
+
+    fun getShowInterstitialAdUseCase(
+        activity: FragmentActivity,
+        context: Context
+    ): ShowInterstitialAdUseCase {
+        return ShowInterstitialAdUseCase(activity, context, getAdRequest())
     }
 
     fun getAdRequest(): AdRequest {

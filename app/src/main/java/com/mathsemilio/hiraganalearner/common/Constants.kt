@@ -50,5 +50,3 @@ const val ILLEGAL_GAME_DIFFICULTY_VALUE = "Invalid Game Difficulty Value"
 const val ILLEGAL_GAME_DIFFICULTY_SETTING = "Invalid Game Difficulty Setting"
 const val ILLEGAL_APP_THEME_VALUE = "Invalid App Theme Value"
 const val NULL_ACTIVITY_EXCEPTION = "Activity cannot be null"
-
-const val APP_BUILD_VERSION = "stable-1.0.1"

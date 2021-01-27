@@ -12,7 +12,6 @@ class ScreensNavigator(
     private val fragmentContainerHelper: FragmentContainerHelper
 ) {
     fun navigateToSettingsScreen() {
-        val settingsFragment = SettingsScreen()
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in_right,
@@ -20,35 +19,38 @@ class ScreensNavigator(
                 R.anim.slide_in_right,
                 R.anim.slide_out_left
             )
-            replace(fragmentContainerHelper.getFragmentContainer().id, settingsFragment)
+            replace(fragmentContainerHelper.getFragmentContainer().id, SettingsScreen())
             addToBackStack(null)
             commit()
         }
     }
 
     fun navigateToWelcomeScreen() {
-        val gameWelcomeScreenFragment = GameWelcomeScreen()
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            replace(fragmentContainerHelper.getFragmentContainer().id, gameWelcomeScreenFragment)
+            replace(fragmentContainerHelper.getFragmentContainer().id, GameWelcomeScreen())
             commitNow()
         }
     }
 
     fun navigateToMainScreen(difficultyValue: Int) {
-        val gameMainScreenFragment = GameMainScreen.newInstance(difficultyValue)
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            replace(fragmentContainerHelper.getFragmentContainer().id, gameMainScreenFragment)
+            replace(
+                fragmentContainerHelper.getFragmentContainer().id,
+                GameMainScreen.newInstance(difficultyValue)
+            )
             commitNow()
         }
     }
 
     fun navigateToResultScreen(difficultyValue: Int, score: Int) {
-        val gameResultScreenFragment = GameResultScreen.newInstance(difficultyValue, score)
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-            replace(fragmentContainerHelper.getFragmentContainer().id, gameResultScreenFragment)
+            replace(
+                fragmentContainerHelper.getFragmentContainer().id,
+                GameResultScreen.newInstance(difficultyValue, score)
+            )
             commitNow()
         }
     }

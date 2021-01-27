@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity(), FragmentContainerHelper, ToolbarVisibi
 
         setupAppToolbar()
 
-        if (savedInstanceState == null)
-            showGameWelcomeScreenFragment()
+        if (savedInstanceState == null) showGameWelcomeScreenFragment()
     }
 
     private fun setupAppToolbar() {
@@ -41,10 +40,9 @@ class MainActivity : AppCompatActivity(), FragmentContainerHelper, ToolbarVisibi
     }
 
     private fun showGameWelcomeScreenFragment() {
-        val gameWelcomeScreen = GameWelcomeScreen()
         supportFragmentManager.beginTransaction().apply {
-            add(getFragmentContainer().id, gameWelcomeScreen)
-            commit()
+            add(getFragmentContainer().id, GameWelcomeScreen())
+            commitNow()
         }
     }
 

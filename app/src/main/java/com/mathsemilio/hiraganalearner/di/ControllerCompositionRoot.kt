@@ -11,6 +11,7 @@ import com.mathsemilio.hiraganalearner.ui.others.*
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
+import com.mathsemilio.hiraganalearner.ui.usecase.ShowInterstitialAdUseCase
 
 class ControllerCompositionRoot(
     private val compositionRoot: CompositionRoot,
@@ -35,6 +36,13 @@ class ControllerCompositionRoot(
     fun getScreensNavigator(): ScreensNavigator {
         return compositionRoot.getScreensNavigator(
             fragment.parentFragmentManager, getFragmentContainerHelper()
+        )
+    }
+
+    fun getShowInterstitialAdUseCase(): ShowInterstitialAdUseCase {
+        return compositionRoot.getShowInterstitialAdUseCase(
+            fragment.requireActivity(),
+            fragment.requireContext()
         )
     }
 
