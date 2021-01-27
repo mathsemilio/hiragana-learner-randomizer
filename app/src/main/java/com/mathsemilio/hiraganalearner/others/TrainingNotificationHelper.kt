@@ -52,10 +52,10 @@ class TrainingNotificationHelper(private val context: Context) {
         return NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_hiragana_learner_notification_icon)
             setContentTitle(
-                context.getString(R.string.training_notification_content_title)
+                this@TrainingNotificationHelper.context.getString(R.string.training_notification_content_title)
             )
             setContentText(
-                context.getString(R.string.training_notification_content_text)
+                this@TrainingNotificationHelper.context.getString(R.string.training_notification_content_text)
             )
             setCategory(NotificationCompat.CATEGORY_REMINDER)
             priority = NotificationCompat.PRIORITY_HIGH

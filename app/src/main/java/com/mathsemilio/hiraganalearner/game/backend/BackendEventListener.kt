@@ -3,11 +3,11 @@ package com.mathsemilio.hiraganalearner.game.backend
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 
 interface BackendEventListener {
-    fun onSymbolUpdated(symbol: HiraganaSymbol)
-    fun onGameScoreUpdated(score: Int)
-    fun onGameProgressUpdated(progress: Int)
-    fun onGameCountdownTimeUpdated(countDownTime: Int)
-    fun onRomanizationGroupUpdated(romanizationGroupList: List<String>)
+    fun onSymbolUpdated(newSymbol: HiraganaSymbol)
+    fun onGameScoreUpdated(newScore: Int)
+    fun onGameProgressUpdated(updatedProgress: Int)
+    fun onGameCountdownTimeUpdated(updatedCountdownTime: Int)
+    fun onRomanizationGroupUpdated(updatedRomanizationGroupList: List<String>)
     fun onCorrectAnswer()
     fun onWrongAnswer()
     fun onGameTimeOver()

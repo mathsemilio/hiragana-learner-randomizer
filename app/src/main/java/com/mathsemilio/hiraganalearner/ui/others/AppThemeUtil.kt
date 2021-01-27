@@ -15,17 +15,17 @@ class AppThemeUtil(context: Context) {
 
     fun setLightAppTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        mPreferencesRepository.saveAppThemeValue(APP_THEME_LIGHT_THEME)
+        mPreferencesRepository.setAppThemeValue(APP_THEME_LIGHT_THEME)
     }
 
     fun setDarkAppTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        mPreferencesRepository.saveAppThemeValue(APP_THEME_DARK_THEME)
+        mPreferencesRepository.setAppThemeValue(APP_THEME_DARK_THEME)
     }
 
     fun setFollowSystemAppTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        mPreferencesRepository.saveAppThemeValue(APP_THEME_FOLLOW_SYSTEM)
+        mPreferencesRepository.setAppThemeValue(APP_THEME_FOLLOW_SYSTEM)
     }
 
     fun setAppThemeFromPreferenceValue() {

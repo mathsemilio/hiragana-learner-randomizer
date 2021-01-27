@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main
 
-interface IGameMainScreenView {
+interface GameMainScreenView {
     interface Listener {
         fun playClickSoundEffect()
         fun onExitButtonClicked()
@@ -12,8 +12,8 @@ interface IGameMainScreenView {
     fun setGameDifficultyTextBasedOnDifficultyValue(difficultyValue: Int)
     fun updateGameScoreTextView(newScore: Int)
     fun updateCurrentHiraganaSymbol(newSymbol: String)
-    fun updateProgressBarGameTimerProgress(countDownTime: Int)
-    fun updateRomanizationOptionsGroup(romanizationList: List<String>)
-    fun updateProgressBarGameProgress(progress: Int)
+    fun updateProgressBarGameTimerProgressValue(updatedCountdownTime: Int)
+    fun updateRomanizationOptionsGroup(updatedRomanizationList: List<String>)
+    fun updateProgressBarGameProgressValue(updatedProgress: Int)
     fun clearRomanizationOptions()
 }

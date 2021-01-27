@@ -4,22 +4,22 @@ import android.content.Context
 import android.content.Intent
 import com.mathsemilio.hiraganalearner.R
 
-class ShareGameScoreUseCase(private val mContext: Context, score: Int) {
+class ShareGameScoreUseCase(private val context: Context, score: Int) {
 
     private val mShareScoreIntent = Intent().apply {
         action = Intent.ACTION_SEND
         putExtra(
             Intent.EXTRA_TEXT,
             if (score == 48)
-                mContext.getString(R.string.share_perfect_final_score)
+                context.getString(R.string.share_perfect_final_score)
             else
-                mContext.getString(R.string.share_final_score, score)
+                context.getString(R.string.share_final_score, score)
         )
         type = "text/plain"
     }
 
     fun shareGameScore() {
-        mContext.apply {
+        context.apply {
             startActivity(
                 Intent.createChooser(
                     mShareScoreIntent,

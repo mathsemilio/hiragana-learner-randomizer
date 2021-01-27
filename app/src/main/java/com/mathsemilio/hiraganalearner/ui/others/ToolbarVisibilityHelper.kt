@@ -1,5 +1,5 @@
 package com.mathsemilio.hiraganalearner.ui.others
 
-interface AppToolbarHelper {
+interface ToolbarVisibilityHelper {
     fun setToolbarVisibility(isVisible: Boolean)
 }

@@ -1,6 +1,8 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.result
 
-interface IGameResultScreenView {
+import com.google.android.gms.ads.AdRequest
+
+interface GameResultScreenView {
     interface Listener {
         fun onHomeButtonClicked()
         fun onPlayAgainClicked(difficultyValue: Int)
@@ -8,4 +10,5 @@ interface IGameResultScreenView {
     }
 
     fun onControllerViewCreated(difficultyValue: Int, score: Int, perfectScores: Int)
+    fun loadGameResultScreenBannerAd(adRequest: AdRequest)
 }

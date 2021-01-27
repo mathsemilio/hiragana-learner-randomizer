@@ -7,17 +7,17 @@ class PreferencesRepository(context: Context) {
 
     private val mPreferencesSource = PreferencesSource(context)
 
-    fun setTrainingNotificationSwitchState(switchState: Boolean) =
-        mPreferencesSource.saveNotificationSwitchState(switchState)
+    fun setTrainingNotificationSwitchState(state: Boolean) =
+        mPreferencesSource.setNotificationSwitchState(state)
 
-    fun saveTrainingNotificationTimeConfigured(timeConfigured: Long) =
-        mPreferencesSource.saveNotificationTimeConfigured(timeConfigured)
+    fun setTrainingNotificationTimeConfigured(timeConfigured: Long) =
+        mPreferencesSource.setNotificationTimeConfigured(timeConfigured)
 
     fun incrementPerfectScoresValue() = mPreferencesSource.incrementPerfectScoreValue()
 
     fun clearPerfectScoresValue() = mPreferencesSource.clearPerfectScoresValue()
 
-    fun saveAppThemeValue(themeValue: Int) = mPreferencesSource.saveAppThemeValue(themeValue)
+    fun setAppThemeValue(themeValue: Int) = mPreferencesSource.setAppThemeValue(themeValue)
 
     fun getTrainingNotificationSwitchState() = mPreferencesSource.getNotificationSwitchState()
 

@@ -10,9 +10,9 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.TrainingNotificationHelper
-import com.mathsemilio.hiraganalearner.ui.others.AppToolbarHelper
 import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.others.MessagesHelper
+import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
 import java.util.*
 
 class SettingsScreen : BasePreferenceFragment() {
@@ -22,8 +22,8 @@ class SettingsScreen : BasePreferenceFragment() {
     private lateinit var mTimePickerDialog: TimePickerDialog
 
     private lateinit var mTrainingNotificationHelper: TrainingNotificationHelper
+    private lateinit var mToolbarVisibilityHelper: ToolbarVisibilityHelper
     private lateinit var mPreferencesRepository: PreferencesRepository
-    private lateinit var mAppToolbarHelper: AppToolbarHelper
     private lateinit var mMessagesHelper: MessagesHelper
     private lateinit var mDialogHelper: DialogHelper
 
@@ -54,9 +54,9 @@ class SettingsScreen : BasePreferenceFragment() {
     private fun initializeObjects() {
         mTrainingNotificationHelper = getCompositionRoot().getTrainingNotificationHelper()
 
-        mPreferencesRepository = getCompositionRoot().getPreferencesRepository()
+        mToolbarVisibilityHelper = getCompositionRoot().getToolbarVisibilityHelper()
 
-        mAppToolbarHelper = getCompositionRoot().getAppToolbarHelper()
+        mPreferencesRepository = getCompositionRoot().getPreferencesRepository()
 
         mDialogHelper = getCompositionRoot().getDialogHelper()
 
@@ -156,24 +156,24 @@ class SettingsScreen : BasePreferenceFragment() {
         mCalendar = Calendar.getInstance()
         mDialogHelper.showTimePickerDialog(
             mCalendar,
-            { hourSet, minuteSet -> handleTimeSetByUser(hourSet, minuteSet) },
+            { hourSet, minuteSet -> handleTimeSetByUserEvent(hourSet, minuteSet) },
             { mTrainingNotificationSwitchPreference.isChecked = false }
         ).also { it.show() }
     }
 
-    private fun handleTimeSetByUser(hourSetByUser: Int, minuteSetByUser: Int) {
+    private fun handleTimeSetByUserEvent(hourSetByUser: Int, minuteSetByUser: Int) {
         val timeSetByUser = mCalendar.apply {
             set(Calendar.HOUR_OF_DAY, hourSetByUser)
             set(Calendar.MINUTE, minuteSetByUser)
         }
 
         if (timeSetByUser.timeInMillis > System.currentTimeMillis())
-            onScheduleTrainingReminder(timeSetByUser.timeInMillis)
+            scheduleTrainingReminder(timeSetByUser.timeInMillis)
         else
-            onScheduleTrainingReminderFailed()
+            scheduleTrainingReminderFailed()
     }
 
-    private fun onScheduleTrainingReminder(timeSetByUser: Long) {
+    private fun scheduleTrainingReminder(timeSetByUser: Long) {
         mTrainingNotificationHelper.scheduleNotification(timeSetByUser - System.currentTimeMillis())
 
         mTrainingNotificationSwitchPreference.apply {
@@ -186,13 +186,13 @@ class SettingsScreen : BasePreferenceFragment() {
 
         mPreferencesRepository.apply {
             setTrainingNotificationSwitchState(true)
-            saveTrainingNotificationTimeConfigured(timeSetByUser)
+            setTrainingNotificationTimeConfigured(timeSetByUser)
         }
 
         mMessagesHelper.showTrainingReminderSetSuccessfullyMessage()
     }
 
-    private fun onScheduleTrainingReminderFailed() {
+    private fun scheduleTrainingReminderFailed() {
         mTimePickerDialog.cancel()
         mTrainingNotificationSwitchPreference.isChecked = false
         mPreferencesRepository.setTrainingNotificationSwitchState(false)
@@ -213,12 +213,12 @@ class SettingsScreen : BasePreferenceFragment() {
     }
 
     override fun onResume() {
-        mAppToolbarHelper.setToolbarVisibility(true)
+        mToolbarVisibilityHelper.setToolbarVisibility(isVisible = true)
         super.onResume()
     }
 
     override fun onStop() {
-        mAppToolbarHelper.setToolbarVisibility(false)
+        mToolbarVisibilityHelper.setToolbarVisibility(isVisible = false)
         super.onStop()
     }
 }

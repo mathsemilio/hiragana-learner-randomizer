@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
 
 class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    BaseObservableView<IGameResultScreenView.Listener>(), IGameResultScreenView {
+    BaseObservableView<GameResultScreenView.Listener>(), GameResultScreenView {
 
     private lateinit var mTextViewYouGotSymbolsCorrectly: TextView
     private lateinit var mTextViewGameDifficulty: TextView
@@ -18,6 +20,7 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private lateinit var mButtonHome: FloatingActionButton
     private lateinit var mButtonPlayAgain: FloatingActionButton
     private lateinit var mButtonShareScore: FloatingActionButton
+    private lateinit var mGameResultScreenAdBanner: AdView
 
     private var mFinalScore = 0
     private var mGameDifficultyValue = 0
@@ -39,19 +42,19 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         attachClickListeners()
     }
 
+    override fun loadGameResultScreenBannerAd(adRequest: AdRequest) {
+        mGameResultScreenAdBanner.loadAd(adRequest)
+    }
+
     private fun initializeViews() {
         mTextViewYouGotSymbolsCorrectly = findViewById(R.id.text_headline_you_got_correctly)
         mTextViewGameDifficulty = findViewById(R.id.text_headline_game_difficulty_score_screen)
-        mTextViewGamePerfectScores = findViewById(R.id.text_headline_perfect_scores_number_score_screen)
+        mTextViewGamePerfectScores =
+            findViewById(R.id.text_headline_perfect_scores_number_score_screen)
         mButtonHome = findViewById(R.id.fab_home)
         mButtonPlayAgain = findViewById(R.id.fab_play_again)
         mButtonShareScore = findViewById(R.id.fab_share)
-    }
-
-    private fun attachClickListeners() {
-        mButtonHome.setOnClickListener { homeButtonClicked() }
-        mButtonPlayAgain.setOnClickListener { playAgainButtonClicked(mGameDifficultyValue) }
-        mButtonShareScore.setOnClickListener { shareScoreButtonClicked() }
+        mGameResultScreenAdBanner = findViewById(R.id.game_result_screen_ad_banner)
     }
 
     private fun setupYouGotSymbolsCorrectlyTextView() {
@@ -75,12 +78,21 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         mTextViewGamePerfectScores.text = perfectScores.toString()
     }
 
-    private fun homeButtonClicked() =
+    private fun attachClickListeners() {
+        mButtonHome.setOnClickListener { homeButtonClicked() }
+        mButtonPlayAgain.setOnClickListener { playAgainButtonClicked(mGameDifficultyValue) }
+        mButtonShareScore.setOnClickListener { shareScoreButtonClicked() }
+    }
+
+    private fun homeButtonClicked() {
         getListeners().forEach { it.onHomeButtonClicked() }
+    }
 
-    private fun playAgainButtonClicked(difficultyValue: Int) =
+    private fun playAgainButtonClicked(difficultyValue: Int) {
         getListeners().forEach { it.onPlayAgainClicked(difficultyValue) }
+    }
 
-    private fun shareScoreButtonClicked() =
+    private fun shareScoreButtonClicked() {
         getListeners().forEach { it.onShareScoreButtonClicked() }
+    }
 }

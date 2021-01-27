@@ -16,8 +16,9 @@ Before the game starts, the user selects a difficulty for the game (which can al
 <p><a href="https://postimg.cc/gallery/15gGNgg">Hiragana Learner Randomizer Gallery</a></p>
 
 ### How can i try it?
-<p>The application is available in the Google Play Store! Be sure to try it out!</p>
+<p>The application is available in the Google Play Store and Amazon App Store! Be sure to try it out!</p>
 <p><a href="https://play.google.com/store/apps/details?id=com.mathsemilio.hiraganalearner">Play Store - Hiragana Learner Randomizer</a></p>
+<p><a href="https://www.amazon.com/gp/product/B08PRSC7QF">Amazon App Store - Hiragana Learner Randomizer</a></p>
 
 ### Development Technologies
 Programming Language - **Kotlin**
@@ -26,11 +27,13 @@ Programming Language - **Kotlin**
   <li>Material Design Components;</li>
   <li>Preferences (PreferenceX);</li>
   <li>WorkManager;</li>
-  <li>Leak Canary</li>
+  <li>Play Services Ads;</li>
+  <li>Leak Canary (Debug Implementation)</li>
 </ol >
 
 <i>For info on each of the libraries and technologies listed above:</i>
 <p><a href="https://github.com/material-components/material-components-android">Android Material Components</a></p>
 <p><a href="https://developer.android.com/guide/topics/ui/settings">Preferences (PreferenceX)</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics">WorkManager</a></p>
+<p><a href="https://developers.google.com/admob/android/sdk">Play Services Ads</a></p>
 <p><a href="https://square.github.io/leakcanary/">Leak Canary</a></p>

@@ -29,13 +29,13 @@ const val PERFECT_SCORE = 46
 
 const val NOTIFICATION_ID = 0
 const val PENDING_INTENT_REQUEST_ID = 0
-const val NOTIFICATION_CHANNEL_ID = "trainingNotification"
+const val NOTIFICATION_CHANNEL_ID = "TRAINING_NOTIFICATION"
 
-const val TRAINING_NOTIFICATION_WORK_TAG = "trainingNotification"
+const val TRAINING_NOTIFICATION_WORK_TAG = "training_notification"
 
-const val NOTIFICATION_SWITCH_STATE_KEY = "switchState"
-const val NOTIFICATION_TIME_CONFIGURED_KEY = "timeConfigured"
-const val PERFECT_SCORES_KEY = "perfectScores"
+const val NOTIFICATION_SWITCH_STATE_KEY = "switch_state"
+const val NOTIFICATION_TIME_CONFIGURED_KEY = "time_configured"
+const val PERFECT_SCORES_KEY = "perfect_scores"
 const val APP_THEME_KEY = "app_theme"
 
 const val TRAINING_NOTIFICATION_PREFERENCE_KEY = "training_notification"
@@ -47,8 +47,8 @@ const val APP_BUILD_PREFERENCE_KEY = "app_build"
 
 const val ILLEGAL_DEFAULT_DIFFICULTY_VALUE = "Invalid Game Default Difficulty Value"
 const val ILLEGAL_GAME_DIFFICULTY_VALUE = "Invalid Game Difficulty Value"
-const val ILLEGAL_GAME_DIFFICULTY = "Invalid Game Difficulty"
+const val ILLEGAL_GAME_DIFFICULTY_SETTING = "Invalid Game Difficulty Setting"
 const val ILLEGAL_APP_THEME_VALUE = "Invalid App Theme Value"
 const val NULL_ACTIVITY_EXCEPTION = "Activity cannot be null"
 
-const val APP_BUILD_VERSION = "stable-1.0.0"
+const val APP_BUILD_VERSION = "stable-1.0.1"

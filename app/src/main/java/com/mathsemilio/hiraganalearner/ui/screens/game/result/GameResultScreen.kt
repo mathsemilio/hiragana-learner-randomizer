@@ -4,6 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.ARG_SCORE
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
@@ -12,7 +18,7 @@ import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
 
-class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
+class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     companion object {
         fun newInstance(difficultyValue: Int, score: Int): GameResultScreen {
@@ -26,12 +32,19 @@ class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
         }
     }
 
+    private enum class UserAction { GO_TO_WELCOME_SCREEN, GO_TO_MAIN_SCREEN }
+
     private lateinit var mView: GameResultScreenViewImpl
 
     private lateinit var mShareGameScoreUseCase: ShareGameScoreUseCase
     private lateinit var mPreferencesRepository: PreferencesRepository
     private lateinit var mSoundEffectsModule: SoundEffectsModule
     private lateinit var mScreensNavigator: ScreensNavigator
+
+    private var mInterstitialAd: InterstitialAd? = null
+    private lateinit var mAdRequest: AdRequest
+
+    private lateinit var intendedUserAction: UserAction
 
     private var mScore = 0
     private var mDifficultyValue = 0
@@ -55,6 +68,10 @@ class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
             mScore,
             mPreferencesRepository.getPerfectScoresValue()
         )
+
+        mView.loadGameResultScreenBannerAd(mAdRequest)
+
+        initializeInterstitialAd()
     }
 
     private fun initialize() {
@@ -71,7 +88,37 @@ class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
 
         mScreensNavigator = getCompositionRoot().getScreensNavigator()
 
-        getCompositionRoot().getBackPressedDispatcher { mScreensNavigator.navigateToWelcomeScreen() }
+        mAdRequest = getCompositionRoot().getAdRequest()
+
+        getCompositionRoot().getBackPressedDispatcher { onHomeButtonClicked() }
+    }
+
+    private fun initializeInterstitialAd() {
+        InterstitialAd.load(
+            requireContext(),
+            getString(R.string.interstitialAdTestUnitId),
+            mAdRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                    mInterstitialAd?.fullScreenContentCallback = getFullScreenContentCallback()
+                }
+            }
+        )
+    }
+
+    private fun getFullScreenContentCallback(): FullScreenContentCallback {
+        return object : FullScreenContentCallback() {
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) = handleNavigation()
+            override fun onAdDismissedFullScreenContent() = handleNavigation()
+        }
+    }
+
+    private fun handleNavigation() {
+        when (intendedUserAction) {
+            UserAction.GO_TO_WELCOME_SCREEN -> mScreensNavigator.navigateToWelcomeScreen()
+            UserAction.GO_TO_MAIN_SCREEN -> mScreensNavigator.navigateToMainScreen(mDifficultyValue)
+        }
     }
 
     private fun getDifficultyValue(): Int {
@@ -84,12 +131,20 @@ class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
 
     override fun onHomeButtonClicked() {
         mSoundEffectsModule.playButtonClickSoundEffect()
-        mScreensNavigator.navigateToWelcomeScreen()
+        intendedUserAction = UserAction.GO_TO_WELCOME_SCREEN
+        if (mInterstitialAd == null)
+            handleNavigation()
+        else
+            mInterstitialAd?.show(requireActivity())
     }
 
     override fun onPlayAgainClicked(difficultyValue: Int) {
         mSoundEffectsModule.playButtonClickSoundEffect()
-        mScreensNavigator.navigateToMainScreen(mDifficultyValue)
+        intendedUserAction = UserAction.GO_TO_MAIN_SCREEN
+        if (mInterstitialAd == null)
+            handleNavigation()
+        else
+            mInterstitialAd?.show(requireActivity())
     }
 
     override fun onShareScoreButtonClicked() {
@@ -104,6 +159,7 @@ class GameResultScreen : BaseFragment(), IGameResultScreenView.Listener {
 
     override fun onDestroyView() {
         mView.removeListener(this)
+        mInterstitialAd = null
         super.onDestroyView()
     }
 }

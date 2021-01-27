@@ -28,8 +28,9 @@ fun SoundPool.playSFX(soundEffectID: Int, volume: Float, priority: Int) {
     play(soundEffectID, volume, volume, priority, 0, 1F)
 }
 
-fun Long.formatLongTime(context: Context) =
-    when (android.text.format.DateFormat.is24HourFormat(context)) {
+fun Long.formatLongTime(context: Context): String {
+    return when (android.text.format.DateFormat.is24HourFormat(context)) {
         true -> android.text.format.DateFormat.format("HH:mm", this).toString()
         false -> android.text.format.DateFormat.format("h:mm a", this).toString()
     }
+}

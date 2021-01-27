@@ -10,14 +10,14 @@ class PreferencesSource(context: Context) {
     private val mDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val mSharedPreferencesEditor = mDefaultSharedPreferences.edit()
 
-    fun saveNotificationSwitchState(state: Boolean) {
+    fun setNotificationSwitchState(state: Boolean) {
         mSharedPreferencesEditor.apply {
             putBoolean(NOTIFICATION_SWITCH_STATE_KEY, state)
             apply()
         }
     }
 
-    fun saveNotificationTimeConfigured(timeConfigured: Long) {
+    fun setNotificationTimeConfigured(timeConfigured: Long) {
         mSharedPreferencesEditor.apply {
             putLong(NOTIFICATION_TIME_CONFIGURED_KEY, timeConfigured)
             apply()
@@ -27,6 +27,13 @@ class PreferencesSource(context: Context) {
     fun incrementPerfectScoreValue() {
         mSharedPreferencesEditor.apply {
             putInt(PERFECT_SCORES_KEY, getPerfectScoresValue().inc())
+            apply()
+        }
+    }
+
+    fun setAppThemeValue(themeValue: Int) {
+        mSharedPreferencesEditor.apply {
+            putInt(APP_THEME_KEY, themeValue)
             apply()
         }
     }
@@ -50,13 +57,6 @@ class PreferencesSource(context: Context) {
     fun getSoundEffectsVolume(): Float {
         return mDefaultSharedPreferences.getInt(SOUND_EFFECTS_VOLUME_PREFERENCE_KEY, 0)
             .toFloat().div(10F)
-    }
-
-    fun saveAppThemeValue(themeValue: Int) {
-        mSharedPreferencesEditor.apply {
-            putInt(APP_THEME_KEY, themeValue)
-            apply()
-        }
     }
 
     fun getAppThemeValue(): Int {

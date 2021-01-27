@@ -6,7 +6,7 @@ import android.media.SoundPool
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.playSFX
 
-class SoundEffectsModule(private val mContext: Context, private val mVolume: Float) {
+class SoundEffectsModule(private val context: Context, private val volume: Float) {
 
     private val mAudioAttributes = AudioAttributes.Builder()
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -29,18 +29,18 @@ class SoundEffectsModule(private val mContext: Context, private val mVolume: Flo
 
     private fun loadSoundEffects() {
         mSoundPool.apply {
-            mClickSoundEffect = load(mContext, R.raw.brandondelehoy_series_of_clicks, 1)
-            mButtonClickSoundEffect = load(mContext, R.raw.jaoreir_button_simple_01, 1)
-            mSuccessSoundEffect = load(mContext, R.raw.mativve_electro_success_sound, 1)
-            mErrorSoundEffect = load(mContext, R.raw.autistic_lucario_error, 1)
+            mClickSoundEffect = load(context, R.raw.brandondelehoy_series_of_clicks, 1)
+            mButtonClickSoundEffect = load(context, R.raw.jaoreir_button_simple_01, 1)
+            mSuccessSoundEffect = load(context, R.raw.mativve_electro_success_sound, 1)
+            mErrorSoundEffect = load(context, R.raw.autistic_lucario_error, 1)
         }
     }
 
-    fun playClickSoundEffect() = mSoundPool.playSFX(mClickSoundEffect, mVolume, 1)
+    fun playClickSoundEffect() = mSoundPool.playSFX(mClickSoundEffect, volume, 1)
 
-    fun playButtonClickSoundEffect() = mSoundPool.playSFX(mButtonClickSoundEffect, mVolume, 1)
+    fun playButtonClickSoundEffect() = mSoundPool.playSFX(mButtonClickSoundEffect, volume, 1)
 
-    fun playSuccessSoundEffect() = mSoundPool.playSFX(mSuccessSoundEffect, mVolume, 1)
+    fun playSuccessSoundEffect() = mSoundPool.playSFX(mSuccessSoundEffect, volume, 1)
 
-    fun playErrorSoundEffect() = mSoundPool.playSFX(mErrorSoundEffect, mVolume, 1)
+    fun playErrorSoundEffect() = mSoundPool.playSFX(mErrorSoundEffect, volume, 1)
 }

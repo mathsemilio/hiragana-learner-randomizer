@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.ui.screens.common
 
-interface IObservable<Listener> {
+interface Observable<Listener> {
     fun registerListener(listener: Listener)
     fun removeListener(listener: Listener)
 }

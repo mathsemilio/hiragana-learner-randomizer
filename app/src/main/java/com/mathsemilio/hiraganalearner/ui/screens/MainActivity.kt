@@ -7,11 +7,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.google.android.material.appbar.MaterialToolbar
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.ui.others.AppToolbarHelper
 import com.mathsemilio.hiraganalearner.ui.others.FragmentContainerHelper
+import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
 import com.mathsemilio.hiraganalearner.ui.screens.game.welcome.GameWelcomeScreen
 
-class MainActivity : AppCompatActivity(), FragmentContainerHelper, AppToolbarHelper {
+class MainActivity : AppCompatActivity(), FragmentContainerHelper, ToolbarVisibilityHelper {
 
     private lateinit var mAppToolbar: MaterialToolbar
 
