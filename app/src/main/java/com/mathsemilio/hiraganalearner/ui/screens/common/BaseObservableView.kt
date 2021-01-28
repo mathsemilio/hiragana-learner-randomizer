@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.View
 import com.mathsemilio.hiraganalearner.common.BaseObservable
 
-abstract class BaseObservableView<ListenerType> : BaseObservable<ListenerType>(),
-    com.mathsemilio.hiraganalearner.ui.screens.common.View {
+abstract class BaseObservableView<ListenerType> : BaseObservable<ListenerType>(), IView {
 
     private lateinit var mRootView: View
 

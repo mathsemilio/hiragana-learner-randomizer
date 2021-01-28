@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.ui.screens.common
+package com.mathsemilio.hiraganalearner.common
 
 interface Observable<Listener> {
     fun registerListener(listener: Listener)

@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mathsemilio.hiraganalearner.R
@@ -16,7 +17,7 @@ class ShowInterstitialAdUseCase(
     private val adRequest: AdRequest,
 ) : BaseObservable<OnInterstitialAdEventListener>() {
 
-    private lateinit var mInterstitialAd: InterstitialAd
+    private var mInterstitialAd: InterstitialAd? = null
 
     init {
         initializeInterstitialAd()
@@ -30,7 +31,11 @@ class ShowInterstitialAdUseCase(
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     mInterstitialAd = interstitialAd
-                    mInterstitialAd.fullScreenContentCallback = getFullScreenContentCallback()
+                    mInterstitialAd?.fullScreenContentCallback = getFullScreenContentCallback()
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
                 }
             }
         )
@@ -38,14 +43,24 @@ class ShowInterstitialAdUseCase(
 
     private fun getFullScreenContentCallback(): FullScreenContentCallback {
         return object : FullScreenContentCallback() {
-            override fun onAdFailedToShowFullScreenContent(adError: AdError?) = showInterstitialAdFailed()
-            override fun onAdDismissedFullScreenContent() = onInterstitialAdDismissed()
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                onShowInterstitialAdFailed()
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                onInterstitialAdDismissed()
+            }
         }
     }
 
-    fun showInterstitialAd() = mInterstitialAd.show(activity)
+    fun showInterstitialAd() {
+        if (mInterstitialAd == null)
+            onShowInterstitialAdFailed()
+        else
+            mInterstitialAd?.show(activity)
+    }
 
-    private fun showInterstitialAdFailed() {
+    private fun onShowInterstitialAdFailed() {
         getListeners().forEach { it.onShowInterstitialAdFailed() }
     }
 
