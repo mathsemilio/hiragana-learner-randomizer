@@ -116,7 +116,7 @@ class DialogHelper(private val context: Context, private val fragmentManager: Fr
     }
 
     fun showAppThemeDialog() {
-        val appThemeDialogFragment = AppThemeDialog()
-        appThemeDialogFragment.show(fragmentManager, null)
+        val appThemeDialog = AppThemeDialog()
+        appThemeDialog.show(fragmentManager, null)
     }
 }

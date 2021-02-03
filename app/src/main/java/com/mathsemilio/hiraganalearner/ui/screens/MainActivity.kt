@@ -2,7 +2,6 @@ package com.mathsemilio.hiraganalearner.ui.screens
 
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.google.android.material.appbar.MaterialToolbar
@@ -11,7 +10,7 @@ import com.mathsemilio.hiraganalearner.ui.others.FragmentContainerHelper
 import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
 import com.mathsemilio.hiraganalearner.ui.screens.game.welcome.GameWelcomeScreen
 
-class MainActivity : AppCompatActivity(), FragmentContainerHelper, ToolbarVisibilityHelper {
+class MainActivity : BaseActivity(), FragmentContainerHelper, ToolbarVisibilityHelper {
 
     private lateinit var mAppToolbar: MaterialToolbar
 
@@ -22,7 +21,8 @@ class MainActivity : AppCompatActivity(), FragmentContainerHelper, ToolbarVisibi
 
         setupAppToolbar()
 
-        if (savedInstanceState == null) showGameWelcomeScreenFragment()
+        if (savedInstanceState == null)
+            showGameWelcomeScreenFragment()
     }
 
     private fun setupAppToolbar() {

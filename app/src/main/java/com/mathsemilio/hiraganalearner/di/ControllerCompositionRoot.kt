@@ -1,96 +1,53 @@
 package com.mathsemilio.hiraganalearner.di
 
-import android.view.LayoutInflater
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdRequest
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
-import com.mathsemilio.hiraganalearner.others.TrainingNotificationHelper
-import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.others.*
+import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
+import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
+import com.mathsemilio.hiraganalearner.ui.others.MessagesHelper
+import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
+import com.mathsemilio.hiraganalearner.ui.screens.common.InterstitialAdUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
-import com.mathsemilio.hiraganalearner.ui.usecase.ShowInterstitialAdUseCase
 
-class ControllerCompositionRoot(
-    private val compositionRoot: CompositionRoot,
-    private val fragment: Fragment
-) {
-    private fun getFragmentContainerHelper(): FragmentContainerHelper {
-        return fragment.requireActivity() as FragmentContainerHelper
-    }
+class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
 
-    fun getViewFactory(): ViewFactory {
-        return compositionRoot.getViewFactory(LayoutInflater.from(fragment.requireContext()))
-    }
+    private val activity get() = activityCompositionRoot.getActivity()
 
-    fun getPreferencesRepository(): PreferencesRepository {
-        return compositionRoot.getPreferencesRepository(fragment.requireContext())
-    }
+    private val context get() = activityCompositionRoot.context
 
-    fun getSoundEffectsModule(volume: Float): SoundEffectsModule {
-        return compositionRoot.getSoundEffectsModule(fragment.requireContext(), volume)
-    }
+    private val fragmentManager get() = activityCompositionRoot.fragmentManager
 
-    fun getScreensNavigator(): ScreensNavigator {
-        return compositionRoot.getScreensNavigator(
-            fragment.parentFragmentManager, getFragmentContainerHelper()
-        )
-    }
+    val viewFactory get() = activityCompositionRoot.viewFactory
 
-    fun getShowInterstitialAdUseCase(): ShowInterstitialAdUseCase {
-        return compositionRoot.getShowInterstitialAdUseCase(
-            fragment.requireActivity(),
-            fragment.requireContext()
-        )
-    }
+    val preferencesRepository get() = activityCompositionRoot.preferencesRepository
 
-    fun getAdRequest(): AdRequest {
-        return compositionRoot.getAdRequest()
-    }
+    val soundEffectsModule get() = activityCompositionRoot.soundEffectsModule
 
-    fun getTrainingNotificationHelper(): TrainingNotificationHelper {
-        return TrainingNotificationHelper(fragment.requireContext())
-    }
+    val screensNavigator get() = activityCompositionRoot.screensNavigator
 
-    fun getToolbarVisibilityHelper(): ToolbarVisibilityHelper {
-        return fragment.requireActivity() as ToolbarVisibilityHelper
-    }
+    val adRequest get() = activityCompositionRoot.adRequest
 
-    fun getMessagesHelper(): MessagesHelper {
-        return MessagesHelper(fragment.requireContext())
-    }
+    val appThemeUtil get() = activityCompositionRoot.appThemeUtil
 
-    fun getDialogHelper(): DialogHelper {
-        return compositionRoot.getDialogHelper(
-            fragment.requireContext(),
-            fragment.parentFragmentManager
-        )
-    }
+    val trainingNotificationHelper get() = TrainingNotificationHelper(context)
 
-    fun getAppThemeUtil(): AppThemeUtil {
-        return compositionRoot.getAppThemeUtil(fragment.requireContext())
-    }
+    val toolbarVisibilityHelper get() = activity as ToolbarVisibilityHelper
 
-    fun getGameMainScreenViewModel(): GameMainScreenViewModel {
-        return GameMainScreenViewModel()
-    }
+    val messagesHelper get() = MessagesHelper(context)
 
-    fun getBackPressedDispatcher(onBackPressed: () -> Unit) {
-        fragment.requireActivity().onBackPressedDispatcher.addCallback(
-            fragment.viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() = onBackPressed()
-            }
-        )
-    }
+    val dialogHelper get() = DialogHelper(context, fragmentManager)
 
-    fun getAlertUserUseCase(): AlertUserUseCase {
-        return AlertUserUseCase(fragment.requireContext(), fragment.parentFragmentManager)
-    }
+    val interstitialAdUseCase get() = InterstitialAdUseCase(activity, context, adRequest)
 
-    fun getShareGameScoreUseCase(score: Int): ShareGameScoreUseCase {
-        return ShareGameScoreUseCase(fragment.requireContext(), score)
-    }
+    val gameMainScreenViewModel get() = GameMainScreenViewModel()
+
+    fun getOnBackPressedCallback(onBackPressed: () -> Unit) =
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = onBackPressed()
+        }
+
+    val alertUserUseCase get() = AlertUserUseCase(context, fragmentManager)
+
+    fun getShareGameScoreUseCase(score: Int) = ShareGameScoreUseCase(context, score)
 }

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.others
+package com.mathsemilio.hiraganalearner.others.notification
 
 import android.content.Context
 import androidx.work.Worker

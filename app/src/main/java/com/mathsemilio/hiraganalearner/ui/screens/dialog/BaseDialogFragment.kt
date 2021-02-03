@@ -2,14 +2,12 @@ package com.mathsemilio.hiraganalearner.ui.screens.dialog
 
 import androidx.fragment.app.DialogFragment
 import com.mathsemilio.hiraganalearner.di.ControllerCompositionRoot
-import com.mathsemilio.hiraganalearner.others.HiraganaRandomizerApplication
+import com.mathsemilio.hiraganalearner.ui.screens.MainActivity
 
 abstract class BaseDialogFragment : DialogFragment() {
 
-    protected fun getCompositionRoot(): ControllerCompositionRoot {
-        return ControllerCompositionRoot(
-            (requireActivity().application as HiraganaRandomizerApplication).compositionRoot,
-            fragment = this
-        )
+    private val _compositionRoot by lazy {
+        ControllerCompositionRoot((requireActivity() as MainActivity).activityCompositionRoot)
     }
+    val compositionRoot get() = _compositionRoot
 }

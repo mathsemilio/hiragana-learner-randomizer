@@ -1,63 +1,68 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel
 
-import com.mathsemilio.hiraganalearner.common.BaseObservable
+import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
-import com.mathsemilio.hiraganalearner.game.backend.BackendEventListener
 import com.mathsemilio.hiraganalearner.game.backend.GameBackend
-import com.mathsemilio.hiraganalearner.game.backend.ViewModelRequestEventListener
 
-class GameMainScreenViewModel : BaseObservable<ViewModelEventListener>(), BackendEventListener {
+class GameMainScreenViewModel : BaseObservable<GameMainScreenViewModel.Listener>(), GameBackend.Listener {
 
-    private val mGameBackend = GameBackend()
-    private val mViewModelRequest = mGameBackend as ViewModelRequestEventListener
+    interface Listener {
+        fun onGameScoreUpdated(newScore: Int)
+        fun onGameProgressUpdated(updatedProgress: Int)
+        fun onGameCountDownTimeUpdated(updatedCountdownTime: Int)
+        fun onRomanizationGroupUpdated(updatedRomanizationGroupList: List<String>)
+        fun onCurrentHiraganaSymbolUpdated(newSymbol: HiraganaSymbol)
+        fun onCorrectAnswer()
+        fun onWrongAnswer()
+        fun onGameTimeOver()
+    }
 
-    private lateinit var mCurrentHiraganaSymbol: HiraganaSymbol
-    private var mCurrentGameScore = 0
+    private val gameBackend = GameBackend()
+    private val viewModelRequest = gameBackend as ViewModelRequestEventListener
+
+    private lateinit var _currentHiraganaSymbol: HiraganaSymbol
+    val currentHiraganaSymbol get() = _currentHiraganaSymbol
+
+    private var _currentGameScore = 0
+    val currentGameScore get() = _currentGameScore
+
     var gameFinished = false
 
     init {
-        mGameBackend.registerListener(this)
+        gameBackend.addListener(this)
     }
 
     fun startGame(difficultyValue: Int) {
-        mViewModelRequest.onStartGameRequested(difficultyValue)
+        viewModelRequest.onStartGameRequested(difficultyValue)
     }
 
     fun checkUserAnswer(selectedRomanization: String) {
-        mViewModelRequest.onCheckUserAnswerRequested(selectedRomanization)
+        viewModelRequest.onCheckUserAnswerRequested(selectedRomanization)
     }
 
     fun getNextSymbol() {
-        mViewModelRequest.onGetNextSymbolRequested()
+        viewModelRequest.onGetNextSymbolRequested()
     }
 
     fun pauseGameTimer() {
-        mViewModelRequest.onPauseGameTimerRequested()
+        viewModelRequest.onPauseGameTimerRequested()
     }
 
     fun resumeGameTimer() {
-        mViewModelRequest.onResumeGameTimerRequested()
-    }
-
-    fun getCurrentSymbol(): HiraganaSymbol {
-        return mCurrentHiraganaSymbol
-    }
-
-    fun getGameScore(): Int {
-        return mCurrentGameScore
+        viewModelRequest.onResumeGameTimerRequested()
     }
 
     fun onClearInstance() {
-        mGameBackend.removeListener(this)
+        gameBackend.removeListener(this)
     }
 
     override fun onSymbolUpdated(newSymbol: HiraganaSymbol) {
-        mCurrentHiraganaSymbol = newSymbol
+        _currentHiraganaSymbol = newSymbol
         getListeners().forEach { it.onCurrentHiraganaSymbolUpdated(newSymbol) }
     }
 
     override fun onGameScoreUpdated(newScore: Int) {
-        mCurrentGameScore = newScore
+        _currentGameScore = newScore
         getListeners().forEach { it.onGameScoreUpdated(newScore) }
     }
 

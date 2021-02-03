@@ -7,4 +7,5 @@
     <color name="colorSplashScreenStatusBar">@color/black</color>
     <color name="colorToolbarBackground">#212121</color>
     <color name="colorFloatingActionButtonOnSecondary">@color/black</color>
+    <color name="colorCardViewGameResultBackground">#212121</color>
 </resources>

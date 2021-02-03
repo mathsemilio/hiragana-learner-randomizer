@@ -2,17 +2,15 @@ package com.mathsemilio.hiraganalearner.ui.screens.common
 
 import android.content.Context
 import android.view.View
-import com.mathsemilio.hiraganalearner.common.BaseObservable
+import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 
 abstract class BaseObservableView<ListenerType> : BaseObservable<ListenerType>(), IView {
 
-    private lateinit var mRootView: View
+    private lateinit var rootView: View
 
-    override fun getRootView() = mRootView
+    override fun getRootView() = rootView
 
-    protected fun setRootView(rootView: View) {
-        mRootView = rootView
-    }
+    protected fun setRootView(view: View) { rootView = view }
 
     protected fun <T : View> findViewById(id: Int): T = getRootView().findViewById(id)
 

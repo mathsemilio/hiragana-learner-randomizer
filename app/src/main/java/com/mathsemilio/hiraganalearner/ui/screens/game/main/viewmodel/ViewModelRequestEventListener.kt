@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.game.backend
+package com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel
 
 interface ViewModelRequestEventListener {
     fun onStartGameRequested(difficultyValue: Int)

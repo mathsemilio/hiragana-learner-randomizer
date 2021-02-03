@@ -8,7 +8,7 @@ interface GameMainScreenView {
         fun onCheckAnswerClicked(selectedRomanization: String)
     }
 
-    fun onControllerViewCreated(difficultyValue: Int)
+    fun setupUI(difficultyValue: Int)
     fun setGameDifficultyTextBasedOnDifficultyValue(difficultyValue: Int)
     fun updateGameScoreTextView(newScore: Int)
     fun updateCurrentHiraganaSymbol(newSymbol: String)

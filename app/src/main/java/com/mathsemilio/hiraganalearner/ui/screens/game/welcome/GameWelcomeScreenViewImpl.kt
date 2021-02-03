@@ -15,42 +15,34 @@ import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
 class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
     BaseObservableView<GameWelcomeScreenView.Listener>(), GameWelcomeScreenView {
 
-    private lateinit var mImageViewSettingsIcon: ImageView
-    private lateinit var mTextViewOnDifficulty: TextView
-    private lateinit var mTextViewSelectADifficulty: TextView
-    private lateinit var mChipGroupDifficultyOptions: ChipGroup
-    private lateinit var mButtonStart: Button
+    private lateinit var imageViewSettingsIcon: ImageView
+    private lateinit var textViewOnDifficulty: TextView
+    private lateinit var textViewSelectADifficulty: TextView
+    private lateinit var chipGroupDifficultyOptions: ChipGroup
+    private lateinit var buttonStart: Button
 
-    private var mDifficultyValue = 0
-    private var mDefaultDifficultyValue = ""
+    private var difficultyValue = 0
+    private var defaultDifficultyValue = ""
 
     init {
         setRootView(inflater.inflate(R.layout.game_welcome_screen, container, false))
         initializeViews()
-    }
-
-    override fun onControllerViewCreated(difficultyValueFromPreference: String) {
-        getGameDefaultDifficultyValue(difficultyValueFromPreference)
-
-        if (mDefaultDifficultyValue != "0") setupUIForDifficultyPreSelected()
-
         attachClickListeners()
     }
 
-    override fun getDifficultyValue(): Int {
-        return mDifficultyValue
+    override fun setupUI(defaultDifficultyValueFromPreference: String) {
+        getGameDefaultDifficultyValue(defaultDifficultyValueFromPreference)
+
+        if (defaultDifficultyValueFromPreference != "0")
+            setupUIForDifficultyPreSelected()
     }
 
-    private fun initializeViews() {
-        mImageViewSettingsIcon = findViewById(R.id.image_view_settings_icon)
-        mTextViewOnDifficulty = findViewById(R.id.text_body_on_game_difficulty)
-        mTextViewSelectADifficulty = findViewById(R.id.text_body_select_a_difficulty)
-        mChipGroupDifficultyOptions = findViewById(R.id.chip_group_game_difficulty)
-        mButtonStart = findViewById(R.id.button_start)
+    override fun getDifficultyValue(): Int {
+        return difficultyValue
     }
 
     private fun getGameDefaultDifficultyValue(defaultDifficultyValueFromPreference: String) {
-        mDefaultDifficultyValue = when (defaultDifficultyValueFromPreference) {
+        defaultDifficultyValue = when (defaultDifficultyValueFromPreference) {
             "0" -> SHOW_DIFFICULTY_OPTIONS
             "1" -> DEFAULT_DIFFICULTY_BEGINNER
             "2" -> DEFAULT_DIFFICULTY_MEDIUM
@@ -59,27 +51,35 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
         }.also { defaultDifficulty ->
             when (defaultDifficulty) {
                 SHOW_DIFFICULTY_OPTIONS -> attachChipGroupDifficultyOptionsOnCheckedChangeListener()
-                DEFAULT_DIFFICULTY_BEGINNER -> mDifficultyValue = GAME_DIFFICULTY_VALUE_BEGINNER
-                DEFAULT_DIFFICULTY_MEDIUM -> mDifficultyValue = GAME_DIFFICULTY_VALUE_MEDIUM
-                DEFAULT_DIFFICULTY_HARD -> mDifficultyValue = GAME_DIFFICULTY_VALUE_HARD
+                DEFAULT_DIFFICULTY_BEGINNER -> difficultyValue = GAME_DIFFICULTY_VALUE_BEGINNER
+                DEFAULT_DIFFICULTY_MEDIUM -> difficultyValue = GAME_DIFFICULTY_VALUE_MEDIUM
+                DEFAULT_DIFFICULTY_HARD -> difficultyValue = GAME_DIFFICULTY_VALUE_HARD
             }
         }
+    }
+
+    private fun initializeViews() {
+        imageViewSettingsIcon = findViewById(R.id.image_view_settings_icon)
+        textViewOnDifficulty = findViewById(R.id.text_body_on_game_difficulty)
+        textViewSelectADifficulty = findViewById(R.id.text_body_select_a_difficulty)
+        chipGroupDifficultyOptions = findViewById(R.id.chip_group_game_difficulty)
+        buttonStart = findViewById(R.id.button_start)
     }
 
     private fun setupUIForDifficultyPreSelected() {
         setupOnGameDifficultyTextView()
 
-        mTextViewSelectADifficulty.visibility = View.INVISIBLE
-        mChipGroupDifficultyOptions.visibility = View.INVISIBLE
+        textViewSelectADifficulty.visibility = View.INVISIBLE
+        chipGroupDifficultyOptions.visibility = View.INVISIBLE
 
-        mButtonStart.isEnabled = true
+        buttonStart.isEnabled = true
     }
 
     private fun setupOnGameDifficultyTextView() {
-        mTextViewOnDifficulty.apply {
+        textViewOnDifficulty.apply {
             visibility = View.VISIBLE
             text = context.getString(
-                R.string.on_game_difficulty, when (mDifficultyValue) {
+                R.string.on_game_difficulty, when (difficultyValue) {
                     GAME_DIFFICULTY_VALUE_BEGINNER -> context.getString(R.string.game_difficulty_beginner)
                     GAME_DIFFICULTY_VALUE_MEDIUM -> context.getString(R.string.game_difficulty_medium)
                     GAME_DIFFICULTY_VALUE_HARD -> context.getString(R.string.game_difficulty_hard)
@@ -90,17 +90,17 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     }
 
     private fun attachClickListeners() {
-        mImageViewSettingsIcon.setOnClickListener { navigateToSettingsScreen() }
-        mButtonStart.setOnClickListener { navigateToMainScreen(mDifficultyValue) }
+        imageViewSettingsIcon.setOnClickListener { onNavigateToSettingsScreen() }
+        buttonStart.setOnClickListener { onNavigateToMainScreen(difficultyValue) }
     }
 
     private fun attachChipGroupDifficultyOptionsOnCheckedChangeListener() {
-        mChipGroupDifficultyOptions.setOnCheckedChangeListener { group, checkedId ->
+        chipGroupDifficultyOptions.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == -1)
-                mButtonStart.isEnabled = false
+                buttonStart.isEnabled = false
             else {
-                playClickSoundEffect()
-                mButtonStart.isEnabled = true
+                onPlayClickSoundEffect()
+                buttonStart.isEnabled = true
                 val checkedChip = group.findViewById<Chip>(checkedId)
                 setDifficultyValueBasedOnChipText(checkedChip.text.toString())
             }
@@ -108,7 +108,7 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     }
 
     private fun setDifficultyValueBasedOnChipText(chipText: String) {
-        mDifficultyValue = when (chipText) {
+        difficultyValue = when (chipText) {
             getContext().getString(R.string.game_difficulty_beginner) -> GAME_DIFFICULTY_VALUE_BEGINNER
             getContext().getString(R.string.game_difficulty_medium) -> GAME_DIFFICULTY_VALUE_MEDIUM
             getContext().getString(R.string.game_difficulty_hard) -> GAME_DIFFICULTY_VALUE_HARD
@@ -116,15 +116,15 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
         }
     }
 
-    private fun playClickSoundEffect() {
+    private fun onPlayClickSoundEffect() {
         getListeners().forEach { it.onPlayClickSoundEffect() }
     }
 
-    private fun navigateToSettingsScreen() {
+    private fun onNavigateToSettingsScreen() {
         getListeners().forEach { it.onSettingsIconClicked() }
     }
 
-    private fun navigateToMainScreen(difficultyValue: Int) {
+    private fun onNavigateToMainScreen(difficultyValue: Int) {
         getListeners().forEach { it.onStartButtonClicked(difficultyValue) }
     }
 }

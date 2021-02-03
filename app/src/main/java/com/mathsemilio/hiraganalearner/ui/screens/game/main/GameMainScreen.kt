@@ -4,24 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
+import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
 import com.mathsemilio.hiraganalearner.common.PERFECT_SCORE
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
-import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
+import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
+import com.mathsemilio.hiraganalearner.ui.screens.common.InterstitialAdUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCaseEventListener
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.ViewModelEventListener
-import com.mathsemilio.hiraganalearner.ui.usecase.OnInterstitialAdEventListener
-import com.mathsemilio.hiraganalearner.ui.usecase.ShowInterstitialAdUseCase
 
-class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEventListener,
-    AlertUserUseCaseEventListener, OnInterstitialAdEventListener {
+class GameMainScreen : BaseFragment(),
+    GameMainScreenView.Listener,
+    GameMainScreenViewModel.Listener,
+    AlertUserUseCase.Listener,
+    InterstitialAdUseCase.Listener {
 
     companion object {
         fun newInstance(difficultyValue: Int): GameMainScreen {
@@ -32,198 +33,210 @@ class GameMainScreen : BaseFragment(), GameMainScreenView.Listener, ViewModelEve
         }
     }
 
-    private lateinit var mView: GameMainScreenViewImpl
-    private lateinit var mViewModel: GameMainScreenViewModel
+    private lateinit var gameMainScreenView: GameMainScreenViewImpl
+    private lateinit var viewModel: GameMainScreenViewModel
 
-    private lateinit var mPreferencesRepository: PreferencesRepository
-    private lateinit var mSoundEffectsModule: SoundEffectsModule
-    private lateinit var mScreensNavigator: ScreensNavigator
-    private lateinit var mAlertUserUseCase: AlertUserUseCase
-    private lateinit var mDialogHelper: DialogHelper
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var preferencesRepository: PreferencesRepository
+    private lateinit var soundEffectsModule: SoundEffectsModule
+    private lateinit var screensNavigator: ScreensNavigator
+    private lateinit var alertUserUseCase: AlertUserUseCase
 
-    private lateinit var mShowInterstitialAdUseCase: ShowInterstitialAdUseCase
-    private lateinit var mAdRequest: AdRequest
+    private lateinit var interstitialAdUseCase: InterstitialAdUseCase
+    private lateinit var adRequest: AdRequest
 
-    private var mDifficultyValue = 0
-    private var mCurrentControllerState = ControllerState.RUNNING
+    private var difficultyValue = 0
+    private var currentScreenState = ScreenState.TIMER_RUNNING
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        difficultyValue = getDifficultyValue()
+
+        viewModel = compositionRoot.gameMainScreenViewModel
+
+        onBackPressedCallback = compositionRoot.getOnBackPressedCallback { onExitButtonClicked() }
+
+        preferencesRepository = compositionRoot.preferencesRepository
+
+        soundEffectsModule = compositionRoot.soundEffectsModule
+
+        screensNavigator = compositionRoot.screensNavigator
+
+        alertUserUseCase = compositionRoot.alertUserUseCase
+
+        adRequest = compositionRoot.adRequest
+
+        interstitialAdUseCase = compositionRoot.interstitialAdUseCase
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = getCompositionRoot().getViewFactory().getGameMainScreenView(container)
-        return mView.getRootView()
+        gameMainScreenView = compositionRoot.viewFactory.getGameMainScreenView(container)
+        return gameMainScreenView.getRootView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initialize()
+        gameMainScreenView.setupUI(difficultyValue)
 
-        mView.onControllerViewCreated(mDifficultyValue)
+        viewModel.addListener(this)
 
-        registerListeners()
+        viewModel.startGame(difficultyValue)
 
-        mViewModel.startGame(mDifficultyValue)
-    }
-
-    private fun initialize() {
-        mDifficultyValue = getDifficultyValue()
-
-        mViewModel = getCompositionRoot().getGameMainScreenViewModel()
-
-        mPreferencesRepository = getCompositionRoot().getPreferencesRepository()
-
-        mSoundEffectsModule = getCompositionRoot().getSoundEffectsModule(
-            mPreferencesRepository.getSoundEffectsVolume()
-        )
-
-        mScreensNavigator = getCompositionRoot().getScreensNavigator()
-
-        mAlertUserUseCase = getCompositionRoot().getAlertUserUseCase()
-
-        mDialogHelper = getCompositionRoot().getDialogHelper()
-
-        mAdRequest = getCompositionRoot().getAdRequest()
-
-        mShowInterstitialAdUseCase = getCompositionRoot().getShowInterstitialAdUseCase()
-
-        getCompositionRoot().getBackPressedDispatcher { onExitButtonClicked() }
+        setupOnBackPressedDispatcher()
     }
 
     private fun getDifficultyValue(): Int {
-        return arguments?.getInt(ARG_DIFFICULTY_VALUE) ?: 0
+        return arguments?.getInt(ARG_DIFFICULTY_VALUE) ?: throw RuntimeException(
+            NULL_DIFFICULTY_VALUE_EXCEPTION
+        )
     }
 
-    private fun registerListeners() {
-        mView.registerListener(this)
-        mViewModel.registerListener(this)
-        mAlertUserUseCase.registerListener(this)
-        mShowInterstitialAdUseCase.registerListener(this)
+    private fun setupOnBackPressedDispatcher() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallback
+        )
     }
 
     private fun checkIfGameIsFinished() {
-        when (mViewModel.gameFinished) {
-            true -> {
-                if (mViewModel.getGameScore() == PERFECT_SCORE)
-                    mPreferencesRepository.incrementPerfectScoresValue()
+        viewModel.run {
+            if (gameFinished) {
+              if (currentGameScore == PERFECT_SCORE)
+                  preferencesRepository.incrementPerfectScoresValue()
 
-                mShowInterstitialAdUseCase.showInterstitialAd()
+                interstitialAdUseCase.showInterstitialAd()
+            } else {
+                getNextSymbol()
             }
-            false -> mViewModel.getNextSymbol()
         }
     }
 
-    override fun playClickSoundEffect() {
-        mSoundEffectsModule.playClickSoundEffect()
-    }
-
     override fun onExitButtonClicked() {
-        mAlertUserUseCase.alertUserOnExitGame(
-            { mScreensNavigator.navigateToWelcomeScreen() },
-            { mViewModel.resumeGameTimer() })
+        alertUserUseCase.alertUserOnExitGame(
+            { screensNavigator.navigateToWelcomeScreen() },
+            { viewModel.resumeGameTimer() })
     }
 
     override fun onPauseButtonClicked() {
-        mAlertUserUseCase.alertUserOnGamePaused { mViewModel.resumeGameTimer() }
+        alertUserUseCase.alertUserOnGamePaused { viewModel.resumeGameTimer() }
     }
 
     override fun onCheckAnswerClicked(selectedRomanization: String) {
-        mViewModel.checkUserAnswer(selectedRomanization)
+        viewModel.checkUserAnswer(selectedRomanization)
     }
 
     override fun onGameScoreUpdated(newScore: Int) {
-        mView.updateGameScoreTextView(newScore)
+        gameMainScreenView.updateGameScoreTextView(newScore)
     }
 
     override fun onGameProgressUpdated(updatedProgress: Int) {
-        mView.updateProgressBarGameProgressValue(updatedProgress)
+        gameMainScreenView.updateProgressBarGameProgressValue(updatedProgress)
     }
 
     override fun onGameCountDownTimeUpdated(updatedCountdownTime: Int) {
-        mView.updateProgressBarGameTimerProgressValue(updatedCountdownTime)
+        gameMainScreenView.updateProgressBarGameTimerProgressValue(updatedCountdownTime)
     }
 
     override fun onRomanizationGroupUpdated(updatedRomanizationGroupList: List<String>) {
-        mView.updateRomanizationOptionsGroup(updatedRomanizationGroupList)
+        gameMainScreenView.updateRomanizationOptionsGroup(updatedRomanizationGroupList)
     }
 
     override fun onCurrentHiraganaSymbolUpdated(newSymbol: HiraganaSymbol) {
-        mView.updateCurrentHiraganaSymbol(newSymbol.symbol)
+        gameMainScreenView.updateCurrentHiraganaSymbol(newSymbol.symbol)
     }
 
     override fun onCorrectAnswer() {
-        mAlertUserUseCase.alertUserOnCorrectAnswer {
+        alertUserUseCase.alertUserOnCorrectAnswer {
             checkIfGameIsFinished()
-            mView.clearRomanizationOptions()
+            gameMainScreenView.clearRomanizationOptions()
         }
     }
 
     override fun onWrongAnswer() {
-        mAlertUserUseCase.alertUserOnWrongAnswer(mViewModel.getCurrentSymbol().romanization) {
+        alertUserUseCase.alertUserOnWrongAnswer(viewModel.currentHiraganaSymbol.romanization) {
             checkIfGameIsFinished()
-            mView.clearRomanizationOptions()
+            gameMainScreenView.clearRomanizationOptions()
         }
     }
 
     override fun onGameTimeOver() {
-        mAlertUserUseCase.alertUserOnTimeOver(mViewModel.getCurrentSymbol().romanization) {
+        alertUserUseCase.alertUserOnTimeOver(viewModel.currentHiraganaSymbol.romanization) {
             checkIfGameIsFinished()
-            mView.clearRomanizationOptions()
+            gameMainScreenView.clearRomanizationOptions()
         }
     }
 
     override fun onPauseGameTimer() {
-        mViewModel.pauseGameTimer()
+        viewModel.pauseGameTimer()
     }
 
-    override fun onControllerStateChanged(newControllerState: ControllerState) {
-        mCurrentControllerState = newControllerState
+    override fun onScreenStateChanged(newScreenState: ScreenState) {
+        currentScreenState = newScreenState
+    }
+
+    override fun playClickSoundEffect() {
+        soundEffectsModule.playClickSoundEffect()
     }
 
     override fun onPlayButtonClickSoundEffect() {
-        mSoundEffectsModule.playButtonClickSoundEffect()
+        soundEffectsModule.playButtonClickSoundEffect()
     }
 
     override fun onPlaySuccessSoundEffect() {
-        mSoundEffectsModule.playSuccessSoundEffect()
+        soundEffectsModule.playSuccessSoundEffect()
     }
 
     override fun onPlayErrorSoundEffect() {
-        mSoundEffectsModule.playErrorSoundEffect()
+        soundEffectsModule.playErrorSoundEffect()
     }
 
-    override fun onShowInterstitialAdFailed() {
-        mScreensNavigator.navigateToResultScreen(mDifficultyValue, mViewModel.getGameScore())
+    override fun onAdDismissed() {
+        screensNavigator.navigateToResultScreen(difficultyValue, viewModel.currentGameScore)
     }
 
-    override fun onInterstitialAdDismissed() {
-        mScreensNavigator.navigateToResultScreen(mDifficultyValue, mViewModel.getGameScore())
+    override fun onAdFailedToShow() {
+        screensNavigator.navigateToResultScreen(difficultyValue, viewModel.currentGameScore)
     }
 
     override fun onPause() {
-        mViewModel.pauseGameTimer()
+        viewModel.pauseGameTimer()
 
-        if (mCurrentControllerState == ControllerState.RUNNING)
-            mCurrentControllerState = ControllerState.PAUSED
+        if (currentScreenState == ScreenState.TIMER_RUNNING)
+            currentScreenState = ScreenState.TIMER_PAUSED
 
         super.onPause()
     }
 
-    override fun onResume() {
-        if (mCurrentControllerState == ControllerState.PAUSED)
-            mViewModel.resumeGameTimer()
-
-        super.onResume()
+    override fun onStop() {
+        gameMainScreenView.removeListener(this)
+        alertUserUseCase.removeListener(this)
+        interstitialAdUseCase.removeListener(this)
+        super.onStop()
     }
 
     override fun onDestroyView() {
-        mView.removeListener(this)
-        mViewModel.onClearInstance()
-        mViewModel.removeListener(this)
-        mAlertUserUseCase.removeListener(this)
-        mShowInterstitialAdUseCase.removeListener(this)
+        viewModel.onClearInstance()
+        viewModel.removeListener(this)
         super.onDestroyView()
+    }
+
+    override fun onStart() {
+        gameMainScreenView.addListener(this)
+        alertUserUseCase.addListener(this)
+        interstitialAdUseCase.addListener(this)
+        super.onStart()
+    }
+
+    override fun onResume() {
+        if (currentScreenState == ScreenState.TIMER_PAUSED)
+            viewModel.resumeGameTimer()
+
+        super.onResume()
     }
 }

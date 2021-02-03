@@ -7,4 +7,5 @@
     <color name="colorSplashScreenStatusBar">@color/colorPrimaryVariant</color>
     <color name="colorToolbarBackground">@color/colorPrimary</color>
     <color name="colorFloatingActionButtonOnSecondary">@color/white</color>
+    <color name="colorCardViewGameResultBackground">#EEEEEE</color>
 </resources>

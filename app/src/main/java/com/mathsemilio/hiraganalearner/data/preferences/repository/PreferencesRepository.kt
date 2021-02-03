@@ -5,29 +5,29 @@ import com.mathsemilio.hiraganalearner.data.preferences.source.PreferencesSource
 
 class PreferencesRepository(context: Context) {
 
-    private val mPreferencesSource = PreferencesSource(context)
+    private val preferencesSource = PreferencesSource(context)
 
     fun setTrainingNotificationSwitchState(state: Boolean) =
-        mPreferencesSource.setNotificationSwitchState(state)
+        preferencesSource.setNotificationSwitchState(state)
 
     fun setTrainingNotificationTimeConfigured(timeConfigured: Long) =
-        mPreferencesSource.setNotificationTimeConfigured(timeConfigured)
+        preferencesSource.setNotificationTimeConfigured(timeConfigured)
 
-    fun incrementPerfectScoresValue() = mPreferencesSource.incrementPerfectScoreValue()
+    fun incrementPerfectScoresValue() = preferencesSource.incrementPerfectScoreValue()
 
-    fun clearPerfectScoresValue() = mPreferencesSource.clearPerfectScoresValue()
+    fun clearPerfectScoresValue() = preferencesSource.clearPerfectScoresValue()
 
-    fun setAppThemeValue(themeValue: Int) = mPreferencesSource.setAppThemeValue(themeValue)
+    fun setAppThemeValue(themeValue: Int) = preferencesSource.setAppThemeValue(themeValue)
 
-    fun getTrainingNotificationSwitchState() = mPreferencesSource.getNotificationSwitchState()
+    val trainingNotificationSwitchState get() = preferencesSource.getNotificationSwitchState()
 
-    fun getTrainingNotificationTimeConfigured() = mPreferencesSource.getNotificationTimeConfigured()
+    val trainingNotificationTimeConfigured get() = preferencesSource.getNotificationTimeConfigured()
 
-    fun getGameDefaultOption() = mPreferencesSource.getGameDefaultOption()
+    val gameDefaultOption get() = preferencesSource.getGameDefaultOption()
 
-    fun getPerfectScoresValue() = mPreferencesSource.getPerfectScoresValue()
+    val perfectScoresValue get() = preferencesSource.getPerfectScoresValue()
 
-    fun getSoundEffectsVolume() = mPreferencesSource.getSoundEffectsVolume()
+    val soundEffectsVolume get() = preferencesSource.getSoundEffectsVolume()
 
-    fun getAppThemeValue() = mPreferencesSource.getAppThemeValue()
+    val appThemeValue get() = preferencesSource.getAppThemeValue()
 }

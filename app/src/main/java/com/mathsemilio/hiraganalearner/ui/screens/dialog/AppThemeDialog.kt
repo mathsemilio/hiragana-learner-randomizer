@@ -10,20 +10,24 @@ import com.mathsemilio.hiraganalearner.ui.others.AppThemeUtil
 
 class AppThemeDialog : BaseDialogFragment() {
 
-    private lateinit var mAppThemeUtil: AppThemeUtil
+    private lateinit var appThemeUtil: AppThemeUtil
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        appThemeUtil = compositionRoot.appThemeUtil
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        mAppThemeUtil = getCompositionRoot().getAppThemeUtil()
-
         return activity?.let {
             val builder = MaterialAlertDialogBuilder(it).apply {
                 setTitle(getString(R.string.app_theme_dialog_title))
                 setSingleChoiceItems(getThemeArray(), getDefaultOption())
                 { _, which ->
                     when (which) {
-                        0 -> mAppThemeUtil.setLightAppTheme()
-                        1 -> mAppThemeUtil.setDarkAppTheme()
-                        2 -> mAppThemeUtil.setFollowSystemAppTheme()
+                        0 -> appThemeUtil.setLightAppTheme()
+                        1 -> appThemeUtil.setDarkAppTheme()
+                        2 -> appThemeUtil.setFollowSystemAppTheme()
                     }
                 }
                 setNegativeButton(getString(R.string.alert_dialog_cancel_button_text))
@@ -42,13 +46,13 @@ class AppThemeDialog : BaseDialogFragment() {
 
     private fun getDefaultOption(): Int {
         return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            when (mAppThemeUtil.getAppThemeValue()) {
+            when (appThemeUtil.appThemeValue) {
                 APP_THEME_LIGHT_THEME -> 0
                 APP_THEME_DARK_THEME -> 1
                 else -> throw IllegalArgumentException(ILLEGAL_APP_THEME_VALUE)
             }
         } else {
-            when (mAppThemeUtil.getAppThemeValue()) {
+            when (appThemeUtil.appThemeValue) {
                 APP_THEME_LIGHT_THEME -> 0
                 APP_THEME_DARK_THEME -> 1
                 APP_THEME_FOLLOW_SYSTEM -> 2

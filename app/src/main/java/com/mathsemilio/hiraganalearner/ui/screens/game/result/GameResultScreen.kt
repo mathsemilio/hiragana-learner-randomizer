@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.ARG_SCORE
+import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
+import com.mathsemilio.hiraganalearner.common.NULL_SCORE_EXCEPTION
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
-import com.mathsemilio.hiraganalearner.others.soundeffects.SoundEffectsModule
+import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
@@ -27,90 +30,96 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
         }
     }
 
-    private lateinit var mView: GameResultScreenViewImpl
+    private lateinit var gameResultScreenView: GameResultScreenViewImpl
 
-    private lateinit var mShareGameScoreUseCase: ShareGameScoreUseCase
-    private lateinit var mPreferencesRepository: PreferencesRepository
-    private lateinit var mSoundEffectsModule: SoundEffectsModule
-    private lateinit var mScreensNavigator: ScreensNavigator
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var shareGameScoreUseCase: ShareGameScoreUseCase
+    private lateinit var preferencesRepository: PreferencesRepository
+    private lateinit var soundEffectsModule: SoundEffectsModule
+    private lateinit var screensNavigator: ScreensNavigator
 
-    private lateinit var mAdRequest: AdRequest
+    private lateinit var adRequest: AdRequest
 
-    private var mScore = 0
-    private var mDifficultyValue = 0
+    private var score = 0
+    private var difficultyValue = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        difficultyValue = getDifficultyValue()
+
+        score = getScore()
+
+        shareGameScoreUseCase = compositionRoot.getShareGameScoreUseCase(score)
+
+        preferencesRepository = compositionRoot.preferencesRepository
+
+        soundEffectsModule = compositionRoot.soundEffectsModule
+
+        screensNavigator = compositionRoot.screensNavigator
+
+        adRequest = compositionRoot.adRequest
+
+        onBackPressedCallback = compositionRoot.getOnBackPressedCallback { onHomeButtonClicked() }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = getCompositionRoot().getViewFactory().getGameResultScreenView(container)
-        return mView.getRootView()
+        gameResultScreenView = compositionRoot.viewFactory.getGameResultScreenView(container)
+        return gameResultScreenView.getRootView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initialize()
+        gameResultScreenView.setupUI(score, difficultyValue, preferencesRepository.perfectScoresValue)
 
-        mView.onControllerViewCreated(
-            mDifficultyValue,
-            mScore,
-            mPreferencesRepository.getPerfectScoresValue()
-        )
+        gameResultScreenView.loadBannerAd(adRequest)
 
-        mView.loadGameResultScreenBannerAd(mAdRequest)
-    }
-
-    private fun initialize() {
-        mDifficultyValue = getDifficultyValue()
-        mScore = getScore()
-
-        mShareGameScoreUseCase = getCompositionRoot().getShareGameScoreUseCase(mScore)
-
-        mPreferencesRepository = getCompositionRoot().getPreferencesRepository()
-
-        mSoundEffectsModule = getCompositionRoot().getSoundEffectsModule(
-            mPreferencesRepository.getSoundEffectsVolume()
-        )
-
-        mScreensNavigator = getCompositionRoot().getScreensNavigator()
-
-        mAdRequest = getCompositionRoot().getAdRequest()
-
-        getCompositionRoot().getBackPressedDispatcher { onHomeButtonClicked() }
+        setupOnBackPressedDispatcher()
     }
 
     private fun getDifficultyValue(): Int {
-        return arguments?.getInt(ARG_DIFFICULTY_VALUE) ?: 0
+        return arguments?.getInt(ARG_DIFFICULTY_VALUE) ?: throw RuntimeException(
+            NULL_DIFFICULTY_VALUE_EXCEPTION
+        )
     }
 
     private fun getScore(): Int {
-        return arguments?.getInt(ARG_SCORE) ?: 0
+        return arguments?.getInt(ARG_SCORE) ?: throw RuntimeException(NULL_SCORE_EXCEPTION)
+    }
+
+    private fun setupOnBackPressedDispatcher() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, onBackPressedCallback
+        )
     }
 
     override fun onHomeButtonClicked() {
-        mSoundEffectsModule.playButtonClickSoundEffect()
-        mScreensNavigator.navigateToWelcomeScreen()
+        soundEffectsModule.playButtonClickSoundEffect()
+        screensNavigator.navigateToWelcomeScreen()
     }
 
     override fun onPlayAgainClicked(difficultyValue: Int) {
-        mSoundEffectsModule.playButtonClickSoundEffect()
-        mScreensNavigator.navigateToMainScreen(mDifficultyValue)
+        soundEffectsModule.playButtonClickSoundEffect()
+        screensNavigator.navigateToMainScreen(difficultyValue)
     }
 
     override fun onShareScoreButtonClicked() {
-        mSoundEffectsModule.playButtonClickSoundEffect()
-        mShareGameScoreUseCase.shareGameScore()
+        soundEffectsModule.playButtonClickSoundEffect()
+        shareGameScoreUseCase.shareGameScore()
     }
 
     override fun onStart() {
-        mView.registerListener(this)
+        gameResultScreenView.addListener(this)
         super.onStart()
     }
 
-    override fun onDestroyView() {
-        mView.removeListener(this)
-        super.onDestroyView()
+    override fun onStop() {
+        gameResultScreenView.removeListener(this)
+        super.onStop()
     }
 }

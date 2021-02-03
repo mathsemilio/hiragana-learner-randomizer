@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.others.soundeffects
+package com.mathsemilio.hiraganalearner.others
 
 import android.content.Context
 import android.media.AudioAttributes

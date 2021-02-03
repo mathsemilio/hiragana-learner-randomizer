@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.others
+package com.mathsemilio.hiraganalearner.others.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,16 +19,16 @@ import java.util.concurrent.TimeUnit
 
 class TrainingNotificationHelper(private val context: Context) {
 
-    private val mLaunchMainActivityIntent =
+    private val launchMainActivityIntent =
         Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-    private val mTrainingNotificationPendingIntent =
+    private val trainingNotificationPendingIntent =
         PendingIntent.getActivity(
             context,
             PENDING_INTENT_REQUEST_ID,
-            mLaunchMainActivityIntent,
+            launchMainActivityIntent,
             0
         )
 
@@ -59,7 +59,7 @@ class TrainingNotificationHelper(private val context: Context) {
             )
             setCategory(NotificationCompat.CATEGORY_REMINDER)
             priority = NotificationCompat.PRIORITY_HIGH
-            setContentIntent(mTrainingNotificationPendingIntent)
+            setContentIntent(trainingNotificationPendingIntent)
             setAutoCancel(true)
         }
     }
