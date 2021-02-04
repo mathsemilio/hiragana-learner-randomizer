@@ -47,7 +47,7 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
             override fun handleOnBackPressed() = onBackPressed()
         }
 
-    val alertUserUseCase get() = AlertUserUseCase(context, fragmentManager)
+    val alertUserUseCase get() = AlertUserUseCase(dialogHelper)
 
     fun getShareGameScoreUseCase(score: Int) = ShareGameScoreUseCase(context, score)
 }

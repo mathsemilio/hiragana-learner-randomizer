@@ -9,7 +9,7 @@ android {
         applicationId "com.mathsemilio.hiraganalearner"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 16
+        versionCode 17
         versionName "stable-1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

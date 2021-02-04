@@ -1,13 +1,10 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase
 
-import android.content.Context
-import androidx.fragment.app.FragmentManager
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.ScreenState
 
-class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
-    BaseObservable<AlertUserUseCase.Listener>() {
+class AlertUserUseCase(private val dialogHelper: DialogHelper) : BaseObservable<AlertUserUseCase.Listener>() {
 
     interface Listener {
         fun onPauseGameTimer()
@@ -16,8 +13,6 @@ class AlertUserUseCase(context: Context, fragmentManager: FragmentManager) :
         fun onPlaySuccessSoundEffect()
         fun onPlayErrorSoundEffect()
     }
-
-    private val dialogHelper = DialogHelper(context, fragmentManager)
 
     fun alertUserOnExitGame(
         onDialogNegativeButtonClicked: () -> Unit,
