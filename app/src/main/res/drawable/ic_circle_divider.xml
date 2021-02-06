@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <size
-        android:width="@dimen/circle_divider_dimen"
-        android:height="@dimen/circle_divider_dimen" />
+        android:width="@dimen/circle_divider_dimension"
+        android:height="@dimen/circle_divider_dimension" />
     <solid android:color="?colorControlNormal" />
 </shape>
