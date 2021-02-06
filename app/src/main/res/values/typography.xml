@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.App.Headline.320dp" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline.320dp.Landscape" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline.600dp" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+        <item name="maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline.720dp" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/colorTextHeadline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline.720dp.Landscape" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@color/colorTextHeadline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="maxLines">4</item>
+    </style>
+
+    <style name="TextAppearance.App.Body.320dp.Landscape" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Body.720dp" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Body.720dp.Landscape" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>
