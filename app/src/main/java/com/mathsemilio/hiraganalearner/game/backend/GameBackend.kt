@@ -5,10 +5,10 @@ import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.ViewModelRequestEventListener
+import com.mathsemilio.hiraganalearner.game.model.ModelRequestEventListener
 import kotlin.random.Random
 
-class GameBackend : BaseObservable<GameBackend.Listener>(), ViewModelRequestEventListener {
+class GameBackend : BaseObservable<GameBackend.Listener>(), ModelRequestEventListener {
 
     interface Listener {
         fun onSymbolUpdated(newSymbol: HiraganaSymbol)

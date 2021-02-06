@@ -5,25 +5,32 @@ import android.content.Intent
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.PERFECT_SCORE
 
-class ShareGameScoreUseCase(private val context: Context, score: Int) {
+class ShareGameScoreUseCase(private val context: Context) {
 
-    private val shareScoreIntent = Intent().apply {
-        action = Intent.ACTION_SEND
-        putExtra(
-            Intent.EXTRA_TEXT,
-            if (score == PERFECT_SCORE)
-                context.getString(R.string.share_perfect_final_score)
-            else
-                context.getString(R.string.share_final_score, score)
-        )
-        type = "text/plain"
+    private fun getShareGameScoreIntent(score: Int): Intent {
+        return Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getShareGameScoreString(score)
+            )
+            type = "text/plain"
+        }
     }
 
-    fun shareGameScore() {
+    private fun getShareGameScoreString(score: Int): String {
+        return if (score == PERFECT_SCORE) {
+            context.getString(R.string.share_perfect_final_score)
+        } else {
+            context.getString(R.string.share_final_score, score)
+        }
+    }
+
+    fun shareGameScore(score: Int) {
         context.apply {
             startActivity(
                 Intent.createChooser(
-                    shareScoreIntent,
+                    getShareGameScoreIntent(score),
                     getString(R.string.game_score_create_chooser_title)
                 )
             )

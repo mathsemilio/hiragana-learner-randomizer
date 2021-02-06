@@ -1,6 +1,6 @@
-package com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel
+package com.mathsemilio.hiraganalearner.game.model
 
-interface ViewModelRequestEventListener {
+interface ModelRequestEventListener {
     fun onStartGameRequested(difficultyValue: Int)
     fun onCheckUserAnswerRequested(selectedRomanization: String)
     fun onGetNextSymbolRequested()

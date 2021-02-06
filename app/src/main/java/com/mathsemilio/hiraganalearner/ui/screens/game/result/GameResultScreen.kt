@@ -50,7 +50,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
         score = getScore()
 
-        shareGameScoreUseCase = compositionRoot.getShareGameScoreUseCase(score)
+        shareGameScoreUseCase = compositionRoot.shareGameScoreUseCase
 
         preferencesRepository = compositionRoot.preferencesRepository
 
@@ -110,7 +110,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     override fun onShareScoreButtonClicked() {
         soundEffectsModule.playButtonClickSoundEffect()
-        shareGameScoreUseCase.shareGameScore()
+        shareGameScoreUseCase.shareGameScore(score)
     }
 
     override fun onStart() {

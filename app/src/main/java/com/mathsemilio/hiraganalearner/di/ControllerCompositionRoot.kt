@@ -6,8 +6,9 @@ import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.others.MessagesHelper
 import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
 import com.mathsemilio.hiraganalearner.ui.screens.common.InterstitialAdUseCase
+import com.mathsemilio.hiraganalearner.game.model.GameModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel.GameMainScreenViewModel
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.GetSymbolUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
 
 class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
@@ -40,7 +41,7 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
 
     val interstitialAdUseCase get() = InterstitialAdUseCase(activity, context, adRequest)
 
-    val gameMainScreenViewModel get() = GameMainScreenViewModel()
+    val gameModel get() = GameModel()
 
     fun getOnBackPressedCallback(onBackPressed: () -> Unit) =
         object : OnBackPressedCallback(true) {
@@ -49,5 +50,7 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
 
     val alertUserUseCase get() = AlertUserUseCase(dialogHelper)
 
-    fun getShareGameScoreUseCase(score: Int) = ShareGameScoreUseCase(context, score)
+    val getSymbolUseCase get() = GetSymbolUseCase(preferencesRepository)
+
+    val shareGameScoreUseCase get() = ShareGameScoreUseCase(context)
 }
