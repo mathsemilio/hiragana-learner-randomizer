@@ -14,5 +14,5 @@ abstract class BaseObservableView<ListenerType> : BaseObservable<ListenerType>()
 
     protected fun <T : View> findViewById(id: Int): T = getRootView().findViewById(id)
 
-    protected fun getContext(): Context = getRootView().context
+    protected val context: Context get() = getRootView().context
 }

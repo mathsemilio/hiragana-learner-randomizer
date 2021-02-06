@@ -1,5 +1,6 @@
 package com.mathsemilio.hiraganalearner.di
 
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
 import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
@@ -39,7 +40,7 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
 
     val dialogHelper get() = DialogHelper(context, fragmentManager)
 
-    val interstitialAdUseCase get() = InterstitialAdUseCase(activity, context, adRequest)
+    val windowManager: WindowManager get() = activity.windowManager
 
     val gameModel get() = GameModel()
 
@@ -47,6 +48,8 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() = onBackPressed()
         }
+
+    val interstitialAdUseCase get() = InterstitialAdUseCase(activity, context, adRequest)
 
     val alertUserUseCase get() = AlertUserUseCase(dialogHelper)
 
