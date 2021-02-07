@@ -61,8 +61,8 @@
 
         <View
             android:id="@+id/circle_divider"
-            android:layout_width="@dimen/circle_divider_dimension"
-            android:layout_height="@dimen/circle_divider_dimension"
+            android:layout_width="@dimen/circle_divider_dimen"
+            android:layout_height="@dimen/circle_divider_dimen"
             android:background="@drawable/ic_circle_divider"
             app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
             app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"

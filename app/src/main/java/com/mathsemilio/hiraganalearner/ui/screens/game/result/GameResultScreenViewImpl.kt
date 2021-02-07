@@ -1,10 +1,14 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.result
 
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mathsemilio.hiraganalearner.R
@@ -20,6 +24,7 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private lateinit var buttonHome: FloatingActionButton
     private lateinit var buttonPlayAgain: FloatingActionButton
     private lateinit var buttonShareScore: FloatingActionButton
+    private lateinit var frameLayoutBannerAdContainer: FrameLayout
     private lateinit var gameResultScreenAdBanner: AdView
 
     private var finalScore = 0
@@ -40,10 +45,15 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         setupYouGotSymbolsCorrectlyTextView()
         setupGameDifficultyTextView()
         setupPerfectScoresNumberTextView(perfectScores)
+        frameLayoutBannerAdContainer.addView(gameResultScreenAdBanner)
     }
 
-    override fun loadBannerAd(adRequest: AdRequest) {
-        gameResultScreenAdBanner.loadAd(adRequest)
+    override fun loadBannerAd(adRequest: AdRequest, windowManager: WindowManager) {
+        gameResultScreenAdBanner.apply {
+            adUnitId = context.getString(R.string.bannerAdTestUnitId)
+            adSize = getBannerAdSize(windowManager)
+            loadAd(adRequest)
+        }
     }
 
     private fun initializeViews() {
@@ -53,28 +63,44 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         buttonHome = findViewById(R.id.fab_home)
         buttonPlayAgain = findViewById(R.id.fab_play_again)
         buttonShareScore = findViewById(R.id.fab_share)
-        gameResultScreenAdBanner = findViewById(R.id.game_result_screen_ad_banner)
+        frameLayoutBannerAdContainer = findViewById(R.id.frame_layout_banner_ad_container)
+        gameResultScreenAdBanner = AdView(context)
     }
 
     private fun setupYouGotSymbolsCorrectlyTextView() {
         textViewYouGotSymbolsCorrectly.text = when (finalScore) {
-            1 -> getContext().getString(R.string.you_got_one_symbol_correctly, finalScore)
-            PERFECT_SCORE -> getContext().getString(R.string.you_got_all_symbols_correctly)
-            else -> getContext().getString(R.string.you_got_symbol_correctly, finalScore)
+            1 -> context.getString(R.string.you_got_one_symbol_correctly, finalScore)
+            PERFECT_SCORE -> context.getString(R.string.you_got_all_symbols_correctly)
+            else -> context.getString(R.string.you_got_symbol_correctly, finalScore)
         }
     }
 
     private fun setupGameDifficultyTextView() {
         textViewGameDifficulty.text = when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> getContext().getString(R.string.game_difficulty_beginner)
-            GAME_DIFFICULTY_VALUE_MEDIUM -> getContext().getString(R.string.game_difficulty_medium)
-            GAME_DIFFICULTY_VALUE_HARD -> getContext().getString(R.string.game_difficulty_hard)
+            GAME_DIFFICULTY_VALUE_BEGINNER -> context.getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> context.getString(R.string.game_difficulty_medium)
+            GAME_DIFFICULTY_VALUE_HARD -> context.getString(R.string.game_difficulty_hard)
             else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY_VALUE)
         }
     }
 
     private fun setupPerfectScoresNumberTextView(perfectScores: Int) {
         textViewGamePerfectScores.text = perfectScores.toString()
+    }
+
+    private fun getBannerAdSize(windowManager: WindowManager): AdSize {
+        val display = windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+
+        var adWidthPixels = frameLayoutBannerAdContainer.width.toFloat()
+        if (adWidthPixels == 0f)
+            adWidthPixels = outMetrics.widthPixels.toFloat()
+
+        return AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+            context,
+            (adWidthPixels / outMetrics.density).toInt()
+        )
     }
 
     private fun attachClickListeners() {

@@ -1,10 +1,10 @@
-package com.mathsemilio.hiraganalearner.ui.screens.game.main.viewmodel
+package com.mathsemilio.hiraganalearner.game.model
 
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.game.backend.GameBackend
 
-class GameMainScreenViewModel : BaseObservable<GameMainScreenViewModel.Listener>(), GameBackend.Listener {
+class GameModel : BaseObservable<GameModel.Listener>(), GameBackend.Listener {
 
     interface Listener {
         fun onGameScoreUpdated(newScore: Int)
@@ -18,15 +18,16 @@ class GameMainScreenViewModel : BaseObservable<GameMainScreenViewModel.Listener>
     }
 
     private val gameBackend = GameBackend()
-    private val viewModelRequest = gameBackend as ViewModelRequestEventListener
+    private val viewModelRequest = gameBackend as ModelRequestEventListener
 
-    private lateinit var _currentHiraganaSymbol: HiraganaSymbol
-    val currentHiraganaSymbol get() = _currentHiraganaSymbol
+    private lateinit var _symbol: HiraganaSymbol
+    val symbol get() = _symbol
 
-    private var _currentGameScore = 0
-    val currentGameScore get() = _currentGameScore
+    private var _score = 0
+    val score get() = _score
 
-    var gameFinished = false
+    private var _gameFinished = false
+    val gameFinished get() = _gameFinished
 
     init {
         gameBackend.addListener(this)
@@ -57,12 +58,12 @@ class GameMainScreenViewModel : BaseObservable<GameMainScreenViewModel.Listener>
     }
 
     override fun onSymbolUpdated(newSymbol: HiraganaSymbol) {
-        _currentHiraganaSymbol = newSymbol
+        _symbol = newSymbol
         getListeners().forEach { it.onCurrentHiraganaSymbolUpdated(newSymbol) }
     }
 
     override fun onGameScoreUpdated(newScore: Int) {
-        _currentGameScore = newScore
+        _score = newScore
         getListeners().forEach { it.onGameScoreUpdated(newScore) }
     }
 
@@ -91,6 +92,6 @@ class GameMainScreenViewModel : BaseObservable<GameMainScreenViewModel.Listener>
     }
 
     override fun onGameFinished() {
-        gameFinished = true
+        _gameFinished = true
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
@@ -37,6 +38,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
     private lateinit var preferencesRepository: PreferencesRepository
     private lateinit var soundEffectsModule: SoundEffectsModule
     private lateinit var screensNavigator: ScreensNavigator
+    private lateinit var windowManager: WindowManager
 
     private lateinit var adRequest: AdRequest
 
@@ -50,13 +52,15 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
         score = getScore()
 
-        shareGameScoreUseCase = compositionRoot.getShareGameScoreUseCase(score)
+        shareGameScoreUseCase = compositionRoot.shareGameScoreUseCase
 
         preferencesRepository = compositionRoot.preferencesRepository
 
         soundEffectsModule = compositionRoot.soundEffectsModule
 
         screensNavigator = compositionRoot.screensNavigator
+
+        windowManager = compositionRoot.windowManager
 
         adRequest = compositionRoot.adRequest
 
@@ -77,7 +81,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
         gameResultScreenView.setupUI(score, difficultyValue, preferencesRepository.perfectScoresValue)
 
-        gameResultScreenView.loadBannerAd(adRequest)
+        gameResultScreenView.loadBannerAd(adRequest, windowManager)
 
         setupOnBackPressedDispatcher()
     }
@@ -110,7 +114,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     override fun onShareScoreButtonClicked() {
         soundEffectsModule.playButtonClickSoundEffect()
-        shareGameScoreUseCase.shareGameScore()
+        shareGameScoreUseCase.shareGameScore(score)
     }
 
     override fun onStart() {

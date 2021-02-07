@@ -109,9 +109,9 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
 
     private fun setDifficultyValueBasedOnChipText(chipText: String) {
         difficultyValue = when (chipText) {
-            getContext().getString(R.string.game_difficulty_beginner) -> GAME_DIFFICULTY_VALUE_BEGINNER
-            getContext().getString(R.string.game_difficulty_medium) -> GAME_DIFFICULTY_VALUE_MEDIUM
-            getContext().getString(R.string.game_difficulty_hard) -> GAME_DIFFICULTY_VALUE_HARD
+            context.getString(R.string.game_difficulty_beginner) -> GAME_DIFFICULTY_VALUE_BEGINNER
+            context.getString(R.string.game_difficulty_medium) -> GAME_DIFFICULTY_VALUE_MEDIUM
+            context.getString(R.string.game_difficulty_hard) -> GAME_DIFFICULTY_VALUE_HARD
             else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY_SETTING)
         }
     }
