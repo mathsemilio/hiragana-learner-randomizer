@@ -30,7 +30,7 @@ class ActivityCompositionRoot(
 
     val fragmentManager get() = activity.supportFragmentManager
 
-    val adRequest get() = compositionRoot.getAdRequest()
+    val adRequest get() = compositionRoot.adRequest
 
     val appThemeUtil get() = compositionRoot.getAppThemeUtil(context)
 

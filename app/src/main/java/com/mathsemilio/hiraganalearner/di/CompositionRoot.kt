@@ -6,7 +6,7 @@ import com.mathsemilio.hiraganalearner.ui.others.AppThemeUtil
 
 class CompositionRoot {
 
-    fun getAdRequest(): AdRequest = AdRequest.Builder().build()
+    val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
 
     fun getAppThemeUtil(context: Context) = AppThemeUtil(context)
 }
