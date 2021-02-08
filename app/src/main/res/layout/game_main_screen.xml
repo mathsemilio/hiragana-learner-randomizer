@@ -139,7 +139,7 @@
             android:id="@+id/chip_group_romanization_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chipSpacingHorizontal="16dp"
+            app:chipSpacingHorizontal="@dimen/chip_group_spacing_layout_small_dimension"
             app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
             app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
             app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"

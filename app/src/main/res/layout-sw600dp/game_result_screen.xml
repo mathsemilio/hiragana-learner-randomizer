@@ -38,11 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
         android:text="@string/you_made_it"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textAppearance="@style/TextAppearance.App.GameResultScreen.YouMadeIt.600dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_game_result_screen_2_vertical"
         app:layout_constraintStart_toStartOf="@+id/guideline_game_result_screen_1_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view_result_screen"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view_result_screen" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_headline_you_got_correctly"
@@ -95,11 +94,10 @@
                 android:maxLines="2"
                 android:text="@string/game_difficulty_score_screen"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintEnd_toStartOf="@id/list_divider_card_view_game_result"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:textSize="18sp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_headline_game_difficulty_score_screen"
@@ -124,11 +122,10 @@
                 android:maxLines="2"
                 android:text="@string/perfect_scores_score_screen"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/list_divider_card_view_game_result"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:textSize="18sp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_headline_perfect_scores_number_score_screen"
@@ -155,7 +152,7 @@
         android:layout_marginTop="@dimen/margin_32dp"
         android:contentDescription="@string/content_description_button_home"
         android:src="@drawable/ic_outline_home_24"
-        app:layout_constraintBottom_toTopOf="@id/frame_layout_banner_ad_container"
+        app:layout_constraintBottom_toTopOf="@id/adview_game_result_screen"
         app:layout_constraintEnd_toStartOf="@id/fab_play_again"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
@@ -169,7 +166,7 @@
         android:layout_marginTop="@dimen/margin_32dp"
         android:contentDescription="@string/content_description_button_play_again"
         android:src="@drawable/ic_baseline_refresh_24"
-        app:layout_constraintBottom_toTopOf="@id/frame_layout_banner_ad_container"
+        app:layout_constraintBottom_toTopOf="@id/adview_game_result_screen"
         app:layout_constraintEnd_toStartOf="@id/fab_share"
         app:layout_constraintStart_toEndOf="@id/fab_home"
         app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
@@ -183,16 +180,18 @@
         android:layout_marginTop="@dimen/margin_32dp"
         android:contentDescription="@string/content_description_button_share"
         android:src="@drawable/ic_outline_share_24"
-        app:layout_constraintBottom_toTopOf="@id/frame_layout_banner_ad_container"
+        app:layout_constraintBottom_toTopOf="@id/adview_game_result_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fab_play_again"
         app:layout_constraintTop_toBottomOf="@id/card_view_game_result"
         app:layout_constraintVertical_bias="0.0" />
 
-    <FrameLayout
-        android:id="@+id/frame_layout_banner_ad_container"
-        android:layout_width="match_parent"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adview_game_result_screen"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:adSize="FULL_BANNER"
+        app:adUnitId="@string/bannerAdTestUnitId"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

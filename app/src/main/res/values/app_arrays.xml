@@ -33,21 +33,9 @@
         <item>96sp</item>
     </array>
 
-    <array name="hiragana_symbol_preset_sizes_phone_landscape">
-        <item>56sp</item>
-        <item>62sp</item>
-        <item>72sp</item>
-        <item>80sp</item>
-    </array>
-
     <array name="hiragana_symbol_preset_sizes_tablet">
         <item>124sp</item>
         <item>132sp</item>
-    </array>
-
-    <array name="hiragana_symbol_preset_sizes_tablet_landscape">
-        <item>108sp</item>
-        <item>116sp</item>
     </array>
 
 </resources>

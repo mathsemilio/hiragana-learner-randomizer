@@ -56,8 +56,8 @@
 
     <View
         android:id="@+id/circle_divider"
-        android:layout_width="@dimen/circle_divider_dimen"
-        android:layout_height="@dimen/circle_divider_dimen"
+        android:layout_width="@dimen/circle_divider_dimension"
+        android:layout_height="@dimen/circle_divider_dimension"
         android:background="@drawable/ic_circle_divider"
         app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
@@ -135,7 +135,7 @@
         android:id="@+id/chip_group_romanization_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:chipSpacingHorizontal="24dp"
+        app:chipSpacingHorizontal="@dimen/chip_group_spacing_layout_large_dimension"
         app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
         app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"

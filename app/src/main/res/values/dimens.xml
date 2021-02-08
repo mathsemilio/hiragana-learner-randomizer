@@ -10,13 +10,13 @@
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_48dp">48dp</dimen>
 
-    <dimen name="settings_icon_layout_320dp_dimension">32dp</dimen>
-    <dimen name="settings_icon_layout_600dp_dimension">40dp</dimen>
-    <dimen name="settings_icon_layout_720dp_dimension">48dp</dimen>
+    <dimen name="settings_icon_layout_small_dimension">32dp</dimen>
+    <dimen name="settings_icon_layout_large_dimension">40dp</dimen>
+    <dimen name="settings_icon_layout_xlarge_dimension">40dp</dimen>
 
-    <dimen name="difficulty_chip_group_spacing_layout_320dp_dimension">16dp</dimen>
-    <dimen name="difficulty_chip_group_spacing_layout_600dp_dimension">24dp</dimen>
-    <dimen name="difficulty_chip_group_spacing_layout_720dp_dimension">32dp</dimen>
+    <dimen name="chip_group_spacing_layout_small_dimension">16dp</dimen>
+    <dimen name="chip_group_spacing_layout_large_dimension">24dp</dimen>
+    <dimen name="chip_group_spacing_layout_xlarge_dimension">32dp</dimen>
 
     <dimen name="circle_divider_dimension">3dp</dimen>
     <dimen name="game_progress_progress_bar_height">4dp</dimen>

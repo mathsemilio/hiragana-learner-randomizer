@@ -56,8 +56,8 @@
 
     <View
         android:id="@+id/circle_divider"
-        android:layout_width="@dimen/circle_divider_dimen"
-        android:layout_height="@dimen/circle_divider_dimen"
+        android:layout_width="@dimen/circle_divider_dimension"
+        android:layout_height="@dimen/circle_divider_dimension"
         android:background="@drawable/ic_circle_divider"
         app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
@@ -69,28 +69,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_8dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
         app:layout_constraintEnd_toStartOf="@+id/circle_divider"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_1_vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Medium"
-        tools:textSize="18sp" />
+        tools:text="Medium" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_body_game_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintBottom_toTopOf="@id/guideline_1_horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline_2_vertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/circle_divider"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Score: 30"
-        tools:textSize="18sp" />
+        tools:text="Score: 30" />
 
     <ProgressBar
         android:id="@+id/game_timer_progress_bar"
@@ -125,17 +123,16 @@
         android:maxLines="2"
         android:text="@string/this_letter_corresponds_to_which_romaji"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
         app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal"
-        tools:textSize="24sp" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_2_horizontal" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_romanization_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:chipSpacingHorizontal="32dp"
+        app:chipSpacingHorizontal="@dimen/chip_group_spacing_layout_xlarge_dimension"
         app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
         app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
