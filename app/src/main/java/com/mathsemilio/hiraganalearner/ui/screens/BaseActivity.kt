@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.ui.screens
 
 import androidx.appcompat.app.AppCompatActivity
-import com.mathsemilio.hiraganalearner.di.ActivityCompositionRoot
+import com.mathsemilio.hiraganalearner.common.dependencyinjection.ActivityCompositionRoot
 import com.mathsemilio.hiraganalearner.others.HiraganaRandomizerApplication
 
 abstract class BaseActivity : AppCompatActivity() {

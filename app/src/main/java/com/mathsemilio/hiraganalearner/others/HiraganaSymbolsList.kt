@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.others
 
-import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.entity.hiragana.HiraganaSymbol
 
 val hiraganaSymbolsList: List<HiraganaSymbol> = listOf(
     HiraganaSymbol(symbol = "あ", romanization = "A"),

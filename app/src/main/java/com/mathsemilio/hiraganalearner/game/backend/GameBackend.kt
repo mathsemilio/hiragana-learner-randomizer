@@ -2,8 +2,8 @@ package com.mathsemilio.hiraganalearner.game.backend
 
 import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.common.baseobservable.BaseObservable
+import com.mathsemilio.hiraganalearner.domain.entity.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
 import com.mathsemilio.hiraganalearner.game.model.ModelRequestEventListener
 import kotlin.random.Random

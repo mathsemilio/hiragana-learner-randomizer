@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.ui.screens.common
+package com.mathsemilio.hiraganalearner.ui.screens.common.usecase
 
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
@@ -9,7 +9,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
+import com.mathsemilio.hiraganalearner.common.baseobservable.BaseObservable
 
 class InterstitialAdUseCase(
     private val activity: FragmentActivity,

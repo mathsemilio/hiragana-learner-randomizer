@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase
 
 import com.mathsemilio.hiraganalearner.common.PERFECT_SCORE
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
+import com.mathsemilio.hiraganalearner.common.baseobservable.BaseObservable
 import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
 
 class GetSymbolUseCase(private val preferencesRepository: PreferencesRepository) :

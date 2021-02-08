@@ -2,7 +2,7 @@ package com.mathsemilio.hiraganalearner.ui.screens.common
 
 import android.content.Context
 import android.view.View
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
+import com.mathsemilio.hiraganalearner.common.baseobservable.BaseObservable
 
 abstract class BaseObservableView<ListenerType> : BaseObservable<ListenerType>(), IView {
 

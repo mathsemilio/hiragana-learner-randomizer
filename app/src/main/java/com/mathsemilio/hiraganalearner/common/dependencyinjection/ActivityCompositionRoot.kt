@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.di
+package com.mathsemilio.hiraganalearner.common.dependencyinjection
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity

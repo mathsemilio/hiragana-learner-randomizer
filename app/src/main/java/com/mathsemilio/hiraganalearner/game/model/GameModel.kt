@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.game.model
 
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.common.baseobservable.BaseObservable
+import com.mathsemilio.hiraganalearner.domain.entity.hiragana.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.game.backend.GameBackend
 
 class GameModel : BaseObservable<GameModel.Listener>(), GameBackend.Listener {
@@ -18,7 +18,7 @@ class GameModel : BaseObservable<GameModel.Listener>(), GameBackend.Listener {
     }
 
     private val gameBackend = GameBackend()
-    private val viewModelRequest = gameBackend as ModelRequestEventListener
+    private val modelRequest = gameBackend as ModelRequestEventListener
 
     private lateinit var _symbol: HiraganaSymbol
     val symbol get() = _symbol
@@ -34,23 +34,23 @@ class GameModel : BaseObservable<GameModel.Listener>(), GameBackend.Listener {
     }
 
     fun startGame(difficultyValue: Int) {
-        viewModelRequest.onStartGameRequested(difficultyValue)
+        modelRequest.onStartGameRequested(difficultyValue)
     }
 
     fun checkUserAnswer(selectedRomanization: String) {
-        viewModelRequest.onCheckUserAnswerRequested(selectedRomanization)
+        modelRequest.onCheckUserAnswerRequested(selectedRomanization)
     }
 
     fun getNextSymbol() {
-        viewModelRequest.onGetNextSymbolRequested()
+        modelRequest.onGetNextSymbolRequested()
     }
 
     fun pauseGameTimer() {
-        viewModelRequest.onPauseGameTimerRequested()
+        modelRequest.onPauseGameTimerRequested()
     }
 
     fun resumeGameTimer() {
-        viewModelRequest.onResumeGameTimerRequested()
+        modelRequest.onResumeGameTimerRequested()
     }
 
     fun onClearInstance() {

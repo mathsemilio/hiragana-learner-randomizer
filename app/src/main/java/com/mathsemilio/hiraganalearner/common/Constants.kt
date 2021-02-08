@@ -54,4 +54,4 @@ const val NULL_ACTIVITY_EXCEPTION = "Activity cannot be null"
 const val NULL_DIFFICULTY_VALUE_EXCEPTION = "Difficulty Value argument must not be null"
 const val NULL_SCORE_EXCEPTION = "Score must not be null"
 
-const val APP_BUILD_VERSION = "stable-1.0.3"
+const val APP_BUILD_VERSION = "stable-1.0.5"

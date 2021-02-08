@@ -9,7 +9,7 @@ import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRe
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
-import com.mathsemilio.hiraganalearner.ui.screens.common.InterstitialAdUseCase
+import com.mathsemilio.hiraganalearner.ui.screens.common.usecase.InterstitialAdUseCase
 
 class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, InterstitialAdUseCase.Listener {
 

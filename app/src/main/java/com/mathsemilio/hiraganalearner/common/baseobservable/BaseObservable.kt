@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.common.observable
+package com.mathsemilio.hiraganalearner.common.baseobservable
 
 abstract class BaseObservable<Listener> : Observable<Listener> {
 

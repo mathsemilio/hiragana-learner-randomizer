@@ -2,7 +2,7 @@ package com.mathsemilio.hiraganalearner.others
 
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
-import com.mathsemilio.hiraganalearner.di.CompositionRoot
+import com.mathsemilio.hiraganalearner.common.dependencyinjection.CompositionRoot
 
 class HiraganaRandomizerApplication : Application() {
 

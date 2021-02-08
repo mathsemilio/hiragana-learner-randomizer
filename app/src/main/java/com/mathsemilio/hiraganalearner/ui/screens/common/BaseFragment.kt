@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.ui.screens.common
 
 import androidx.fragment.app.Fragment
-import com.mathsemilio.hiraganalearner.di.ControllerCompositionRoot
+import com.mathsemilio.hiraganalearner.common.dependencyinjection.ControllerCompositionRoot
 import com.mathsemilio.hiraganalearner.ui.screens.MainActivity
 
 abstract class BaseFragment : Fragment() {

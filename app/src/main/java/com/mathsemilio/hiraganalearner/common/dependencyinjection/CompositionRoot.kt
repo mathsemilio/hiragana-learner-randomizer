@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.di
+package com.mathsemilio.hiraganalearner.common.dependencyinjection
 
 import android.content.Context
 import com.google.android.gms.ads.AdRequest
