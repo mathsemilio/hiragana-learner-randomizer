@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Game Welcome Screen -->
+    <style name="TextAppearance.App.ReadyToAssociate.Small" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="maxLines">3</item>
+    </style>
+
+    <style name="TextAppearance.App.ReadyToAssociate.Large" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.ReadyToAssociate.xLarge" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.SelectDifficulty.Small" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.SelectDifficulty.xLarge" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Game Result Screen -->
+    <style name="TextAppearance.App.GameResultScreen.YouMadeIt.Large" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.GameResultScreen.YouMadeIt.xLarge" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.GameResultScreen.YouGotSymbols.xLarge" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+</resources>

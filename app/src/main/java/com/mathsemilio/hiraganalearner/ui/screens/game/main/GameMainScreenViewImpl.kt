@@ -44,15 +44,15 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
 
     override fun setGameDifficultyTextBasedOnDifficultyValue(difficultyValue: Int) {
         textViewGameDifficulty.text = when (difficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> getContext().getString(R.string.game_difficulty_beginner)
-            GAME_DIFFICULTY_VALUE_MEDIUM -> getContext().getString(R.string.game_difficulty_medium)
-            GAME_DIFFICULTY_VALUE_HARD -> getContext().getString(R.string.game_difficulty_hard)
+            GAME_DIFFICULTY_VALUE_BEGINNER -> context.getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> context.getString(R.string.game_difficulty_medium)
+            GAME_DIFFICULTY_VALUE_HARD -> context.getString(R.string.game_difficulty_hard)
             else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY_VALUE)
         }
     }
 
     override fun updateGameScoreTextView(newScore: Int) {
-        textViewGameScore.text = getContext().getString(R.string.game_score, newScore)
+        textViewGameScore.text = context.getString(R.string.game_score, newScore)
     }
 
     override fun updateCurrentHiraganaSymbol(newSymbol: String) {

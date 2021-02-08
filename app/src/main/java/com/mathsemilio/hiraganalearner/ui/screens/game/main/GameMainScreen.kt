@@ -9,11 +9,11 @@ import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
 import com.mathsemilio.hiraganalearner.domain.hiragana.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.game.model.GameModel
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.screens.common.InterstitialAdUseCase
-import com.mathsemilio.hiraganalearner.game.model.GameModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.GetSymbolUseCase
 

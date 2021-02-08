@@ -20,9 +20,8 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private lateinit var buttonHome: FloatingActionButton
     private lateinit var buttonPlayAgain: FloatingActionButton
     private lateinit var buttonShareScore: FloatingActionButton
-    private lateinit var gameResultScreenAdBanner: AdView
+    private lateinit var adViewGameResultScreen: AdView
 
-    private var finalScore = 0
     private var gameDifficultyValue = 0
 
     init {
@@ -32,18 +31,17 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     }
 
     override fun setupUI(score: Int, difficultyValue: Int, perfectScores: Int) {
-        finalScore = score
         gameDifficultyValue = difficultyValue
 
         if (score == 0) buttonShareScore.visibility = View.GONE
 
-        setupYouGotSymbolsCorrectlyTextView()
-        setupGameDifficultyTextView()
+        setupYouGotSymbolsCorrectlyTextView(score)
+        setupGameDifficultyTextView(difficultyValue)
         setupPerfectScoresNumberTextView(perfectScores)
     }
 
     override fun loadBannerAd(adRequest: AdRequest) {
-        gameResultScreenAdBanner.loadAd(adRequest)
+        adViewGameResultScreen.loadAd(adRequest)
     }
 
     private fun initializeViews() {
@@ -53,22 +51,22 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
         buttonHome = findViewById(R.id.fab_home)
         buttonPlayAgain = findViewById(R.id.fab_play_again)
         buttonShareScore = findViewById(R.id.fab_share)
-        gameResultScreenAdBanner = findViewById(R.id.game_result_screen_ad_banner)
+        adViewGameResultScreen = findViewById(R.id.adview_game_result_screen)
     }
 
-    private fun setupYouGotSymbolsCorrectlyTextView() {
+    private fun setupYouGotSymbolsCorrectlyTextView(finalScore: Int) {
         textViewYouGotSymbolsCorrectly.text = when (finalScore) {
-            1 -> getContext().getString(R.string.you_got_one_symbol_correctly, finalScore)
-            PERFECT_SCORE -> getContext().getString(R.string.you_got_all_symbols_correctly)
-            else -> getContext().getString(R.string.you_got_symbol_correctly, finalScore)
+            1 -> context.getString(R.string.you_got_one_symbol_correctly, finalScore)
+            PERFECT_SCORE -> context.getString(R.string.you_got_all_symbols_correctly)
+            else -> context.getString(R.string.you_got_symbol_correctly, finalScore)
         }
     }
 
-    private fun setupGameDifficultyTextView() {
-        textViewGameDifficulty.text = when (gameDifficultyValue) {
-            GAME_DIFFICULTY_VALUE_BEGINNER -> getContext().getString(R.string.game_difficulty_beginner)
-            GAME_DIFFICULTY_VALUE_MEDIUM -> getContext().getString(R.string.game_difficulty_medium)
-            GAME_DIFFICULTY_VALUE_HARD -> getContext().getString(R.string.game_difficulty_hard)
+    private fun setupGameDifficultyTextView(difficultyValue: Int) {
+        textViewGameDifficulty.text = when (difficultyValue) {
+            GAME_DIFFICULTY_VALUE_BEGINNER -> context.getString(R.string.game_difficulty_beginner)
+            GAME_DIFFICULTY_VALUE_MEDIUM -> context.getString(R.string.game_difficulty_medium)
+            GAME_DIFFICULTY_VALUE_HARD -> context.getString(R.string.game_difficulty_hard)
             else -> throw IllegalArgumentException(ILLEGAL_GAME_DIFFICULTY_VALUE)
         }
     }

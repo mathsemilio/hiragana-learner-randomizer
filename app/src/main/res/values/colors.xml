@@ -4,6 +4,7 @@
     <color name="colorPrimaryVariant">#D32F2F</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorTextHeadline">@color/black</color>
     <color name="colorSplashScreenStatusBar">@color/colorPrimaryVariant</color>
     <color name="colorToolbarBackground">@color/colorPrimary</color>
     <color name="colorFloatingActionButtonOnSecondary">@color/white</color>
