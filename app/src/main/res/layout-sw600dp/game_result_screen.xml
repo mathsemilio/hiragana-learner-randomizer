@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
         android:text="@string/you_made_it"
-        android:textAppearance="@style/TextAppearance.App.GameResultScreen.YouMadeIt.600dp"
+        android:textAppearance="@style/TextAppearance.App.GameResultScreen.YouMadeIt.Large"
         app:layout_constraintEnd_toStartOf="@+id/guideline_game_result_screen_2_vertical"
         app:layout_constraintStart_toStartOf="@+id/guideline_game_result_screen_1_vertical"
         app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view_result_screen" />

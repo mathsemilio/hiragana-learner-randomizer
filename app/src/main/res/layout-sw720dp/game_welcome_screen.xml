@@ -53,7 +53,7 @@
         android:layout_marginEnd="@dimen/margin_32dp"
         android:text="@string/hiragana_letters_and_romanizations"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.App.ReadyToAssociate.720dp"
+        android:textAppearance="@style/TextAppearance.App.ReadyToAssociate.xLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_8dp"
         android:text="@string/select_a_difficulty"
-        android:textAppearance="@style/TextAppearance.App.SelectDifficulty.720dp"
+        android:textAppearance="@style/TextAppearance.App.SelectDifficulty.xLarge"
         app:layout_constraintBottom_toTopOf="@+id/chip_group_game_difficulty"
         app:layout_constraintEnd_toEndOf="@+id/chip_group_game_difficulty"
         app:layout_constraintStart_toStartOf="@+id/chip_group_game_difficulty" />
