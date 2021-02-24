@@ -7,7 +7,7 @@ import com.mathsemilio.hiraganalearner.ui.screens.MainActivity
 abstract class BaseDialogFragment : DialogFragment() {
 
     private val _compositionRoot by lazy {
-        ControllerCompositionRoot((requireActivity() as MainActivity).activityCompositionRoot)
+        ControllerCompositionRoot((requireActivity() as MainActivity).compositionRoot)
     }
     val compositionRoot get() = _compositionRoot
 }

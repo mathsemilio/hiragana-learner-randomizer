@@ -3,7 +3,7 @@ package com.mathsemilio.hiraganalearner.others.notification
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 
 class TrainingNotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {

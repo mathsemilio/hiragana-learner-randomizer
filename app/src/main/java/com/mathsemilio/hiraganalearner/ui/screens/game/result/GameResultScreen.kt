@@ -10,11 +10,10 @@ import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.ARG_SCORE
 import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
 import com.mathsemilio.hiraganalearner.common.NULL_SCORE_EXCEPTION
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
-import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
+import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
+import com.mathsemilio.hiraganalearner.ui.common.BaseFragment
 
 class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
@@ -33,7 +32,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
     private lateinit var gameResultScreenView: GameResultScreenViewImpl
 
     private lateinit var onBackPressedCallback: OnBackPressedCallback
-    private lateinit var shareGameScoreUseCase: ShareGameScoreUseCase
+    private lateinit var shareGameScoreHelper: ShareGameScoreHelper
     private lateinit var preferencesRepository: PreferencesRepository
     private lateinit var soundEffectsModule: SoundEffectsModule
     private lateinit var screensNavigator: ScreensNavigator
@@ -50,7 +49,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
         score = getScore()
 
-        shareGameScoreUseCase = compositionRoot.shareGameScoreUseCase
+        shareGameScoreHelper = compositionRoot.shareGameScoreHelper
 
         preferencesRepository = compositionRoot.preferencesRepository
 
@@ -69,7 +68,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
         savedInstanceState: Bundle?
     ): View {
         gameResultScreenView = compositionRoot.viewFactory.getGameResultScreenView(container)
-        return gameResultScreenView.getRootView()
+        return gameResultScreenView.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +109,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     override fun onShareScoreButtonClicked() {
         soundEffectsModule.playButtonClickSoundEffect()
-        shareGameScoreUseCase.shareGameScore(score)
+        shareGameScoreHelper.shareGameScore(score)
     }
 
     override fun onStart() {

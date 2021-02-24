@@ -1,10 +1,10 @@
-package com.mathsemilio.hiraganalearner.ui.screens.settings
+package com.mathsemilio.hiraganalearner.ui.common
 
-import androidx.preference.PreferenceFragmentCompat
+import androidx.fragment.app.Fragment
 import com.mathsemilio.hiraganalearner.common.dependencyinjection.ControllerCompositionRoot
 import com.mathsemilio.hiraganalearner.ui.screens.MainActivity
 
-abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
+abstract class BaseFragment : Fragment() {
 
     private val _compositionRoot by lazy {
         ControllerCompositionRoot((requireActivity() as MainActivity).compositionRoot)

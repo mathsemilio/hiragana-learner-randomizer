@@ -9,9 +9,9 @@ import com.google.android.gms.ads.AdView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
+import com.mathsemilio.hiraganalearner.ui.common.view.BaseObservableView
 
-class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
+class GameResultScreenViewImpl(layoutInflater: LayoutInflater, container: ViewGroup?) :
     BaseObservableView<GameResultScreenView.Listener>(), GameResultScreenView {
 
     private lateinit var textViewYouGotSymbolsCorrectly: TextView
@@ -25,7 +25,7 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     private var gameDifficultyValue = 0
 
     init {
-        setRootView(inflater.inflate(R.layout.game_result_screen, container, false))
+        rootView = layoutInflater.inflate(R.layout.game_result_screen, container, false)
         initializeViews()
         attachClickListeners()
     }
@@ -82,14 +82,14 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     }
 
     private fun onHomeButtonClicked() {
-        getListeners().forEach { it.onHomeButtonClicked() }
+        listeners.forEach { it.onHomeButtonClicked() }
     }
 
     private fun onPlayAgainButtonClicked(difficultyValue: Int) {
-        getListeners().forEach { it.onPlayAgainClicked(difficultyValue) }
+        listeners.forEach { it.onPlayAgainClicked(difficultyValue) }
     }
 
     private fun onShareScoreButtonClicked() {
-        getListeners().forEach { it.onShareScoreButtonClicked() }
+        listeners.forEach { it.onShareScoreButtonClicked() }
     }
 }

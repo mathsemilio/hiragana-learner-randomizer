@@ -9,9 +9,9 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
+import com.mathsemilio.hiraganalearner.ui.common.view.BaseObservableView
 
-class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
+class GameMainScreenViewImpl(layoutInflater: LayoutInflater, container: ViewGroup?) :
     BaseObservableView<GameMainScreenView.Listener>(), GameMainScreenView {
 
     private lateinit var textViewGameDifficulty: TextView
@@ -31,7 +31,7 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
     private var selectedRomanization = ""
 
     init {
-        setRootView(inflater.inflate(R.layout.game_main_screen, container, false))
+        rootView = layoutInflater.inflate(R.layout.game_main_screen, container, false)
         initializeViews()
         attachClickListeners()
     }
@@ -123,18 +123,18 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
     }
 
     private fun onPlayClickSoundEffect() {
-        getListeners().forEach { it.playClickSoundEffect() }
+        listeners.forEach { it.playClickSoundEffect() }
     }
 
     private fun onExitGameButtonClicked() {
-        getListeners().forEach { it.onExitButtonClicked() }
+        listeners.forEach { it.onExitButtonClicked() }
     }
 
     private fun onPauseGameButtonClicked() {
-        getListeners().forEach { it.onPauseButtonClicked() }
+        listeners.forEach { it.onPauseButtonClicked() }
     }
 
     private fun onCheckAnswerButtonClicked(selectedRomanization: String) {
-        getListeners().forEach { it.onCheckAnswerClicked(selectedRomanization) }
+        listeners.forEach { it.onCheckAnswerClicked(selectedRomanization) }
     }
 }

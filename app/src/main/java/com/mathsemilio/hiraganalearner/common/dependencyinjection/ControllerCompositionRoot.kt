@@ -1,15 +1,15 @@
 package com.mathsemilio.hiraganalearner.common.dependencyinjection
 
 import androidx.activity.OnBackPressedCallback
-import com.mathsemilio.hiraganalearner.game.model.GameModel
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.MainScreenViewModel
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
-import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
-import com.mathsemilio.hiraganalearner.ui.others.MessagesHelper
-import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
-import com.mathsemilio.hiraganalearner.ui.screens.common.usecase.InterstitialAdUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.AlertUserUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.usecase.GetSymbolUseCase
-import com.mathsemilio.hiraganalearner.ui.screens.game.result.usecase.ShareGameScoreUseCase
+import com.mathsemilio.hiraganalearner.ui.common.helper.DialogHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.MessagesHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.ToolbarVisibilityHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.InterstitialAdUseHelper
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.AlertUserHelper
+import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
+import com.mathsemilio.hiraganalearner.ui.screens.game.result.ShareGameScoreHelper
 
 class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
 
@@ -39,18 +39,18 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
 
     val dialogHelper get() = DialogHelper(context, fragmentManager)
     
-    val gameModel get() = GameModel()
+    val mainScreenViewModel get() = MainScreenViewModel()
 
     fun getOnBackPressedCallback(onBackPressed: () -> Unit) =
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() = onBackPressed()
         }
 
-    val interstitialAdUseCase get() = InterstitialAdUseCase(activity, context, adRequest)
+    val interstitialAdHelper get() = InterstitialAdUseHelper(activity, context, adRequest)
 
-    val alertUserUseCase get() = AlertUserUseCase(dialogHelper)
+    val alertUserHelper get() = AlertUserHelper(dialogHelper)
 
     val getSymbolUseCase get() = GetSymbolUseCase(preferencesRepository)
 
-    val shareGameScoreUseCase get() = ShareGameScoreUseCase(context)
+    val shareGameScoreHelper get() = ShareGameScoreHelper(context)
 }

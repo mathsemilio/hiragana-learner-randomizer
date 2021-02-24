@@ -2,11 +2,11 @@ package com.mathsemilio.hiraganalearner.common.dependencyinjection
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.others.FragmentContainerHelper
-import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
-import com.mathsemilio.hiraganalearner.ui.others.ViewFactory
+import com.mathsemilio.hiraganalearner.ui.common.helper.FragmentContainerHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
+import com.mathsemilio.hiraganalearner.ui.common.view.ViewFactory
 
 class ActivityCompositionRoot(
     private val compositionRoot: CompositionRoot,

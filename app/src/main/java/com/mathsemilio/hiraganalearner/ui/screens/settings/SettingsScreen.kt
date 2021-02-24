@@ -6,13 +6,14 @@ import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
+import com.mathsemilio.hiraganalearner.BuildConfig
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
-import com.mathsemilio.hiraganalearner.ui.others.DialogHelper
-import com.mathsemilio.hiraganalearner.ui.others.MessagesHelper
-import com.mathsemilio.hiraganalearner.ui.others.ToolbarVisibilityHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.DialogHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.MessagesHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.ToolbarVisibilityHelper
 import java.util.*
 
 class SettingsScreen : BasePreferenceFragment() {
@@ -80,7 +81,7 @@ class SettingsScreen : BasePreferenceFragment() {
                     summaryOn = getString(
                         R.string.preference_summary_on_training_notification,
                         preferencesRepository.trainingNotificationTimeConfigured
-                            .formatLongTime(requireContext())
+                            .formatTimeInMillis(requireContext())
                     )
                 }
             }
@@ -130,7 +131,7 @@ class SettingsScreen : BasePreferenceFragment() {
     }
 
     private fun setupAppBuildVersionPreference() {
-        findPreference<Preference>(APP_BUILD_PREFERENCE_KEY)?.summary = APP_BUILD_VERSION
+        findPreference<Preference>(APP_BUILD_PREFERENCE_KEY)?.summary = BuildConfig.VERSION_NAME
     }
 
     private fun showClearPerfectScoresDialog() =
@@ -180,7 +181,7 @@ class SettingsScreen : BasePreferenceFragment() {
             title = getString(R.string.preference_title_training_notification_checked)
             summaryOn = getString(
                 R.string.preference_summary_on_training_notification,
-                timeSetByUser.formatLongTime(requireContext())
+                timeSetByUser.formatTimeInMillis(requireContext())
             )
         }
 
@@ -213,12 +214,12 @@ class SettingsScreen : BasePreferenceFragment() {
     }
 
     override fun onResume() {
-        toolbarVisibilityHelper.setToolbarVisibility(isVisible = true)
+        toolbarVisibilityHelper.showToolbar()
         super.onResume()
     }
 
     override fun onStop() {
-        toolbarVisibilityHelper.setToolbarVisibility(isVisible = false)
+        toolbarVisibilityHelper.hideToolbar()
         super.onStop()
     }
 }

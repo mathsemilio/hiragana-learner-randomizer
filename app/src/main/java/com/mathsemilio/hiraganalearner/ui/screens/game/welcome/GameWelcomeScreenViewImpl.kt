@@ -10,9 +10,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseObservableView
+import com.mathsemilio.hiraganalearner.ui.common.view.BaseObservableView
 
-class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
+class GameWelcomeScreenViewImpl(layoutInflater: LayoutInflater, container: ViewGroup?) :
     BaseObservableView<GameWelcomeScreenView.Listener>(), GameWelcomeScreenView {
 
     private lateinit var imageViewSettingsIcon: ImageView
@@ -25,7 +25,7 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     private var defaultDifficultyValue = ""
 
     init {
-        setRootView(inflater.inflate(R.layout.game_welcome_screen, container, false))
+        rootView = layoutInflater.inflate(R.layout.game_welcome_screen, container, false)
         initializeViews()
         attachClickListeners()
     }
@@ -117,14 +117,14 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     }
 
     private fun onPlayClickSoundEffect() {
-        getListeners().forEach { it.onPlayClickSoundEffect() }
+        listeners.forEach { it.onPlayClickSoundEffect() }
     }
 
     private fun onNavigateToSettingsScreen() {
-        getListeners().forEach { it.onSettingsIconClicked() }
+        listeners.forEach { it.onSettingsIconClicked() }
     }
 
     private fun onNavigateToMainScreen(difficultyValue: Int) {
-        getListeners().forEach { it.onStartButtonClicked(difficultyValue) }
+        listeners.forEach { it.onStartButtonClicked(difficultyValue) }
     }
 }

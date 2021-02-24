@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.ads.AdRequest
-import com.mathsemilio.hiraganalearner.data.preferences.repository.PreferencesRepository
+import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.others.ScreensNavigator
-import com.mathsemilio.hiraganalearner.ui.screens.common.BaseFragment
-import com.mathsemilio.hiraganalearner.ui.screens.common.usecase.InterstitialAdUseCase
+import com.mathsemilio.hiraganalearner.ui.common.BaseFragment
+import com.mathsemilio.hiraganalearner.ui.common.helper.InterstitialAdUseHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
 
-class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, InterstitialAdUseCase.Listener {
+class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, InterstitialAdUseHelper.Listener {
 
     private lateinit var gameWelcomeScreenView: GameWelcomeScreenViewImpl
 
@@ -19,8 +18,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
     private lateinit var soundEffectsModule: SoundEffectsModule
     private lateinit var screensNavigator: ScreensNavigator
 
-    private lateinit var interstitialAdUseCase: InterstitialAdUseCase
-    private lateinit var adRequest: AdRequest
+    private lateinit var interstitialAdUseHelper: InterstitialAdUseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +26,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
         savedInstanceState: Bundle?
     ): View {
         gameWelcomeScreenView = compositionRoot.viewFactory.getGameWelcomeScreenView(container)
-        return gameWelcomeScreenView.getRootView()
+        return gameWelcomeScreenView.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +34,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
 
         initialize()
 
-        interstitialAdUseCase.addListener(this)
+        interstitialAdUseHelper.addListener(this)
 
         gameWelcomeScreenView.setupUI(preferencesRepository.gameDefaultOption)
     }
@@ -48,9 +46,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
 
         screensNavigator = compositionRoot.screensNavigator
 
-        adRequest = compositionRoot.adRequest
-
-        interstitialAdUseCase = compositionRoot.interstitialAdUseCase
+        interstitialAdUseHelper = compositionRoot.interstitialAdHelper
     }
 
     override fun onPlayClickSoundEffect() {
@@ -63,7 +59,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
 
     override fun onStartButtonClicked(difficultyValue: Int) {
         soundEffectsModule.playButtonClickSoundEffect()
-        interstitialAdUseCase.showInterstitialAd()
+        interstitialAdUseHelper.showInterstitialAd()
     }
 
     override fun onAdDismissed() {
@@ -85,7 +81,7 @@ class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, Inters
     }
 
     override fun onDestroyView() {
-        interstitialAdUseCase.removeListener(this)
+        interstitialAdUseHelper.removeListener(this)
         super.onDestroyView()
     }
 }
