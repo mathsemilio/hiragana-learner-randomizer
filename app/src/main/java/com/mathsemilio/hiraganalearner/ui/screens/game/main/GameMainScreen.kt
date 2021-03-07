@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
-import com.mathsemilio.hiraganalearner.domain.entity.hiraganasymbol.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.common.BaseFragment

@@ -1,4 +1,4 @@
-package com.mathsemilio.hiraganalearner.common.dependencyinjection
+package com.mathsemilio.hiraganalearner.common.di
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +29,8 @@ class ActivityCompositionRoot(
     val context get() = activity
 
     val fragmentManager get() = activity.supportFragmentManager
+
+    val eventPoster get() = compositionRoot.eventPoster
 
     val adRequest get() = compositionRoot.adRequest
 

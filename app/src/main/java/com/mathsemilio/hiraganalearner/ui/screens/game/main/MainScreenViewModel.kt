@@ -1,7 +1,7 @@
 package com.mathsemilio.hiraganalearner.ui.screens.game.main
 
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.entity.hiraganasymbol.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.domain.backend.GameBackend
 
 class MainScreenViewModel : BaseObservable<MainScreenViewModel.Listener>(), GameBackend.Listener {

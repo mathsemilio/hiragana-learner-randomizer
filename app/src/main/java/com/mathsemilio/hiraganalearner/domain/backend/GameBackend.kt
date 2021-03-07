@@ -3,7 +3,7 @@ package com.mathsemilio.hiraganalearner.domain.backend
 import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.entity.hiraganasymbol.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.ViewModelRequestEventListener
 import kotlin.random.Random

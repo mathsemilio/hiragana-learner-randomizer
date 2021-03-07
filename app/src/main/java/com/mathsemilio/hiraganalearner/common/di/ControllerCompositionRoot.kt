@@ -1,14 +1,13 @@
-package com.mathsemilio.hiraganalearner.common.dependencyinjection
+package com.mathsemilio.hiraganalearner.common.di
 
 import androidx.activity.OnBackPressedCallback
-import com.mathsemilio.hiraganalearner.ui.screens.game.main.MainScreenViewModel
+import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.DialogHelper
-import com.mathsemilio.hiraganalearner.ui.common.helper.MessagesHelper
-import com.mathsemilio.hiraganalearner.ui.common.helper.ToolbarVisibilityHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.InterstitialAdUseHelper
+import com.mathsemilio.hiraganalearner.ui.common.helper.MessagesHelper
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.AlertUserHelper
-import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
+import com.mathsemilio.hiraganalearner.ui.screens.game.main.MainScreenViewModel
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.ShareGameScoreHelper
 
 class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCompositionRoot) {
@@ -27,13 +26,13 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
 
     val screensNavigator get() = activityCompositionRoot.screensNavigator
 
+    val eventPoster get() = activityCompositionRoot.eventPoster
+
     val adRequest get() = activityCompositionRoot.adRequest
 
     val appThemeUtil get() = activityCompositionRoot.appThemeUtil
 
     val trainingNotificationHelper get() = TrainingNotificationHelper(context)
-
-    val toolbarVisibilityHelper get() = activity as ToolbarVisibilityHelper
 
     val messagesHelper get() = MessagesHelper(context)
 

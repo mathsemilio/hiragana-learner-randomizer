@@ -18,7 +18,7 @@ class ScreensNavigator(
                 android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right
             )
-            replace(fragmentContainerHelper.getFragmentContainer().id, SettingsScreen())
+            replace(fragmentContainerHelper.fragmentContainer.id, SettingsScreen())
             addToBackStack(null)
             commit()
         }
@@ -27,7 +27,7 @@ class ScreensNavigator(
     fun navigateToWelcomeScreen() {
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-            replace(fragmentContainerHelper.getFragmentContainer().id, GameWelcomeScreen())
+            replace(fragmentContainerHelper.fragmentContainer.id, GameWelcomeScreen())
             commitNow()
         }
     }
@@ -36,7 +36,7 @@ class ScreensNavigator(
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             replace(
-                fragmentContainerHelper.getFragmentContainer().id,
+                fragmentContainerHelper.fragmentContainer.id,
                 GameMainScreen.newInstance(difficultyValue)
             )
             commitNow()
@@ -47,7 +47,7 @@ class ScreensNavigator(
         fragmentManager.beginTransaction().apply {
             setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             replace(
-                fragmentContainerHelper.getFragmentContainer().id,
+                fragmentContainerHelper.fragmentContainer.id,
                 GameResultScreen.newInstance(difficultyValue, score)
             )
             commitNow()

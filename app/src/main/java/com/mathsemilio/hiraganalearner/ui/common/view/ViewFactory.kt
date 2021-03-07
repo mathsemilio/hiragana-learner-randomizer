@@ -2,7 +2,7 @@ package com.mathsemilio.hiraganalearner.ui.common.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mathsemilio.hiraganalearner.ui.screens.MainActivityViewImpl
+import com.mathsemilio.hiraganalearner.ui.screens.MainActivityView
 import com.mathsemilio.hiraganalearner.ui.screens.game.main.GameMainScreenViewImpl
 import com.mathsemilio.hiraganalearner.ui.screens.game.result.GameResultScreenViewImpl
 import com.mathsemilio.hiraganalearner.ui.screens.game.welcome.GameWelcomeScreenViewImpl
@@ -10,7 +10,7 @@ import com.mathsemilio.hiraganalearner.ui.screens.game.welcome.GameWelcomeScreen
 class ViewFactory(private val layoutInflater: LayoutInflater) {
 
     fun getMainActivityView(parent: ViewGroup?) =
-        MainActivityViewImpl(layoutInflater, parent)
+        MainActivityView(layoutInflater, parent)
 
     fun getGameWelcomeScreenView(container: ViewGroup?) =
         GameWelcomeScreenViewImpl(layoutInflater, container)

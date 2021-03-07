@@ -9,11 +9,12 @@ import androidx.preference.SwitchPreferenceCompat
 import com.mathsemilio.hiraganalearner.BuildConfig
 import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
+import com.mathsemilio.hiraganalearner.common.event.ToolbarVisibilityChangedEvent
+import com.mathsemilio.hiraganalearner.common.event.poster.EventPoster
 import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.DialogHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.MessagesHelper
-import com.mathsemilio.hiraganalearner.ui.common.helper.ToolbarVisibilityHelper
 import java.util.*
 
 class SettingsScreen : BasePreferenceFragment() {
@@ -23,10 +24,10 @@ class SettingsScreen : BasePreferenceFragment() {
     private lateinit var timePickerDialog: TimePickerDialog
 
     private lateinit var trainingNotificationHelper: TrainingNotificationHelper
-    private lateinit var toolbarVisibilityHelper: ToolbarVisibilityHelper
     private lateinit var preferencesRepository: PreferencesRepository
     private lateinit var messagesHelper: MessagesHelper
     private lateinit var dialogHelper: DialogHelper
+    private lateinit var eventPoster: EventPoster
 
     private lateinit var trainingNotificationSwitchPreference: SwitchPreferenceCompat
     private lateinit var gameDefaultDifficultyOptionsPreference: ListPreference
@@ -59,11 +60,11 @@ class SettingsScreen : BasePreferenceFragment() {
     private fun initialize() {
         trainingNotificationHelper = compositionRoot.trainingNotificationHelper
 
-        toolbarVisibilityHelper = compositionRoot.toolbarVisibilityHelper
+        messagesHelper = compositionRoot.messagesHelper
 
         dialogHelper = compositionRoot.dialogHelper
 
-        messagesHelper = compositionRoot.messagesHelper
+        eventPoster = compositionRoot.eventPoster
 
         trainingNotificationSwitchPreference =
             findPreference(TRAINING_NOTIFICATION_PREFERENCE_KEY)!!
@@ -214,12 +215,12 @@ class SettingsScreen : BasePreferenceFragment() {
     }
 
     override fun onResume() {
-        toolbarVisibilityHelper.showToolbar()
+        eventPoster.postEvent(ToolbarVisibilityChangedEvent(ToolbarVisibilityChangedEvent.Event.SHOW_TOOLBAR))
         super.onResume()
     }
 
     override fun onStop() {
-        toolbarVisibilityHelper.hideToolbar()
+        eventPoster.postEvent(ToolbarVisibilityChangedEvent(ToolbarVisibilityChangedEvent.Event.HIDE_TOOLBAR))
         super.onStop()
     }
 }
