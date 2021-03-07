@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
+import com.mathsemilio.hiraganalearner.common.factory.BackPressedCallbackFactory
 import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
 import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
@@ -23,7 +23,7 @@ class GameMainScreen : BaseFragment(),
 
     companion object {
         fun newInstance(difficultyValue: Int): GameMainScreen {
-            val args = Bundle().apply { putInt(ARG_DIFFICULTY_VALUE, difficultyValue) }
+            val args = Bundle(1).apply { putInt(ARG_DIFFICULTY_VALUE, difficultyValue) }
             val gameMainScreenFragment = GameMainScreen()
             gameMainScreenFragment.arguments = args
             return gameMainScreenFragment
@@ -33,7 +33,7 @@ class GameMainScreen : BaseFragment(),
     private lateinit var gameMainScreenView: GameMainScreenViewImpl
     private lateinit var viewModel: MainScreenViewModel
 
-    private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var backPressedCallbackFactory: BackPressedCallbackFactory
     private lateinit var soundEffectsModule: SoundEffectsModule
     private lateinit var screensNavigator: ScreensNavigator
     private lateinit var alertUserHelper: AlertUserHelper
@@ -51,7 +51,7 @@ class GameMainScreen : BaseFragment(),
 
         viewModel = compositionRoot.mainScreenViewModel
 
-        onBackPressedCallback = compositionRoot.getOnBackPressedCallback { onExitButtonClicked() }
+        backPressedCallbackFactory = compositionRoot.backPressedCallbackFactory
 
         soundEffectsModule = compositionRoot.soundEffectsModule
 
@@ -93,7 +93,7 @@ class GameMainScreen : BaseFragment(),
     private fun setupOnBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
-            onBackPressedCallback
+            backPressedCallbackFactory.getOnBackPressedCallback { onExitButtonClicked() }
         )
     }
 
@@ -192,6 +192,21 @@ class GameMainScreen : BaseFragment(),
         screensNavigator.navigateToResultScreen(difficultyValue, viewModel.score)
     }
 
+    override fun onStart() {
+        gameMainScreenView.addListener(this)
+        alertUserHelper.addListener(this)
+        getSymbolUseCase.addListener(this)
+        interstitialAdUseHelper.addListener(this)
+        super.onStart()
+    }
+
+    override fun onResume() {
+        if (currentScreenState == ScreenState.TIMER_PAUSED)
+            viewModel.resumeGameTimer()
+
+        super.onResume()
+    }
+
     override fun onPause() {
         viewModel.pauseGameTimer()
 
@@ -213,20 +228,5 @@ class GameMainScreen : BaseFragment(),
         viewModel.onClearInstance()
         viewModel.removeListener(this)
         super.onDestroyView()
-    }
-
-    override fun onStart() {
-        gameMainScreenView.addListener(this)
-        alertUserHelper.addListener(this)
-        getSymbolUseCase.addListener(this)
-        interstitialAdUseHelper.addListener(this)
-        super.onStart()
-    }
-
-    override fun onResume() {
-        if (currentScreenState == ScreenState.TIMER_PAUSED)
-            viewModel.resumeGameTimer()
-
-        super.onResume()
     }
 }

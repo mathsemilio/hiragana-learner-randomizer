@@ -1,6 +1,6 @@
 package com.mathsemilio.hiraganalearner.common.di
 
-import androidx.activity.OnBackPressedCallback
+import com.mathsemilio.hiraganalearner.common.factory.BackPressedCallbackFactory
 import com.mathsemilio.hiraganalearner.domain.usecase.GetSymbolUseCase
 import com.mathsemilio.hiraganalearner.others.notification.TrainingNotificationHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.DialogHelper
@@ -37,13 +37,10 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
     val messagesHelper get() = MessagesHelper(context)
 
     val dialogHelper get() = DialogHelper(context, fragmentManager)
-    
+
     val mainScreenViewModel get() = MainScreenViewModel()
 
-    fun getOnBackPressedCallback(onBackPressed: () -> Unit) =
-        object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() = onBackPressed()
-        }
+    val backPressedCallbackFactory get() = BackPressedCallbackFactory
 
     val interstitialAdHelper get() = InterstitialAdUseHelper(activity, context, adRequest)
 

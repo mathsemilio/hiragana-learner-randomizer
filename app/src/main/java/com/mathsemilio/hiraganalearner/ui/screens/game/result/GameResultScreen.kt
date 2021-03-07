@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.google.android.gms.ads.AdRequest
 import com.mathsemilio.hiraganalearner.common.ARG_DIFFICULTY_VALUE
 import com.mathsemilio.hiraganalearner.common.ARG_SCORE
 import com.mathsemilio.hiraganalearner.common.NULL_DIFFICULTY_VALUE_EXCEPTION
 import com.mathsemilio.hiraganalearner.common.NULL_SCORE_EXCEPTION
+import com.mathsemilio.hiraganalearner.common.factory.BackPressedCallbackFactory
 import com.mathsemilio.hiraganalearner.data.repository.PreferencesRepository
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
-import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
 import com.mathsemilio.hiraganalearner.ui.common.BaseFragment
+import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
 
 class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     companion object {
         fun newInstance(difficultyValue: Int, score: Int): GameResultScreen {
-            val args = Bundle().apply {
+            val args = Bundle(2).apply {
                 putInt(ARG_DIFFICULTY_VALUE, difficultyValue)
                 putInt(ARG_SCORE, score)
             }
@@ -31,7 +31,7 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     private lateinit var gameResultScreenView: GameResultScreenViewImpl
 
-    private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var backPressedCallbackFactory: BackPressedCallbackFactory
     private lateinit var shareGameScoreHelper: ShareGameScoreHelper
     private lateinit var preferencesRepository: PreferencesRepository
     private lateinit var soundEffectsModule: SoundEffectsModule
@@ -49,6 +49,8 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
         score = getScore()
 
+        backPressedCallbackFactory = compositionRoot.backPressedCallbackFactory
+
         shareGameScoreHelper = compositionRoot.shareGameScoreHelper
 
         preferencesRepository = compositionRoot.preferencesRepository
@@ -58,8 +60,6 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
         screensNavigator = compositionRoot.screensNavigator
 
         adRequest = compositionRoot.adRequest
-
-        onBackPressedCallback = compositionRoot.getOnBackPressedCallback { onHomeButtonClicked() }
     }
 
     override fun onCreateView(
@@ -93,7 +93,8 @@ class GameResultScreen : BaseFragment(), GameResultScreenView.Listener {
 
     private fun setupOnBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner, onBackPressedCallback
+            viewLifecycleOwner,
+            backPressedCallbackFactory.getOnBackPressedCallback { onHomeButtonClicked() }
         )
     }
 

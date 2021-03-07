@@ -10,7 +10,9 @@ import com.mathsemilio.hiraganalearner.ui.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.common.helper.InterstitialAdUseHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.ScreensNavigator
 
-class GameWelcomeScreen : BaseFragment(), GameWelcomeScreenView.Listener, InterstitialAdUseHelper.Listener {
+class GameWelcomeScreen : BaseFragment(),
+    GameWelcomeScreenView.Listener,
+    InterstitialAdUseHelper.Listener {
 
     private lateinit var gameWelcomeScreenView: GameWelcomeScreenViewImpl
 
