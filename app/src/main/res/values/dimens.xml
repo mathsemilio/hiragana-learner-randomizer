@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
 
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
@@ -20,5 +21,6 @@
 
     <dimen name="circle_divider_dimension">3dp</dimen>
     <dimen name="game_progress_progress_bar_height">4dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
 
 </resources>

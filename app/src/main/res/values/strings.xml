@@ -30,7 +30,7 @@
     <!-- Game Result Screen -->
     <string name="you_made_it">You made it!</string>
     <string name="you_got_one_symbol_correctly">You got %d symbol correctly!</string>
-    <string name="you_got_symbol_correctly">You got %d symbols correctly!</string>
+    <string name="you_got_symbols_correctly">You got %d symbols correctly!</string>
     <string name="you_got_all_symbols_correctly">You got all symbols correctly! Congratulations!</string>
     <string name="perfect_scores_score_screen">Perfect Scores</string>
     <string name="game_difficulty_score_screen">Game Difficulty</string>

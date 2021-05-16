@@ -27,7 +27,7 @@
         android:contentDescription="@string/content_description_app_settings"
         android:src="@drawable/ic_outline_settings_24"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintEnd_toEndOf="@+id/text_headline_hiragana_letter_and_their_romanizations"
+        app:layout_constraintEnd_toEndOf="@+id/text_view_hiragana_letter_and_their_romanizations"
         app:layout_constraintStart_toEndOf="@id/guideline_welcome_screen_2_vertical"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
         app:lottie_rawRes="@raw/japan_flow" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_hiragana_letter_and_their_romanizations"
+        android:id="@+id/text_view_hiragana_letter_and_their_romanizations"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_24dp"
@@ -60,18 +60,18 @@
         app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view_welcome_screen" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_body_on_game_difficulty"
+        android:id="@+id/text_view_on_game_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_4dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/text_headline_hiragana_letter_and_their_romanizations"
-        app:layout_constraintStart_toStartOf="@id/text_headline_hiragana_letter_and_their_romanizations"
-        app:layout_constraintTop_toBottomOf="@id/text_headline_hiragana_letter_and_their_romanizations" />
+        app:layout_constraintEnd_toEndOf="@id/text_view_hiragana_letter_and_their_romanizations"
+        app:layout_constraintStart_toStartOf="@id/text_view_hiragana_letter_and_their_romanizations"
+        app:layout_constraintTop_toBottomOf="@id/text_view_hiragana_letter_and_their_romanizations" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_body_select_a_difficulty"
+        android:id="@+id/text_view_select_a_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_8dp"
@@ -89,26 +89,26 @@
         app:layout_constraintBottom_toTopOf="@id/button_start"
         app:layout_constraintEnd_toStartOf="@+id/guideline_welcome_screen_2_vertical"
         app:layout_constraintStart_toStartOf="@+id/guideline_welcome_screen_1_vertical"
-        app:layout_constraintTop_toBottomOf="@id/text_headline_hiragana_letter_and_their_romanizations"
+        app:layout_constraintTop_toBottomOf="@id/text_view_hiragana_letter_and_their_romanizations"
         app:singleSelection="true"
         tools:checkedChip="@id/chip_medium">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_beginner"
+            android:id="@+id/chip_button_beginner"
             style="@style/Widget.App.Difficulty.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_difficulty_beginner" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_medium"
+            android:id="@+id/chip_button_medium"
             style="@style/Widget.App.Difficulty.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_difficulty_medium" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_hard"
+            android:id="@+id/chip_button_hard"
             style="@style/Widget.App.Difficulty.Chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

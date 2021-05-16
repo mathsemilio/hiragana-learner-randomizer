@@ -9,26 +9,26 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout_app"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/frame_layout_screen_container"
+        android:layout_height="?actionBarSize"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/frame_layout_fragment_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/material_toolbar_app"
             style="@style/Widget.App.Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:visibility="gone"
+            android:layout_height="match_parent"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="@string/settings_toolbar_title"
-            tools:visibility="visible" />
+            app:title="@string/settings_toolbar_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/frame_layout_screen_container"
+        android:id="@+id/frame_layout_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

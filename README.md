@@ -25,6 +25,7 @@ Programming Language - **Kotlin**
 <p>3rd party Libraries and Technologies used:</p>
 <ol>
   <li>Material Design Components;</li>
+  <li>ViewBinding (Build Feature);</li>
   <li>Preferences (PreferenceX);</li>
   <li>WorkManager;</li>
   <li>Play Services Ads;</li>
@@ -33,7 +34,25 @@ Programming Language - **Kotlin**
 
 <i>For info on each of the libraries and technologies listed above:</i>
 <p><a href="https://github.com/material-components/material-components-android">Android Material Components</a></p>
+<p><a href="https://developer.android.com/topic/libraries/view-binding">ViewBinding</a></p>
 <p><a href="https://developer.android.com/guide/topics/ui/settings">Preferences (PreferenceX)</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics">WorkManager</a></p>
 <p><a href="https://developers.google.com/admob/android/sdk">Play Services Ads</a></p>
 <p><a href="https://square.github.io/leakcanary/">Leak Canary</a></p>
+
+### License
+```
+Copyright 2020 Matheus Menezes
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

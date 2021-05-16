@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".others.HiraganaRandomizerApplication"
+        android:name=".HiraganaRandomizerApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_hiragana_learner_launcher_icon"
         android:label="@string/app_name"
@@ -21,7 +21,8 @@
             android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
             android:name=".ui.screens.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

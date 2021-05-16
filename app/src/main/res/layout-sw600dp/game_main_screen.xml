@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.game.main.GameMainScreen">
+    tools:context=".ui.screens.main.GameMainFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_1_vertical"
@@ -59,13 +59,13 @@
         android:layout_width="@dimen/circle_divider_dimension"
         android:layout_height="@dimen/circle_divider_dimension"
         android:background="@drawable/ic_circle_divider"
-        app:layout_constraintBottom_toBottomOf="@id/text_body_game_difficulty"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_game_difficulty"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
         app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-        app:layout_constraintTop_toTopOf="@id/text_body_game_difficulty" />
+        app:layout_constraintTop_toTopOf="@id/text_view_game_difficulty" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_body_game_difficulty"
+        android:id="@+id/text_view_game_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_8dp"
@@ -78,7 +78,7 @@
         tools:text="Medium" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_body_game_score"
+        android:id="@+id/text_view_current_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_8dp"
@@ -105,7 +105,7 @@
         tools:progress="60" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_current_hiragana_letter"
+        android:id="@+id/text_view_current_hiragana_symbol"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -118,7 +118,7 @@
         tools:text="あ" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_body_letter_corresponds"
+        android:id="@+id/text_view_letter_corresponds"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_3_horizontal"
         app:layout_constraintEnd_toEndOf="@id/guideline_2_vertical"
         app:layout_constraintStart_toStartOf="@id/guideline_1_vertical"
-        app:layout_constraintTop_toBottomOf="@id/text_body_letter_corresponds"
+        app:layout_constraintTop_toBottomOf="@id/text_view_letter_corresponds"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip

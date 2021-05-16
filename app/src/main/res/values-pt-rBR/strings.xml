@@ -29,7 +29,7 @@
     <!-- Strings da tela de resultado -->
     <string name="you_made_it">Você Terminou!</string>
     <string name="you_got_one_symbol_correctly">Você acertou %d símbolo!</string>
-    <string name="you_got_symbol_correctly">Você acertou %d símbolos!</string>
+    <string name="you_got_symbols_correctly">Você acertou %d símbolos!</string>
     <string name="you_got_all_symbols_correctly">Você acertou todos os símbolos! Parabéns!</string>
     <string name="perfect_scores_score_screen">Pontuações Perfeitas</string>
     <string name="game_difficulty_score_screen">Dificuldade</string>

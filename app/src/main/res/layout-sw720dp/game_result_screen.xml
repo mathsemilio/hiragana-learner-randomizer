@@ -33,7 +33,7 @@
         app:lottie_rawRes="@raw/japan_flow" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_you_are_done"
+        android:id="@+id/text_view_you_made_it"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view_result_screen" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_headline_you_got_correctly"
+        android:id="@+id/text_view_you_got_correctly"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_32dp"
@@ -54,7 +54,7 @@
         android:textAppearance="@style/TextAppearance.App.GameResultScreen.YouGotSymbols.xLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_headline_you_are_done"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_you_made_it"
         tools:text="You got 30 symbols correctly!" />
 
     <com.google.android.material.card.MaterialCardView
@@ -67,7 +67,7 @@
         android:layout_marginEnd="@dimen/margin_32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_headline_you_got_correctly">
+        app:layout_constraintTop_toBottomOf="@id/text_view_you_got_correctly">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -79,13 +79,13 @@
                 android:layout_width="0.8dp"
                 android:layout_height="0dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="@id/text_headline_game_difficulty_score_screen"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_game_difficulty_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_body_game_difficulty_score_screen" />
+                app:layout_constraintTop_toTopOf="@id/text_view_game_difficulty" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_game_difficulty_score_screen"
+                android:id="@+id/text_view_game_difficulty"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4dp"
@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_headline_game_difficulty_score_screen"
+                android:id="@+id/text_view_game_difficulty_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"
@@ -109,11 +109,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/list_divider_card_view_game_result"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_body_game_difficulty_score_screen"
+                app:layout_constraintTop_toBottomOf="@id/text_view_game_difficulty"
                 tools:text="Hard" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_body_perfect_score_score_screen"
+                android:id="@+id/text_view_perfect_scores"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4dp"
@@ -128,7 +128,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_headline_perfect_scores_number_score_screen"
+                android:id="@+id/text_view_perfect_scores_achieved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4dp"
@@ -137,7 +137,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/list_divider_card_view_game_result"
-                app:layout_constraintTop_toBottomOf="@id/text_body_perfect_score_score_screen"
+                app:layout_constraintTop_toBottomOf="@id/text_view_perfect_scores"
                 tools:text="6" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

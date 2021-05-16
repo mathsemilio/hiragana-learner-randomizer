@@ -1,20 +1,35 @@
+/*
+Copyright 2020 Matheus Menezes
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
 package com.mathsemilio.hiraganalearner.ui.common.view
 
-import android.content.Context
-import android.view.View
-import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
+import androidx.viewbinding.ViewBinding
+import com.mathsemilio.hiraganalearner.common.observable.Observable
 
-abstract class BaseObservableView<L> : BaseObservable<L>(), IView {
+abstract class BaseObservableView<Binding : ViewBinding, Listener> : BaseView<Binding>(),
+    Observable<Listener> {
 
-    private lateinit var _rootView: View
+    private val listenersSet = mutableSetOf<Listener>()
 
-    override var rootView
-        get() = _rootView
-        set(value) {
-            _rootView = value
-        }
+    override fun addListener(listener: Listener) {
+        listenersSet.add(listener)
+    }
 
-    protected fun <T : View> findViewById(id: Int): T = _rootView.findViewById(id)
+    override fun removeListener(listener: Listener) {
+        listenersSet.remove(listener)
+    }
 
-    protected val context: Context get() = _rootView.context
+    protected val listeners get() = listenersSet.toSet()
 }
