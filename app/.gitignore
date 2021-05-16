@@ -1,3 +1,3 @@
 /build
 /release
-app/src/main/java/com/mathsemilio/hiraganalearner/common/provider/AdMobIdProvider.kt
+/src/main/java/com/mathsemilio/hiraganalearner/common/provider/AdMobIdProvider.kt
