@@ -76,36 +76,52 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
 
     override fun onSymbolUpdated(symbol: HiraganaSymbol) {
         _currentSymbol = symbol
-        listeners.forEach { listener -> listener.onHiraganaSymbolUpdated(symbol) }
+        listeners.forEach { listener ->
+            listener.onHiraganaSymbolUpdated(symbol)
+        }
     }
 
     override fun onScoreUpdated(score: Int) {
         _currentScore = score
-        listeners.forEach { listener -> listener.onScoreUpdated(score) }
+        listeners.forEach { listener ->
+            listener.onScoreUpdated(score)
+        }
     }
 
     override fun onProgressUpdated(progress: Int) {
-        listeners.forEach { listener -> listener.onProgressUpdated(progress) }
+        listeners.forEach { listener ->
+            listener.onProgressUpdated(progress)
+        }
     }
 
     override fun onCountdownTimeUpdated(countdownTime: Int) {
-        listeners.forEach { listener -> listener.onCountdownTimeUpdated(countdownTime) }
+        listeners.forEach { listener ->
+            listener.onCountdownTimeUpdated(countdownTime)
+        }
     }
 
     override fun onRomanizationOptionsUpdated(romanizations: List<String>) {
-        listeners.forEach { listener -> listener.onRomanizationOptionsUpdated(romanizations) }
+        listeners.forEach { listener ->
+            listener.onRomanizationOptionsUpdated(romanizations)
+        }
     }
 
     override fun onCorrectAnswer() {
-        listeners.forEach { listener -> listener.onCorrectAnswer() }
+        listeners.forEach { listener ->
+            listener.onCorrectAnswer()
+        }
     }
 
     override fun onWrongAnswer() {
-        listeners.forEach { listener -> listener.onWrongAnswer() }
+        listeners.forEach { listener ->
+            listener.onWrongAnswer()
+        }
     }
 
     override fun onGameTimeOver() {
-        listeners.forEach { listener -> listener.onGameTimeOver() }
+        listeners.forEach { listener ->
+            listener.onGameTimeOver()
+        }
     }
 
     override fun onGameFinished() {

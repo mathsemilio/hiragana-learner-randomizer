@@ -81,14 +81,15 @@ class GameResultFragment private constructor() : BaseFragment(), GameResultScree
         setupOnBackPressedDispatcher()
 
         score = requireArguments().getInt(ARG_SCORE, 0)
-
         difficultyValue = requireArguments().getInt(ARG_DIFFICULTY_VALUE, 0)
     }
 
     private fun setupOnBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
-            backPressedCallbackProvider.getOnBackPressedCallback { screensNavigator.toWelcomeScreen() }
+            backPressedCallbackProvider.getOnBackPressedCallback {
+                screensNavigator.toWelcomeScreen()
+            }
         )
     }
 

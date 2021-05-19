@@ -31,12 +31,8 @@ class ActivityCompositionRoot(
     private val compositionRoot: CompositionRoot,
     private val activity: AppCompatActivity
 ) {
-    private val fragmentTransactionManager by lazy {
-        FragmentTransactionManager(fragmentManager, activity as FragmentContainerHelper)
-    }
-
     private val _viewFactory by lazy {
-        ViewFactory(LayoutInflater.from(activity))
+        ViewFactory(LayoutInflater.from(applicationContext))
     }
 
     private val _preferencesManager by lazy {
@@ -44,7 +40,12 @@ class ActivityCompositionRoot(
     }
 
     private val _screensNavigator by lazy {
-        ScreensNavigator(fragmentTransactionManager)
+        ScreensNavigator(
+            FragmentTransactionManager(
+                fragmentManager,
+                activity as FragmentContainerHelper
+            )
+        )
     }
 
     private val _themeHelper by lazy {

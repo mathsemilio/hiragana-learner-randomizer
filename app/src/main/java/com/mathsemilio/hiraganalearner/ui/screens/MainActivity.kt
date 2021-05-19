@@ -64,9 +64,7 @@ class MainActivity : BaseActivity(),
         screensNavigator.navigateUp()
     }
 
-    override fun getFragmentContainerId(): Int {
-        return view.fragmentContainer.id
-    }
+    override fun getFragmentContainerId() = view.fragmentContainer.id
 
     override fun onStart() {
         view.addListener(this)

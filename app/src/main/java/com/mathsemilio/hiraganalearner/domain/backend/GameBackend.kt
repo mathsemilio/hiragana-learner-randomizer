@@ -179,38 +179,56 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
     }
 
     private fun notifySymbolUpdated(symbol: HiraganaSymbol) {
-        listeners.forEach { listener -> listener.onSymbolUpdated(symbol) }
+        listeners.forEach { listener ->
+            listener.onSymbolUpdated(symbol)
+        }
     }
 
     private fun notifyCountdownTimeUpdated(countDownTime: Int) {
-        listeners.forEach { listener -> listener.onCountdownTimeUpdated(countDownTime) }
+        listeners.forEach { listener ->
+            listener.onCountdownTimeUpdated(countDownTime)
+        }
     }
 
     private fun notifyCorrectAnswer() {
-        listeners.forEach { listener -> listener.onCorrectAnswer() }
+        listeners.forEach { listener ->
+            listener.onCorrectAnswer()
+        }
     }
 
     private fun notifyWrongAnswer() {
-        listeners.forEach { listener -> listener.onWrongAnswer() }
+        listeners.forEach { listener ->
+            listener.onWrongAnswer()
+        }
     }
 
     private fun notifyTimeOver() {
-        listeners.forEach { listener -> listener.onGameTimeOver() }
+        listeners.forEach { listener ->
+            listener.onGameTimeOver()
+        }
     }
 
     private fun notifyGameFinished() {
-        listeners.forEach { listener -> listener.onGameFinished() }
+        listeners.forEach { listener ->
+            listener.onGameFinished()
+        }
     }
 
     private fun notifyGameScoreUpdated(score: Int) {
-        listeners.forEach { listener -> listener.onScoreUpdated(score) }
+        listeners.forEach { listener ->
+            listener.onScoreUpdated(score)
+        }
     }
 
     private fun notifyProgressUpdated(progress: Int) {
-        listeners.forEach { listener -> listener.onProgressUpdated(progress) }
+        listeners.forEach { listener ->
+            listener.onProgressUpdated(progress)
+        }
     }
 
     private fun onRomanizationGroupUpdated(romanizationGroupList: List<String>) {
-        listeners.forEach { listener -> listener.onRomanizationOptionsUpdated(romanizationGroupList) }
+        listeners.forEach { listener ->
+            listener.onRomanizationOptionsUpdated(romanizationGroupList)
+        }
     }
 }

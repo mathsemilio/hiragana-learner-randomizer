@@ -79,17 +79,11 @@ class SettingsFragment : BasePreferenceFragment(),
 
     private fun initialize() {
         trainingNotificationScheduler = compositionRoot.trainingNotificationScheduler
-
         toolbarVisibilityHelper = compositionRoot.toolbarVisibilityHelper
-
         messagesManager = compositionRoot.messagesManager
-
         dialogManager = compositionRoot.dialogManager
-
         eventSubscriber = compositionRoot.eventSubscriber
-
         trainingNotificationPreference = findPreference(TRAINING_NOTIFICATION_PREFERENCE_KEY)!!
-
         gameDefaultDifficultyPreference = findPreference(DEFAULT_GAME_DIFFICULTY_PREFERENCE_KEY)!!
     }
 
@@ -118,10 +112,10 @@ class SettingsFragment : BasePreferenceFragment(),
     private fun setupDefaultGameDifficultyPreference() {
         gameDefaultDifficultyPreference.setSummaryProvider {
             return@setSummaryProvider when (preferencesManager.defaultDifficultyValue) {
-                "0" -> getString(R.string.difficulty_entry_default)
-                "1" -> getString(R.string.game_difficulty_beginner)
-                "2" -> getString(R.string.game_difficulty_medium)
-                "3" -> getString(R.string.game_difficulty_hard)
+                SHOW_DIFFICULTY_OPTIONS -> getString(R.string.difficulty_entry_default)
+                DEFAULT_DIFFICULTY_BEGINNER -> getString(R.string.game_difficulty_beginner)
+                DEFAULT_DIFFICULTY_MEDIUM -> getString(R.string.game_difficulty_medium)
+                DEFAULT_DIFFICULTY_HARD -> getString(R.string.game_difficulty_hard)
                 else -> throw IllegalArgumentException(ILLEGAL_DEFAULT_DIFFICULTY_VALUE)
             }
         }
@@ -211,7 +205,9 @@ class SettingsFragment : BasePreferenceFragment(),
                 preferencesManager.clearPerfectScoresAchieved()
                 findPreference<Preference>(CLEAR_PERFECT_SCORES_PREFERENCE_KEY)?.isVisible = false
             }
-            PromptDialogEvent.NegativeButtonClicked -> { /* no-op */ }
+            PromptDialogEvent.NegativeButtonClicked -> {
+                // No action to be performed upon negative button click - no-op
+            }
         }
     }
 

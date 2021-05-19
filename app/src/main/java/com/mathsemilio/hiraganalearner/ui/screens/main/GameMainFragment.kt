@@ -108,7 +108,7 @@ class GameMainFragment private constructor() : BaseFragment(),
     private fun setupOnBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
-            backPressedCallbackProvider.getOnBackPressedCallback { screensNavigator.toWelcomeScreen() }
+            backPressedCallbackProvider.getOnBackPressedCallback { onExitButtonClicked() }
         )
     }
 

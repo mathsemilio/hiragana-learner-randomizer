@@ -28,6 +28,7 @@ Programming Language - **Kotlin**
   <li>ViewBinding (Build Feature);</li>
   <li>Preferences (PreferenceX);</li>
   <li>WorkManager;</li>
+  <li>Lottie Android;</li>
   <li>Play Services Ads;</li>
   <li>Leak Canary (Debug Implementation)</li>
 </ol >
@@ -37,6 +38,7 @@ Programming Language - **Kotlin**
 <p><a href="https://developer.android.com/topic/libraries/view-binding">ViewBinding</a></p>
 <p><a href="https://developer.android.com/guide/topics/ui/settings">Preferences (PreferenceX)</a></p>
 <p><a href="https://developer.android.com/topic/libraries/architecture/workmanager/basics">WorkManager</a></p>
+<p><a href="https://github.com/airbnb/lottie-android">Lottie Android</a></p>
 <p><a href="https://developers.google.com/admob/android/sdk">Play Services Ads</a></p>
 <p><a href="https://square.github.io/leakcanary/">Leak Canary</a></p>
 
