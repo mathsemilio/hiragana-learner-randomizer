@@ -70,7 +70,7 @@ class TrainingNotificationHelper(private val context: Context) {
 
     private fun buildNotification(): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID).apply {
-            setSmallIcon(R.drawable.ic_hiragana_learner_notification_icon)
+            setSmallIcon(R.drawable.ic_training_notification)
             setContentTitle(
                 this@TrainingNotificationHelper.context.getString(R.string.training_notification_content_title)
             )

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="syllabary_letters_and_romanizations">Pronto para Associar os Símbolos do Hiragana com suas Romanizações?</string>
+
+    <string name="training_notification_content_title">Hora de treinar o seu Hiragana!</string>
+    <string name="training_notification_channel_name">Lembrete de treino do Hiragana Learner</string>
+    <string name="training_notification_channel_description">Lembrete de Treino de Hiragana</string>
+
+    <string name="share_final_score">Eu acertei %d de 46 símbolos no app Hiragana Learner Randomizer! Você consegue superar minha pontuação?</string>
+    <string name="share_perfect_final_score">Eu consegui uma pontuação perfeita no app Hiragana Learner! Será que você consegue repetir o meu feito?</string>
+</resources>

@@ -15,7 +15,7 @@
     <string name="content_description_button_share">Share the Final Score</string>
 
     <!-- Game Welcome Screen strings -->
-    <string name="hiragana_letters_and_romanizations">Ready to associate the Hiragana symbols with their Romanizations?</string>
+    <string name="syllabary_letters_and_romanizations">Ready to associate the Hiragana symbols with their Romanizations?</string>
     <string name="on_game_difficulty">On %s difficulty!</string>
     <string name="select_a_difficulty">First, select a difficulty:</string>
     <string name="game_difficulty_beginner">Beginner</string>

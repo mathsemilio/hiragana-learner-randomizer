@@ -14,7 +14,7 @@
     <string name="content_description_button_share">Compartilhar a Pontuação Final</string>
 
     <!-- Strings da tela inicial -->
-    <string name="hiragana_letters_and_romanizations">Pronto para Associar os Símbolos do Hiragana com suas Romanizações?</string>
+    <string name="syllabary_letters_and_romanizations">Pronto para Associar os Símbolos do Hiragana com suas Romanizações?</string>
     <string name="on_game_difficulty">Na dificuldade %s!</string>
     <string name="select_a_difficulty">Primeiro, selecione uma dificuldade:</string>
     <string name="game_difficulty_beginner">Iniciante</string>

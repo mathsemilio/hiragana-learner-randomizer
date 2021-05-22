@@ -7,12 +7,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".HiraganaRandomizerApplication"
+        android:name=".SyllabaryRandomizerApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_hiragana_learner_launcher_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="false"
-        android:roundIcon="@mipmap/ic_hiragana_learner_launcher_icon_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SplashScreen"
         tools:targetApi="n">

@@ -23,6 +23,23 @@ android {
         }
     }
 
+    flavorDimensions "syllabary"
+
+    productFlavors {
+        hiragana {
+            dimension "syllabary"
+            applicationId "com.mathsemilio.hiraganalearner"
+            versionCode 19
+            versionName "stable-1.0.6"
+        }
+        katakana {
+            dimension "syllabary"
+            applicationId "com.mathsemilio.katakanalearner"
+            versionCode 13
+            versionName "stable-1.0.3"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

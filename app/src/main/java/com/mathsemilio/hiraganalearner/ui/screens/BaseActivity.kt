@@ -17,13 +17,13 @@ package com.mathsemilio.hiraganalearner.ui.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import com.mathsemilio.hiraganalearner.common.di.ActivityCompositionRoot
-import com.mathsemilio.hiraganalearner.HiraganaRandomizerApplication
+import com.mathsemilio.hiraganalearner.SyllabaryRandomizerApplication
 
 abstract class BaseActivity : AppCompatActivity() {
 
     private val _compositionRoot by lazy {
         ActivityCompositionRoot(
-            (application as HiraganaRandomizerApplication).compositionRoot,
+            (application as SyllabaryRandomizerApplication).compositionRoot,
             activity = this
         )
     }

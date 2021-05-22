@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Hiragana Randomizer</string>
+
+    <string name="syllabary_letters_and_romanizations">Ready to associate the Hiragana symbols with their Romanizations?</string>
+
+    <string name="training_notification_content_title">Time to train your Hiragana!</string>
+    <string name="training_notification_channel_name">Hiragana Learner training remainder</string>
+    <string name="training_notification_channel_description">Hiragana Training Remainder</string>
+
+    <string name="share_final_score">I got %d out of 46 symbols on the Hiragana Learner Randomizer app. Can you beat my score?</string>
+    <string name="share_perfect_final_score">I just got a perfect score on the Hiragana Learner Randomizer App! Can you repeat my feat?</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#81C784</color>
+    <color name="colorPrimaryVariant">#388E3C</color>
+    <color name="colorSplashScreenStatusBar">@android:color/black</color>
+    <color name="colorToolbarBackground">#212121</color>
+    <color name="colorFloatingActionButtonOnSecondary">@android:color/black</color>
+    <color name="colorCardViewGameResultBackground">#212121</color>
+</resources>

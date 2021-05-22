@@ -109,7 +109,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        app:autoSizePresetSizes="@array/hiragana_symbol_preset_sizes_tablet"
+        app:autoSizePresetSizes="@array/symbol_preset_sizes_tablet"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@id/game_timer_progress_bar"
         app:layout_constraintEnd_toEndOf="@+id/game_timer_progress_bar"

@@ -42,7 +42,7 @@ class MainActivity : BaseActivity(),
         screensNavigator = compositionRoot.screensNavigator
         themeHelper = compositionRoot.themeHelper
 
-        setTheme(R.style.Theme_HiraganaLearner)
+        setTheme(R.style.Theme_SyllabaryRandomizer)
 
         themeHelper.setThemeFromPreference()
 
