@@ -22,7 +22,7 @@
             style="@style/Widget.App.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:navigationIcon="@drawable/ic_arrow_back"
             app:title="@string/settings_toolbar_title" />
 
     </com.google.android.material.appbar.AppBarLayout>

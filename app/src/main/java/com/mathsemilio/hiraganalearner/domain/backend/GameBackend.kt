@@ -18,14 +18,14 @@ package com.mathsemilio.hiraganalearner.domain.backend
 import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
-import com.mathsemilio.hiraganalearner.others.hiraganaSymbolsList
+import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
+import com.mathsemilio.hiraganalearner.others.SYLLABARY_SYMBOLS_LIST
 import kotlin.random.Random
 
 class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorRequestListener {
 
     interface Listener {
-        fun onSymbolUpdated(symbol: HiraganaSymbol)
+        fun onSymbolUpdated(symbol: SyllabarySymbol)
 
         fun onScoreUpdated(score: Int)
 
@@ -46,7 +46,7 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
 
     private lateinit var countDownTimer: CountDownTimer
 
-    private val hiraganaSymbols = hiraganaSymbolsList.toMutableList()
+    private val syllabarySymbols = SYLLABARY_SYMBOLS_LIST.toMutableList()
 
     private var totalCountdownTime = 0L
     private var currentCountdownTime = 0L
@@ -61,10 +61,10 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
     private fun startGame(difficultyValue: Int) {
         totalCountdownTime = getTotalCountdownTime(difficultyValue)
 
-        hiraganaSymbols.shuffle()
+        syllabarySymbols.shuffle()
 
         notifyGameScoreUpdated(currentScore)
-        notifySymbolUpdated(hiraganaSymbols.first())
+        notifySymbolUpdated(syllabarySymbols.first())
         generateRomanizationOptions()
         startCountdownTimer(totalCountdownTime)
     }
@@ -100,7 +100,7 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
     private fun checkAnswer(selectedRomanization: String) {
         pauseTimer()
 
-        if (hiraganaSymbols.first().romanization == selectedRomanization) {
+        if (syllabarySymbols.first().romanization == selectedRomanization) {
             notifyGameScoreUpdated(++currentScore)
             notifyCorrectAnswer()
         } else {
@@ -110,13 +110,13 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
 
     private fun getNextSymbol() {
         notifyProgressUpdated(++currentProgress)
-        hiraganaSymbols.removeAt(0)
-        notifySymbolUpdated(hiraganaSymbols.first())
+        syllabarySymbols.removeAt(0)
+        notifySymbolUpdated(syllabarySymbols.first())
 
         generateRomanizationOptions()
         startCountdownTimer(totalCountdownTime)
 
-        if (hiraganaSymbols.size == 1) notifyGameFinished()
+        if (syllabarySymbols.size == 1) notifyGameFinished()
     }
 
     private fun generateRomanizationOptions() {
@@ -128,7 +128,7 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
         ).let { romanizationList ->
             romanizationList.shuffle()
             romanizationList.filterNot { romanization ->
-                romanization == hiraganaSymbols.first().romanization
+                romanization == syllabarySymbols.first().romanization
             }
         }
 
@@ -151,10 +151,10 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
 
     private fun setCorrectRomanizationAnswer() {
         when (Random.nextInt(4)) {
-            0 -> firstRomanizationOption = hiraganaSymbols.first().romanization
-            1 -> secondRomanizationOption = hiraganaSymbols.first().romanization
-            2 -> thirdRomanizationOption = hiraganaSymbols.first().romanization
-            3 -> fourthRomanizationOption = hiraganaSymbols.first().romanization
+            0 -> firstRomanizationOption = syllabarySymbols.first().romanization
+            1 -> secondRomanizationOption = syllabarySymbols.first().romanization
+            2 -> thirdRomanizationOption = syllabarySymbols.first().romanization
+            3 -> fourthRomanizationOption = syllabarySymbols.first().romanization
         }
     }
 
@@ -178,7 +178,7 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
         resumeTimer()
     }
 
-    private fun notifySymbolUpdated(symbol: HiraganaSymbol) {
+    private fun notifySymbolUpdated(symbol: SyllabarySymbol) {
         listeners.forEach { listener ->
             listener.onSymbolUpdated(symbol)
         }

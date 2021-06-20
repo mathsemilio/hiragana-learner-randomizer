@@ -16,7 +16,7 @@ limitations under the License.
 package com.mathsemilio.hiraganalearner.domain.backend
 
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
-import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
 
 class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator.Listener>(),
     GameBackend.Listener {
@@ -30,7 +30,7 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
 
         fun onRomanizationOptionsUpdated(romanizationOptions: List<String>)
 
-        fun onHiraganaSymbolUpdated(symbol: HiraganaSymbol)
+        fun onSymbolUpdated(symbol: SyllabarySymbol)
 
         fun onCorrectAnswer()
 
@@ -41,7 +41,7 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
 
     private val mediatorRequestListener = gameBackend as BackendMediatorRequestListener
 
-    private lateinit var _currentSymbol: HiraganaSymbol
+    private lateinit var _currentSymbol: SyllabarySymbol
     val currentSymbol get() = _currentSymbol
 
     private var _currentScore = 0
@@ -74,10 +74,10 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
         mediatorRequestListener.onResumeGameRequested()
     }
 
-    override fun onSymbolUpdated(symbol: HiraganaSymbol) {
+    override fun onSymbolUpdated(symbol: SyllabarySymbol) {
         _currentSymbol = symbol
         listeners.forEach { listener ->
-            listener.onHiraganaSymbolUpdated(symbol)
+            listener.onSymbolUpdated(symbol)
         }
     }
 

@@ -15,7 +15,7 @@ limitations under the License.
  */
 package com.mathsemilio.hiraganalearner.domain.model
 
-data class HiraganaSymbol(
+data class SyllabarySymbol(
     val symbol: String,
     val romanization: String
 )

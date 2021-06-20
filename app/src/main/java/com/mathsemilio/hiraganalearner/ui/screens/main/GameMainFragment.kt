@@ -25,7 +25,7 @@ import com.mathsemilio.hiraganalearner.common.eventbus.EventSubscriber
 import com.mathsemilio.hiraganalearner.common.provider.BackPressedCallbackProvider
 import com.mathsemilio.hiraganalearner.data.manager.PreferencesManager
 import com.mathsemilio.hiraganalearner.domain.backend.BackendMediator
-import com.mathsemilio.hiraganalearner.domain.model.HiraganaSymbol
+import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
 import com.mathsemilio.hiraganalearner.ui.common.BaseFragment
 import com.mathsemilio.hiraganalearner.ui.common.event.PromptDialogEvent
@@ -163,7 +163,7 @@ class GameMainFragment private constructor() : BaseFragment(),
         view.updateRomanizationOptions(romanizationOptions)
     }
 
-    override fun onHiraganaSymbolUpdated(symbol: HiraganaSymbol) {
+    override fun onSymbolUpdated(symbol: SyllabarySymbol) {
         view.updateHiraganaSymbol(symbol.symbol)
     }
 
