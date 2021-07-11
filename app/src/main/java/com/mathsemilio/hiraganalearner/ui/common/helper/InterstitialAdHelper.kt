@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.common.helper
 
 import android.content.Context
@@ -38,7 +39,7 @@ class InterstitialAdHelper(
         fun onShowAdFailed()
     }
 
-    private var currentInterstitialAd: InterstitialAd? = null
+    private var interstitialAd: InterstitialAd? = null
 
     private val fullScreenContentCallback: FullScreenContentCallback
         get() = object : FullScreenContentCallback() {
@@ -62,34 +63,34 @@ class InterstitialAdHelper(
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    currentInterstitialAd = interstitialAd
-                    currentInterstitialAd?.fullScreenContentCallback =
+                    this@InterstitialAdHelper.interstitialAd = interstitialAd
+                    this@InterstitialAdHelper.interstitialAd?.fullScreenContentCallback =
                         fullScreenContentCallback
                 }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    currentInterstitialAd = null
+                    interstitialAd = null
                 }
             }
         )
     }
 
     fun showInterstitialAd() {
-        if (currentInterstitialAd == null)
+        if (interstitialAd == null)
             notifyAdFailedToShow()
         else
-            currentInterstitialAd?.show(activity)
-    }
-
-    private fun notifyAdDismissed() {
-        listeners.forEach { listener ->
-            listener.onAdDismissed()
-        }
+            interstitialAd?.show(activity)
     }
 
     private fun notifyAdFailedToShow() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onShowAdFailed()
+        }
+    }
+
+    private fun notifyAdDismissed() {
+        notifyListener { listener ->
+            listener.onAdDismissed()
         }
     }
 }

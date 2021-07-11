@@ -11,20 +11,19 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_prompt_dialog_title"
+        style="@style/TextAppearance.App.PromptDialog.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Dialog title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_prompt_dialog_message"
+        style="@style/TextAppearance.App.PromptDialog.Message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
-        android:textAppearance="?textAppearanceBody2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_prompt_dialog_title"

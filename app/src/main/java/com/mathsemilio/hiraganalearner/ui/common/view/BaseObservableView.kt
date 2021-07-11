@@ -13,23 +13,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.common.view
 
 import androidx.viewbinding.ViewBinding
 import com.mathsemilio.hiraganalearner.common.observable.Observable
 
-abstract class BaseObservableView<Binding : ViewBinding, Listener> : BaseView<Binding>(),
-    Observable<Listener> {
+abstract class BaseObservableView<Binding : ViewBinding, T> : BaseView<Binding>(), Observable<T> {
 
-    private val listenersSet = mutableSetOf<Listener>()
+    private val _listeners = mutableSetOf<T>()
+    protected val listeners get() = _listeners.toSet()
 
-    override fun addListener(listener: Listener) {
-        listenersSet.add(listener)
+    override fun addListener(listener: T) {
+        _listeners.add(listener)
     }
 
-    override fun removeListener(listener: Listener) {
-        listenersSet.remove(listener)
+    override fun removeListener(listener: T) {
+        _listeners.remove(listener)
     }
 
-    protected val listeners get() = listenersSet.toSet()
+    protected inline fun BaseObservableView<Binding, T>.notifyListener(onNotifyListener: (T) -> Unit) {
+        this@BaseObservableView.listeners.forEach { listener ->
+            onNotifyListener(listener)
+        }
+    }
 }

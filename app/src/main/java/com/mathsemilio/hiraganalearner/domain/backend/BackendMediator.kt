@@ -13,13 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.domain.backend
 
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
 
-class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator.Listener>(),
-    GameBackend.Listener {
+class BackendMediator(
+    gameBackend: GameBackend
+) : BaseObservable<BackendMediator.Listener>(), GameBackend.Listener {
 
     interface Listener {
         fun onScoreUpdated(score: Int)
@@ -42,13 +44,16 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
     private val mediatorRequestListener = gameBackend as BackendMediatorRequestListener
 
     private lateinit var _currentSymbol: SyllabarySymbol
-    val currentSymbol get() = _currentSymbol
+    val currentSymbol
+        get() = _currentSymbol
 
     private var _currentScore = 0
-    val currentScore get() = _currentScore
+    val currentScore
+        get() = _currentScore
 
     private var _gameFinished = false
-    val gameFinished get() = _gameFinished
+    val gameFinished
+        get() = _gameFinished
 
     init {
         gameBackend.addListener(this)
@@ -76,50 +81,52 @@ class BackendMediator(gameBackend: GameBackend) : BaseObservable<BackendMediator
 
     override fun onSymbolUpdated(symbol: SyllabarySymbol) {
         _currentSymbol = symbol
-        listeners.forEach { listener ->
+
+        notifyListener { listener ->
             listener.onSymbolUpdated(symbol)
         }
     }
 
     override fun onScoreUpdated(score: Int) {
         _currentScore = score
-        listeners.forEach { listener ->
+
+        notifyListener { listener ->
             listener.onScoreUpdated(score)
         }
     }
 
     override fun onProgressUpdated(progress: Int) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onProgressUpdated(progress)
         }
     }
 
     override fun onCountdownTimeUpdated(countdownTime: Int) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onCountdownTimeUpdated(countdownTime)
         }
     }
 
     override fun onRomanizationOptionsUpdated(romanizations: List<String>) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onRomanizationOptionsUpdated(romanizations)
         }
     }
 
     override fun onCorrectAnswer() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onCorrectAnswer()
         }
     }
 
     override fun onWrongAnswer() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onWrongAnswer()
         }
     }
 
     override fun onGameTimeOver() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onGameTimeOver()
         }
     }

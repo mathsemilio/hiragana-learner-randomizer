@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.dialog.theme
 
 import android.app.Dialog
@@ -20,9 +21,12 @@ import android.os.Build
 import android.os.Bundle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.R
-import com.mathsemilio.hiraganalearner.common.*
-import com.mathsemilio.hiraganalearner.ui.dialog.BaseDialogFragment
+import com.mathsemilio.hiraganalearner.common.DARK_THEME_VALUE
+import com.mathsemilio.hiraganalearner.common.FOLLOW_SYSTEM_THEME_VALUE
+import com.mathsemilio.hiraganalearner.common.ILLEGAL_APP_THEME_VALUE
+import com.mathsemilio.hiraganalearner.common.LIGHT_THEME_VALUE
 import com.mathsemilio.hiraganalearner.ui.common.helper.ThemeHelper
+import com.mathsemilio.hiraganalearner.ui.dialog.BaseDialogFragment
 
 class ThemeDialog : BaseDialogFragment() {
 
@@ -34,8 +38,8 @@ class ThemeDialog : BaseDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            val builder = MaterialAlertDialogBuilder(it).apply {
+        return requireActivity().let { activity ->
+            val builder = MaterialAlertDialogBuilder(activity).apply {
                 setTitle(getString(R.string.app_theme_dialog_title))
                 setSingleChoiceItems(getThemeArray(), getDefaultOption())
                 { _, which ->
@@ -49,7 +53,7 @@ class ThemeDialog : BaseDialogFragment() {
                 { _, _ -> dialog?.cancel() }
             }
             builder.create()
-        } ?: throw IllegalStateException(NULL_ACTIVITY_EXCEPTION)
+        }
     }
 
     private fun getThemeArray(): Int {

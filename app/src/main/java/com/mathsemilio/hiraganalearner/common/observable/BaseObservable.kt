@@ -13,15 +13,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.common.observable
 
 abstract class BaseObservable<T> : Observable<T> {
 
-    private val listenersSet = mutableSetOf<T>()
+    private val _listeners = mutableSetOf<T>()
+    protected val listeners get() = _listeners.toSet()
 
-    override fun addListener(listener: T) { listenersSet.add(listener) }
+    override fun addListener(listener: T) {
+        _listeners.add(listener)
+    }
 
-    override fun removeListener(listener: T) { listenersSet.remove(listener) }
+    override fun removeListener(listener: T) {
+        _listeners.remove(listener)
+    }
 
-    protected val listeners get() = listenersSet.toSet()
+    protected inline fun BaseObservable<T>.notifyListener(onNotifyListener: (T) -> Unit) {
+        this@BaseObservable.listeners.forEach { listener ->
+            onNotifyListener(listener)
+        }
+    }
 }

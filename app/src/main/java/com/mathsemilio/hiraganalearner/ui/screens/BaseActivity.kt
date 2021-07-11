@@ -13,11 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens
 
 import androidx.appcompat.app.AppCompatActivity
-import com.mathsemilio.hiraganalearner.common.di.ActivityCompositionRoot
 import com.mathsemilio.hiraganalearner.SyllabaryRandomizerApplication
+import com.mathsemilio.hiraganalearner.common.di.ActivityCompositionRoot
 
 abstract class BaseActivity : AppCompatActivity() {
 

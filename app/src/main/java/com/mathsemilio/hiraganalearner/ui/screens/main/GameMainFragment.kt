@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.main
 
 import android.os.Bundle
@@ -33,13 +34,14 @@ import com.mathsemilio.hiraganalearner.ui.common.helper.InterstitialAdHelper
 import com.mathsemilio.hiraganalearner.ui.common.manager.DialogManager
 import com.mathsemilio.hiraganalearner.ui.common.navigation.ScreensNavigator
 
-class GameMainFragment private constructor() : BaseFragment(),
+class GameMainFragment : BaseFragment(),
     GameMainScreenView.Listener,
     BackendMediator.Listener,
     InterstitialAdHelper.Listener,
     EventListener {
 
-    companion object Factory {
+    companion object {
+        @JvmStatic
         fun withDifficultyValue(difficultyValue: Int): GameMainFragment {
             val args = Bundle(1).apply { putInt(ARG_DIFFICULTY_VALUE, difficultyValue) }
             val gameMainFragment = GameMainFragment()
@@ -84,7 +86,7 @@ class GameMainFragment private constructor() : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        view = compositionRoot.viewFactory.getGameMainScreenView(container)
+        view = GameMainScreenViewImpl(inflater, container)
         return view.rootView
     }
 

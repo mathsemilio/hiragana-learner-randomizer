@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.main
 
 import android.view.LayoutInflater
@@ -22,8 +23,10 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.databinding.GameMainScreenBinding
 
-class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    GameMainScreenView() {
+class GameMainScreenViewImpl(
+    inflater: LayoutInflater,
+    container: ViewGroup?
+) : GameMainScreenView() {
 
     private lateinit var currentSelectedRomanization: String
 
@@ -106,25 +109,25 @@ class GameMainScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
     }
 
     private fun notifyExitButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onExitButtonClicked()
         }
     }
 
     private fun notifyPauseButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onPauseButtonClicked()
         }
     }
 
     private fun notifyCheckAnswerButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onCheckAnswerButtonClicked(currentSelectedRomanization)
         }
     }
 
     private fun notifyPlayClickSoundEffect() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onPlayClickSoundEffect()
         }
     }

@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.common.navigation
 
 import com.mathsemilio.hiraganalearner.ui.screens.main.GameMainFragment
@@ -23,11 +24,11 @@ import com.mathsemilio.hiraganalearner.ui.screens.welcome.GameWelcomeFragment
 class ScreensNavigator(private val fragmentTransactionManager: FragmentTransactionManager) {
 
     fun toSettingsScreen() {
-        fragmentTransactionManager.pushFragmentOntoContainer(SettingsFragment(), null)
+        fragmentTransactionManager.pushFragmentOntoContainer(SettingsFragment.newInstance(), null)
     }
 
     fun toWelcomeScreen() {
-        fragmentTransactionManager.replaceFragmentOnContainerWith(GameWelcomeFragment())
+        fragmentTransactionManager.replaceFragmentOnContainerWith(GameWelcomeFragment.newInstance())
     }
 
     fun toMainScreen(difficultyValue: Int) {

@@ -13,13 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.domain.backend
 
 import android.os.CountDownTimer
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
-import com.mathsemilio.hiraganalearner.others.SYLLABARY_SYMBOLS_LIST
+import com.mathsemilio.hiraganalearner.others.syllabarySymbolsList
 import kotlin.random.Random
 
 class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorRequestListener {
@@ -46,7 +47,7 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
 
     private lateinit var countDownTimer: CountDownTimer
 
-    private val syllabarySymbols = SYLLABARY_SYMBOLS_LIST.toMutableList()
+    private val syllabarySymbols = syllabarySymbolsList.toMutableList()
 
     private var totalCountdownTime = 0L
     private var currentCountdownTime = 0L
@@ -81,8 +82,8 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
     private fun startCountdownTimer(totalCountdownTime: Long) {
         countDownTimer = object : CountDownTimer(totalCountdownTime, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                currentCountdownTime = (millisUntilFinished / 1000).also {
-                    notifyCountdownTimeUpdated(it.toInt())
+                currentCountdownTime = (millisUntilFinished / 1000).also { countdownTime ->
+                    notifyCountdownTimeUpdated(countdownTime.toInt())
                 }
             }
 
@@ -179,55 +180,55 @@ class GameBackend : BaseObservable<GameBackend.Listener>(), BackendMediatorReque
     }
 
     private fun notifySymbolUpdated(symbol: SyllabarySymbol) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onSymbolUpdated(symbol)
         }
     }
 
     private fun notifyCountdownTimeUpdated(countDownTime: Int) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onCountdownTimeUpdated(countDownTime)
         }
     }
 
     private fun notifyCorrectAnswer() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onCorrectAnswer()
         }
     }
 
     private fun notifyWrongAnswer() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onWrongAnswer()
         }
     }
 
     private fun notifyTimeOver() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onGameTimeOver()
         }
     }
 
     private fun notifyGameFinished() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onGameFinished()
         }
     }
 
     private fun notifyGameScoreUpdated(score: Int) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onScoreUpdated(score)
         }
     }
 
     private fun notifyProgressUpdated(progress: Int) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onProgressUpdated(progress)
         }
     }
 
     private fun onRomanizationGroupUpdated(romanizationGroupList: List<String>) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onRomanizationOptionsUpdated(romanizationGroupList)
         }
     }

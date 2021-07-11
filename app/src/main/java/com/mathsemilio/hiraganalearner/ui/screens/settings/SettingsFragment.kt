@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.settings
 
 import android.os.Bundle
@@ -38,6 +39,11 @@ import java.util.*
 class SettingsFragment : BasePreferenceFragment(),
     TrainingNotificationScheduler.Listener,
     EventListener {
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = SettingsFragment()
+    }
 
     private lateinit var timePickerDialog: TimePickerDialog
 

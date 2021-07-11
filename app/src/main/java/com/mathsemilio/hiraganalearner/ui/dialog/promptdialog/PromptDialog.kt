@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.dialog.promptdialog
 
 import android.app.Dialog
@@ -20,12 +21,13 @@ import android.os.Bundle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.common.eventbus.EventPublisher
-import com.mathsemilio.hiraganalearner.ui.dialog.BaseDialogFragment
 import com.mathsemilio.hiraganalearner.ui.common.event.PromptDialogEvent
+import com.mathsemilio.hiraganalearner.ui.dialog.BaseDialogFragment
 
-class PromptDialog private constructor() : BaseDialogFragment(), PromptDialogView.Listener {
+class PromptDialog : BaseDialogFragment(), PromptDialogView.Listener {
 
-    companion object Factory {
+    companion object {
+        @JvmStatic
         fun newInstance(
             dialogTitle: String,
             dialogMessage: String,
@@ -56,7 +58,7 @@ class PromptDialog private constructor() : BaseDialogFragment(), PromptDialogVie
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        dialogView = compositionRoot.viewFactory.promptDialogView
+        dialogView = PromptDialogViewImpl(requireActivity().layoutInflater)
 
         dialogView.apply {
             setTitle(requireArguments().getString(ARG_DIALOG_TITLE, ""))

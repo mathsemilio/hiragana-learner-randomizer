@@ -13,11 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.others
 
 import com.mathsemilio.hiraganalearner.domain.model.SyllabarySymbol
 
-val SYLLABARY_SYMBOLS_LIST: List<SyllabarySymbol> = listOf(
+val syllabarySymbolsList: List<SyllabarySymbol> = listOf(
     SyllabarySymbol(symbol = "あ", romanization = "A"),
     SyllabarySymbol(symbol = "い", romanization = "I"),
     SyllabarySymbol(symbol = "う", romanization = "U"),

@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.dialog.promptdialog
 
 import android.view.LayoutInflater
@@ -51,13 +52,13 @@ class PromptDialogViewImpl(inflater: LayoutInflater) : PromptDialogView() {
     }
 
     private fun notifyPositiveButtonClicked() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onPositiveButtonClicked()
         }
     }
 
     private fun notifyNegativeButtonClicked() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onNegativeButtonClicked()
         }
     }

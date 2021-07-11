@@ -13,11 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.common.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.ui.common.helper.FragmentContainerHelper
 
 class FragmentTransactionManager(
@@ -34,7 +34,12 @@ class FragmentTransactionManager(
 
     fun pushFragmentOntoContainer(fragment: Fragment, stackEntryName: String?) {
         fragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.slide_bottom, R.anim.slide_top)
+            setCustomAnimations(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
             replace(fragmentContainerHelper.getFragmentContainerId(), fragment)
             addToBackStack(stackEntryName)
             commit()

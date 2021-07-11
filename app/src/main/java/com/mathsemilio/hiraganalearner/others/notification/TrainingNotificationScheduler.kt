@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.others.notification
 
 import android.content.Context
@@ -22,8 +23,9 @@ import com.mathsemilio.hiraganalearner.common.TRAINING_NOTIFICATION_WORK_TAG
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 import java.util.concurrent.TimeUnit
 
-class TrainingNotificationScheduler(private val context: Context) :
-    BaseObservable<TrainingNotificationScheduler.Listener>() {
+class TrainingNotificationScheduler(
+    private val context: Context
+) : BaseObservable<TrainingNotificationScheduler.Listener>() {
 
     interface Listener {
         fun onTrainingNotificationScheduledSuccessfully(timeSetByUser: Long)
@@ -56,13 +58,13 @@ class TrainingNotificationScheduler(private val context: Context) :
     }
 
     private fun notifyTrainingNotificationScheduled(timeSetInMillis: Long) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onTrainingNotificationScheduledSuccessfully(timeSetInMillis)
         }
     }
 
     private fun notifyTrainingNotificationInvalidTimeSet() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onTrainingNotificationInvalidTimeSet()
         }
     }

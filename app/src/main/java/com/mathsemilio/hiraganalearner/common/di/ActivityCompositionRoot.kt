@@ -13,10 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.common.di
 
 import android.content.Context
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.mathsemilio.hiraganalearner.data.manager.PreferencesManager
 import com.mathsemilio.hiraganalearner.others.SoundEffectsModule
@@ -25,16 +25,11 @@ import com.mathsemilio.hiraganalearner.ui.common.helper.ThemeHelper
 import com.mathsemilio.hiraganalearner.ui.common.helper.ToolbarVisibilityHelper
 import com.mathsemilio.hiraganalearner.ui.common.navigation.FragmentTransactionManager
 import com.mathsemilio.hiraganalearner.ui.common.navigation.ScreensNavigator
-import com.mathsemilio.hiraganalearner.ui.common.view.ViewFactory
 
 class ActivityCompositionRoot(
     private val compositionRoot: CompositionRoot,
     private val activity: AppCompatActivity
 ) {
-    private val _viewFactory by lazy {
-        ViewFactory(LayoutInflater.from(applicationContext))
-    }
-
     private val _preferencesManager by lazy {
         PreferencesManager(applicationContext)
     }
@@ -73,11 +68,12 @@ class ActivityCompositionRoot(
     val screensNavigator get() = _screensNavigator
 
     val soundEffectsModule
-        get() = SoundEffectsModule(applicationContext, preferencesManager.soundEffectsVolume)
+        get() = SoundEffectsModule(
+            applicationContext,
+            preferencesManager.soundEffectsVolume
+        )
 
     val themeHelper get() = _themeHelper
 
     val toolbarVisibilityHelper get() = _toolbarVisibilityHelper
-
-    val viewFactory get() = _viewFactory
 }

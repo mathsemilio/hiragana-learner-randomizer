@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.welcome
 
 import android.view.LayoutInflater
@@ -23,10 +24,12 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.databinding.GameWelcomeScreenBinding
 
-class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) :
-    GameWelcomeScreenView() {
+class GameWelcomeScreenViewImpl(
+    inflater: LayoutInflater,
+    container: ViewGroup?
+) : GameWelcomeScreenView() {
 
-    private var currentDifficultyValue = 0
+    private var difficultyValue = 0
 
     init {
         binding = GameWelcomeScreenBinding.inflate(inflater, container, false).apply {
@@ -36,7 +39,7 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     }
 
     override fun bindDifficultyValues(defaultDifficultyValue: String, difficultyValue: Int) {
-        currentDifficultyValue = difficultyValue
+        this.difficultyValue = difficultyValue
 
         when {
             defaultDifficultyValue == SHOW_DIFFICULTY_OPTIONS ->
@@ -77,7 +80,7 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
         binding.textViewOnGameDifficulty.apply {
             isVisible = true
             text = context.getString(
-                R.string.on_game_difficulty, when (currentDifficultyValue) {
+                R.string.on_game_difficulty, when (difficultyValue) {
                     GAME_DIFFICULTY_VALUE_BEGINNER -> context.getString(R.string.game_difficulty_beginner)
                     GAME_DIFFICULTY_VALUE_MEDIUM -> context.getString(R.string.game_difficulty_medium)
                     GAME_DIFFICULTY_VALUE_HARD -> context.getString(R.string.game_difficulty_hard)
@@ -88,25 +91,25 @@ class GameWelcomeScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?)
     }
 
     private fun notifySettingsIconClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onSettingsIconClicked()
         }
     }
 
     private fun notifyStartButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onStartButtonClicked()
         }
     }
 
     private fun notifyPlayClickSoundEffect() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onPlayClickSoundEffect()
         }
     }
 
     private fun notifyDifficultyOptionSelected(difficulty: String) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onDifficultyOptionSelected(difficulty)
         }
     }

@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.result
 
 import android.view.LayoutInflater
@@ -23,7 +24,10 @@ import com.mathsemilio.hiraganalearner.R
 import com.mathsemilio.hiraganalearner.common.*
 import com.mathsemilio.hiraganalearner.databinding.GameResultScreenBinding
 
-class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) : GameResultScreenView() {
+class GameResultScreenViewImpl(
+    inflater: LayoutInflater,
+    container: ViewGroup?
+) : GameResultScreenView() {
 
     private var currentDifficultyValue = 0
 
@@ -71,19 +75,19 @@ class GameResultScreenViewImpl(inflater: LayoutInflater, container: ViewGroup?) 
     }
 
     private fun notifyHomeButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onHomeButtonClicked()
         }
     }
 
     private fun notifyPlayAgainButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onPlayAgainButtonClicked()
         }
     }
 
     private fun notifyShareScoreButtonClick() {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onShareScoreButtonClicked()
         }
     }

@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.common.di
 
 import com.mathsemilio.hiraganalearner.common.provider.BackPressedCallbackProvider
@@ -58,6 +59,4 @@ class ControllerCompositionRoot(private val activityCompositionRoot: ActivityCom
     val trainingNotificationScheduler get() = TrainingNotificationScheduler(applicationContext)
 
     val toolbarVisibilityHelper get() = activityCompositionRoot.toolbarVisibilityHelper
-
-    val viewFactory get() = activityCompositionRoot.viewFactory
 }

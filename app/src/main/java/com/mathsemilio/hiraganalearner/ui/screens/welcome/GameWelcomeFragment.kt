@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.ui.screens.welcome
 
 import android.os.Bundle
@@ -30,6 +31,11 @@ import com.mathsemilio.hiraganalearner.ui.common.navigation.ScreensNavigator
 class GameWelcomeFragment : BaseFragment(),
     GameWelcomeScreenView.Listener,
     InterstitialAdHelper.Listener {
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = GameWelcomeFragment()
+    }
 
     private lateinit var view: GameWelcomeScreenView
 
@@ -53,7 +59,7 @@ class GameWelcomeFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        view = compositionRoot.viewFactory.getGameWelcomeScreenView(container)
+        view = GameWelcomeScreenViewImpl(inflater, container)
         return view.rootView
     }
 

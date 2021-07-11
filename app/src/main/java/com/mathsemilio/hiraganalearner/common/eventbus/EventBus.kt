@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.common.eventbus
 
 import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
@@ -20,7 +21,7 @@ import com.mathsemilio.hiraganalearner.common.observable.BaseObservable
 class EventBus : BaseObservable<EventListener>() {
 
     fun postEvent(event: Any) {
-        listeners.forEach { listener ->
+        notifyListener { listener ->
             listener.onEvent(event)
         }
     }

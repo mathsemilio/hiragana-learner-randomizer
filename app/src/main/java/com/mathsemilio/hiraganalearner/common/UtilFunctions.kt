@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
 package com.mathsemilio.hiraganalearner.common
 
 import android.content.Context
@@ -33,7 +34,9 @@ fun Long.formatTimeInMillis(context: Context): String {
 fun FragmentManager.getCurrentDialogTag(): String {
     var currentDialogTag = ""
 
-    this.fragments.forEach { fragment -> currentDialogTag = fragment.tag.toString() }
+    this.fragments.forEach { fragment ->
+        currentDialogTag = fragment.tag.toString()
+    }
 
     return currentDialogTag
 }
