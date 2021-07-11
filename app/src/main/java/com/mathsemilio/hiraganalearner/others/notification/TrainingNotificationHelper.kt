@@ -31,18 +31,24 @@ import com.mathsemilio.hiraganalearner.ui.screens.MainActivity
 
 class TrainingNotificationHelper(private val context: Context) {
 
-    private val launchMainActivityIntent =
-        Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+    private val launchMainActivityIntent = Intent(context, MainActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
 
-    private val trainingNotificationPendingIntent =
-        PendingIntent.getActivity(
-            context,
-            PENDING_INTENT_REQUEST_ID,
-            launchMainActivityIntent,
-            0
-        )
+    private val trainingNotificationPendingIntent = PendingIntent.getActivity(
+        context,
+        PENDING_INTENT_REQUEST_ID,
+        launchMainActivityIntent,
+        pendingIntentFlag
+    )
+
+    private val pendingIntentFlag: Int
+        get() {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                PendingIntent.FLAG_IMMUTABLE
+            else
+                0
+        }
 
     fun notifyUser() {
         val notificationManager =
