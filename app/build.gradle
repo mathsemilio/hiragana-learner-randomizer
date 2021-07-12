@@ -11,7 +11,7 @@ android {
         applicationId "com.mathsemilio.hiraganalearner"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 20
+        versionCode 21
         versionName "stable-1.0.7"
     }
 
@@ -33,7 +33,7 @@ android {
         hiragana {
             dimension "syllabary"
             applicationId "com.mathsemilio.hiraganalearner"
-            versionCode 20
+            versionCode 21
             versionName "stable-1.0.7"
         }
         katakana {

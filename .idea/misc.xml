@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout-sw600dp/game_result_screen.xml" value="0.529296875" />
+        <entry key="app/src/main/res/layout-sw720dp/game_result_screen.xml" value="0.21171875" />
         <entry key="app/src/main/res/layout/prompt_dialog.xml" value="0.3025958204852287" />
       </map>
     </option>
